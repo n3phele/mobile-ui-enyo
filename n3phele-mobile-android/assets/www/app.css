@@ -1,0 +1,75 @@
+.panels-sample-sliding-panels > * {
+	width: 320px;
+	background-color: #eef2f5;
+	box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+	-webkit-box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+}
+
+.panels-sample-sliding-item {
+	padding: 10px;
+	border-bottom: 1px solid black;
+}
+
+.panels-sample-sliding-content {
+	text-align: left;
+	padding: 10px;
+}
+
+.panels-sample-flickr-item {
+	position: relative;
+	border-bottom: 1px solid #FFFFFF;
+	padding: 12px 16px;
+	background-color: #FFFFFF;
+}
+
+.onyx-selected {
+	background-color: rgb(172, 171, 185);
+}
+
+.imageBoxTable{
+display:box;
+box-orient:horizontal;
+box-pack:center;
+box-align:center;
+}
+
+/* Command Detail Page *****/
+.commandFilesLine>div{ display: inline-block; width: 50%; vertical-align: middle; }
+
+.commandTable{ margin:4px; }
+.commandTable > .subheader{
+	background-color: rgb(200,200,200);
+	font-weight: bold;
+	font-size:13px;
+}
+.commandTable > .subheader > .subsubheader{ display: inline-block; width:50%; }
+
+.commandFilesLine .btnActive{margin: 2px 0px; display:inline-block}
+.commandFilesLine .btnInactive{display: none}
+
+.commandDetail .panels   .info {
+	width:10%;
+	border: 0px solid;
+	border-right: medium ridge rgb(200,200,200);
+	text-align: center;
+	color: #63B8FF;
+	font-size: 16px;
+}
+.commandDetail .panels  .info > * {padding: 10px 5px;}
+.commandDetail .panels  .params{ width:90%; }
+
+/**** Login Page ****/
+.loginMsgDisable{
+	display:none;
+}
+.loginMsgEnable{
+	display:block;
+	color: red;
+}
+#floatingLayer > #scrim{ background-color: rgb(100,100,100);opacity:0.2;}
+
+/*** Geral ****/
+.groupboxBlueHeader{
+	background-color:#A0BBDB;
+}
