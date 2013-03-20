@@ -89,13 +89,9 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "onyx.Toolbar",
-					container: this.$.imageIconPanel,
-					components: [
-						{content: "Files"}, {fit: true}
-					]
+					kind: "RepositoryList", 'uid' : this.uid, onSelectedItem : "repositorySelected", container: this.$.imageIconPanel
 				});
-				this.$.imageIconPanel.render();	
+				this.$.imageIconPanel.render();
 			break;
 			case 1://Command Menu
 				this.closeSecondaryPanels(2);
@@ -119,6 +115,19 @@ enyo.kind({
 	},	
 	backMenu: function(){
 		this.$.panels.setIndex(0);
+	},
+	repositorySelected: function(inSender,inEvent){
+				
+		//this.closeSecondaryPanels(2);//close old panels
+		
+		//create panel
+		//this.$.panels.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.commandsData[inEvent.index].icon, 'uri': this.commandsData[inEvent.index].uri }).render();
+		//this.$.panels.reflow();
+		//this.$.panels.setIndex(2);
+				
+		//console.log(inSender);
+		//console.log(inEvent);
+		console.log("repository was selected");		
 	},
 	createCommandList: function() {
 	
@@ -176,7 +185,6 @@ enyo.kind({
 		this.$.panels.setIndex(2);
 		
 		inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
-
 	},
 	/** It's called when the king is instanciated **/
 	create: function() {
