@@ -12,9 +12,7 @@ var createRandomItems = function(number) {
 	return list;
 }
 
-//Exposes a list of items in two configurations, one is a Card type used for large screens
-//, and a ListItem, used for narrow screens. Cards are shown in a grid like gallery, and 
-// ListItem are shown in a basic list mode.
+//Exposes a list of items with icons (Card object)
 enyo.kind({
 	name: "IconList",
 	kind: "Scroller",
@@ -25,7 +23,6 @@ enyo.kind({
 	},
 	fit: true, touch: true, classes: "main",
 	components: [
-		// using media query (see css) to determine which one should be displayed
 		{name: "cards", classes: "cards"},
 	],
 	constructor: function() {
