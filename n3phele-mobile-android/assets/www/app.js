@@ -61,7 +61,6 @@ enyo.kind({
 		else {
 			this.setIndex(0);
 		}		
-		
 		this.reflow();
 		this.owner.$.IconGallery.deselectLastItem();
 	},			
@@ -89,7 +88,10 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "RepositoryList", 'uid' : this.uid, onSelectedItem : "repositorySelected", container: this.$.imageIconPanel
+					kind: "RepositoryList", 
+					'uid' : this.uid, 
+					onSelectedItem : "repositorySelected", 
+					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
 			break;
@@ -116,18 +118,27 @@ enyo.kind({
 	backMenu: function(){
 		this.$.panels.setIndex(0);
 	},
-	repositorySelected: function(inSender,inEvent){
-				
+	setPanelIndex: function(index) {
+		if (enyo.Panels.isScreenNarrow()) {
+			this.$.panels.setIndex(index);
+		}
+		else {
+			this.$.panels.setIndex(index-1);
+		}
+	},
+	repositorySelected: function(inSender,inEvent){				
 		this.closeSecondaryPanels(2);//close old panels
 				
 		//create panel
-		this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		//this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
-				
-		//console.log(inSender);
-		//console.log(inEvent);
-		//console.log("repository was selected");		
+	},
+	closeFilePanel:function(inSender,inEvent){
+		console.log("close file panel");
+		this.closeSecondaryPanels(2);//close old panels
+		this.setPanelIndex(1);
 	},
 	createCommandList: function() {
 	

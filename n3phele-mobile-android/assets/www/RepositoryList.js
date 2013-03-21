@@ -11,15 +11,15 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Repositories" }, {fit: true}]},
 		                                                		
-		{name: "groupbox", classes: "table", kind: "onyx.Groupbox", style: "width: 80%;margin:auto; height: 100%", components: [
+		{name: "groupbox", classes: "table", fit: true, kind: "onyx.Groupbox", style: "width: 80%;margin:auto;", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "List of repositories"},
 			{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
-			  {content: "Name", style:"width: 25%; display: inline-block;"} , 
-			  {content: "Description",  style:"width:25%; display: inline-block;" } ,
+			  {content: "Name", style:"width: 25%; display: inline-block;"},
+			  {content: "Description",  style:"width:25%; display: inline-block;" },
             ]},
-			{kind: "List", name:"repositoryList", fit: true, count: 0, onSetupItem: "setupItem", style: "height: 0px", style: "margin: auto;", components: [
-			  {classes: "item", ontap: "itemTap", style: "background-color:white", components: [
-			    {content: "Name", name: "name", classes: "subsubheader",  style:"width:25%; display: inline-block;"},
+			{kind: "List", name:"repositoryList", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:90%", components: [
+			  {classes: "item", ontap: "itemTap", style: "background-color:white; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
+			    {content: "Name", name: "name", classes: "subsubheader", style:"width:25%; display: inline-block;"},
 			    {content: "Description", name: "description", classes: "subsubheader",  style:"width:25%; display: inline-block;" },
 			  ]}
 		    ]}
@@ -48,7 +48,7 @@ enyo.kind({
 			this.data = response.elements;
 						
 			this.$.repositoryList.setCount(response.total);
-			this.$.repositoryList.applyStyle("height",response.total*21 + "px");
+			//this.$.repositoryList.applyStyle("height",response.total*50 + "px");
 			this.$.repositoryList.reset();
 			
 			popup.delete();
