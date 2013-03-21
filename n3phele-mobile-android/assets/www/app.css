@@ -73,3 +73,13 @@ box-align:center;
 .groupboxBlueHeader{
 	background-color:#A0BBDB;
 }
+
+/**** Activity List *****/
+
+/* divider */
+.list-divider {
+	background-color: #666;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px 7px;
+}
