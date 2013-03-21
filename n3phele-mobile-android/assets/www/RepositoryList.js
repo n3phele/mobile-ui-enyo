@@ -17,7 +17,7 @@ enyo.kind({
 			  {content: "Name", style:"width: 25%; display: inline-block;"},
 			  {content: "Description",  style:"width:25%; display: inline-block;" },
             ]},
-			{kind: "List", name:"repositoryList", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:90%", components: [
+			{kind: "List", name:"repositoryList", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:70%", components: [
 			  {classes: "item", ontap: "itemTap", style: "background-color:white; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
 			    {content: "Name", name: "name", classes: "subsubheader", style:"width:25%; display: inline-block;"},
 			    {content: "Description", name: "description", classes: "subsubheader",  style:"width:25%; display: inline-block;" },

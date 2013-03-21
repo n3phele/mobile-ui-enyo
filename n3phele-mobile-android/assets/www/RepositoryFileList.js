@@ -17,7 +17,7 @@ enyo.kind({
 			{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
 			  {content: "Name", style:"width: 25%; display: inline-block;"}
             ]},			
-			{name: "list", kind: "List", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:90%", components: [
+			{name: "list", kind: "List", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:70%", components: [
 			  {name: "item", classes: "item", ontap: "itemTap", style: "background-color:white; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
 			    {content: "Name", name: "name", classes: "subsubheader", style:"width:50%; display: inline-block;"}
 			  ]}
