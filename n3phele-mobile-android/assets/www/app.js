@@ -130,7 +130,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 				
 		//create panel
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
 		//this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
