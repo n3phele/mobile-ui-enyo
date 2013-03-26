@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QUnit basic example</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../n3pheleClient.js" type="text/javascript"></script>
+<script src="../generalFunctions.js" type="text/javascript"></script>
+
+<!-- File that provides credential variables for integration tests 
+	var n3pheleUsername
+	var n3phelePassword
+-->
+<script src="credentials.js" type="text/javascript"></script>
+
+<script>
+
+asyncTest( "list repositories", function() {
+	var value = "hello";
+	
+	var n3pheleClient = new N3pheleClient();
+	n3pheleClient.userName = n3pheleUsername;
+	n3pheleClient.userPassword = n3phelePassword;
+	
+	var success = function (items) {
+		equal( 2, items.length, items );
+		start();
+	}
+		
+	var error = function() 	{
+		ok(false, "should not got here, call throw error");
+		start();
+	}
+	
+	n3pheleClient.listRepositories(success, error);
+});
+</script>
+</body>
+</html>
