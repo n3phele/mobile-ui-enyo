@@ -88,7 +88,7 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "RepositoryList", 
+					kind: "FileRepository", 
 					'uid' : this.uid, 
 					onSelectedItem : "repositorySelected", 
 					container: this.$.imageIconPanel
@@ -127,8 +127,7 @@ enyo.kind({
 		}
 	},
 	repositorySelected: function(inSender,inEvent){				
-		this.closeSecondaryPanels(2);//close old panels
-				
+		this.closeSecondaryPanels(2);//close old panels			
 		//create panel
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
 		//this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel" }).render();
