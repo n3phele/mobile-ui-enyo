@@ -34,7 +34,7 @@ enyo.kind({
 		{
 			for(var i in files){	
 				var file = files[i];
-				thisPanel.createComponent({kind: "Node", name: file.name, object: file, icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "repositoryTap", container: thisPanel.$.panel, components: [
+				thisPanel.createComponent({kind: "Node", object: file, type: "repository", icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", container: thisPanel.$.panel, components: [
 			                                                 
 			    ]}).render();
 			}
@@ -48,7 +48,7 @@ enyo.kind({
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
 			
-			panel.setIndex(2);				
+			panel.setIndex(2);
 			panel.getActive().destroy();					
 			panel.panelCreated = false;
 			
@@ -66,48 +66,73 @@ enyo.kind({
 		sender.parent.parent.parent.parent.setIndex(0);
 	},
 	nodeExpand: function(inSender, inEvent) {
-		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
-		console.log("node expand event");
-		
-		console.log(inSender, inEvent);
+		inEvent.originator.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
 	},
-	repositoryTap: function(inSender, inEvent) {
-		var thisPanel = this;
+	nodeTap: function(inSender, inEvent) {
+		var node = inEvent.originator;
+		this.$.selection.select(node.id, node);
 		
+		if (node.type == "repository")
+		{
+			this.repositoryTap(inSender);
+		}
+		else if (node.type == "folder")
+		{
+			this.folderTap(node);
+		}
+	},
+	createFunctionAddFilesOnNodeAndUpdatePanel: function(node, panel) {
 		//Assuming that all values must be placed inside component (none of them already exist)
-		var success = function(files)
-		{		
-			for(var i in files){	
+		return function(files)
+		{
+			for(var i in files){
 				var file = files[i];
 				
-				if( file.mime == "application/vnd.com.n3phele.PublicFolder")
+				if( file.mime == "application/vnd.com.n3phele.PublicFolder" )
 				{
-					inSender.createComponent({ content: file.name, file: file, onNodeTap: "fileTap", icon: "assets/folder.png", onExpand: thisPanel.nodeExpand , container: inSender, expandable: true, expanded: false });
+					node.createComponent({ content: file.name, type: "folder", object: file, icon: "assets/folder.png", container: node, expandable: true, expanded: false });
 				}
 				else
 				{
-					inSender.createComponent({ content: file.name, file: file, onNodeTap: "fileTap", icon: "assets/file.png", container: inSender });
+					node.createComponent({ content: file.name, type: "file", object: file, icon: "assets/file.png", container: node });
 				}
 				
 				//keep track of files count that were added
-				inSender.filesCount = files.length;
+				node.filesCount = files.length;
 			}
-			thisPanel.$.panel.render();
-			thisPanel.reflow();
+			panel.$.panel.render();
+			panel.reflow();
 		}
+	},
+	folderTap: function(folder){
+		var thisPanel = this;
+		
+		var success = this.createFunctionAddFilesOnNodeAndUpdatePanel(folder, thisPanel);
 		
 		var error = function() {}
 		
 		//Just check if element has files already
-		if(!inSender.filesCount || inSender.filesCount <= 0)
+		if(!folder.filesCount || folder.filesCount <= 0)
 		{
-			this.n3pheleClient.listRepositoryFiles( inSender.object ,success, error);		
+			this.n3pheleClient.listFolderFiles( folder.object ,success, error);
 		}
 		
-		inSender.reflow();
+		folder.reflow();
 	},
-	fileTap: function(inSender,inEvent) {
-		console.log("file tap");
+	repositoryTap: function(repository) {
+		var thisPanel = this;
+		
+		var success = this.createFunctionAddFilesOnNodeAndUpdatePanel(repository, thisPanel);
+		
+		var error = function() {}
+		
+		//Just check if element has files already
+		if(!repository.filesCount || repository.filesCount <= 0)
+		{
+			this.n3pheleClient.listRepositoryFiles( repository.object ,success, error);		
+		}
+		
+		repository.reflow();
 	},
 	select: function(inSender, inEvent) {
 		inEvent.data.$.caption.applyStyle("background-color", "lightblue");
