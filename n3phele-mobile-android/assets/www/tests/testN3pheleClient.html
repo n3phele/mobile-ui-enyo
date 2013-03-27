@@ -28,18 +28,18 @@
 
 <script>
 
+var n3pheleClient = new N3pheleClient();
+n3pheleClient.userName = n3pheleUsername;
+n3pheleClient.userPassword = n3phelePassword;
+	
 asyncTest( "list repositories", function() {
 	var value = "hello";
-	
-	var n3pheleClient = new N3pheleClient();
-	n3pheleClient.userName = n3pheleUsername;
-	n3pheleClient.userPassword = n3phelePassword;
 	
 	var success = function (items) {
 		equal( 2, items.length, items );
 		start();
 	}
-		
+	
 	var error = function() 	{
 		ok(false, "should not got here, call throw error");
 		start();
@@ -47,6 +47,47 @@ asyncTest( "list repositories", function() {
 	
 	n3pheleClient.listRepositories(success, error);
 });
+
+asyncTest( "list files of repositories", function() {
+	var value = "hello";
+	
+	var success = function (items) {
+		equal( 19, items.length, items );
+		start();
+	}
+	
+	var error = function() 	{
+		ok(false, "should not got here, call throw error");
+		start();
+	}
+	
+	var repository = new Object();
+	repository.uri = "https://n3phele-dev.appspot.com/resources/repository/122007";
+	
+	n3pheleClient.listRepositoryFiles(repository, success, error);
+});
+
+asyncTest( "list files of repositories", function() {
+	var value = "hello";
+	
+	var success = function (items) {
+		equal( 12, items.length, items );
+		start();
+	}
+	
+	var error = function() 	{
+		ok(false, "should not got here, call throw error");
+		start();
+	}
+	
+	var folder = new Object();
+	folder.repository = "https://n3phele-dev.appspot.com/resources/repository/122007";
+	folder.name = "archive";
+	
+	n3pheleClient.listFolderFiles(folder, success, error);
+});
+
+
 </script>
 </body>
 </html>

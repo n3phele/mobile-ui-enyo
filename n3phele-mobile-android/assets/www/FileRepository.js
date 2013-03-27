@@ -9,7 +9,7 @@ enyo.kind({
 		onSelectedItem: ""
 	},
 	components: [
-{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
+		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
 		{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 		{kind: "Scroller", fit: true, components: [
 		      {name: "panel", components:[
@@ -17,55 +17,33 @@ enyo.kind({
 		     ]}
 		]}
 	],
+	n3pheleClient: new N3pheleClient(),
 	create: function(){
 		this.inherited(arguments);
-		var ajaxComponent = new enyo.Ajax({
-			url: serverAddress+"repository",
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "GET",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		}); 	
-		ajaxComponent
-		.go()
-		.response(this, function(sender, response){
+		
+		//the authentication header
+		this.n3pheleClient.uid = this.uid;
 			
-			response.elements = fixArrayInformation(response.elements);
+		var error = function()
+		{
 			
-			for(var i in fixArrayInformation(response.elements)){		
-				var files;
-				var ajax = new enyo.Ajax({
-					url: fixArrayInformation(response.elements)[i].uri+"/list",
-					headers:{ 'authorization' : "Basic "+ this.uid},
-					method: "GET",
-					contentType: "application/x-www-form-urlencoded",
-					sync: false
-				});
-				ajax.go()
-				.response(this, function(sender, response){
-					//update files list
-					response.crumbs.files = fixArrayInformation(response.files);			
-					files = fixArrayInformation(response.files);
-					//popup.delete();
-				})
-				.error(this, function(){
-					console.log("Error to load the list of files");
-					popup.delete();
-				});		
-			this.$.panel.createComponent({kind: "Node", name: fixArrayInformation(response.elements)[i].name, icon: "assets/folder.png", content: fixArrayInformation(response.elements)[i].name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-			       {content: files}                                                          
+		}
+		
+		var thisPanel = this;
+		var success = function(files)
+		{
+			for(var i in files){	
+				var file = files[i];
+				thisPanel.createComponent({kind: "Node", name: file.name, object: file, icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "repositoryTap", container: thisPanel.$.panel, components: [
+			                                                 
 			    ]}).render();
 			}
-			this.$.panel.render();
-			this.reflow();
-			this.$.repositoryList.setCount(response.total);
-			this.$.repositoryList.reset();
+			thisPanel.$.panel.render();
+			thisPanel.reflow();
+		}
+		
+		this.n3pheleClient.listRepositories(success, error);
 			
-		})
-		.error(this, function(){
-			console.log("Error to load the list of repositories");
-			popup.delete();
-		});		
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -89,13 +67,47 @@ enyo.kind({
 	},
 	nodeExpand: function(inSender, inEvent) {
 		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
-	},
-	nodeTap: function(inSender, inEvent) {
-		var node = inEvent.originator;
-		this.$.selection.select(node.id, node);
-this.selected = this.data[inEvent.index];
+		console.log("node expand event");
 		
-		this.doSelectedItem(this.selected);
+		console.log(inSender, inEvent);
+	},
+	repositoryTap: function(inSender, inEvent) {
+		var thisPanel = this;
+		
+		//Assuming that all values must be placed inside component (none of them already exist)
+		var success = function(files)
+		{		
+			for(var i in files){	
+				var file = files[i];
+				
+				if( file.mime == "application/vnd.com.n3phele.PublicFolder")
+				{
+					inSender.createComponent({ content: file.name, file: file, onNodeTap: "fileTap", icon: "assets/folder.png", onExpand: thisPanel.nodeExpand , container: inSender, expandable: true, expanded: false });
+				}
+				else
+				{
+					inSender.createComponent({ content: file.name, file: file, onNodeTap: "fileTap", icon: "assets/file.png", container: inSender });
+				}
+				
+				//keep track of files count that were added
+				inSender.filesCount = files.length;
+			}
+			thisPanel.$.panel.render();
+			thisPanel.reflow();
+		}
+		
+		var error = function() {}
+		
+		//Just check if element has files already
+		if(!inSender.filesCount || inSender.filesCount <= 0)
+		{
+			this.n3pheleClient.listRepositoryFiles( inSender.object ,success, error);		
+		}
+		
+		inSender.reflow();
+	},
+	fileTap: function(inSender,inEvent) {
+		console.log("file tap");
 	},
 	select: function(inSender, inEvent) {
 		inEvent.data.$.caption.applyStyle("background-color", "lightblue");
