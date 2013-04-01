@@ -6,7 +6,8 @@ enyo.kind({
 	style: "padding: 0px",
 	data: [],
 	events: {
-		onSelectedItem: ""
+		onSelectedItem: "",
+		onNewRepository: ""
 	},
 	components: [
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
@@ -15,7 +16,8 @@ enyo.kind({
 		      {name: "panel", components:[
 		                                                                      
 		     ]}
-		]}
+		]},
+		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo"}]},
 	],
 	constructor: function(args) {
         // low-level or esoteric initialization, usually not needed at all
@@ -149,5 +151,9 @@ enyo.kind({
 	},
 	deselect: function(inSender, inEvent) {
 		inEvent.data.$.caption.applyStyle("background-color", null);
+	},
+	newrepo: function(sender, event){
+		console.log("New repo");
+		this.doNewRepository();
 	}
 });

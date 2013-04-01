@@ -88,7 +88,7 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "RepositoryList", 
+					kind: "FileRepository", 
 					'uid' : this.uid, 
 					onSelectedItem : "repositorySelected",
 					onNewRepository : "newRepository",
