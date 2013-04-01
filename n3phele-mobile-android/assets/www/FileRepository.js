@@ -17,9 +17,24 @@ enyo.kind({
 		     ]}
 		]}
 	],
-	n3pheleClient: new N3pheleClient(),
+	constructor: function(args) {
+        // low-level or esoteric initialization, usually not needed at all
+        this.inherited(arguments);
+		
+		//Dependency Injection
+		if(args.n3pheleClient)
+		{
+			this.n3pheleClient = args.n3pheleClient;
+		}
+    },
 	create: function(){
+	
 		this.inherited(arguments);
+			
+		if( !this.n3pheleClient )
+		{
+			this.n3pheleClient = new N3pheleClient();
+		}		
 		
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
@@ -34,7 +49,7 @@ enyo.kind({
 		{
 			for(var i in files){	
 				var file = files[i];
-				thisPanel.createComponent({kind: "Node", object: file, type: "repository", icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", container: thisPanel.$.panel, components: [
+				thisPanel.createComponent({kind: "Node", name: "repository_" + file.name , object: file, type: "repository", icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", container: thisPanel.$.panel, components: [
 			                                                 
 			    ]}).render();
 			}
@@ -42,8 +57,7 @@ enyo.kind({
 			thisPanel.reflow();
 		}
 		
-		this.n3pheleClient.listRepositories(success, error);
-			
+		this.n3pheleClient.listRepositories(success, error);			
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -105,10 +119,8 @@ enyo.kind({
 		}
 	},
 	folderTap: function(folder){
-		var thisPanel = this;
-		
-		var success = this.createFunctionAddFilesOnNodeAndUpdatePanel(folder, thisPanel);
-		
+		var thisPanel = this;		
+		var success = this.createFunctionAddFilesOnNodeAndUpdatePanel(folder, thisPanel);		
 		var error = function() {}
 		
 		//Just check if element has files already
@@ -121,15 +133,13 @@ enyo.kind({
 	},
 	repositoryTap: function(repository) {
 		var thisPanel = this;
-		
 		var success = this.createFunctionAddFilesOnNodeAndUpdatePanel(repository, thisPanel);
-		
 		var error = function() {}
 		
 		//Just check if element has files already
 		if(!repository.filesCount || repository.filesCount <= 0)
 		{
-			this.n3pheleClient.listRepositoryFiles( repository.object ,success, error);		
+			this.n3pheleClient.listRepositoryFiles( repository.object ,success, error);
 		}
 		
 		repository.reflow();
