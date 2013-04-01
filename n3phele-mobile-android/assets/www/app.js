@@ -88,9 +88,10 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "FileRepository", 
+					kind: "RepositoryList", 
 					'uid' : this.uid, 
-					onSelectedItem : "repositorySelected", 
+					onSelectedItem : "repositorySelected",
+					onNewRepository : "newRepository",
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
@@ -131,6 +132,13 @@ enyo.kind({
 		//create panel
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
 		//this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel" }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	newRepository: function(inSender,inEvent){				
+		this.closeSecondaryPanels(2);//close old panels			
+		//create panel
+		this.createComponent({ kind: "NewRepository", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
