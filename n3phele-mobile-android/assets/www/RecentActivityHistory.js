@@ -86,7 +86,7 @@ enyo.kind({
 				
 			}else{
 				response.elements = fixArrayInformation(response.elements);
-				this.lines.elements = this.lines.elements.concat( elements );
+				this.lines.elements = this.lines.elements.concat( response.elements );
 			}
 			this.$.commandList.setCount(this.lines.elements.length);
 			this.$.commandList.applyStyle("height", ""+(this.lines.elements.length * 62)+"px" );
