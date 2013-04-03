@@ -49,9 +49,8 @@ enyo.kind({
 		.response( this, function(inSender, inResponse){
 			sender.parent.owner.$.loginMsg.setContent("User authenticated");
 			
-
 			var mainPage = new com.N3phele({ 'uid' : encodeHdr });
-			
+
 			popup.delete();
 			mainPage.renderInto(document.body);
 		}).error( this, function(inSender, inResponse){

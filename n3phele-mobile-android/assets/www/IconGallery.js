@@ -1,18 +1,25 @@
-var createRandomItems = function(number) {
-	list = [];
-	for (var i=0; i<number; i++)
-	{
-		var ownerName = Math.random().toString(36).substr(2, 5);
-		var owner = { name: ownerName, website: "http://github.com/LucioC", twitter: "" };
-		var widgetName = Math.random().toString(36).substr(4, 10);
-		var widget = { name: widgetName, displayName: "Nome da lista Cool", owner: "Lucio", dependencies: [ ] , image: "gallery_images/CoolList.jpg" };
-		widget.owner = owner;
-		list.push(widget);
-	}
-	return list;
-}
-
-//Exposes a list of items with icons (Card object)
+//Exposes a list of items with icons (Card objects)
+/*
+	An example of instantiate this is like that:
+			{
+				name: "IconGallery",
+				kind: "IconList",
+				onSelectedItem: "itemTap", 
+				retrieveContentData: function() {
+					this.data = prepareData;
+				} 
+			}
+			
+	The object 'data' variable expect a list of objects that represent a card.
+	This is the structure:
+		var data = [{
+			name: "",
+			displayName: "", //Name to be displayed on screen below icon
+			image: "", //image path to be displayed on grid		
+		}];
+	The 'retrieveContenData' function is expected to fill this variable using some custom function.
+	This function is called only once on object rendering.			
+*/
 enyo.kind({
 	name: "IconList",
 	kind: "Scroller",
@@ -52,7 +59,7 @@ enyo.kind({
 		this.renderItems();
 	},
 	retrieveContentData: function() {
-		this.data = createRandomItems(2);
+		this.data = [];
 	},
 	//Create Cards based on the content of this.widgets variable
 	renderItems: function() {
@@ -110,7 +117,21 @@ enyo.kind({
 	}
 });
 
-//Presents a icon for the object
+/*
+	Object that holds an icon and a name to be displayed
+	Data structure needed on 'data' variable to fill internal component:
+	
+		var data = [{
+			name: "",
+			displayName: "", //Name to be displayed on screen below icon
+			image: "", //image path to be displayed on grid		
+		}];
+	
+	Create it like:
+	
+		var more = {data: data, ontap: "itemTap"};
+		this.createComponent({name:"commandItem"+i, kind: "Card", container: this.$.cards}, more);
+*/
 enyo.kind({
 	name: "Card",
 	kindClasses: "card",

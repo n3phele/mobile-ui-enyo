@@ -7,38 +7,30 @@ enyo.kind({
 	path: [],
 	style: "padding: 0px",
 	data: [],
+	commands: null,
+	commandsImages : null,
 	events: {
 		onSelectedItem: "",
 		onBack: ""
 	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
-		
-		{ name:"path", components: [ { name: "repositoryRoot", kind: "enyo.Button", ontap: "folderClicked" } ] },
-		{name: "groupbox", classes: "table", fit:true, kind: "onyx.Groupbox", style: "width: 80%;margin:auto;", components: [
-			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "List of Files"},
-			{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
-			  {content: "Name", style:"width: 25%; display: inline-block;"}
-            ]},			
-			{name: "list", kind: "List", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:70%", components: [
-			  {name: "item", classes: "item", ontap: "itemTap", style: "background-color:white; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
-			    {content: "Name", name: "name", classes: "subsubheader", style:"width:50%; display: inline-block;"}
-			  ]}
-		    ]}
+		{kind: "Scroller", name: "scroll", fit: true, components: [
+		          {name: "panel", components:[]}
 		]},
-		
-		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
+		{kind: "onyx.Toolbar", name: "botTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
 		popup.show();
 		
-		this.$.repositoryRoot.setContent( this.repositoryName );
-		this.path.push( this.$.repositoryRoot );
+		//this.$.repositoryRoot.setContent( this.repositoryName );
+		//this.path.push( this.$.repositoryRoot );
 		this.updateFilesFromURI(this.uri + "/list", function(){ popup.delete(); });
 	},
 	updateFilesFromURI: function(uri, success){
+		console.log(uri);
 		var ajaxComponent = new enyo.Ajax({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -52,10 +44,43 @@ enyo.kind({
 			//update files list
 			response.crumbs.files = fixArrayInformation(response.files);			
 			this.data = response.files;
-						
-			this.$.list.setCount(response.files.length);
-			this.$.list.reset();
-			
+			this.commands = new Array();
+			this.commandsImages = new Array();
+			for( var i in this.data ){//set comand list information
+				this.commands.push( this.data[i].name ); //set name
+				var name = this.data[i].name;
+				console.log(this.data[i]);
+				if( name.indexOf(".tgz") != -1){
+				this.commandsImages.push("assets/tgz.png");
+				}
+				else if( name.indexOf(".pdf") != -1){
+					this.commandsImages.push("assets/pdf.png");
+					}
+				else if( name.indexOf(".jpg") != -1){
+					this.commandsImages.push("assets/jpg.png");
+					}
+				else if( name.indexOf(".zip") != -1){
+					this.commandsImages.push("assets/zip.png");
+					}
+				else if( name.indexOf(".png") != -1){
+					this.commandsImages.push("assets/png.png");
+					}
+				else if( this.data[i].mime == this.folderMime){
+					this.commandsImages.push("assets/folderG.png");
+					}
+				else{
+					this.commandsImages.push("assets/_blank.png");
+					}
+		}		
+			var thisPanel = this;
+			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+				commandsImages: this.commandsImages,container: thisPanel.$.panel,
+				retrieveContentData: function(){
+					this.data = createCommandItems(this.commands, this.commandsImages); } 
+				}).render();
+			thisPanel.$.panel.render();
+			thisPanel.reflow();	
+				
 			if(success) success();
 			
 			//popup.delete();
@@ -100,10 +125,11 @@ enyo.kind({
 		if(this.selected.mime == this.folderMime)
 		{
 			//put on path
-			var newButton = this.createComponent( { kind: "enyo.Button", content: this.selected.name, container: this.$.path } ).render();
+			var newButton = this.createComponent({ kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", container: this.$.botTool }).render();
 			this.path.push( newButton );
 			this.reflow();
 			
+			this.$.ListIcon.destroy();
 			//download the new folder to data
 			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 		}
@@ -131,6 +157,7 @@ enyo.kind({
 				prefix = prefix + this.path[i].getContent() + '%2F';
 			}
 		}
+		this.$.ListIcon.destroy();
 		this.updateFilesFromURI(newUri);
 	}
 })

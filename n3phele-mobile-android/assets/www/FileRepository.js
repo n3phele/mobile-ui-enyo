@@ -51,9 +51,13 @@ enyo.kind({
 		{
 			for(var i in files){	
 				var file = files[i];
-				thisPanel.createComponent({kind: "Node", name: "repository_" + file.name , object: file, type: "repository", icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", container: thisPanel.$.panel, components: [
-			                                                 
-			    ]}).render();
+				//thisPanel.createComponent({kind: "Node", name: "repository_" + file.name , object: file, type: "repository", icon: "assets/folder.png", content: file.name, expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", container: thisPanel.$.panel, components: [                               
+			   // ]}).render();
+				thisPanel.createComponent({kind: "onyx.IconButton", ontap:"iconTapped", container: thisPanel.$.panel, components: [
+				                                                                                     {name: "icon", kind: "Image", src: "assets/folderG.png"},
+				                                                                                 	{tag: "br"},
+				                                                                                 		{content: file.name}
+				                                                                                 ]}).render();
 			}
 			thisPanel.$.panel.render();
 			thisPanel.reflow();

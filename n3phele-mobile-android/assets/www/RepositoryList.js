@@ -5,27 +5,15 @@ enyo.kind({
 	fit: true,
 	style: "padding: 0px",
 	data: [],
+	commands: null,
+	commandsImages : null,
 	events: {
-		onSelectedItem: ""
+		onSelectedItem: "",
+		onNewRepository: ""
 	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Repositories" }, {fit: true}]},
-		                                                		
-		{name: "groupbox", classes: "table", fit: true, kind: "onyx.Groupbox", style: "width: 80%;margin:auto;", components: [
-			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "List of repositories"},
-			{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
-			  {content: "Name", style:"width: 25%; display: inline-block;"},
-			  {content: "Description",  style:"width:25%; display: inline-block;" },
-            ]},
-			{kind: "List", name:"repositoryList", fit: true, touch:true, count: 0, onSetupItem: "setupItem", style: "margin: auto;border-style:none;max-height:70%", components: [
-			  {classes: "item", ontap: "itemTap", style: "background-color:white; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
-			    {content: "Name", name: "name", classes: "subsubheader", style:"width:25%; display: inline-block;"},
-			    {content: "Description", name: "description", classes: "subsubheader",  style:"width:25%; display: inline-block;" },
-			  ]}
-		    ]}
-		]},
-		
-		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
+	      {name: "panel", components:[]}
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -46,12 +34,23 @@ enyo.kind({
 			response.elements = fixArrayInformation(response.elements);
 			
 			this.data = response.elements;
-						
-			this.$.repositoryList.setCount(response.total);
-			//this.$.repositoryList.applyStyle("height",response.total*50 + "px");
-			this.$.repositoryList.reset();
-			
-			popup.delete();
+			console.log(response.elements);	
+			this.commands = new Array();
+			this.commandsImages = new Array();
+			for( var i in this.data ){//set comand list information
+				console.log(this.data[i].name);
+				this.commands.push( this.data[i].name ); //set name
+				this.commandsImages.push("assets/folderG.png");
+		}		
+		var thisPanel = this;
+		thisPanel.createComponent({name: "IconGallery", kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			commandsImages: this.commandsImages,
+			retrieveContentData: function(){
+				this.data = createCommandItems(this.commands, this.commandsImages); } 
+			}).render();
+		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();
+		thisPanel.$.panel.render();
+		thisPanel.reflow();	
 		})
 		.error(this, function(){
 			console.log("Error to load the list of repositories");
@@ -85,9 +84,12 @@ enyo.kind({
 	    this.$.description.setContent(data.description);
 	},
 	itemTap: function(inSender, inEvent) {
-		this.selected = this.data[inEvent.index];
-		
+		this.selected = this.data[inEvent.index];	
 		this.doSelectedItem(this.selected);
+		return true;
+	},
+	newrepo: function(sender, event){
+		console.log("New repo");
+		this.doNewRepository();
 	}
-	
 })
