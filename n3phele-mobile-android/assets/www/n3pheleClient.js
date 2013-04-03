@@ -101,4 +101,28 @@ function N3pheleClient()
 			}
 		);
 	}
+	
+	this.listActivityDetail = function(processUri, start, end, success, error)
+	{
+		var ajaxComponent = new enyo.Ajax({
+				url: processUri,
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				method: "GET",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false,
+			}); //connection parameters
+			
+			ajaxComponent
+			.go({'summary' : true, 'start' : start, 'end' : end})
+			.response( this, function(sender, response){			
+				if( success ) success(response);
+			})
+			.error( this, function()
+				{ 
+					console.log("Error to load recent activities!!");
+					if (error) error();
+				}
+			);	
+	}
+	
 }

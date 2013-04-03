@@ -104,51 +104,61 @@ enyo.kind({
 			]},
 			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
 		],
+		constructor: function(args) {
+			this.inherited(arguments);
+		
+			//Dependency Injection
+			if(args.n3pheleClient)
+			{
+				this.n3pheleClient = args.n3pheleClient;
+			}
+		},
 		create: function() {
 			this.inherited(arguments);
-				
-			var ajaxComponent = new enyo.Ajax({
-				url: this.url,
-				headers:{ 'authorization' : "Basic "+ this.uid},
-				method: "GET",
-				contentType: "application/x-www-form-urlencoded",
-				sync: false, 
-			}); //connection parameters
 			
-			ajaxComponent
-			.go({'summary' : true, 'start' : 0, 'end' : 10})
-			.response( this, function(sender, response){
-						
-				this.$.acName.setContent(" "+response.name);
-				this.$.acStatus.setContent(" "+response.state );
-				this.$.acComDesc.setContent(" "+response.description);
+			//If not injected, create a default implementation
+			if(!this.n3pheleClient)
+			{
+				this.n3pheleClient = new N3pheleClient();
+			}
+			//the authentication header
+			this.n3pheleClient.uid = this.uid;
+				
+			var thisPanel = this;
+			var success = function (response) {		
+				thisPanel.$.acName.setContent(" "+response.name);
+				thisPanel.$.acStatus.setContent(" "+response.state );
+				thisPanel.$.acComDesc.setContent(" "+response.description);
 				
 				var d1 = new Date(response.start);
 				var d2 = new Date(response.complete);
 				
-				this.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
-				this.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
+				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
+				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
 				
-				this.$.acDuration.setContent(" "+((d2-d1)/60000));
+				thisPanel.$.acDuration.setContent(" "+((d2-d1)/60000));
 				
 				var narrative = fixArrayInformation(response.narrative);
 				
 				for( var i in narrative ){
-					this.$.panel_three.createComponent({tag: "br"});
+					thisPanel.$.panel_three.createComponent({tag: "br"});
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
-					this.$.panel_three.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
+					thisPanel.$.panel_three.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
 				}
-					this.$.panel_three.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
-					this.$.panel_three.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
-					this.$.panel_three.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
-					this.$.panel_three.createComponent({tag: "br"});
+					thisPanel.$.panel_three.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
+					thisPanel.$.panel_three.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
+					thisPanel.$.panel_three.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
+					thisPanel.$.panel_three.createComponent({tag: "br"});
 				}
 				
-				this.$.panel_three.render();
-				this.reflow();
-			})
-			.error( this, function(){ console.log("Error to load recent activities!!");});
+				thisPanel.$.panel_three.render();
+				thisPanel.reflow();
+			}
+			
+			var error = function(){ console.log("Error to load recent activities!!"); };
+			
+			this.n3pheleClient.listActivityDetail(this.url, 0, 10, success, error);
 		},
 		backMenu: function( sender , event){
 			var panel = sender.parent.parent.parent;
