@@ -80,7 +80,7 @@ enyo.kind({
 		components:[
 			{name: "topToolbar",kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true} ]},
 			{kind: "enyo.Scroller", fit: true, components: [
-				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, components:[
+				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
 					{tag: "span", content: "Status: ", style:"font-variant:small-caps;"}, {name: "acStatus", style:"display: inline-block"},
@@ -102,7 +102,8 @@ enyo.kind({
 					{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
 
 				]}
-			]}
+			]},
+			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
 		],
 		create: function() {
 			this.inherited(arguments);
@@ -134,7 +135,6 @@ enyo.kind({
 				var narrative = fixArrayInformation(response.narrative);
 				
 				for( var i in narrative ){
-					console.log("oi nar",narrative[i] );
 					this.$.panel_three.createComponent({tag: "br"});
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
@@ -148,19 +148,23 @@ enyo.kind({
 				
 				this.$.panel_three.render();
 				this.reflow();
-				
-				if (enyo.Panels.isScreenNarrow()){
-					this.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ] });
-				}else{
-					this.createComponent({kind: "onyx.Toolbar"});
-				}
 			})
 			.error( this, function(){ console.log("Error to load recent activities!!");});
-			
-
 		},
-		backMenu: function( sender , event){3
-			console.log(sender.parent.parent.parent.parent);
-			sender.parent.parent.parent.parent.setIndex(0);
+		backMenu: function( sender , event){
+			var panel = sender.parent.parent.parent;
+			
+			panel.setIndex(2);				
+			panel.getActive().destroy();					
+			panel.panelCreated = false;
+			
+			if (enyo.Panels.isScreenNarrow()) {
+				panel.setIndex(1);
+			}
+			else {
+				panel.setIndex(0);
+			}		
+			
+			panel.reflow();		
 		}
 });

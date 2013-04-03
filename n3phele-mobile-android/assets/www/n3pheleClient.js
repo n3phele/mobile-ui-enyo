@@ -53,6 +53,7 @@ function N3pheleClient()
 		})
 		.error(this, function(){
 			console.log("Error to load the list of files");
+			if(error) error();
 		});		
 	}
 	
@@ -74,6 +75,30 @@ function N3pheleClient()
 		})
 		.error(this, function(){
 			console.log("Error to load the list of files");
+			if(error) error();
 		});		
+	}
+	
+	this.listActivityHistory = function(start, end, success, error)
+	{	
+		var ajaxComponent = new enyo.Ajax({
+			url: serverAddress+"process",
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); //connection parameters
+		
+		ajaxComponent
+		.go({'summary' : true, 'start' : start, 'end' : end})
+		.response( this, function(sender, response){
+			response.elements = fixArrayInformation(response.elements);
+			if(success) success(response.elements);
+		} )
+		.error( this, function(){ 
+				console.log("Error to load recent activities!!");
+				if(error) error();
+			}
+		);
 	}
 }

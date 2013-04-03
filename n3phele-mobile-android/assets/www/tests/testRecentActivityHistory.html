@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QUnit basic example</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../generalFunctions.js" type="text/javascript"></script>
+<script src="../N3pheleClient.js" type="text/javascript"></script>
+<script src="../RecentActivityHistory.js" type="text/javascript"></script>
+<script>
+
+//Fake data
+var historyList = [
+		{
+			"name":"test2",
+			"uri":"https://n3phele-dev.appspot.com/resources/process/168052",
+			"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+			"public":"false",
+			"state":"COMPLETE",
+			"narrative":
+			{
+				"stamp":"2013-03-27T18:03:58.586Z",
+				"state":"info",
+				"processUri":"https://n3phele-dev.appspot.com/resources/process/168052_1001",
+				"tag":"my_vm",
+				"text":"vm creation started."
+			}
+		},
+		{
+			"name":"test2",
+			"uri":"https://n3phele-dev.appspot.com/resources/process/180041",
+			"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+			"public":"false","state":"COMPLETE","narrative":
+			{
+				"stamp":"2013-03-27T17:55:29.790Z",
+				"state":"info",
+				"processUri":"https://n3phele-dev.appspot.com/resources/process/180041_1001",
+				"tag":"my_vm",
+				"text":"vm creation started."
+			}
+		}
+	];
+
+//Fake N3pheleClient
+var n3pheleClient = new Object();
+n3pheleClient.listActivityHistory = function(start, end, success, error)
+{
+	success(historyList);
+}
+
+var args = new Object();
+args.n3pheleClient = n3pheleClient;
+	
+asyncTest( "initialize panel with activities", function() {
+	var panel = new RecentActivityHistory(args);
+	
+	setTimeout(function() {
+		//Verify if panel lines length are equal to the result from the server (fake data)
+		ok( panel.lines.length == 2 );
+		start();
+	}, 200);
+});
+
+</script>
+</body>
+</html>

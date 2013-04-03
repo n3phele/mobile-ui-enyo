@@ -3,7 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	style: "padding : 0px;width:100%;height:100%;",
 	end : 9,
-	lines:  new Array(),
+	lines: new Array(),
 	components:[
 	            {kind: "onyx.Toolbar", components: [	{content: "Activity History"}, {fit: true} ]},
 	            {fit: true, touch: true, kind: "Scroller",components:[
@@ -15,6 +15,16 @@ enyo.kind({
 	                  ]}
 	             ]}
 	],
+	constructor: function(args) {
+        // low-level or esoteric initialization, usually not needed at all
+        this.inherited(arguments);
+		
+		//Dependency Injection
+		if(args.n3pheleClient)
+		{
+			this.n3pheleClient = args.n3pheleClient;
+		}
+    },
 	create: function(){
 		this.inherited(arguments);
 		
@@ -23,6 +33,14 @@ enyo.kind({
 			this.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]});
 		else
 			this.createComponent({kind: "onyx.Toolbar"});
+			
+		//If not injected, create a default implementation
+		if(!this.n3pheleClient)
+		{
+			this.n3pheleClient = new N3pheleClient();
+		}
+		//the authentication header
+		this.n3pheleClient.uid = this.uid;
 
 		//get data
 		this.mountingList( 0 , this.end );		
@@ -34,7 +52,7 @@ enyo.kind({
 		
 		var index = inEvent.index;
 		this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(index));
-		this.$.name.setContent( this.lines.elements[index].name );
+		this.$.name.setContent( this.lines[index].name );
 	},
 	itemTap:function( inSender, inEvent ){
 		var bounds = inSender.parent.owner.getScrollBounds();
@@ -43,7 +61,7 @@ enyo.kind({
 		var panels = main.$.panels;
 
 		main.closeSecondaryPanels(2);
-		main.createComponent({kind: "RecentActivityPanel", 'url': inSender.owner.lines.elements[index].uri, 'uid': this.uid, container: panels}).render();
+		main.createComponent({kind: "RecentActivityPanel", 'url': inSender.owner.lines[index].uri, 'uid': this.uid, container: panels}).render();
 		
 		panels.reflow();
 		panels.setIndex(2);
@@ -51,50 +69,34 @@ enyo.kind({
 	},
 
 	listUpdate: function( sender, event){
-		var limitIndex = this.lines.elements.length - 5;
+		var limitIndex = this.lines.length - 5;
 		if( event.index > limitIndex ){
 			this.mountingList( this.end , this.end + 3  );
 			this.end += 3;
 		}		
 	},
 	mountingList: function( start , end ){
-		if( this.lines.elements != undefined )
-			if( this.lines.elements.length == this.lines.total )
-				return;
 			
-		var ajaxComponent = new enyo.Ajax({
-			url: serverAddress+"process",
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "GET",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		}); //connection parameters
-		
-		ajaxComponent
-		.go({'summary' : true, 'start' : start, 'end' : end})
-		.response( this, function(sender, response){
+		var thisPanel = this;
+		var success = function (activities) {		
 			//increment data
-			if( this.lines.length == 0){
-				if( response.total == 0 ){
-					this.$.divider.setContent("User doesn't have history activities!");
-					this.$.commandList.applyStyle("display", "none !important");
-					this.reflow();
+			if( thisPanel.lines.length == 0){
+				if( activities.length == 0 ){
+					thisPanel.$.divider.setContent("User doesn't have history activities!");
+					thisPanel.$.commandList.applyStyle("display", "none !important");
+					thisPanel.reflow();
 					return;
 				}
-				response.elements = fixArrayInformation(response.elements);
-				this.lines = response;
-				
+				thisPanel.lines = activities;
 			}else{
-				response.elements = fixArrayInformation(response.elements);
-				this.lines.elements = this.lines.elements.concat( elements );
+				thisPanel.lines = thisPanel.lines.concat( activities );
 			}
-			this.$.commandList.setCount(this.lines.elements.length);
-			this.$.commandList.applyStyle("height", ""+(this.lines.elements.length * 62)+"px" );
-			this.$.commandList.reset();
-		} )
-		.error( this, function(){ console.log("Error to load recent activities!!");});
+			thisPanel.$.commandList.setCount(thisPanel.lines.length);
+			thisPanel.$.commandList.applyStyle("height", ""+(thisPanel.lines.length * 62)+"px" );
+			thisPanel.$.commandList.reset();	
+		}
 		
-		
+		this.n3pheleClient.listActivityHistory(start, end, success);		
 	}
 	
 });
