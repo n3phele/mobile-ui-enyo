@@ -99,7 +99,7 @@ enyo.kind({
 					{name: "divider", classes: "list-divider"},
 					{tag: "br"},
 					{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
-
+					{name: "narratives"}
 				]}
 			]},
 			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
@@ -131,7 +131,13 @@ enyo.kind({
 				thisPanel.$.acComDesc.setContent(" "+response.description);
 				
 				var d1 = new Date(response.start);
+				thisPanel.lastUpdate = d1.getTime();
+				
+				console.log(thisPanel.lastUpdate);
 				var d2 = new Date(response.complete);
+				
+				if(d2) thisPanel.lastUpdate = d2.getTime();
+				console.log(thisPanel.lastUpdate);
 				
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
 				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
@@ -140,25 +146,58 @@ enyo.kind({
 				
 				var narrative = fixArrayInformation(response.narrative);
 				
-				for( var i in narrative ){
-					thisPanel.$.panel_three.createComponent({tag: "br"});
-					var stamp = new Date(narrative[i].stamp);
-					if(narrative[i].state=="info"){
-					thisPanel.$.panel_three.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
-				}
-					thisPanel.$.panel_three.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
-					thisPanel.$.panel_three.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
-					thisPanel.$.panel_three.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
-					thisPanel.$.panel_three.createComponent({tag: "br"});
+				if(narrative && narrative.length > 0)
+				{
+					var stampDate = new Date(narrative[narrative.length-1].stamp);
+					thisPanel.lastUpdate = stampDate.getTime();					
 				}
 				
-				thisPanel.$.panel_three.render();
+				console.log(thisPanel.lastUpdate);
+				
+				thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
+				
 				thisPanel.reflow();
 			}
 			
 			var error = function(){ console.log("Error to load recent activities!!"); };
 			
 			this.n3pheleClient.listActivityDetail(this.url, 0, 10, success, error);
+			
+			//When called update screen
+			var changesSuccess = function() { thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
+			
+			var repeater = function() {
+				//see if new changes occured
+				thisPanel.n3pheleClient.getChangesSince(thisPanel.lastUpdate, thisPanel.url, changesSuccess);
+			}
+			
+			//register update event here with setInterval
+			this.interval = window.setInterval( repeater, 5000);
+		},
+		destroy: function() {
+			// do inherited teardown
+			this.inherited(arguments);
+			
+			window.clearInterval(this.interval);
+		},
+		//Update the narrative content to the specified panel (reset content)
+		updateNarrative: function(narrative, panel){
+			//clear panel_three
+			panel.destroyClientControls();			
+						
+			//fill it up with received data
+			for( var i in narrative ){
+					panel.createComponent({tag: "br"});
+					var stamp = new Date(narrative[i].stamp);
+					if(narrative[i].state=="info"){
+					panel.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
+				}
+					panel.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
+					panel.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
+					panel.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
+					panel.createComponent({tag: "br"});
+				}				
+			panel.render();
 		},
 		backMenu: function( sender , event){
 			var panel = sender.parent.parent.parent;

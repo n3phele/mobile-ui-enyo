@@ -1,9 +1,19 @@
-function N3pheleClient()
+function N3pheleClient(ajaxFactory)
 {
-	this.serverAddress = "http://n3phele-dev.appspot.com/resources/"
+	this.serverAddress = "http://n3phele-dev.appspot.com/resources/";
 	this.userName = "";
 	this.userPassword = "";
-		
+	
+	if(ajaxFactory)
+	{
+		this.ajaxFactory = ajaxFactory;
+	}
+	else
+	{
+		this.ajaxFactory = new Object();
+		this.ajaxFactory.create = function(o) { return new enyo.Ajax(o); };
+	}
+			
 	this.prepareAuthentication = function()
 	{
 		if (this.uid) return;
@@ -81,7 +91,7 @@ function N3pheleClient()
 	
 	this.listActivityHistory = function(start, end, success, error)
 	{	
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = this.ajaxFactory.create({
 			url: serverAddress+"process",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -120,6 +130,39 @@ function N3pheleClient()
 			.error( this, function()
 				{ 
 					console.log("Error to load recent activities!!");
+					if (error) error();
+				}
+			);	
+	}
+	
+	this.getChangesSince = function(sinceTime, uriToBeListen, success, error)
+	{		
+		var ajaxComponent = this.ajaxFactory.create({
+				url: this.serverAddress,
+				headers:{ 'authorization' : "Basic "+ this.uid },
+				method: "GET",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false,
+			}); //connection parameters
+			
+			ajaxComponent
+			.go({'summary' : false, 'changeOnly' : true, 'since' : sinceTime})
+			.response( this, function(sender, response){
+				if( response.changeCount == 0 ) return;
+				
+				var changes = response.changeGroup.change;			
+				
+				for (var i=0;i<changes.length;i++)
+				{ 
+					if(changes[i].uri == uriToBeListen)
+					{
+						if( success ) success(changes[i]);
+					}
+				}								
+			})
+			.error( this, function()
+				{ 
+					console.log("Error to load new changes");
 					if (error) error();
 				}
 			);	
