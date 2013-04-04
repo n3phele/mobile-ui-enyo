@@ -9,7 +9,8 @@ enyo.kind({
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item
-			]}
+			]},
+			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
 		], //end components	
 		getRecentActivities: function( uid ){
 			var ajaxParams = {

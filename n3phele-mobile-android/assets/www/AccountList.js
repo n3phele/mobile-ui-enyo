@@ -4,6 +4,9 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",
+	events: {
+		onCreateAcc: ""
+	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
 
@@ -19,8 +22,7 @@ enyo.kind({
 				]}
 			]},
 		]},
-		
-		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
+		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -74,8 +76,8 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	backMenu: function( sender , event){
-		sender.parent.parent.parent.parent.setIndex(0);
+	newAccount: function(sender, event){
+		console.log("Create Account");
+		this.doCreateAcc();
 	}
-	
 })

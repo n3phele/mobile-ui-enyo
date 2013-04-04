@@ -24,10 +24,8 @@ enyo.kind({
 		{name:"N3pheleCommands", style: "display:none"},
 		{kind: "Panels", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
-				{kind: "Scroller", classes: "enyo-fit", touch: true, components: [
-					
+				{kind: "Scroller", classes: "enyo-fit", touch: true, components: [					
 					{kind: "onyx.Toolbar", components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
-					
 					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
 						{classes: "onyx-sample-divider", content: "Main Menu", style: "color: #375d8c"},					
@@ -88,7 +86,7 @@ enyo.kind({
 			case 0://File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "FileRepository", 
+					kind: "RepositoryList", 
 					'uid' : this.uid, 
 					onSelectedItem : "repositorySelected",
 					onNewRepository : "newRepository",
@@ -109,8 +107,8 @@ enyo.kind({
 			break;
 			case 3://Accounts
 				this.closeSecondaryPanels(2);
-				this.$.imageIconPanel.createComponent({
-					kind: "AccountList", 'uid' : this.uid
+				this.createComponent({
+					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -139,6 +137,13 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels			
 		//create panel
 		this.createComponent({ kind: "NewRepository", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	newAccount: function(inSender,inEvent){				
+		this.closeSecondaryPanels(2);//close old panels			
+		//create panel
+		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
@@ -227,6 +232,8 @@ enyo.kind({
 		.response( this, function( sender, response ){
 			if(response.total == 0){alert("There is no recent activities!");return;}
 			
+			console.log(response.elements);
+			
 			this.commandsData = response.elements;//get the response
 			this.commandsData = fixArrayInformation(this.commandsData);
 			this.commands = new Array();
@@ -240,21 +247,21 @@ enyo.kind({
 				var iconUrl = this.commandsData[i].icon; //get icon url
 					iconUrl = this.fixCommandIconUrl( iconUrl );//fix icon url 
 				
-				this.commandsData[i].icon = iconUrl;
+			this.commandsData[i].icon = iconUrl;
 				this.commandsImages.push( iconUrl ); //set icon url fixed
 
 				//checking if icon exists
 				waiting++;
 				var test = new enyo.Ajax({ url : iconUrl, handleAs: "text", index: i });
-		
-				test.go().response(this,function(sender, response){
+	
+		test.go().response(this,function(sender, response){
 					waiting--;
 					if(waiting == 0) this.replaceWrongIcons(errorIndex);
 					popup.delete();
 				}).error(this,function(sender, response){
 					waiting--;
 					errorIndex.push( sender.index );//adding icon with error
-					if(waiting == 0) this.replaceWrongIcons(errorIndex);	
+				if(waiting == 0) this.replaceWrongIcons(errorIndex);	
 					popup.delete();
 				});
 			}// end for( var i in response.elements )
