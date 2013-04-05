@@ -11,7 +11,6 @@ enyo.kind({
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
 
 		{kind: "FittableRows", name:"panel", fit: true, components: [
-			{style: "width: 80%;margin:auto;color: #63B8FF;font-size: 16px;", content: "Details about the accounts registered"},
 			{name: "groupbox", classes: "table", kind: "onyx.Groupbox", style: "width: 80%;margin:auto", components: [
 				{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "List of accounts"},//header
 				{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
