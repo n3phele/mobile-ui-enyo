@@ -29,9 +29,9 @@ enyo.kind({
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: ""}
 			]},
 			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;"},
-			{kind: "onyx.Menu", components: [
-				{content: "EC2"},
-				{content: "HPZone1"}
+			{kind: "onyx.Menu", name: "cloudsList", components: [
+				//{content: "EC2"},
+				//{content: "HPZone1"}
 			]}
 		]}]},
 			{classes: "onyx-toolbar-inline", components: [
@@ -53,6 +53,15 @@ enyo.kind({
 	
 	create: function() {
 		this.inherited(arguments);
+		
+		var n3pheleClient = new N3pheleClient();
+		n3pheleClient.uid = this.uid;
+		
+		var cloudsErrors = function() { console.log("getting clouds error"); }
+		var thisPanel = this;
+		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
+		
+		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 	},
 	
 	itemSelected: function(inSender, inEvent) {
@@ -74,7 +83,7 @@ enyo.kind({
 		if( name.length == 0 || cloud.length == 0 || id.length == 0 || secret.length == 0){
 			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
 			return;
-		}
+		}		
 		//request
 		var ajaxParams = {
 				url: serverAddress+"account",

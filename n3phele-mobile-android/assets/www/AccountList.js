@@ -76,7 +76,6 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	newAccount: function(sender, event){
-		console.log("Create Account");
 		this.doCreateAcc();
 	}
 })

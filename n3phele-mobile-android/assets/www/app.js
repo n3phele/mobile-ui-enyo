@@ -232,8 +232,6 @@ enyo.kind({
 		.response( this, function( sender, response ){
 			if(response.total == 0){alert("There is no recent activities!");return;}
 			
-			console.log(response.elements);
-			
 			this.commandsData = response.elements;//get the response
 			this.commandsData = fixArrayInformation(this.commandsData);
 			this.commands = new Array();
