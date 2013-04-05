@@ -10,7 +10,6 @@ enyo.kind({
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item
 			]},
-			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
 		], //end components	
 		getRecentActivities: function( uid ){
 			var ajaxParams = {
