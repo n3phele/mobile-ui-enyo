@@ -4,6 +4,7 @@ function N3pheleClient(ajaxFactory)
 	this.userName = "";
 	this.userPassword = "";
 	
+	//This class uses a factory to create an ajax object for http access. By default uses enyo.Ajax.
 	if(ajaxFactory)
 	{
 		this.ajaxFactory = ajaxFactory;
@@ -13,7 +14,7 @@ function N3pheleClient(ajaxFactory)
 		this.ajaxFactory = new Object();
 		this.ajaxFactory.create = function(o) { return new enyo.Ajax(o); };
 	}
-			
+	
 	this.prepareAuthentication = function()
 	{
 		if (this.uid) return;
@@ -163,6 +164,30 @@ function N3pheleClient(ajaxFactory)
 			.error( this, function()
 				{ 
 					console.log("Error to load new changes");
+					if (error) error();
+				}
+			);
+	}
+	
+	this.listClouds = function(success, error)
+	{
+		var ajaxComponent = this.ajaxFactory.create({
+				url: this.serverAddress + 'cloud',
+				headers:{ 'authorization' : "Basic "+ this.uid },
+				method: "GET",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false,
+			}); //connection parameters
+			
+			ajaxComponent
+			.go()
+			.response( this, function(sender, response){
+				response.elements = fixArrayInformation(response.elements);
+				if (success) success(response.elements);
+			})
+			.error( this, function()
+				{ 
+					console.log("Error to load clouds");
 					if (error) error();
 				}
 			);	

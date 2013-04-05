@@ -33,10 +33,9 @@ n3pheleClient.userName = n3pheleUsername;
 n3pheleClient.userPassword = n3phelePassword;
 	
 asyncTest( "list repositories", function() {
-	var value = "hello";
 	
 	var success = function (items) {
-		equal( 2, items.length, items );
+		equal( 3, items.length, "" );
 		start();
 	}
 	
@@ -49,10 +48,9 @@ asyncTest( "list repositories", function() {
 });
 
 asyncTest( "list files of repositories", function() {
-	var value = "hello";
 	
 	var success = function (items) {
-		equal( 19, items.length, items );
+		equal( 19, items.length, "" );
 		start();
 	}
 	
@@ -68,10 +66,9 @@ asyncTest( "list files of repositories", function() {
 });
 
 asyncTest( "list files of repositories", function() {
-	var value = "hello";
 	
 	var success = function (items) {
-		equal( 12, items.length, items );
+		equal( 12, items.length, "" );
 		start();
 	}
 	
@@ -85,6 +82,21 @@ asyncTest( "list files of repositories", function() {
 	folder.name = "archive";
 	
 	n3pheleClient.listFolderFiles(folder, success, error);
+});
+
+asyncTest( "list clouds", function() {
+	
+	var success = function (clouds) {
+		equal( 2, clouds.length, "" );
+		start();
+	}
+	
+	var error = function() 	{
+		ok(false, "should not got here, call throw error");
+		start();
+	}
+	
+	n3pheleClient.listClouds( success, error);
 });
 
 
