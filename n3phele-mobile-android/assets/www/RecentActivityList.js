@@ -134,11 +134,9 @@ enyo.kind({
 				var d1 = new Date(response.start);
 				thisPanel.lastUpdate = d1.getTime();
 				
-				console.log(thisPanel.lastUpdate);
 				var d2 = new Date(response.complete);
 				
 				if(d2) thisPanel.lastUpdate = d2.getTime();
-				console.log(thisPanel.lastUpdate);
 				
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
 				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
@@ -152,8 +150,6 @@ enyo.kind({
 					var stampDate = new Date(narrative[narrative.length-1].stamp);
 					thisPanel.lastUpdate = stampDate.getTime();					
 				}
-				
-				console.log(thisPanel.lastUpdate);
 				
 				thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
 				
