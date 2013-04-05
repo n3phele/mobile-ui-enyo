@@ -1,0 +1,43 @@
+{
+"name":"Account",
+"uri":"https://n3phele-dev.appspot.com/resources/account",
+"public":"true",
+"total":"4",
+"elements":[
+{
+"name":"NigelCook_EC2",
+"uri":"https://n3phele-dev.appspot.com/account/125007",
+"owner":"https://n3phele-dev.appspot.com/user/122004",
+"public":"false",
+"description":"Amazon Elastic Compute Service",
+"cloud":"https://n3phele-dev.appspot.com/cloud/132002"
+},
+{
+"name":"nigel's ec2",
+"uri":"https://n3phele-dev.appspot.com/resources/account/125008",
+"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+"public":"false",
+"description":"My EC2 account",
+"cloud":"https://n3phele-dev.appspot.com/resources/cloud/132002",
+"cloudName":"EC2"
+},
+{
+"name":"HPCloud",
+"uri":"https://n3phele-dev.appspot.com/resources/account/159001",
+"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+"public":"false",
+"description":"HP Cloud",
+"cloud":"https://n3phele-dev.appspot.com/resources/cloud/158001",
+"cloudName":"HPZone1"
+},
+{
+"name":"lucioaccount",
+"uri":"https://n3phele-dev.appspot.com/resources/account/163003",
+"owner":"https://n3phele-dev.appspot.com/resources/user/154001",
+"public":"false",
+"description":"acc",
+"cloud":"https://n3phele-dev.appspot.com/resources/cloud/158001",
+"cloudName":"HPZone1"
+}
+]
+}
