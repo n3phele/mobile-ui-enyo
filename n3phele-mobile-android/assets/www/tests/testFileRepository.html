@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>QUnit basic example</title>
+<title>File Repository - Unit Tests</title>
 <link rel="stylesheet" href="qunit-1.11.0.css">
 </head>
 <body>
@@ -74,16 +74,6 @@ n3pheleClient.listRepositoryFiles = function( object ,success, error)
 }
 var args = new Object();
 args.n3pheleClient = n3pheleClient;
-	
-asyncTest( "initialize panel with repositories", function() {
-	var panel = new FileRepository(args);
-	
-	setTimeout(function() {
-		ok( panel.$.repository_swift );
-		ok( panel.$.repository_s3desktop );
-		start();
-	}, 100);
-});
 	
 asyncTest( "get files from repository location", function() {
 	var panel = new FileRepository(args);
