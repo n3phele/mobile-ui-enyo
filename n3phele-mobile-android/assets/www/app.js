@@ -16,10 +16,17 @@ enyo.kind({
 	
 	menu:["Files","Commands","Acvity History","Accounts"],	
 	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png"],
-	
 	commands: null,
 	commandsImages : null,
-		
+	published: {
+		trackedRow: -1
+	},
+	trackedRowChanged: function(inOld) {
+		// fixup the old row (no-op if inOld is out of range)
+		this.$.list.renderRow(inOld);
+		// mark the new row
+		this.$.list.renderRow(this.trackedRow);
+	},
 	components: [
 		{name:"N3pheleCommands", style: "display:none"},
 		{kind: "Panels", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
@@ -29,7 +36,7 @@ enyo.kind({
 					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
 						{classes: "onyx-sample-divider", content: "Main Menu", style: "color: #375d8c"},					
-						{kind: "List", fit: true, touch:true, count:4, style: "height:"+(4*65)+"px", onSetupItem: "setupItemMenu", components: [
+						{kind: "List", name: "list", fit: true, touch:true, count:4, style: "height:"+(4*65)+"px", onSetupItem: "setupItemMenu", components: [
 							{name: "menu_item",	classes: "panels-sample-flickr-item", ontap: "mainMenuTap", style: "box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
 								{name:"menu_image", kind:"Image"},
 								{name: "menu_option",kind:"Image"}]},
@@ -67,11 +74,15 @@ enyo.kind({
 		this.destroyPanel();
 	},	
 	setupItemMenu: function(inSender, inEvent) {// given some available data.
-		this.$.menu_item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
+		//this.$.menu_item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
+		this.$.menu_item.addRemoveClass("onyx-selected", inEvent.index == this.trackedRow);
+		
 		this.$.menu_image.setSrc(this.menuImages[inEvent.index]);
 		this.$.menu_option.setContent(this.menu[inEvent.index]);
 	},
 	mainMenuTap: function(inSender, inEvent) {
+		this.setTrackedRow(inEvent.index);	
+	
 		//Checking if the device has a small screen and adjust if necessa
 		if (enyo.Panels.isScreenNarrow()) {
 			this.$.panels.setIndex(1);
