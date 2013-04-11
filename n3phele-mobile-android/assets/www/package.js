@@ -1,9 +1,21 @@
 enyo.depends(
-	"enyo/sources/ajax",
-	"PanelsSample.css",
-	"PanelsSample.js",
-	"PanelsFlickrSample.css",
-	"PanelsFlickrSample.js",
-	"PanelsSlidingSample.css",
-	"PanelsSlidingSample.js"
+	"sample-onyx.css",
+	"generalFunctions.js",
+	"base64.js",	
+	"app.css",
+	"app.js",
+	"IconGallery.css",
+	"IconGallery.js",
+	"RepositoryFileList.js",
+	"RepositoryList.js",
+	"AccountList.js",
+	"RecentActivityList.js",
+	"RecentActivityHistory.js",
+	"n3pheleClient.js",
+	"CommandDetail.js",
+	"FileRepository.js",
+	"NewRepository.js",
+	"CreateAccount.js",
+	"LoginPage.js",	
+	"cordova-2.3.0.js"
 );
