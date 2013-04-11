@@ -29,7 +29,7 @@ enyo.kind({
 	},
 	components: [
 		{name:"N3pheleCommands", style: "display:none"},
-		{kind: "Panels", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
+		{kind: "Panels", style: "background-color: #eef2f5", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
 				{kind: "Scroller", classes: "enyo-fit", touch: true, components: [					
 					{kind: "onyx.Toolbar", components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
