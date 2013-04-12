@@ -8,6 +8,9 @@ var createCommandItems = function(arrayOfCommands, arrayOfImages) {
 	return list;
 }
 
+var CommandData;
+var FilesList = new Array();
+var count =0;
 /*Main painels*/
 enyo.kind({
 	name: "com.N3phele",
@@ -101,6 +104,7 @@ enyo.kind({
 					'uid' : this.uid, 
 					onSelectedItem : "repositorySelected",
 					onNewRepository : "newRepository",
+					callBy: "repositoryList",
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
@@ -139,11 +143,11 @@ enyo.kind({
 	repositorySelected: function(inSender,inEvent){				
 		this.closeSecondaryPanels(2);//close old panels			
 		//create panel
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
-		//this.$.panels.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, onBack: "closeFilePanel" }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(3);
 	},
+	
 	newRepository: function(inSender,inEvent){				
 		this.closeSecondaryPanels(2);//close old panels			
 		//create panel
@@ -157,6 +161,32 @@ enyo.kind({
 		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
+	},
+	listRepository: function(inSender,inEvent){				
+		this.closeSecondaryPanels(2);//close old panels			
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
+	},
+	fileRepository: function(inSender,inEvent){				
+		this.closeSecondaryPanels(4);//close old panels			
+		//create panel
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name , onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		//this.createComponent({ kind: "FileRepository", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
+	},
+	fileSelected: function(inSender,inEvent){				
+		this.closeSecondaryPanels(5);
+		this.closeSecondaryPanels(4);
+		this.closeSecondaryPanels(3);
+		this.closeSecondaryPanels(2);//close old panels			
+		FilesList[count] = inEvent;
+		count++;
+		//create panel
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
 	},
 	closeFilePanel:function(inSender,inEvent){
 		console.log("close file panel");
@@ -194,16 +224,7 @@ enyo.kind({
 		
         this.$.imageIconPanel.render();
     },
-    commandDeselect: function(inSender, inEvent) {
-   // 	this.closeSecondaryPanels( 2 );
-    
-	/*8    if (enyo.Panels.isScreenNarrow()) {
-			this.$.panels.setIndex(2);
-		}
-		else {
-			this.$.panels.setIndex(1);
-		}**/
-	},
+
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {
 		//check if command information is set
@@ -214,10 +235,10 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 		
 		//create panel
-		this.$.panels.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.commandsData[inEvent.index].icon, 'uri': this.commandsData[inEvent.index].uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.commandsData[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.commandsData[inEvent.index].uri }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
-		
+		this.$.CommandData = this.commandsData[inEvent.index];
 		inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
 	/** It's called when the king is instanciated **/

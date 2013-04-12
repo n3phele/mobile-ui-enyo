@@ -17,5 +17,8 @@ enyo.depends(
 	"NewRepository.js",
 	"CreateAccount.js",
 	"LoginPage.js",	
-	"cordova-2.3.0.js"
+	"cordova-2.3.0.js",
+	"CommandExec.js",
+	"CommandParam.js",
+	"CommandFiles.js"
 );

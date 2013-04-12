@@ -7,9 +7,11 @@ enyo.kind({
 	data: [],
 	commands: null,
 	commandsImages : null,
+	callBy: "",
 	events: {
 		onSelectedItem: "",
-		onNewRepository: ""
+		onNewRepository: "",
+		onBack: ""
 	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Repositories" }, {fit: true}]},
@@ -34,11 +36,9 @@ enyo.kind({
 			response.elements = fixArrayInformation(response.elements);
 			
 			this.data = response.elements;
-			console.log(response.elements);	
 			this.commands = new Array();
 			this.commandsImages = new Array();
 			for( var i in this.data ){//set comand list information
-				console.log(this.data[i].name);
 				this.commands.push( this.data[i].name ); //set name
 				this.commandsImages.push("assets/folderG.png");
 		}		
@@ -48,7 +48,12 @@ enyo.kind({
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
 			}).render();
+			
+		if(this.callBy=="repositoryList"){
 		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();
+		}else if(this.callBy=="selectFile"){
+			thisPanel.createComponent({kind: "onyx.Toolbar", name: "btnClose", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();	
+		}
 		thisPanel.$.panel.render();
 		thisPanel.reflow();	
 		})
@@ -75,7 +80,7 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	backMenu: function( sender , event){
-		sender.parent.parent.parent.parent.setIndex(0);
+		this.doBack(event);
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.

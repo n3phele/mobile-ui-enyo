@@ -9,6 +9,7 @@ enyo.kind({
 	data: [],
 	commands: null,
 	commandsImages : null,
+	callBy: "",
 	events: {
 		onSelectedItem: "",
 		onBack: ""
@@ -18,19 +19,18 @@ enyo.kind({
 		{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[]}
 		]},
-		{kind: "onyx.Toolbar", name: "botTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
+		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
 		popup.show();
-		
 		//this.$.repositoryRoot.setContent( this.repositoryName );
 		//this.path.push( this.$.repositoryRoot );
-		this.updateFilesFromURI(this.uri + "/list", function(){ popup.delete(); });
+		
+		this.updateFilesFromURI(this.uri + "/list", function(){popup.delete();});
 	},
 	updateFilesFromURI: function(uri, success){
-		console.log(uri);
 		var ajaxComponent = new enyo.Ajax({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -49,7 +49,6 @@ enyo.kind({
 			for( var i in this.data ){//set comand list information
 				this.commands.push( this.data[i].name ); //set name
 				var name = this.data[i].name;
-				console.log(this.data[i]);
 				if( name.indexOf(".tgz") != -1){
 				this.commandsImages.push("assets/tgz.png");
 				}
@@ -78,8 +77,8 @@ enyo.kind({
 				retrieveContentData: function(){
 					this.data = createCommandItems(this.commands, this.commandsImages); } 
 				}).render();
-			thisPanel.$.panel.render();
-			thisPanel.reflow();	
+			thisPanel.reflow();
+			thisPanel.$.panel.reflow();
 				
 			if(success) success();
 			
@@ -120,12 +119,11 @@ enyo.kind({
 	folderMime: "application/vnd.com.n3phele.PublicFolder",
 	itemTap: function(inSender, inEvent) {
 		this.selected = this.data[inEvent.index];
-		
 		//If is a folder, open it
 		if(this.selected.mime == this.folderMime)
 		{
 			//put on path
-			var newButton = this.createComponent({ kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", container: this.$.botTool }).render();
+			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", container: this.$.btnTool }).render();				
 			this.path.push( newButton );
 			this.reflow();
 			
@@ -133,11 +131,15 @@ enyo.kind({
 			//download the new folder to data
 			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 		}
-		
-		this.doSelectedItem(this.selected);
+		if(this.callBy=="selectFile"){
+			this.doSelectedItem(this.selected);
+		}else if(this.callBy=="repositoryList"){
+			console.log("Do Download!");
+		}
 	},
 	folderClicked: function(inSender,inEvent){
 		this.navigateBack(inSender.content);
+		this.$.btn.destroy();
 	},
 	navigateBack: function(folder){
 		//navigate back to repository/folder specified that is already on path
