@@ -33,6 +33,7 @@ enyo.kind({
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
 		popup.show();
+		
 		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -72,9 +73,9 @@ enyo.kind({
 		
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
-			this.$.comScroll.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: this.doRunCommand, "lines": data.cloudAccounts });				
+			this.$.comScroll.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts });				
 		else
-			this.$.comScroll.createComponent({kind:"commandExecGroup", onRunCommand: this.doRunCommand, "uri" : this.uri, "lines": new Array() });	
+			this.$.comScroll.createComponent({kind:"commandExecGroup", "uri" : this.uri, "lines": new Array() });	
 
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
@@ -106,15 +107,20 @@ enyo.kind({
 	},
 	runCommand: function(sender, event){
 		console.log("Run");
-		if(sender.parent.owner.$.job.getValue()!=""){
+		
+		//define post Boody
+		var postBody = {"Variable":[{"name":"n", "type":"Long", "value":["1"]},{"name":"message", "type":"String", "value":["hello world!"]},{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["https://n3phele-dev.appspot.com/resources/account/218003"]}]};
+		
+		if(sender.parent.owner.$.job.getValue()!=""){	
 			var ajaxComponent = new enyo.Ajax({
 				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=Job",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/x-www-form-urlencoded",
-				postBody: {"Variable":[{"name":"n", "type":"Long", "value":["1"]},{"name":"message", "type":"String", "value":["hello world!"]},{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["https://n3phele-dev.appspot.com/resources/account/218003"]}]},
+				postBody: this.$.postBody,
 				sync: false, 
 				}); 
+			
 			ajaxComponent.go({
 					name: sender.parent.owner.$.job.getValue(),
 					arg: "NShell "+this.uri

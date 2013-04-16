@@ -10,13 +10,13 @@ var createCommandItems = function(arrayOfCommands, arrayOfImages) {
 
 var CommandData;
 var FilesList = new Array();
-var count =0;
+var count = 0;
 /*Main painels*/
+
 enyo.kind({
 	name: "com.N3phele",
 	kind: "FittableRows",
 	classes: "onyx enyo-fit",
-	
 	menu:["Files","Commands","Acvity History","Accounts"],	
 	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png"],
 	commands: null,
@@ -52,12 +52,6 @@ enyo.kind({
 			]}			
 		]}
 	],	
-	setupButton: function(inSender, inEvent) {
-		this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
-		this.$.t.setContent({kind: "onyx.Button", ontap:"itemTapMenu", components: [
-					{kind: "onyx.Icon", src: "https://github.com/enyojs/enyo/wiki/assets/fish_bowl.png"}
-					]});
-	},
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
 		this.getActive().destroy();					
@@ -77,9 +71,7 @@ enyo.kind({
 		this.destroyPanel();
 	},	
 	setupItemMenu: function(inSender, inEvent) {// given some available data.
-		//this.$.menu_item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
-		this.$.menu_item.addRemoveClass("onyx-selected", inEvent.index == this.trackedRow);
-		
+		this.$.menu_item.addRemoveClass("onyx-selected", inEvent.index == this.trackedRow);	
 		this.$.menu_image.setSrc(this.menuImages[inEvent.index]);
 		this.$.menu_option.setContent(this.menu[inEvent.index]);
 	},
@@ -97,7 +89,8 @@ enyo.kind({
 		
 		//Checking the menu selected
 		switch(inEvent.index){
-			case 0://File menu
+			case 0:
+				//File menu
 				this.closeSecondaryPanels(2);
 				this.createComponent({
 					kind: "RepositoryList", 
@@ -109,18 +102,21 @@ enyo.kind({
 				});
 				this.$.imageIconPanel.render();
 			break;
-			case 1://Command Menu
+			case 1:
+				//Command Menu
 				this.closeSecondaryPanels(2);
 				this.createCommandList();
 			break;
-			case 2://Activity History
+			case 2:
+				//Activity History
 				this.closeSecondaryPanels(2);
 				this.$.imageIconPanel.createComponent({
 					kind: "RecentActivityHistory", 'uid' : this.uid
 				});
 				this.$.imageIconPanel.render();	
 			break;
-			case 3://Accounts
+			case 3:
+				//Accounts
 				this.closeSecondaryPanels(2);
 				this.createComponent({
 					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", container: this.$.imageIconPanel
@@ -140,57 +136,63 @@ enyo.kind({
 			this.$.panels.setIndex(index-1);
 		}
 	},
-	repositorySelected: function(inSender,inEvent){				
-		this.closeSecondaryPanels(2);//close old panels			
-		//create panel
+	repositorySelected: function(inSender,inEvent){	
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel of files based on repository selected
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
 	
-	newRepository: function(inSender,inEvent){				
-		this.closeSecondaryPanels(2);//close old panels			
-		//create panel
+	newRepository: function(inSender,inEvent){	
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new repository of files
 		this.createComponent({ kind: "NewRepository", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
-	newAccount: function(inSender,inEvent){				
-		this.closeSecondaryPanels(2);//close old panels			
-		//create panel
+	newAccount: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new account
 		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
-	listRepository: function(inSender,inEvent){				
-		this.closeSecondaryPanels(2);//close old panels			
+	listRepository: function(inSender,inEvent){	
+		//close old panels		
+		this.closeSecondaryPanels(2);	
+		//create panel of Repositories to select a file
 		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
 	fileRepository: function(inSender,inEvent){				
-		this.closeSecondaryPanels(4);//close old panels			
-		//create panel
+		//close old panels	
+		this.closeSecondaryPanels(4);		
+		//create panel of files based on repository selected
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name , onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
-		//this.createComponent({ kind: "FileRepository", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
-	fileSelected: function(inSender,inEvent){				
+	fileSelected: function(inSender,inEvent){
+		//close old panels		
 		this.closeSecondaryPanels(5);
 		this.closeSecondaryPanels(4);
 		this.closeSecondaryPanels(3);
-		this.closeSecondaryPanels(2);//close old panels			
+		this.closeSecondaryPanels(2);	
 		FilesList[count] = inEvent;
 		count++;
-		//create panel
+		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
 	closeFilePanel:function(inSender,inEvent){
 		console.log("close file panel");
-		this.closeSecondaryPanels(2);//close old panels
+		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},
 	createCommandList: function() {
@@ -200,6 +202,7 @@ enyo.kind({
 							{fit: true}]}
 			);		
 		
+		//create icons for the list of commands 
 		this.createComponent({
 			name: "IconGallery",
 			kind: "IconList",
@@ -234,7 +237,7 @@ enyo.kind({
 		}
 		this.closeSecondaryPanels(2);//close old panels
 		
-		//create panel
+		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.commandsData[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.commandsData[inEvent.index].uri }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
@@ -312,7 +315,7 @@ enyo.kind({
 			url = url.substring( url.search("/")+1 );//removing https
 			url = "http://"+ url;
 		
-		if( url.search("/icons/") < 0 ){ // correcting wrong url
+		if( url.search("/icons/") < 0 ){ //correcting wrong url
 			var aux = url.split("/");
 			var filename = aux[ aux.length - 1 ];
 			var filenameIndex =  url.search( filename );
@@ -321,18 +324,16 @@ enyo.kind({
 		return url;		
 	},
 	/** It will close painels that are not needed anymore **/
-	closeSecondaryPanels: function( level ){
+	closeSecondaryPanels: function(level){
 		var panels = this.$.panels.getPanels();
 
 		if( panels.length > level ){// Is there panels opened? close it
-			
 			
 			for(var i=level; i < panels.length ;){
 				panels[i].destroy();
 			}
 			
 			this.$.panels.reflow();
-		}
-		
+		}	
 	}
 });
