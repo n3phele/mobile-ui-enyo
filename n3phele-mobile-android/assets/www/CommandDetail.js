@@ -1,4 +1,5 @@
 /*** The main classes that mount the command detail page  ****/
+var Parameters;
 enyo.kind({ 
 	name:"CommandDetail",
 	kind: "FittableRows",
@@ -7,8 +8,7 @@ enyo.kind({
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
 	events: {
-		onSelectedFile: "",
-		onRunCommand: "runCommand"
+		onSelectedFile: ""
 	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title" }, {fit: true}]},
@@ -44,6 +44,7 @@ enyo.kind({
 				
 		ajaxComponent.go()
 		.response(this, function(sender, response){
+			Parameters = response;
 			this.setDynamicData(response);
 			popup.delete();
 		})
@@ -57,12 +58,9 @@ enyo.kind({
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
-		
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});
-	
-		
 		//Input files Groupbox
 		if(typeof data.inputFiles != 'undefined')
 			this.createComponent({kind:"commandFilesGroup", "lines": data.inputFiles, container: this.$.comScroll, files: this.files, onSelectedItem: "repository", "type" : "input"});
@@ -73,9 +71,9 @@ enyo.kind({
 		
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
-			this.$.comScroll.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts });				
+			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll });				
 		else
-			this.$.comScroll.createComponent({kind:"commandExecGroup", "uri" : this.uri, "lines": new Array() });	
+			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll });	
 
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
@@ -105,28 +103,28 @@ enyo.kind({
 			this.$[divname].addRemoveClass("active", this.$[divname].name == "div"+sender.index );
 		}
 	},
-	runCommand: function(sender, event){
-		console.log("Run");
+	runCommand: function(sender, event){	
 		
-		//define post Boody
-		var postBody = {"Variable":[{"name":"n", "type":"Long", "value":["1"]},{"name":"message", "type":"String", "value":["hello world!"]},{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["https://n3phele-dev.appspot.com/resources/account/218003"]}]};
-		
-		if(sender.parent.owner.$.job.getValue()!=""){	
+		//create JSON for post body in runcommand
+		var parameters = '{"Variable":[';
+		for(var i in Parameters.executionParameters){
+			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
+			Parameters.executionParameters[i].type+'", "value":["'+this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name)+'"]},';
+		}
+		parameters += this.$.commandExec.getValue(); 
+		parameters += ']}';
+		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = new enyo.Ajax({
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=Job",
+				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
-				contentType: "application/x-www-form-urlencoded",
-				postBody: this.$.postBody,
+				contentType: "application/json",
+				postBody: parameters,
 				sync: false, 
 				}); 
 			
-			ajaxComponent.go({
-					name: sender.parent.owner.$.job.getValue(),
-					arg: "NShell "+this.uri
-			})
-			.response(this, function(sender, response){
-			})
+			ajaxComponent.go()
+			.response(this, function(sender, response){})
 			.error(this, function(){
 				console.log("Error to load the detail of the command!");
 				popup.delete();
@@ -134,6 +132,8 @@ enyo.kind({
 		}else{
 			console.log("Put job name!");
 		}
+		
+		this.closePanel();
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;

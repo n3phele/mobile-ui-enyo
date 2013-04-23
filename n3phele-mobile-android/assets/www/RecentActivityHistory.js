@@ -49,10 +49,10 @@ enyo.kind({
 		sender.parent.parent.parent.parent.setIndex(0);
 	},
 	fillItems: function( inSender, inEvent ){
-		
 		var index = inEvent.index;
 		this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(index));
 		this.$.name.setContent( this.lines[index].name );
+		
 	},
 	itemTap:function( inSender, inEvent ){
 		var bounds = inSender.parent.owner.getScrollBounds();

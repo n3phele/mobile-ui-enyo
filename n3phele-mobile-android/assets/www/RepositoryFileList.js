@@ -78,8 +78,7 @@ enyo.kind({
 					this.data = createCommandItems(this.commands, this.commandsImages); } 
 				}).render();
 			thisPanel.reflow();
-			thisPanel.$.panel.reflow();
-				
+			
 			if(success) success();
 			
 			//popup.delete();

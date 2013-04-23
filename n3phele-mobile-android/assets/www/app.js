@@ -111,7 +111,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.$.imageIconPanel.createComponent({
-					kind: "RecentActivityHistory", 'uid' : this.uid
+					kind: "RecentActivityList", 'uid' : this.uid
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -191,7 +191,6 @@ enyo.kind({
 		this.$.panels.setIndex(4);
 	},
 	closeFilePanel:function(inSender,inEvent){
-		console.log("close file panel");
 		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},

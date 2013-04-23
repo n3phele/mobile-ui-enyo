@@ -142,10 +142,12 @@ enyo.kind({
 				
 				thisPanel.$.acDuration.setContent(" "+((d2-d1)/60000));
 				
+				
 				var narrative = fixArrayInformation(response.narrative);
 				
 				if(narrative && narrative.length > 0)
 				{
+					
 					var stampDate = new Date(narrative[narrative.length-1].stamp);
 					thisPanel.lastUpdate = stampDate.getTime();					
 				}

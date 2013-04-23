@@ -22,20 +22,23 @@ enyo.kind({
 		for( var i in linesInfo ){
 			var fieldType = "";
 			this.$.paramLines.createComponent({tag:"div", style: "width:70%", content: linesInfo[i].description.replace(","," , ")});
-			
 			//Set the field that will get the parameter needed	
 			switch( linesInfo[i].type.toLowerCase() ){
 				case "long":
-					this.$.paramLines.createComponent({tag: "div", style:"width:30%", components: [ {kind: "onyx.Input", name: "number", value: linesInfo[i].defaultValue}]});
+					this.$.paramLines.createComponent({tag: "div", style:"width:30%", components: [ {kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
 				break;
 				case "boolean":
-					this.$.paramLines.createComponent({tag: "div", name:"bool",kind: "onyx.Checkbox", value: linesInfo[i].defaultValue});
+					this.$.paramLines.createComponent({tag: "div", name: linesInfo[i].name,kind: "onyx.Checkbox", value: linesInfo[i].defaultValue});
 				break;
 				case "string":
-					this.$.paramLines.createComponent({tag:"div", style:"width:30%", components: [ {kind: "onyx.Input", name: "msg", value: linesInfo[i].defaultValue}]});
+					this.$.paramLines.createComponent({tag:"div", style:"width:30%", components: [ {kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
 				break;
 			}	
-			
-		}
+		}		
+	},
+	//return value of paramenter name
+	getValue: function(name){
+		var value = eval("this.$.paramLines.$."+name+".getValue()");
+		return value;
 	}
 });

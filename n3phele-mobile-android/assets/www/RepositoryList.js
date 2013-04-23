@@ -54,7 +54,7 @@ enyo.kind({
 		}else if(this.callBy=="selectFile"){
 			thisPanel.createComponent({kind: "onyx.Toolbar", name: "btnClose", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();	
 		}
-		thisPanel.$.panel.render();
+		thisPanel.render();
 		thisPanel.reflow();	
 		})
 		.error(this, function(){
