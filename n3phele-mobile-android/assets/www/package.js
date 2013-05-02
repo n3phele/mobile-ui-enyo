@@ -23,5 +23,7 @@ enyo.depends(
 	"CommandFiles.js",
 	"AccountDetails.js",
 	"jquery.flot.js",
-	"Chart.js"
+	"Chart.js",
+	"serviceList.js",
+	"addService.js"
 );

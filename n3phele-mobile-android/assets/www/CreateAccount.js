@@ -1,17 +1,17 @@
-enyo.kind({
+enyo.kind({  
 	name: "CreateAccount",
-	classes: "onyx onyx-sample",
+	kind: "FittableRows",
+	//classes: "onyx onyx-sample",
+	// !!!! ~ Apenas esqueleto gráfico: SEM NNHUMA CHAMADA DE FUNC ontap,onselect,etc
 	fit: true,
 	style: "padding: 0px",
 	events: {
 		onBack: ""
 	},
 	components: [
-	{kind: "onyx.Toolbar", components: [ { name: "title", content:"New Account" }, {fit: true}]},
-		{tag: "br"},
-		{name: "Msg", style: "color:#FF4500;"},
-		{tag: "br"},
-		{style: "margin: auto;", components: [
+
+	{kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c",components: [ { name: "title", content:"New Account" }, {fit: true}]},
+		{kind: "FittableRows", name:"panel", fit: true, components: [
 		{classes: "onyx-toolbar-inline", components: [
 		{content: "*Name ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
@@ -28,7 +28,7 @@ enyo.kind({
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: ""}
 			]},
-			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;"},
+			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"},
 			{kind: "onyx.Menu", name: "cloudsList", components: [
 				//{content: "EC2"},
 				//{content: "HPZone1"}
@@ -43,13 +43,12 @@ enyo.kind({
 			{content: "*Cloud Secret ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "secret", type: "password", placeholder: "Enter secret here"}
-			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{kind:"onyx.Button", content: "Cancel", ontap:"cancel"},
-			{style: "margin: 20px;", components: [
-			{kind:"onyx.Button", content: "Save", ontap:"save"}
-		]}]}
-	]}],
+			]}]}
+			
+	
+	]} , {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c;bottom:0; width:100%", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Create", ontap: "newAccount"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]}],
+	
+   //Funcs aqui,
 	
 	create: function() {
 		this.inherited(arguments);
@@ -102,7 +101,7 @@ enyo.kind({
 			popup.delete();
 		});
 	},
-	cancel: function(sender , event){
+	cancelAction: function(sender , event){
 		this.doBack(event);
 	}
 });

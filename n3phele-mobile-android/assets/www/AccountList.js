@@ -20,7 +20,7 @@ enyo.kind({
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
 	    ]},
-	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, onSetupItem: "setupItem", components: [
+	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, style:"height:80%", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 25%; display: inline-block"} , 
 				{name: "cost",  style:"width:25%; display: inline-block;" } , 

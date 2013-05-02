@@ -124,10 +124,10 @@ enyo.kind({
 				this.$.imageIconPanel.render();	
 			break;
 			case 4:
-				//Accounts
+				//Services
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ServiceList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", container: this.$.imageIconPanel
+					kind: "serviceList", 'uid' : this.uid, onCreateService: "newAccount", onClickService: "accountDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -166,6 +166,14 @@ enyo.kind({
 		this.closeSecondaryPanels(2);		
 		//create panel to create a new account
 		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	newService: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new account
+		this.createComponent({ kind: "addService", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
