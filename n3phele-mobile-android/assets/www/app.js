@@ -127,7 +127,7 @@ enyo.kind({
 				//Services
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "serviceList", 'uid' : this.uid, onCreateService: "newAccount", onClickService: "accountDetail", container: this.$.imageIconPanel
+					kind: "serviceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -177,11 +177,27 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
+	removeService: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new account
+		this.createComponent({ kind: "removeService", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
 	accountDetail: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
 		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	serviceDetail: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to access account details
+		this.createComponent({ kind: "serviceDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
@@ -247,7 +263,6 @@ enyo.kind({
 		else{
 			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel});
 		}
-		
         this.$.imageIconPanel.render();
     },
 

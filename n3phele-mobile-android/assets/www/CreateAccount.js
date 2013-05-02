@@ -13,17 +13,17 @@ enyo.kind({
 	{kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c",components: [ { name: "title", content:"New Account" }, {fit: true}]},
 		{kind: "FittableRows", name:"panel", fit: true, components: [
 		{classes: "onyx-toolbar-inline", components: [
-		{content: "*Name ", classes:"enyo-inline"},
+		{content: "*Name: ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
 			]}]},
 			{classes: "onyx-toolbar-inline", components: [
-			{content: "Description ", classes:"enyo-inline"},
+			{content: "Description: ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
 			]}]},
 			{classes: "onyx-toolbar-inline", components: [
-			{content: "*On Cloud ", classes:"enyo-inline"},
+			{content: "*On Cloud: ", classes:"enyo-inline"},
 			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: ""}
@@ -35,12 +35,12 @@ enyo.kind({
 			]}
 		]}]},
 			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Cloud Id ", classes:"enyo-inline"},
+			{content: "*Cloud Id: ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
 			]}]},
 			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Cloud Secret ", classes:"enyo-inline"},
+			{content: "*Cloud Secret: ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "secret", type: "password", placeholder: "Enter secret here"}
 			]}]}

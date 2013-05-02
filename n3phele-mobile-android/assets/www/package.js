@@ -24,6 +24,8 @@ enyo.depends(
 	"AccountDetails.js",
 	"jquery.flot.js",
 	"Chart.js",
-	"serviceList.js",
-	"addService.js"
+	"ServiceList.js",
+	"AddService.js",
+	"RemoveService.js",
+	"NewStack.js"
 );

@@ -7,6 +7,7 @@ enyo.kind({
 	style: "padding: 0px",
 	events: {
 		onCreateService: "",
+		onRemoveService: "",
 		onClickService:""
 	},
 	components:[
@@ -55,8 +56,7 @@ enyo.kind({
 		},
 	removeItem:function (sender,event)
 	{  
-	 //When you press this button you will go to delete service page and then you will be asked one more time if you really want to delete the service.
-
+		this.doRemoveService();
 	},
 
 	activate: function(sender, event){

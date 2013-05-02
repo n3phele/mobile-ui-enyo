@@ -94,7 +94,6 @@ enyo.kind({
 		return true;
 	},
 	newrepo: function(sender, event){
-		console.log("New repo");
 		this.doNewRepository();
 	}
 })
