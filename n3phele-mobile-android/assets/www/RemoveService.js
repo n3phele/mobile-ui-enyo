@@ -12,17 +12,23 @@ enyo.kind({
 	},
 	components:[
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Remove Service" }, {fit: true}]},
-
-		{kind: "FittableRows", name:"panel", fit: true, components: [{content: "Name: ", style:"float:left;padding: 0px 0 0px 500px;"}, 
-			{classes: "onyx-toolbar-inline", components: [
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", disabled: true, value: "Service to be deleted"}
-			]} , 
-			{content: "Are you sure you want to delete this service? ", style:"float:left;padding: 0px 0 0px 500px;"},
-			
-	    ]}]},
-	    
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Delete", ontap: "newAccount"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]}
+		{style:"margin: 3em auto;width:400px;", components:[		
+			{kind: "FittableRows", name:"panel", fit: true, components: [
+				{content: "Name: ", style:"display:inline-block"}, 
+				
+				{kind: "onyx.InputDecorator", style:"display:inline-block;margin-left:10px", components: [
+					{kind: "onyx.Input", disabled: true, value: "Service to be deleted"}
+				]} , 
+				{content: "Are you sure you want to delete this service? "},
+				
+			]},
+	    ]},
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
+			{style:"width:1500px",components:[	
+				{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Delete", ontap: "newAccount"} , 
+				{kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} 
+			]},	
+		]}
 	],
 	
 	selectedAccount: function(sender, event){
