@@ -133,7 +133,7 @@ enyo.kind({
 			console.log("Put job name!");
 		}
 		
-		this.closePanel();
+		this.closePanel(this);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;

@@ -20,5 +20,8 @@ enyo.depends(
 	"cordova-2.3.0.js",
 	"CommandExec.js",
 	"CommandParam.js",
-	"CommandFiles.js"
+	"CommandFiles.js",
+	"AccountDetails.js",
+	"jquery.flot.js",
+	"Chart.js"
 );

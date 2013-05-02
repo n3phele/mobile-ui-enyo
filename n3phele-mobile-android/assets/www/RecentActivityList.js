@@ -46,10 +46,7 @@ enyo.kind({
 			var item = this.results[i];
 			this.$.activity.setContent(item.name);
 		},
-/**		rendered: function() {
-			this.inherited(arguments);
-			this.getRecentActivities(this.uid);
-		},**/
+
 		create: function(){
 			this.inherited(arguments);
 			this.getRecentActivities(this.uid);
@@ -102,7 +99,7 @@ enyo.kind({
 					{name: "narratives"}
 				]}
 			]},
-			{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"} ]}
+			{kind: "onyx.Toolbar", components: []}
 		],
 		constructor: function(args) {
 			this.inherited(arguments);

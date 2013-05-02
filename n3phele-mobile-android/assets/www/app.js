@@ -17,8 +17,8 @@ enyo.kind({
 	name: "com.N3phele",
 	kind: "FittableRows",
 	classes: "onyx enyo-fit",
-	menu:["Files","Commands","Acvity History","Accounts"],	
-	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png"],
+	menu:["Files","Commands","Acvity History","Accounts","Services"],	
+	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png","./assets/service.png"],
 	commands: null,
 	commandsImages : null,
 	published: {
@@ -39,7 +39,7 @@ enyo.kind({
 					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
 						{classes: "onyx-sample-divider", content: "Main Menu", style: "color: #375d8c"},					
-						{kind: "List", name: "list", fit: true, touch:true, count:4, style: "height:"+(4*65)+"px", onSetupItem: "setupItemMenu", components: [
+						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*65)+"px", onSetupItem: "setupItemMenu", components: [
 							{name: "menu_item",	classes: "panels-sample-flickr-item", ontap: "mainMenuTap", style: "box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
 								{name:"menu_image", kind:"Image"},
 								{name: "menu_option",kind:"Image"}]},
@@ -119,7 +119,15 @@ enyo.kind({
 				//Accounts
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", container: this.$.imageIconPanel
+					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", container: this.$.imageIconPanel
+				});
+				this.$.imageIconPanel.render();	
+			break;
+			case 4:
+				//Accounts
+				this.closeSecondaryPanels(2);
+				this.createComponent({
+					kind: "ServiceList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -158,6 +166,14 @@ enyo.kind({
 		this.closeSecondaryPanels(2);		
 		//create panel to create a new account
 		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	accountDetail: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to access account details
+		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},

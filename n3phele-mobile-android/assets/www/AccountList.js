@@ -1,26 +1,33 @@
 /*** The main classes that mount the account list page  ****/
+var results;
 enyo.kind({ 
 	name:"AccountList",
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",
 	events: {
-		onCreateAcc: ""
+		onCreateAcc: "",
+		onClickItem:""
 	},
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
 
-		{kind: "FittableRows", name:"panel", fit: true, components: [
-			{name: "groupbox", classes: "table", kind: "onyx.Groupbox", style: "width: 80%;margin:auto", components: [
-				{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "List of accounts"},//header
-				{classes: "subheader", style:"background-color: rgb(200,200,200);font-weight: bold;font-size:13px;", components:[ //subheader
-					{content: "Name", style:"width: 25%; display: inline-block;"} , 
-					{content: "Last 24 hours",  style:"width:25%; display: inline-block;" } , 
-					{content: "Active", style:"width:25%; display: inline-block;" } ,
-					{content: "Cloud",  style:"width:25%; display: inline-block;" } ,
-				]}
-			]},
-		]},
+		{kind: "FittableRows", name:"panel", fit: true, components: [	        
+				    {name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold; border-bottom: 2px solid #88B0F2", components:[ 
+					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold"}, 
+					       {content: "Last 24 hours", style:"display: inline-block; width:25%;font-weight: bold"}, 
+					       {content: "Active", style:"display: inline-block; width:25%;font-weight: bold"},
+					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
+					]},						
+	    ]},
+	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, onSetupItem: "setupItem", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	         	{name: "name", style:"width: 25%; display: inline-block"} , 
+				{name: "cost",  style:"width:25%; display: inline-block;" } , 
+				{name: "active",  style:"width:25%; display: inline-block" } ,
+				{name: "cloud", style:"width:25%; display: inline-block" }	    
+	         ]}
+	     ]}, 
 		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
 	],
 	create: function(){
@@ -38,25 +45,18 @@ enyo.kind({
 				
 		ajaxComponent.go()
 		.response(this, function(sender, response){
-	
 			response.elements = fixArrayInformation(response.elements);
-			for( var i=0; i<response.total ; i++ ){
-				this.$.groupbox.createComponent({style: "background-color:white", components:[
-  					{content: response.elements[i].name, classes: "subsubheader", style:"width: 25%; display: inline-block;"} , 
-					{content: "0",  style:"width:25%; display: inline-block;" } , 
-					{content: "0",  style:"width:25%; display: inline-block;" } ,
-					{content: response.elements[i].cloudName, classes: "subsubheader",  style:"width:25%; display: inline-block;" } ,
-				],owner:this});
-				
-			}
-			this.$.groupbox.render();
-			this.reflow();
-			popup.delete();
+			results = response.elements;
+			this.$.list.setCount(results.length);
+			this.$.list.reset();
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 			popup.delete();
 		});		
+	},
+	selectedAccount: function(sender, event){
+		this.doClickItem(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -77,5 +77,18 @@ enyo.kind({
 	},
 	newAccount: function(sender, event){
 		this.doCreateAcc();
+	},
+	setupItem: function(sender, event){
+		if(results == null ) return;
+		this.$.item.addRemoveClass("onyx-selected", sender.isSelected(event.index));
+		var i = event.index;
+		var item = results[i];
+		this.$.name.setContent(item.name);
+		this.$.cost.setContent("US$0.0");
+		this.$.active.setContent("0");
+		this.$.cloud.setContent(item.cloudName);
+	},
+	activate: function(sender, event){
+		this.doClickItem();
 	}
-})
+});
