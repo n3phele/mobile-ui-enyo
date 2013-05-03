@@ -28,7 +28,7 @@ enyo.kind({
 	],
 	
 	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
+		this.doClickService();
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;

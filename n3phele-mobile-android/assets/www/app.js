@@ -184,6 +184,22 @@ enyo.kind({
 		this.createComponent({ kind: "removeService", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
+	},	
+	serviceDetail: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to access account details
+		this.createComponent({ kind: "serviceDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
+	newStack: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new account
+		this.createComponent({ kind: "newStack", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
 	},
 	accountDetail: function(inSender,inEvent){		
 		//close old panels	
@@ -193,14 +209,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
-	serviceDetail: function(inSender,inEvent){		
-		//close old panels	
-		this.closeSecondaryPanels(2);		
-		//create panel to access account details
-		this.createComponent({ kind: "serviceDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
-		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
-	},
+
 	listRepository: function(inSender,inEvent){	
 		//close old panels		
 		this.closeSecondaryPanels(2);	

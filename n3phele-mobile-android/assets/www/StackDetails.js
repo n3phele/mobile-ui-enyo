@@ -1,0 +1,53 @@
+enyo.kind({
+	name : "stackDetails",
+	kind: "FittableRows",
+	fit: true,
+	style: "padding: 0px",
+	components : [
+		{kind : "Scroller",
+		classes : "scroller-sample-scroller enyo-fit",
+		components : [
+		 {kind : "onyx.Toolbar", content : "Stack Details", name : "title_1",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
+		 	{content : "Name", name : "account", style : "margin:0 0 0 10px;"},
+			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
+			{content : "Version", name : "cloudName", style : "margin:5px 0 5px 10px"},
+			
+			{name: "total", style: "color:#b1c2d7;border-top:3px solid;"},
+			    {content : "Node count:",style:"padding-top:10px"},
+				{kind: "onyx.InputDecorator", components: [
+				{kind: "onyx.Input", placeholder: "Number here",onchange:"inputChanged"}
+			]},
+			   
+			    {content : "Account:",style:"padding: 80px  0px 0px;"}, {content : "AccountName",}
+			 
+			]},
+					
+			{kind : "onyx.Toolbar", name : "toolbar", style : "background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain", components : [
+				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right", content : "Close", ontap : "closePanel",},
+				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;", content : "Run", ontap : "run"} 
+			]}
+	],
+	
+	itemSelected: function(sender, event){
+		if (event.originator.content){
+			this.$.cost.setPlaceholder(event.originator.content);
+		}
+	},
+	
+	closePanel: function(inSender, inEvent){
+		var panel = inSender.parent.parent.parent;
+		
+		panel.setIndex(2);				
+		panel.getActive().destroy();					
+		panel.panelCreated = false;
+		
+		if (enyo.Panels.isScreenNarrow()) {
+			panel.setIndex(1);
+		}
+		else {
+			panel.setIndex(0);
+		}		
+		
+		panel.reflow();		
+	}	
+});

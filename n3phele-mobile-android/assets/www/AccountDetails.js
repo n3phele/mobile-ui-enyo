@@ -7,7 +7,7 @@ enyo.kind({
 		{kind : "Scroller",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", content : "Accounts", name : "title_1",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
+		 {kind : "onyx.Toolbar", content : "Account", name : "title_1",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
 		 	{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
