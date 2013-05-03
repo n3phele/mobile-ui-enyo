@@ -111,7 +111,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.$.imageIconPanel.createComponent({
-					kind: "RecentActivityList", 'uid' : this.uid
+					kind: "ActivityList", 'uid' : this.uid
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -196,10 +196,18 @@ enyo.kind({
 	newStack: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);		
-		//create panel to create a new account
-		this.createComponent({ kind: "newStack", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		//create panel to create a new stack
+		this.createComponent({ kind: "newStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(3);
+	},
+	stackDetail: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(3);		
+		//create panel to show stack detail
+		this.createComponent({ kind: "stackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
 	},
 	accountDetail: function(inSender,inEvent){		
 		//close old panels	
