@@ -111,7 +111,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.$.imageIconPanel.createComponent({
-					kind: "RecentActivityList", 'uid' : this.uid
+					kind: "ActivityList", 'uid' : this.uid
 				});
 				this.$.imageIconPanel.render();	
 			break;

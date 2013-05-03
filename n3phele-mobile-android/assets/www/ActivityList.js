@@ -1,16 +1,16 @@
 var listSize = 3;
 enyo.kind({ 
-		name:"RecentActivityList",
+		name:"ActivityList",
 		result: null,
 		components:[
-			//{kind: "onyx.Toolbar", components: [	{content: "Recent Activities"}, {fit: true} ]},
-			{classes: "onyx-sample-divider", content: "Recent Activities", style: "color: #375d8c", name:"divider"}, 
+			{kind: "onyx.Toolbar", components: [	{content: "Recent Activity List"}, {fit: true} ]},
+			//{classes: "onyx-sample-divider", content: "Recent Activities", style: "color: #375d8c", name:"divider"}, ##old format
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item
-			]},//{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"} //toolbar bottom
+			]},{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"} //toolbar bottom
 		], //end components	
 		getRecentActivities: function( uid ){
 			var ajaxParams = {
