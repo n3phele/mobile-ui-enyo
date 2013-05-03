@@ -10,7 +10,7 @@ enyo.kind({
 		onBack: "",
 		onClickItem:""
 	},
-	components:[
+		components:[
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Remove Service" }, {fit: true}]},
 		{style:"margin: 3em auto;width:400px;", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
@@ -24,10 +24,10 @@ enyo.kind({
 			]},
 	    ]},
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
-			{style:"width:1500px",components:[	
+			
 				{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Delete", ontap: "newAccount"} , 
 				{kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} 
-			]},	
+		
 		]}
 	],
 	
