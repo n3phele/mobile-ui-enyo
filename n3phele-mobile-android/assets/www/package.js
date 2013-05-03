@@ -10,7 +10,6 @@ enyo.depends(
 	"RepositoryList.js",
 	"AccountList.js",
 	"RecentActivityList.js",
-	"ActivityList.js",
 	"RecentActivityHistory.js",
 	"n3pheleClient.js",
 	"CommandDetail.js",
@@ -30,5 +29,6 @@ enyo.depends(
 	"RemoveService.js",
 	"NewStack.js",
 	"StackDetails.js",
-	"ServiceDetail.js"
+	"ServiceDetail.js",
+	"EditAccount.js"
 );
