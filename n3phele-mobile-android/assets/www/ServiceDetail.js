@@ -16,37 +16,37 @@ enyo.kind({
 						{name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder-open.png", content: "Tree",style:"font-size:20px", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Alpha"},
-									{icon: "assets/file.png", content: "Bravo"}, 
+								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1",style:"font-size:20px", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"}, 
 								]},
 							]},	
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Tree",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Alpha"},
-									{icon: "assets/file.png", content: "Bravo"}, 
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 2",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"}, 
 								]},
 							]},	
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Tree",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Alpha"},
-									{icon: "assets/file.png", content: "Bravo"},
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 3",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
 								]},
 							]},	
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Tree",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Alpha"},
-									{icon: "assets/file.png", content: "Bravo"},
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 4",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
 								]},
 							]},	
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Tree",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Alpha"},
-									{icon: "assets/file.png", content: "Bravo"},
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 5",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
 								]},
 							]},	
 						]},	
@@ -84,9 +84,83 @@ enyo.kind({
 		this.doBack();
 	},
 	resource: function(inSender, inEvent) {
-		console.log("res");
+		this.$.Tree.destroy();
+		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1",style:"font-size:20px", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"}, 
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 2",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"}, 
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 3",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 4",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 5",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "VM1"},
+									{icon: "assets/file.png", content: "VM2"},
+								]},
+							]},	
+						]}).render();
 	},
 	relationships: function(inSender, inEvent) {
-		console.log("rel");
+		this.$.Tree.destroy();
+		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1",style:"font-size:20px", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "Database"},
+									{icon: "assets/file.png", content: "Load Balancer"}, 
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 2",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "Database"},
+									{icon: "assets/file.png", content: "Load Balancer"}, 
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 3",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "Database"},
+									{icon: "assets/file.png", content: "Load Balancer"},
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 4",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "Database"},
+									{icon: "assets/file.png", content: "Load Balancer"},
+								]},
+							]},	
+							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
+							{kind: "Scroller", fit: true, components: [
+								{kind: "Node", icon: "assets/folder.png", content: "Stack 5",style:"font-size:20px",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
+									{icon: "assets/file.png", content: "Database"},
+									{icon: "assets/file.png", content: "Load Balancer"},
+								]},
+							]},	
+						]}).render();
 	},
 });
