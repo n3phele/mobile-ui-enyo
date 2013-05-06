@@ -30,9 +30,10 @@ enyo.kind({
 			]},
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:300px;margin:auto;padding:0 110px 0 200px"}, 
+			{kind: "Scroller", fit:true, components:[
 			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:605px; margin: auto;border:1px solid #DBDBDE", components : [
 			   {name : "chart",kind : "chart"} 
-			]},
+			]}]},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", style : "background:#b1c2d7; margin-top:10px;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
 
 			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #88B0F2",components : [
