@@ -3,6 +3,10 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",
+	events: {
+		onEditAcc: "",
+		onBack: ""		
+	},
 	components : [
 		{kind : "Scroller",
 		classes : "scroller-sample-scroller enyo-fit",
@@ -114,5 +118,8 @@ enyo.kind({
 		}		
 		
 		panel.reflow();		
-	}	
+	},
+	editAccount: function(sender, envent){
+		this.doEditAcc();
+	}
 });

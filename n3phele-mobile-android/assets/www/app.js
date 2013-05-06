@@ -213,11 +213,18 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
-
+	editAccount: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to access account details
+		this.createComponent({ kind: "EditAccount", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
+	},
 	listRepository: function(inSender,inEvent){	
 		//close old panels		
 		this.closeSecondaryPanels(2);	
