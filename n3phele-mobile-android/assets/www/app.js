@@ -17,7 +17,7 @@ enyo.kind({
 	name: "com.N3phele",
 	kind: "FittableRows",
 	classes: "onyx enyo-fit",
-	menu:["Files","Commands","Acvity History","Accounts","Services"],	
+	menu:["Files","Commands","Activity History","Accounts","Services"],	
 	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png","./assets/service.png"],
 	commands: null,
 	commandsImages : null,

@@ -10,8 +10,8 @@ enyo.kind({
 			{kind: "onyx.Toolbar", content: "Service Detail", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},				
 				{content: "Service foo", name: "service foo", style:"margin: 15px 0 10px 10px; font-size:20px"}, 	
 				{name:"TreePanel", style:"height:75%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
-						{kind:"onyx.Button",style:"padding:6px 140px",ontap:"resource", content: "Resource"}, 
-						{kind:"onyx.Button",style:"padding:6px 140px",ontap:"relationships", content: "Relationships"},
+						{name: "res", kind:"onyx.Button",style:"padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px",ontap:"resource", content: "Resource"}, 
+						{name: "rel", kind:"onyx.Button",style:"padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c",ontap:"relationships", content: "Relationships"},
 						{name: "panel",components: [
 						{name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
@@ -54,8 +54,8 @@ enyo.kind({
 				]},
 				{name: "buttonsPanel",components:[
 				{name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
-					{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px", ontap:"addNode"},
-					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px", ontap:"updateNode"},
+					{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
+					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
 				]}
 				]},
 			{kind: "onyx.Toolbar",name:"footer", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain", components: [   //style:"background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain;clear: both",
@@ -84,7 +84,8 @@ enyo.kind({
 		this.doBack();
 	},
 	resource: function(inSender, inEvent) {
-		this.$.Tree.destroy();
+		this.$.panel.destroyClientControls();
+		
 		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
@@ -122,9 +123,19 @@ enyo.kind({
 								]},
 							]},	
 						]}).render();
+						
+		this.$.buttonsPanel.destroyClientControls();
+		
+		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+			{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
+			{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
+		]}).render();
+		
+		this.$.rel.setStyle("padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 1px");
+		this.$.res.setStyle("padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px");
 	},
 	relationships: function(inSender, inEvent) {
-		this.$.Tree.destroy();
+		this.$.panel.destroyClientControls();
 		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
 							{kind: "Scroller", fit: true, components: [
@@ -162,5 +173,15 @@ enyo.kind({
 								]},
 							]},	
 						]}).render();
+						
+		this.$.buttonsPanel.destroyClientControls();
+		
+		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+			{kind:"onyx.Button", content: "Add Database", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addDatabase"},
+			{kind:"onyx.Button", content: "Add Load Balancer", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"AddLoad"},
+		]}).render();				
+		
+		this.$.res.setStyle("padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 1px");
+		this.$.rel.setStyle("padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px");
 	},
 });
