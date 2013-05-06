@@ -17,7 +17,7 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
 		{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", components:[]}
+		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-top:200px; margin-left: 750px;"}]}
 		]},
 		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
 	],
@@ -25,7 +25,7 @@ enyo.kind({
 		this.inherited(arguments)
 		//var popup = new spinnerPopup();
 		//popup.show();
-		this.$.panel.createComponent({name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-top:200px;margin-left:500px"});
+		this.$.Spin.show();
 		//this.$.repositoryRoot.setContent( this.repositoryName );
 		//this.path.push( this.$.repositoryRoot );
 		
@@ -80,8 +80,7 @@ enyo.kind({
 				}).render();
 			thisPanel.reflow();
 			
-			
-			this.$.panel.$.Spin.destroy();
+			this.$.Spin.hide();
 			//popup.delete();
 		})
 		.error(this, function(){
@@ -130,6 +129,7 @@ enyo.kind({
 			
 			this.$.ListIcon.destroy();
 			//download the new folder to data
+			this.$.Spin.show();
 			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 		}
 		if(this.callBy=="selectFile"){
