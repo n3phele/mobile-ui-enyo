@@ -23,12 +23,13 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-		var popup = new spinnerPopup();
-		popup.show();
+		//var popup = new spinnerPopup();
+		//popup.show();
+		this.$.panel.createComponent({name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin: 0 auto;"});
 		//this.$.repositoryRoot.setContent( this.repositoryName );
 		//this.path.push( this.$.repositoryRoot );
 		
-		this.updateFilesFromURI(this.uri + "/list", function(){popup.delete();});
+		this.updateFilesFromURI(this.uri + "/list");
 	},
 	updateFilesFromURI: function(uri, success){
 		var ajaxComponent = new enyo.Ajax({
@@ -79,13 +80,14 @@ enyo.kind({
 				}).render();
 			thisPanel.reflow();
 			
-			if(success) success();
 			
+			this.$.panel.$.Spin.destroy();
 			//popup.delete();
 		})
 		.error(this, function(){
 			console.log("Error to load the list of files");
-			popup.delete();
+			//popup.delete();
+			this.$.panel.$.Spin.destroy();
 		});		
 	},
 	closePanel: function(inSender, inEvent){
