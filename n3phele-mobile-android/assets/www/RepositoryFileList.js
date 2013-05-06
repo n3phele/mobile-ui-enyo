@@ -25,7 +25,7 @@ enyo.kind({
 		this.inherited(arguments)
 		//var popup = new spinnerPopup();
 		//popup.show();
-		this.$.panel.createComponent({name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin: 0 auto;"});
+		this.$.panel.createComponent({name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-top:200px;margin-left:500px"});
 		//this.$.repositoryRoot.setContent( this.repositoryName );
 		//this.path.push( this.$.repositoryRoot );
 		
