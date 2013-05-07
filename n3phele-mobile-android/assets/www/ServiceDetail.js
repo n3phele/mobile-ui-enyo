@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "serviceDetails",
+	name: "ServiceDetails",
 	kind: "FittableRows",
 	events: {
 		onCreateStack: "",

@@ -24,7 +24,7 @@ enyo.kind({
     name:"chart",
     kind:"Control",
     components:[
-        {kind:"jquery.Flot", name:"flot", style:"width:600px;height:500px;"},
+        {kind:"jquery.Flot", name:"flot", style:"width:600px;height:500px"},
     ],
     create:function() {
         this.inherited(arguments);
