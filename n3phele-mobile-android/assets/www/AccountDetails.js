@@ -17,20 +17,20 @@ enyo.kind({
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
            
-			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 700px", components : [  
-				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"display:inline-block",components : [  
+			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 416px;padding-left:118px", components : [  
+				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:0 0 10px 22px",components : [  
 					{kind : "onyx.InputDecorator",components : [ 
 					   {kind : "onyx.Input", name : "cost", disabled:true, placeholder:""}
 					]},   
-					{content : "v",allowHtml : true,style : "border-radius: 0 2px 2px 0"},
+					{content : "v",allowHtml : true,style : "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"},
 					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030", components:[  
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
 					]}
 				]},
-				{kind : "onyx.Button", content : "24 hours", ontap : "button24", style:"margin-left:140px"}, 
-				{kind : "onyx.Button", content : "7 days", ontap : "button7"},
-				{kind : "onyx.Button", content : "30 days", ontap : "button30"} 
+				{kind : "onyx.Button", content : "24 hours", ontap : "button24", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"}, 
+				{kind : "onyx.Button", content : "7 days", ontap : "button7", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"},
+				{kind : "onyx.Button", content : "30 days", ontap : "button30", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"} 
 			]},
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:300px;margin:auto;padding:0 110px 0 200px"}, 
