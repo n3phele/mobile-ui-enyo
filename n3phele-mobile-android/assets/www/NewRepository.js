@@ -11,7 +11,7 @@ enyo.kind({
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
-		{style: "margin: auto;", components: [
+		{components: [
 		{classes: "onyx-toolbar-inline", components: [
 		{content: "*Name ", classes:"enyo-inline"},
 			{kind: "onyx.InputDecorator", components: [
@@ -63,11 +63,10 @@ enyo.kind({
 			{content: "Accessible to all n3phele user?", classes:"enyo-inline"},
 			{kind:"onyx.Checkbox", name: "access"},
 			]},
-			{classes: "onyx-toolbar-inline", components: [
-			{kind:"onyx.Button", content: "Cancel", ontap:"cancel"},
-			{style: "margin: 20px;", components: [
+			{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
+			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
 			{kind:"onyx.Button", content: "Save", ontap:"save"}
-		]}]}
+		]}
 	]}],
 	
 	create: function() {

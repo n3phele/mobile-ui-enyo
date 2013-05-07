@@ -12,23 +12,23 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
 
-		{kind: "FittableRows", name:"panel", fit: true, components: [	        
-				    {name: "values", style:"padding: 16px 10px 10px 10px; margin:auto; font-weight: bold; border-bottom: 2px solid #88B0F2", components:[ 
+		{kind: "FittableRows", name:"panel",style:"height:6%",fit: true, components: [	        
+				    {name: "values", style:"margin:auto; font-weight: bold;", components:[ 
 					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold"}, 
 					       {content: "Last 24 hours", style:"display: inline-block; width:25%;font-weight: bold"}, 
 					       {content: "Active", style:"display: inline-block; width:25%;font-weight: bold"},
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
 	    ]},
-	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, style:"height:80%;padding-top:7px", onSetupItem: "setupItem", components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	    {name: "list", kind: "List", count: 10, touch: true,  multiSelect: false, style:"height:90%;border-top: 2px solid #88B0F2", onSetupItem: "setupItem", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 25%; display: inline-block"} , 
 				{name: "cost",  style:"width:25%; display: inline-block;" } , 
 				{name: "active",  style:"width:25%; display: inline-block" } ,
 				{name: "cloud", style:"width:25%; display: inline-block" }	    
 	         ]}
 	     ]}, 
-		{kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
 	],
 	create: function(){
 		this.inherited(arguments)
