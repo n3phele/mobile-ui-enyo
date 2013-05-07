@@ -17,7 +17,7 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
 		{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-top:200px; margin-left: 750px;"}]}
+		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]},
 		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
 	],
@@ -25,13 +25,14 @@ enyo.kind({
 		this.inherited(arguments)
 		//var popup = new spinnerPopup();
 		//popup.show();
-		this.$.Spin.show();
+		//this.$.Spin.show();
 		//this.$.repositoryRoot.setContent( this.repositoryName );
 		//this.path.push( this.$.repositoryRoot );
 		
 		this.updateFilesFromURI(this.uri + "/list");
 	},
 	updateFilesFromURI: function(uri, success){
+	this.$.Spin.show();
 		var ajaxComponent = new enyo.Ajax({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
