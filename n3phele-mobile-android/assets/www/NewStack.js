@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "newStack",
+	name: "NewStack",
 	kind: "FittableRows",
 	data: [],
 	commands: null,

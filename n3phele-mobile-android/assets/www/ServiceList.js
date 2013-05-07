@@ -1,7 +1,7 @@
 var results;
 var i = 0;
 enyo.kind({ 
-	name:"serviceList",
+	name:"ServiceList",
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",

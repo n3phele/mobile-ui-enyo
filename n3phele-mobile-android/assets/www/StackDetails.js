@@ -1,5 +1,5 @@
 enyo.kind({
-	name : "stackDetails",
+	name : "StackDetails",
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",
