@@ -9,7 +9,7 @@ enyo.kind({
 		{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
 			{kind: "onyx.Toolbar", content: "Service Detail", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},				
 				{content: "Service foo", name: "service foo", style:"margin: 15px 0 10px 10px; font-size:20px"}, 	
-				{name:"TreePanel", style:"height:75%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
+				{name:"TreePanel", style:"height:65%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
 						{name: "res", kind:"onyx.Button",style:"padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px",ontap:"resource", content: "Resource"}, 
 						{name: "rel", kind:"onyx.Button",style:"padding:6px 140px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c",ontap:"relationships", content: "Relationships"},
 						{name: "panel",components: [
@@ -53,7 +53,7 @@ enyo.kind({
 					]},						
 				]},
 				{name: "buttonsPanel",components:[
-				{name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+				{name: "buttons", components:[
 					{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
 					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
 				]}
