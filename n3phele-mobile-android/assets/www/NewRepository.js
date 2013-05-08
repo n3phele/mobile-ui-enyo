@@ -85,10 +85,7 @@ enyo.kind({
 		
 		//obtain form data
 		var  name = sender.parent.owner.$.name.getValue();
-		var  description = sender.parent.owner.$.description.getValue();
-		var  url = sender.parent.owner.$.URL.getValue();
-		var  kind = sender.parent.owner.$.kind.getValue();
-		var  path = sender.parent.owner.$.path.getValue();
+ 		var  path = sender.parent.owner.$.path.getValue();
 		var  id = sender.parent.owner.$.id.getValue();
 		var  password = sender.parent.owner.$.password.getValue();
 		var  confirmPass = sender.parent.owner.$.confirmPass.getValue();
