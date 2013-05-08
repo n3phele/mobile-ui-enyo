@@ -11,7 +11,7 @@ enyo.kind({
 		onClickService:""
 	},
 	components:[
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Services" }, {fit: true}]},
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c;border-bottom: 2px solid #88B0F2", components: [ { name: "title", content:"Services" }, {fit: true}]},
 
 		{kind: "FittableRows", name:"panel", fit: true, components: [	        
 				  					
