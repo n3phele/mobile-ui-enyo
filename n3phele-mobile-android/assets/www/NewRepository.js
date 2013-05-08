@@ -7,28 +7,30 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
+	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
+    
 	{kind: "onyx.Toolbar", components: [ { name: "title", content:"New Repository" }, {fit: true}]},
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
+		{name:"panel", style:"height:75%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[
 		{components: [
-		{classes: "onyx-toolbar-inline", components: [
-		{content: "*Name ", classes:"enyo-inline"},
+		{content: "*Name "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "Description ", classes:"enyo-inline"},
+			{components: [
+			{content: "Description "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Location URL ", classes:"enyo-inline"},
+			{components: [
+			{content: "*Location URL "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "URL", placeholder: "Enter URL here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Kind ", classes:"enyo-inline"},
+			{components: [
+			{content: "*Kind "},
 			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "kind", disabled: true, placeholder: ""}
@@ -39,23 +41,23 @@ enyo.kind({
 				{content: "Swift"}
 			]}
 		]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Base Path ", classes:"enyo-inline"},
+			{components: [
+			{content: "*Base Path "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "path", placeholder: "Enter Base Path here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Authentication Id ", classes:"enyo-inline"},
+			{ components: [
+			{content: "*Authentication Id "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*New Password ", classes:"enyo-inline"},
+			{components: [
+			{content: "*New Password "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "password", type: "password", placeholder: "Enter Password here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "*Confirm Password ", classes:"enyo-inline"},
+			{components: [
+			{content: "*Confirm Password "},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "confirmPass", type: "password", placeholder: "Cofirm Password here"}
 			]}]},
@@ -63,11 +65,11 @@ enyo.kind({
 			{content: "Accessible to all n3phele user?", classes:"enyo-inline"},
 			{kind:"onyx.Checkbox", name: "access"},
 			]},
-			{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
-			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
-			{kind:"onyx.Button", content: "Save", ontap:"save"}
+			
 		]}
-	]}],
+	]}, {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
+			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
+			{kind:"onyx.Button", content: "Save", ontap:"save"}]}       ],
 	
 	create: function() {
 		this.inherited(arguments);
