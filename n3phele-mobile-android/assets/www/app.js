@@ -127,7 +127,7 @@ enyo.kind({
 				//Services
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", onClickService: "serviceDetail", container: this.$.imageIconPanel
+					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", "p": enyo.Panels, onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;

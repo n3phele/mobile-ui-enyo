@@ -9,7 +9,7 @@ enyo.kind({
 		{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
 			{kind: "onyx.Toolbar", content: "Service Detail", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},				
 				{content: "Service foo", name: "service foo", style:"margin: 15px 0 10px 10px; font-size:20px"}, 	
-				{name:"TreePanel", style:"height:35%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
+				{name:"TreePanel", style:"height:60%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
 						{name: "res", kind:"onyx.Button",style:"width:30%;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px",ontap:"resource", content: "Resource"}, 
 						{name: "rel", kind:"onyx.Button",style:"width:40%;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c",ontap:"relationships", content: "Relationships"},
 						{name: "panel",components: [

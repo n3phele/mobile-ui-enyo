@@ -1,3 +1,4 @@
+var stacks;
 enyo.kind({
 	name: "NewStack",
 	kind: "FittableRows",
@@ -11,10 +12,10 @@ enyo.kind({
 	components: [
 			{kind: "onyx.Toolbar", content: "New Stack", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
 				{kind: "onyx.InputDecorator",style: "width: 85%; margin:25px 0 25px 0;width:50%;border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
-					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "search"},
+					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
 				]},
-				{kind: "onyx.Button", content: "search", ontap: "search"},
+				{kind: "onyx.Button", style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "search", ontap: "search"},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
 				{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[]}
@@ -27,9 +28,14 @@ enyo.kind({
 				
 			this.commands = new Array();
 			this.commandsImages = new Array();
-			this.commands.push("jenkins");
-			this.commandsImages.push("assets/Script.png");
+			stacks = ["jenkins", "cassandra", "hadoop", "mongodb", "mysql", "phpmyadmin", "postgresql", "rails", "joomla", "wordpress"]
+			for(var i in stacks){
+				this.commands.push(stacks[i]);
+			}
 			
+			for(var i in this.commands){
+			this.commandsImages.push("assets/Script.png");
+			}
 			var thisPanel = this;
 			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 				commandsImages: this.commandsImages,container: thisPanel.$.panel,
@@ -45,7 +51,13 @@ enyo.kind({
 	},
 	backMenu: function(inSender, inEvent) {
 		this.doBack();
-	
+	},
+	search: function(inSender, inEvent) {
+		 for (var i in stacks) {
+			if (stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
+			
+        }
+    }
 	},
 	
 		

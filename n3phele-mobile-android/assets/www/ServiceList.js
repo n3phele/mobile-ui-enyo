@@ -24,9 +24,13 @@ enyo.kind({
 	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},  {name: "icon", kind: "onyx.IconButton", style:"float:right",src: "assets/remover.png", ontap: "removeItem"} 	    
 	         ]}
 	     ]}, 
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:-1;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
+		{name: "toolBar", kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:-1;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
 	],
-	
+	create: function(){
+		if (this.p.isScreenNarrow()) {
+			this.$.toolBar.createComponent({kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}).render();
+		}
+	},
 	selectedAccount: function(sender, event){
 		this.doClickService();
 	},
