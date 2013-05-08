@@ -1,8 +1,7 @@
 enyo.kind({  
 	name: "CreateAccount",
 	kind: "FittableRows",
-	//classes: "onyx onyx-sample",
-	// !!!! ~ Apenas esqueleto gráfico: SEM NNHUMA CHAMADA DE FUNC ontap,onselect,etc
+	
 	fit: true,
 	style: "padding: 0px",
 	events: {
@@ -12,7 +11,11 @@ enyo.kind({
 			{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
     
 	{kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c",components: [ { name: "title", content:"New Account" }, {fit: true}]},
-		{name:"panel", style:"height:45%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[
+	{tag: "br"},
+		{name: "Msg", style: "color:#FF4500;"},
+		{tag: "br"},
+	
+		{name:"panel", style:"height:42%;", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name: "},
 			{kind: "onyx.InputDecorator", components: [
@@ -47,10 +50,9 @@ enyo.kind({
 			]}]}
 			
 	
-	]} , {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Create", ontap: "newAccount"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]} ]}  ],
+	]} , {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Create", ontap: "save"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]} ]}  ],
 	
-   //Funcs aqui,
-	
+   
 	create: function() {
 		this.inherited(arguments);
 		
@@ -75,10 +77,10 @@ enyo.kind({
 		//obtain form data
 		var  name = sender.parent.owner.$.name.getValue();
 		var  description = sender.parent.owner.$.description.getValue();
-		var  cloud = sender.parent.owner.$.cloud.getValue();
+		var  cloud = sender.parent.owner.$.cloud.getPlaceholder();
 		var  id = sender.parent.owner.$.id.getValue();
 		var  secret = sender.parent.owner.$.secret.getValue();
-		
+		//console.log(cloud);
 		//validate form
 		if( name.length == 0 || cloud.length == 0 || id.length == 0 || secret.length == 0){
 			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
