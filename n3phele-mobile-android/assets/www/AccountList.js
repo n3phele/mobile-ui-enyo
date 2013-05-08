@@ -12,7 +12,7 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
 
-		{kind: "FittableRows", name:"panel",style:"height:6%",fit: true, components: [	        
+		{kind: "FittableRows", name:"panel",style:"height:7%",fit: true, components: [	        
 				    {name: "values", style:"margin:auto; font-weight: bold;", components:[ 
 					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold"}, 
 					       {content: "Last 24 hours", style:"display: inline-block; width:25%;font-weight: bold"}, 

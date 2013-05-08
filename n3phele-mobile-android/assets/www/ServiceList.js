@@ -14,8 +14,8 @@ enyo.kind({
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Services" }, {fit: true}]},
 
 		{kind: "FittableRows", name:"panel", fit: true, components: [	        
-				    {name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold;", components:[ 
-					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold"}, 
+				    {name: "values", style:"position:absolute:; margin:auto; font-weight: bold;", components:[ 
+					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold;padding-top:20px"}, 
 					       					
 					]},						
 	    ]},
@@ -24,7 +24,7 @@ enyo.kind({
 	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},  {name: "icon", kind: "onyx.IconButton", style:"float:right",src: "assets/remover.png", ontap: "removeItem"} 	    
 	         ]}
 	     ]}, 
-		{kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:-1;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
 	],
 	
 	selectedAccount: function(sender, event){
