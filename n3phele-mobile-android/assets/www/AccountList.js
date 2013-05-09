@@ -19,7 +19,7 @@ enyo.kind({
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
 	    //]},
-	    {name: "list", kind: "List", count: 10, touch: true,  multiSelect: false, style:"height:87%;border-top: 2px solid #88B0F2", onSetupItem: "setupItem", components: [
+	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, style:"height:87%;border-top: 2px solid #88B0F2", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
@@ -27,24 +27,19 @@ enyo.kind({
 				{name: "cloud", style:"width:25%; display: inline-block" }	    
 	         ]}
 	     ]}, 
-		//{kind: "onyx.Toolbar",namwe:"toolBar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
+		{kind: "onyx.Toolbar",namwe:"toolBar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
 	],
-	
-	//******************************* adicionado function abaixo
-	create: function(){
-		this.inherited(arguments);
-			var thisPanel = this;
-			if (this.closePanel.isScreenNarrow()) {
-		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
-		}else{ 
-		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [ {kind: "onyx.Button",  content: "Create New Account", ontap: "newAccount"}]}).render();		
-		}
-	},
-	//*******************************
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
 		popup.show();
+		
+		var thisPanel = this;
+			if (this.closePanel.isScreenNarrow()) {
+		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
+		}else{ 
+		thisPanel.createComponent({kind: "onyx.Toolbar",components: [ {kind: "onyx.Button",  content: "Create New Account", ontap: "newAccount"}]}).render();		
+		}
 		
 		var ajaxComponent = new enyo.Ajax({
 			url: serverAddress+"account",

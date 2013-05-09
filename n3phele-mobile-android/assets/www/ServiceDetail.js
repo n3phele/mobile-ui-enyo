@@ -64,13 +64,6 @@ enyo.kind({
 			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right;", content: "Close", ontap: "close"},				
 		]}	,
 	],	
-	
-	if (enyo.Panels.isScreenNarrow()) {
-			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel, components: [
-				{kind: "onyx.Button", content: "Close", ontap: "backMenu"}
-			]});
-		}
-	
 	nodeExpand: function(inSender, inEvent) {
 		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
 	},
