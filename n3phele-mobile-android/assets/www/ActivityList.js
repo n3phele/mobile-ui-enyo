@@ -2,6 +2,9 @@ var listSize = 3;
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,
+		events: {
+		onBack: ""
+		},
 		components:[
 			{kind: "onyx.Toolbar", components: [	{content: "Recent Activity List"}, {fit: true} ]},
 			//{classes: "onyx-sample-divider", content: "Recent Activities", style: "color: #375d8c", name:"divider"}, ##old format
@@ -10,7 +13,7 @@ enyo.kind({
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item
-			]},{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"} //toolbar bottom
+			]}
 		], //end components	
 		getRecentActivities: function( uid ){
 			var ajaxParams = {
@@ -50,6 +53,13 @@ enyo.kind({
 
 		create: function(){
 			this.inherited(arguments);
+			var thisPanel = this;
+			if (this.closePanel.isScreenNarrow()) {
+				thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();		
+
+		}else{ 
+				thisPanel.createComponent({kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"}).render();
+		}
 			this.getRecentActivities(this.uid);
 		},
 		itemTap: function( sender, event){
@@ -68,6 +78,9 @@ enyo.kind({
 		
 			panels.owner.$.imageIconPanel.render();
 		},
+		backMenu: function(sender, event){
+		this.doBack();
+		}
 });
 
 enyo.kind({ 

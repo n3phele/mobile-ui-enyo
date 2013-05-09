@@ -7,7 +7,8 @@ enyo.kind({
 	style: "padding: 0px",
 	events: {
 		onCreateAcc: "",
-		onClickItem:""
+		onClickItem:"",
+		onBack:""
 	}, 
 	components:[
 		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},		 
@@ -26,13 +27,17 @@ enyo.kind({
 				{name: "cloud", style:"width:25%; display: inline-block" }	    
 	         ]}
 	     ]}, 
-		{kind: "onyx.Toolbar",namwe:"toolBar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
+		//{kind: "onyx.Toolbar",namwe:"toolBar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"} ]}
 	],
 	
 	//******************************* adicionado function abaixo
 	create: function(){
-		if (this.a.isScreenNarrow()) {
-			this.$.toolBar.createComponent({kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}).render();
+		this.inherited(arguments);
+			var thisPanel = this;
+			if (this.closePanel.isScreenNarrow()) {
+		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
+		}else{ 
+		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [ {kind: "onyx.Button",  content: "Create New Account", ontap: "newAccount"}]}).render();		
 		}
 	},
 	//*******************************
@@ -93,6 +98,9 @@ enyo.kind({
 		this.$.cost.setContent("US$0.0");
 		this.$.active.setContent("0");
 		this.$.cloud.setContent(item.cloudName);
+	},
+	backMenu: function( sender , event){
+		this.doBack(event);
 	},
 	activate: function(sender, event){
 		this.doClickItem();

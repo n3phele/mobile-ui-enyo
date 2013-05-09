@@ -8,7 +8,8 @@ enyo.kind({
 	events: {
 		onCreateService: "",
 		onRemoveService: "",
-		onClickService:""
+		onClickService:"",
+		onBack:""
 	},
 	components:[
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c;border-bottom: 2px solid #88B0F2", components: [ { name: "title", content:"Services" }, {fit: true}]},
@@ -26,6 +27,15 @@ enyo.kind({
 
 		{name: "toolBar", kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newService"} ]}
 	],	
+	create: function(){
+	this.inherited(arguments);
+			var thisPanel = this;
+			if (this.closePanel.isScreenNarrow()) {
+		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button", content: "New Service", ontap: "newService"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
+		}else{ 
+		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button",  content: "New Service", ontap: "newService"}]}).render();		
+		}
+	},
 	selectedAccount: function(sender, event){
 		this.doClickService();
 	},
@@ -57,7 +67,9 @@ enyo.kind({
 	{  
 		this.doRemoveService();
 	},
-
+	backMenu: function (sender, event){
+		this.doBack();
+	},
 	activate: function(sender, event){
 		this.doClickService();
 	}
