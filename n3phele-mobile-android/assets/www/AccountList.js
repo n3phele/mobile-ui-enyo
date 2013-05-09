@@ -10,21 +10,19 @@ enyo.kind({
 		onClickItem:""
 	}, 
 	components:[
-		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},
-
-		{kind: "FittableRows", name:"panel",style:"height:7%",fit: true, components: [	        
-				    {name: "values", style:"margin:auto; font-weight: bold;padding-top:16px;padding-left:13px", components:[  //***adicionados: padding-top:16px;padding-left:13px
-					       {content: "Name", style:"display: inline-block; width:25%;font-weight: bold"}, 
-					       {content: "Last 24 hours", style:"display: inline-block; width:25%;font-weight: bold"}, 
-					       {content: "Active", style:"display: inline-block; width:25%;font-weight: bold"},
+		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},		 
+				    {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
+					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"}, 
+					       {content: "Last 24 hours", style:"display: inline-block; width:24%;font-weight: bold"}, 
+					       {content: "Active", style:"display: inline-block; width:24%;font-weight: bold"},
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
-	    ]},
-	    {name: "list", kind: "List", count: 10, touch: true,  multiSelect: false, style:"height:90%;border-top: 2px solid #88B0F2", onSetupItem: "setupItem", components: [
+	    //]},
+	    {name: "list", kind: "List", count: 10, touch: true,  multiSelect: false, style:"height:87%;border-top: 2px solid #88B0F2", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
-	         	{name: "name", style:"width: 25%; display: inline-block"} , 
-				{name: "cost",  style:"width:25%; display: inline-block;" } , 
-				{name: "active",  style:"width:25%; display: inline-block" } ,
+	         	{name: "name", style:"width: 26%; display: inline-block"} , 
+				{name: "cost",  style:"width:24%; display: inline-block;" } , 
+				{name: "active",  style:"width:24%; display: inline-block" } ,
 				{name: "cloud", style:"width:25%; display: inline-block" }	    
 	         ]}
 	     ]}, 
