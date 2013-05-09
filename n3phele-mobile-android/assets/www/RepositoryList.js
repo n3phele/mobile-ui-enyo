@@ -48,15 +48,27 @@ enyo.kind({
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
 			}).render();
-			
+		//*************** Alterado código abaixo	
 		if(this.callBy=="repositoryList"){
+		if (this.r.isScreenNarrow()) {
+		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" },{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
+		}else{ 
+		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();		
+		}}else if(this.callBy=="selectFile"){
+			thisPanel.createComponent({kind: "onyx.Toolbar", name: "btnClose", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();	
+		}		
+		thisPanel.render();
+		thisPanel.reflow();	
+		})
+		//Backup código antigo abaixo
+		/* if(this.callBy=="repositoryList"){
 		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();
 		}else if(this.callBy=="selectFile"){
 			thisPanel.createComponent({kind: "onyx.Toolbar", name: "btnClose", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();	
 		}
 		thisPanel.render();
 		thisPanel.reflow();	
-		})
+		}) */
 		.error(this, function(){
 			console.log("Error to load the list of repositories");
 			popup.delete();

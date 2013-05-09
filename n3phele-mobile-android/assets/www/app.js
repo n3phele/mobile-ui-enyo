@@ -119,7 +119,8 @@ enyo.kind({
 				//Accounts
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", container: this.$.imageIconPanel
+					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", "a": enyo.Panels, onClickItem: "accountDetail", container: this.$.imageIconPanel
+					//kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -127,7 +128,7 @@ enyo.kind({
 				//Services
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", "p": enyo.Panels, onClickService: "serviceDetail", container: this.$.imageIconPanel
+					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", "s": enyo.Panels, onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -229,7 +230,7 @@ enyo.kind({
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "r": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
