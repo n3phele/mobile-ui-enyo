@@ -53,17 +53,24 @@ enyo.kind({
 					]},						
 				]},
 				{name: "buttonsPanel",components:[
-				{name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+				{name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[  //{name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
 					{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
 					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
 				]}
-				]},
-			{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [   //style:"background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain;clear: both",
-				{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Stack", ontap: "newStack"},	
-				{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right;", content: "Close", ontap: "close"},				
-			]}	
-		]},		
+				]}			
+		]},	
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [   //style:"background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain;clear: both",
+			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Stack", ontap: "newStack"},	
+			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right;", content: "Close", ontap: "close"},				
+		]}	,
 	],	
+	
+	if (enyo.Panels.isScreenNarrow()) {
+			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel, components: [
+				{kind: "onyx.Button", content: "Close", ontap: "backMenu"}
+			]});
+		}
+	
 	nodeExpand: function(inSender, inEvent) {
 		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
 	},
@@ -126,7 +133,7 @@ enyo.kind({
 						
 		this.$.buttonsPanel.destroyClientControls();
 		
-		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[
 			{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
 			{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
 		]}).render();
@@ -176,7 +183,7 @@ enyo.kind({
 						
 		this.$.buttonsPanel.destroyClientControls();
 		
-		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
+		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[
 			{kind:"onyx.Button", content: "Add Database", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addDatabase"},
 			{kind:"onyx.Button", content: "Add Load Balancer", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"AddLoad"},
 		]}).render();				
