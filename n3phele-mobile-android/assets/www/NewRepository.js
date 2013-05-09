@@ -86,14 +86,20 @@ enyo.kind({
 		//obtain form data
 		var  name = sender.parent.owner.$.name.getValue();
  		var  path = sender.parent.owner.$.path.getValue();
+		var url = sender.parent.owner.$.URL.getValue();
+		var kind = sender.parent.owner.$.kind.getPlaceholder();
 		var  id = sender.parent.owner.$.id.getValue();
 		var  password = sender.parent.owner.$.password.getValue();
 		var  confirmPass = sender.parent.owner.$.confirmPass.getValue();
 		var  access = sender.parent.owner.$.access.getValue();
-		
+		console.log(kind.length);
 		//validate form
 		if( name.length == 0 || url.length == 0 || kind.length == 0 || path.length == 0 || id.length == 0 || password.length == 0 || confirmPass.length == 0){
 			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
+			return;
+		}
+		else if( password != ConfirmPass){
+			sender.parent.owner.$.Msg.setContent("Please check your passwords!");
 			return;
 		}
 		
