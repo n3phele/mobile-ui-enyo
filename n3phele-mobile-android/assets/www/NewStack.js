@@ -36,28 +36,36 @@ enyo.kind({
 			for(var i in this.commands){
 			this.commandsImages.push("assets/Script.png");
 			}
-			var thisPanel = this;
+			var thisPanel = this.$.panel;
 			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 				commandsImages: this.commandsImages,container: thisPanel.$.panel,
 				retrieveContentData: function(){
 					this.data = createCommandItems(this.commands, this.commandsImages); } 
 				}).render();
 			thisPanel.reflow();
-			
-			//popup.delete();
-		},
+	},
 	itemTap: function(inSender, inEvent) {
+		console.log("Clicado");
 		this.doSelectedStack(inEvent);
 	},
 	backMenu: function(inSender, inEvent) {
 		this.doBack();
 	},
 	search: function(inSender, inEvent) {
+	var search =  new Array();
 		 for (var i in stacks) {
 			if (stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
-			
+			search.push(stacks[i]);
         }
     }
+	this.$.panel.destroyClientControls();
+		var thisPanel = this.$.panel;
+		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			commandsImages: this.commandsImages,container: thisPanel.$.panel,
+			retrieveContentData: function(){
+			this.data = createCommandItems(search, this.commandsImages); } 
+		}).render();
+			thisPanel.reflow();
 	},
 	
 		

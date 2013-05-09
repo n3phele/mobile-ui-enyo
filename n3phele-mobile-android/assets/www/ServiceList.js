@@ -12,27 +12,20 @@ enyo.kind({
 	},
 	components:[
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c;border-bottom: 2px solid #88B0F2", components: [ { name: "title", content:"Services" }, {fit: true}]},
+			
+			{name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold;", components:[ 
+				{content: "Name", style:"display: inline-block; width:25% ;font-weight: bold"}, 
+					       					
+			]},							
 
-		{kind: "FittableRows", name:"panel", fit: true, components: [	        
-				  					
-	    ]},
-	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false,style:"height:85%; border-top: 2px solid #88B0F2", onSetupItem: "setupItem" , components: [
+	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false,style:"height:81%; border-top: 2px solid #88B0F2", onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},  {name: "icon", kind: "onyx.IconButton", style:"float:right",src: "assets/remover.png", ontap: "removeItem"} 	    
 	         ]}
 	     ]}, 
 
-		{name: "toolBar", kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:-1;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
-		
-		//Comentado código duplicado abaixo.. TESTAR!!
-		//{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newAccount"} ]}
-
-	],
-	create: function(){
-		if (this.s.isScreenNarrow()) {
-			this.$.toolBar.createComponent({kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}).render();
-		}
-	},
+		{name: "toolBar", kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both",components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Service", ontap: "newService"} ]}
+	],	
 	selectedAccount: function(sender, event){
 		this.doClickService();
 	},
@@ -53,7 +46,7 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	newAccount: function(sender, event){
+	newService: function(sender, event){
 		this.doCreateService();
 	},
 	setupItem: function(sender, event){
