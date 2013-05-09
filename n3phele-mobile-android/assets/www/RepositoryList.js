@@ -50,7 +50,7 @@ enyo.kind({
 			}).render();
 		//*************** Alterado código abaixo	
 		if(this.callBy=="repositoryList"){
-		if (this.r.isScreenNarrow()) {
+		if (this.closePanel.isScreenNarrow()) {
 		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" },{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
 		}else{ 
 		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();		
@@ -60,6 +60,7 @@ enyo.kind({
 		thisPanel.render();
 		thisPanel.reflow();	
 		})
+
 		//Backup código antigo abaixo
 		/* if(this.callBy=="repositoryList"){
 		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();

@@ -14,7 +14,7 @@ enyo.kind({
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
 	
-		{name:"panel", style:"height:42%;border:2px solid #375d8c", kind: "Scroller", fit: true, components: [
+		{name:"panel", style:"height:60%;", kind: "Scroller", fit: true, components: [
 		{components: [
 		{content: "*Name: "},
 			{kind: "onyx.InputDecorator", components: [

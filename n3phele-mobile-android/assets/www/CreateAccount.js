@@ -15,7 +15,7 @@ enyo.kind({
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
 	
-		{name:"panel", style:"height:42%;", kind: "Scroller", fit: true, components:[
+		{name:"panel", style:"height:60%;", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name: "},
 			{kind: "onyx.InputDecorator", components: [
@@ -104,7 +104,7 @@ enyo.kind({
 			secret:secret
 		})
 		.response( this, function(inSender, inResponse){
-			
+			sender.parent.owner.$.Msg.setContent("Sucess");
 		}).error( this, function(inSender, inResponse){
 			sender.parent.owner.$.Msg.setContent("Error");
 			popup.delete();
