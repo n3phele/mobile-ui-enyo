@@ -67,9 +67,10 @@ enyo.kind({
 			]},
 			
 		]}
-	]}, {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [
+	]}, {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [
+			{kind:"onyx.Button", content: "Save", ontap:"save"},
 			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
-			{kind:"onyx.Button", content: "Save", ontap:"save"}]}       ],
+			]}],
 	
 	create: function() {
 		this.inherited(arguments);

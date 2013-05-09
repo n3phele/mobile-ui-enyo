@@ -365,6 +365,8 @@ enyo.kind({
 		})
 		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
 	
+		this.createCommandList();
+		this.$.imageIconPanel.render();
 	},
 	/** Used to set the default command icon when the icon address doesn't exist**/
 	replaceWrongIcons: function( wrongIcons ){

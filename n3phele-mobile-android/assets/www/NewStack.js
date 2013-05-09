@@ -21,7 +21,6 @@ enyo.kind({
 		          {name: "panel", components:[]}
 				]},				
 		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
-		//{kind: "FlickrSearch", onResults: "searchResults"}	
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -36,7 +35,7 @@ enyo.kind({
 			for(var i in this.commands){
 			this.commandsImages.push("assets/Script.png");
 			}
-			var thisPanel = this.$.panel;
+			var thisPanel = this;
 			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 				commandsImages: this.commandsImages,container: thisPanel.$.panel,
 				retrieveContentData: function(){
@@ -59,7 +58,7 @@ enyo.kind({
         }
     }
 	this.$.panel.destroyClientControls();
-		var thisPanel = this.$.panel;
+		var thisPanel = this;
 		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 			commandsImages: this.commandsImages,container: thisPanel.$.panel,
 			retrieveContentData: function(){
