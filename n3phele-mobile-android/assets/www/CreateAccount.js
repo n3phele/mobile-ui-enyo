@@ -96,7 +96,13 @@ enyo.kind({
 			};
 		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 		ajaxComponent
-		.go()
+		.go({ //We need to test this!!
+			name:name,
+			description:description,
+			cloud:cloud,
+			accountId:id,
+			secret:secret
+		})
 		.response( this, function(inSender, inResponse){
 			
 		}).error( this, function(inSender, inResponse){
