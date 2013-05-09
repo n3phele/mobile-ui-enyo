@@ -25,13 +25,13 @@ enyo.kind({
 			//Set the field that will get the parameter needed	
 			switch( linesInfo[i].type.toLowerCase() ){
 				case "long":
-					this.$.paramLines.createComponent({tag: "div", style:"width:30%", components: [ {kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
+					this.$.paramLines.createComponent({tag: "div", style:"width:30%", components: [ {kind: "onyx.Input", style:"width:100%", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
 				break;
 				case "boolean":
 					this.$.paramLines.createComponent({tag: "div", name: linesInfo[i].name,kind: "onyx.Checkbox", value: linesInfo[i].defaultValue});
 				break;
 				case "string":
-					this.$.paramLines.createComponent({tag:"div", style:"width:30%", components: [ {kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
+					this.$.paramLines.createComponent({tag:"div", style:"width:30%", components: [ {kind: "onyx.Input", style:"width:100%",name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
 				break;
 			}	
 		}		
