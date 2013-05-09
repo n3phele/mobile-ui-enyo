@@ -13,7 +13,7 @@ enyo.kind({
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
-		{name:"panel", style:"height:75%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[
+		{name:"panel", style:"height:73%;", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name "},
 			{kind: "onyx.InputDecorator", components: [
@@ -61,8 +61,8 @@ enyo.kind({
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "confirmPass", type: "password", placeholder: "Cofirm Password here"}
 			]}]},
-			{classes: "onyx-toolbar-inline", components: [
-			{content: "Accessible to all n3phele user?", classes:"enyo-inline"},
+			{components: [
+			{content: "Accessible to all n3phele user?"},
 			{kind:"onyx.Checkbox", name: "access"},
 			]},
 			
@@ -127,7 +127,7 @@ enyo.kind({
 			secret:password
 		})
 		.response( this, function(inSender, inResponse){
-			
+			sender.parent.owner.$.Msg.setContent("Sucess");
 		}).error( this, function(inSender, inResponse){
 			sender.parent.owner.$.Msg.setContent("Error");
 			popup.delete();
