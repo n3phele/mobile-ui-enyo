@@ -98,7 +98,7 @@ enyo.kind({
 			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
 			return;
 		}
-		else if( password != ConfirmPass){
+		else if( password != confirmPass){
 			sender.parent.owner.$.Msg.setContent("Please check your passwords!");
 			return;
 		}
