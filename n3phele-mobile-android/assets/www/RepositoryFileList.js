@@ -19,16 +19,11 @@ enyo.kind({
 		{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]},
-		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
+		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Delete Repository", ontap: "deleteRepository"},{kind: "onyx.Button", content: "Create new folder", ontap: "newFolder"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)
-		//var popup = new spinnerPopup();
-		//popup.show();
-		//this.$.Spin.show();
-		//this.$.repositoryRoot.setContent( this.repositoryName );
-		//this.path.push( this.$.repositoryRoot );
-		
+		this.$.title.setContent(this.repositoryName);
 		this.updateFilesFromURI(this.uri + "/list");
 	},
 	updateFilesFromURI: function(uri, success){
@@ -82,12 +77,10 @@ enyo.kind({
 			thisPanel.reflow();
 			
 			this.$.Spin.hide();
-			//popup.delete();
+			
 		})
 		.error(this, function(){
 			console.log("Error to load the list of files");
-			//popup.delete();
-			this.$.panel.$.Spin.destroy();
 		});		
 	},
 	closePanel: function(inSender, inEvent){
@@ -108,8 +101,25 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	backMenu: function( sender , event){
-		//sender.parent.parent.parent.parent.setIndex(0);
 		this.doBack(event);
+	},
+	deleteRepository: function( sender , event){
+		var ajaxComponent = new enyo.Ajax({
+			url: this.uri,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "DELETE",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); 		
+		ajaxComponent.go()
+		.response()
+		.error(this, function(){
+			console.log("Error to delete the detail of the command!");
+		});	
+		this.backMenu();
+	},
+	newFolder: function( sender , event){
+		
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.

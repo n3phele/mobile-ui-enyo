@@ -7,12 +7,10 @@ var createCommandItems = function(arrayOfCommands, arrayOfImages) {
 	}
 	return list;
 }
-
 var CommandData;
 var FilesList = new Array();
 var count = 0;
 /*Main painels*/
-
 enyo.kind({
 	name: "com.N3phele",
 	kind: "FittableRows",
@@ -48,10 +46,69 @@ enyo.kind({
 				]}//end scroller
 			]},
 			{name: "imageIconPanel", kind:"FittableRows", fit:true, components:[
-				{name: "imageIcon",kind: "enyo.Scroller"}
+				{name: "imageIcon",kind: "enyo.Scroller"},				
 			]}			
 		]}
 	],	
+	/** It's called when the king is instanciated **/
+	create: function() {
+		this.inherited(arguments);
+		var popup = new spinnerPopup();
+		popup.show();
+		if (!enyo.Panels.isScreenNarrow())
+			this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", 'uid' : this.uid});
+	
+		//setting connection parameters
+		var ajaxComponent = new enyo.Ajax({
+			url: serverAddress+"command",
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		});
+		
+		//Requesting service reply
+		ajaxComponent
+		.go({'summary' : true, 'start' : 0, 'end' : 16, 'preferred' :true})
+		.response( this, function( sender, response ){
+			if(response.total == 0){alert("There is no recent activities!");return;}
+			
+			this.commandsData = response.elements;//get the response
+			this.commandsData = fixArrayInformation(this.commandsData);
+			this.commands = new Array();
+			this.commandsImages = new Array();
+			
+			var waiting = 0;
+			var errorIndex = new Array();// array containing the index of the icons that did exists 
+			for( var i in this.commandsData ){//set comand list information
+				this.commands.push( this.commandsData[i].name ); //set name
+				
+				var iconUrl = this.commandsData[i].icon; //get icon url
+					iconUrl = this.fixCommandIconUrl( iconUrl );//fix icon url 
+				
+			this.commandsData[i].icon = iconUrl;
+				this.commandsImages.push( iconUrl ); //set icon url fixed
+
+				//checking if icon exists
+				waiting++;
+				var test = new enyo.Ajax({ url : iconUrl, handleAs: "text", index: i });
+	
+		test.go().response(this,function(sender, response){
+					waiting--;
+					if(waiting == 0) this.replaceWrongIcons(errorIndex);
+					popup.delete();
+				}).error(this,function(sender, response){
+					waiting--;
+					errorIndex.push( sender.index );//adding icon with error
+				if(waiting == 0) this.replaceWrongIcons(errorIndex);	
+					popup.delete();
+				});
+			}// end for( var i in response.elements )
+		})
+		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
+		this.createCommandList();
+		this.$.panels.render();
+	},
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
 		this.getActive().destroy();					
@@ -135,6 +192,7 @@ enyo.kind({
 			break;
 		}//end switch
 	},	
+	
 	backMenu: function(){
 		this.$.panels.setIndex(0);
 	},
@@ -260,8 +318,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},
-	createCommandList: function() {
-	
+	createCommandList: function() {	
 		this.createComponent({name:"toolComm", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
 							{content: "Commands"},
 							{fit: true}]}
@@ -307,92 +364,6 @@ enyo.kind({
 		this.$.panels.setIndex(2);
 		this.$.CommandData = this.commandsData[inEvent.index];
 		inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
-	},
-	/** It's called when the king is instanciated **/
-	create: function() {
-		this.inherited(arguments);
-		var popup = new spinnerPopup();
-		popup.show();
-		if (!enyo.Panels.isScreenNarrow())
-			this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", 'uid' : this.uid});
-	
-		//setting connection parameters
-		var ajaxComponent = new enyo.Ajax({
-			url: serverAddress+"command",
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "GET",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		});
-		
-		//Requesting service reply
-		ajaxComponent
-		.go({'summary' : true, 'start' : 0, 'end' : 16, 'preferred' :true})
-		.response( this, function( sender, response ){
-			if(response.total == 0){alert("There is no recent activities!");return;}
-			
-			this.commandsData = response.elements;//get the response
-			this.commandsData = fixArrayInformation(this.commandsData);
-			this.commands = new Array();
-			this.commandsImages = new Array();
-			
-			var waiting = 0;
-			var errorIndex = new Array();// array containing the index of the icons that did exists 
-			for( var i in this.commandsData ){//set comand list information
-				this.commands.push( this.commandsData[i].name ); //set name
-				
-				var iconUrl = this.commandsData[i].icon; //get icon url
-					iconUrl = this.fixCommandIconUrl( iconUrl );//fix icon url 
-				
-			this.commandsData[i].icon = iconUrl;
-				this.commandsImages.push( iconUrl ); //set icon url fixed
-
-				//checking if icon exists
-				waiting++;
-				var test = new enyo.Ajax({ url : iconUrl, handleAs: "text", index: i });
-	
-		test.go().response(this,function(sender, response){
-					waiting--;
-					if(waiting == 0) this.replaceWrongIcons(errorIndex);
-					popup.delete();
-				}).error(this,function(sender, response){
-					waiting--;
-					errorIndex.push( sender.index );//adding icon with error
-				if(waiting == 0) this.replaceWrongIcons(errorIndex);	
-					popup.delete();
-				});
-			}// end for( var i in response.elements )
-		})
-		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
-	
-		this.createComponent({name:"toolComm", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
-							{content: "Commands"},
-							{fit: true}]}
-			);		
-		
-		//create icons for the list of commands 
-		this.createComponent({
-			name: "IconGallery",
-			kind: "IconList",
-			container: this.$.imageIconPanel,
-			onDeselectedItems: "commandDeselect",
-			onSelectedItem: "commandTap", 
-			commands: this.commands,
-			commandsImages: this.commandsImages,
-			retrieveContentData: function(){
-				this.data = createCommandItems(this.commands, this.commandsImages); } 
-			} 
-		);		
-		
-		if (enyo.Panels.isScreenNarrow()) {
-			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel, components: [
-				{kind: "onyx.Button", content: "Close", ontap: "backMenu"}
-			]});
-		}
-		else{
-			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel});
-		}
-        this.$.imageIconPanel.render();
 	},
 	/** Used to set the default command icon when the icon address doesn't exist**/
 	replaceWrongIcons: function( wrongIcons ){
