@@ -17,13 +17,13 @@ enyo.kind({
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
            
-			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 416px;padding-left:118px", components : [  
+			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
 				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:0 0 10px 22px",components : [  
-					{kind : "onyx.InputDecorator",components : [ 
-					   {kind : "onyx.Input", name : "cost", disabled:true, placeholder:""}
+					{kind : "onyx.InputDecorator",style:"border:1px solid",components : [ 
+					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000"}
 					]},   
-					{content : "v",allowHtml : true,style : "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"},
-					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030", components:[  
+					{content : "v",allowHtml : true,style : "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px"},
+					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
 					]}
@@ -33,7 +33,7 @@ enyo.kind({
 				{kind : "onyx.Button", content : "30 days", ontap : "button30", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"} 
 			]},
 			
-			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:300px;margin:auto;padding:0 110px 0 200px"}, 
+			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 
 			{kind: "Scroller", fit:true, components:[
 			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:605px; margin: auto;border:1px solid #DBDBDE", components : [
 			   {name : "chart",kind : "chart"} 
@@ -92,6 +92,10 @@ enyo.kind({
 	itemSelected: function(sender, event){
 		if (event.originator.content){
 			this.$.cost.setPlaceholder(event.originator.content);
+			this.$.cost.addStyles("color:red");
+			//console.log(this.$.cost);
+			
+			//this.$.cost.placeholder.setStyle("color:red"); 
 		}
 	},
 	button24: function(sender, event){
