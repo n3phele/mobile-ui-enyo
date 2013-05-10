@@ -16,49 +16,49 @@ enyo.kind({
 		{name:"panel", style:"height:73%;", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
 			]}]},
 			{components: [
 			{content: "Description "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
 			]}]},
 			{components: [
 			{content: "*Location URL "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "URL", placeholder: "Enter URL here"}
 			]}]},
 			{components: [
 			{content: "*Kind "},
 			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", name: "kind", disabled: true, placeholder: ""}
+			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
+				{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
-			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;"},
-			{kind: "onyx.Menu", components: [
+			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px"},
+			{kind: "onyx.Menu", style:"width:192px;background:#303030", components: [
 				{content: "S3"},
 				{content: "Swift"}
 			]}
 		]}]},
 			{components: [
 			{content: "*Base Path "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "path", placeholder: "Enter Base Path here"}
 			]}]},
 			{ components: [
 			{content: "*Authentication Id "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
 			]}]},
 			{components: [
 			{content: "*New Password "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "password", type: "password", placeholder: "Enter Password here"}
 			]}]},
 			{components: [
 			{content: "*Confirm Password "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "confirmPass", type: "password", placeholder: "Cofirm Password here"}
 			]}]},
 			{components: [
@@ -67,10 +67,12 @@ enyo.kind({
 			]},
 			
 		]}
-	]}, {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c", components: [
+	]}, 
+		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [
 			{kind:"onyx.Button", content: "Save", ontap:"save"},
 			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
-			]}],
+		]}
+	],
 	
 	create: function() {
 		this.inherited(arguments);
