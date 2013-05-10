@@ -8,8 +8,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-			{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
-    
+	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [    
 	{kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c",components: [ { name: "title", content:"New Account" }, {fit: true}]},
 	{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
@@ -18,34 +17,34 @@ enyo.kind({
 		{name:"panel", style:"height:60%;", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name: "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
 			]}]},
 			{components: [
 			{content: "Description: "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
 			]}]},
 			{components: [
 			{content: "*On Cloud: "},
 			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: ""}
+			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
+				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
-			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"},
-			{kind: "onyx.Menu", name: "cloudsList", components: [
-				//{content: "EC2"},
-				//{content: "HPZone1"}
+			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px"},
+			{kind: "onyx.Menu", name: "cloudsList", style:"width:192px;background:#303030", components: [
+				{content: "EC2"},
+				{content: "HPZone1"}
 			]}
 		]}]},
 			{components: [
 			{content: "*Cloud Id: "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
 			]}]},
 			{components: [
 			{content: "*Cloud Secret: "},
-			{kind: "onyx.InputDecorator", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "secret", type: "password", placeholder: "Enter secret here"}
 			]}]}
 			
