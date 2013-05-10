@@ -113,7 +113,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.$.imageIconPanel.createComponent({
-					kind: "ActivityList", 'uid' : this.uid, "closePanel": enyo.Panels, onBack: "backMenu",
+					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -365,8 +365,34 @@ enyo.kind({
 		})
 		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
 	
-		this.createCommandList();
-		this.$.imageIconPanel.render();
+		this.createComponent({name:"toolComm", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
+							{content: "Commands"},
+							{fit: true}]}
+			);		
+		
+		//create icons for the list of commands 
+		this.createComponent({
+			name: "IconGallery",
+			kind: "IconList",
+			container: this.$.imageIconPanel,
+			onDeselectedItems: "commandDeselect",
+			onSelectedItem: "commandTap", 
+			commands: this.commands,
+			commandsImages: this.commandsImages,
+			retrieveContentData: function(){
+				this.data = createCommandItems(this.commands, this.commandsImages); } 
+			} 
+		);		
+		
+		if (enyo.Panels.isScreenNarrow()) {
+			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel, components: [
+				{kind: "onyx.Button", content: "Close", ontap: "backMenu"}
+			]});
+		}
+		else{
+			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel});
+		}
+        this.$.imageIconPanel.render();
 	},
 	/** Used to set the default command icon when the icon address doesn't exist**/
 	replaceWrongIcons: function( wrongIcons ){

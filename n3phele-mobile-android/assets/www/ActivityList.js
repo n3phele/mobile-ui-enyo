@@ -62,6 +62,9 @@ enyo.kind({
 		}
 			this.getRecentActivities(this.uid);
 		},
+		backMenu: function (sender, event){
+			this.doBack();
+		},
 		itemTap: function( sender, event){
 			if(this.results == null ) return;
 			var main = sender.owner.parent.owner;
@@ -77,10 +80,8 @@ enyo.kind({
 			main.createComponent({kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid, container: main.$.imageIconPanel});
 		
 			panels.owner.$.imageIconPanel.render();
-		},
-		backMenu: function(sender, event){
-		this.doBack();
 		}
+
 });
 
 enyo.kind({ 
