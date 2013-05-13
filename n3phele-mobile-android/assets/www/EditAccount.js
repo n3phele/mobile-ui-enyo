@@ -64,6 +64,9 @@ enyo.kind({
 		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
+		this.$.name.setPlaceholder(this.account.name);
+		this.$.description.setPlaceholder(this.account.description);
+		this.$.cloud.setPlaceholder(this.account.cloudName);
 	},
 	
 	itemSelected: function(inSender, inEvent) {

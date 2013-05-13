@@ -124,6 +124,6 @@ enyo.kind({
 		panel.reflow();		
 	},
 	editAccount: function(sender, envent){
-		this.doEditAcc();
+		this.doEditAcc(this.account);
 	}
 });

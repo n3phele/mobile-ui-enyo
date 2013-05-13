@@ -281,7 +281,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "EditAccount", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "EditAccount", "uid": this.uid, "account": inEvent ,"uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
