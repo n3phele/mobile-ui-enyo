@@ -30,7 +30,7 @@ enyo.kind({
         this.inherited(arguments);
       
         // a null signifies separate line segments
-        var d1 = [[0, 12], [24, 10], [4,2] , [7, 2.5], [12, 14], [24, 50]];
+        var d1 = [[0, 4], [2, 2], [4,6] ,[4, 5], [6, 4], [7,10]]; //var d1 = [[0, 12], [24, 10], [4,2] , [7, 2.5], [12, 14], [24, 50]];
         
         this.$.flot.setData([d1]);
     }
