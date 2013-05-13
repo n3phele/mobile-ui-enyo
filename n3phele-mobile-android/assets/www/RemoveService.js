@@ -14,12 +14,12 @@ enyo.kind({
 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Remove Service" }, {fit: true}]},
 		{style:"margin: 3em auto;width:400px;", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
-				{content: "Name: ", style:"display:inline-block"}, 
+				{name:"service",content: "Service ", style:"display:inline-block"}, 
 				
-				{kind: "onyx.InputDecorator", style:"display:inline-block;margin-left:10px", components: [
-					{kind: "onyx.Input", disabled: true, value: "Service to be deleted"}
-				]} , 
-				{content: "Are you sure you want to delete this service? "},
+				/*{kind: "onyx.InputDecorator", style:"display:inline-block;margin-left:10px", components: [
+					{kind: "onyx.Input",name:"service", disabled: true, value: "Service to be deleted"}
+				]} ,*/ 
+				//{content: "Are you sure you want to delete this service? "},
 				
 			]},
 	    ]},
@@ -30,7 +30,12 @@ enyo.kind({
 		
 		]}
 	],
-	
+	create: function() {
+		this.inherited(arguments);
+		;
+		
+		this.$.service.setContent("Are you sure you want to delete " + this.service.name + "   ?");
+	},
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);
 	},

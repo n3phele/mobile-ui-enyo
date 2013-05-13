@@ -1,5 +1,5 @@
 var results;
-var i = 0;
+
 enyo.kind({ 
 	name:"ServiceList",
 	kind: "FittableRows",
@@ -33,6 +33,7 @@ enyo.kind({
 		}else{ 
 		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button",  content: "New Service", ontap: "newService"}]}).render();		
 		}
+		results = new Array();
 	},
 	selectedAccount: function(sender, event){
 		this.doClickService();
@@ -59,11 +60,18 @@ enyo.kind({
 	},
 	setupItem: function(sender, event){
 	   this.$.name.setContent("Service:" + event.index);
-	   i++;
+	   results.push(this.$.name.getContent());
+	  
+	 
 		},
 	removeItem:function (sender,event)
-	{  
-		this.doRemoveService();
+	{   
+        var obj =  new Object();
+		obj.name = results[event.index];
+		//obj.setContent(results[event.index]);
+        console.log(obj);		
+	    console.log(results[event.index]);
+		this.doRemoveService(obj);
 	},
 	backMenu: function (sender, event){
 		this.doBack();
@@ -71,4 +79,5 @@ enyo.kind({
 	activate: function(sender, event){
 		this.doClickService();
 	}
+
 });
