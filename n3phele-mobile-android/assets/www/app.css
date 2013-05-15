@@ -117,3 +117,22 @@ box-align:center;
 	box-shadow: inset 0 0.5px 1.5px #fff !important; 
     top:0.5px;
 }
+
+.button-style{
+	background:#4F81bd !important;
+	color:#F2F2F2 !important;
+	box-shadow: inset 0 1px 3px #fff, 0 1px 1px #666 !important;
+	border-radius:0 7px 0 7px !important;	
+}
+
+.button-style:active{
+	box-shadow: inset 0 0.5px 1.5px #fff !important; 
+    top:0.5px !important;
+}
+
+.button-combobox-style{
+	background:#4F81bd !important;
+	color:#F2F2F2 !important;
+	box-shadow: inset 0 1px 3px #fff, 0 1px 1px #666 !important;
+	height:40px !important;
+}

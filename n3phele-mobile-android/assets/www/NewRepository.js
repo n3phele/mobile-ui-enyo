@@ -36,7 +36,7 @@ enyo.kind({
 			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
 				{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
-			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px"},
+			{content: "v", allowHtml:true, classes:"button-combobox-style"},
 			{kind: "onyx.Menu", style:"width:192px;background:#303030", components: [
 				{content: "S3"},
 				{content: "Swift"}

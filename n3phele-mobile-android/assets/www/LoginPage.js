@@ -13,7 +13,7 @@ enyo.kind({
 								{tag: "br"},
 								{kind: "onyx.InputDecorator", style: "background-color: white;margin:2px;", components: [ {kind: "onyx.Input", name: "loginPw", type:"password", placeholder: "Password"} ]},
 								{tag: "br"},
-								{kind:"onyx.Button", content: "Login", style: "margin:2px;", classes: "onyx-blue", ontap:"validateUser"},
+								{kind:"onyx.Button", content: "Login",classes:"button-style", style: "margin:2px", ontap:"validateUser"},
 						]}//end div vertical cell
 				]},//end panel table
 	],//end components

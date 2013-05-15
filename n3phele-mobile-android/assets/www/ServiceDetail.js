@@ -56,8 +56,8 @@ enyo.kind({
 				]},
 				{name: "buttonsPanel",components:[
 				{name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[  //{name: "buttons", style:"margin-top:20px; margin-bottom:20px", components:[
-					{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
-					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
+					{kind:"onyx.Button", content: "Add Node", classes:"button-style", ontap:"addNode"},
+					{kind:"onyx.Button", content: "Update Node", classes:"button-style", ontap:"updateNode"},
 				]}
 				]}			
 		]}	
@@ -126,8 +126,8 @@ enyo.kind({
 		this.$.buttonsPanel.destroyClientControls();
 		
 		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[
-			{kind:"onyx.Button", content: "Add Node", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addNode"},
-			{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
+			{kind:"onyx.Button", content: "Add Node", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addNode"},  //style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"
+			{kind:"onyx.Button", content: "Update Node", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"updateNode"},  //style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"
 		]}).render();
 		
 		this.$.rel.setStyle("width:40%;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 1px");
@@ -176,8 +176,8 @@ enyo.kind({
 		this.$.buttonsPanel.destroyClientControls();
 		
 		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;padding-right:1200px", components:[
-			{kind:"onyx.Button", content: "Add Database", style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"addDatabase"},
-			{kind:"onyx.Button", content: "Add Load Balancer", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"AddLoad"},
+			{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"},  //style:"display:inline-block;margin-left:20px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"
+			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},  //style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c"
 		]}).render();				
 		
 		this.$.res.setStyle("width:30%;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 1px");
