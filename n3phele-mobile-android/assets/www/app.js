@@ -30,10 +30,10 @@ enyo.kind({
 	},
 	components: [
 		{name:"N3pheleCommands", style: "display:none"},
-		{kind: "Panels", style: "background-color: #eef2f5", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
+		{kind: "Panels", style: "background:#FFF", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
-				{kind: "Scroller", classes: "enyo-fit", touch: true, components: [					
-					{kind: "onyx.Toolbar", components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
+				{kind: "Scroller", classes: "enyo-fit", style: "background:#FFF", touch: true, components: [					
+					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
 					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
 						{classes: "onyx-sample-divider", content: "Main Menu", style: "color: #375d8c"},					
@@ -45,8 +45,23 @@ enyo.kind({
 					]}// end mainMenuPanel
 				]}//end scroller
 			]},
-			{name: "imageIconPanel", kind:"FittableRows", fit:true, components:[
-				{name: "imageIcon",kind: "enyo.Scroller"},				
+			{name: "imageIconPanel", style:"background:#FFF", kind:"FittableRows", fit:true, components:[
+				{name: "imageIcon",kind: "enyo.Scroller"},	
+				{name:"toolTop",  classes: "toolbar-style", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
+							{content: "Commands"},
+							{fit: true}]},
+{
+			name: "IconGallery",
+			kind: "IconList",
+			container: this.$.imageIconPanel,
+			onDeselectedItems: "commandDeselect",
+			onSelectedItem: "commandTap", 
+			style: "background:#FFF",
+			commands: this.commands,
+			commandsImages: this.commandsImages,
+			retrieveContentData: function(){
+				this.data = createCommandItems(this.commands, this.commandsImages); } 
+			} 				
 			]}			
 		]}
 	],	
@@ -106,8 +121,7 @@ enyo.kind({
 			}// end for( var i in response.elements )
 		})
 		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
-		this.createCommandList();
-		this.$.panels.render();
+		
 	},
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
@@ -320,11 +334,11 @@ enyo.kind({
 		this.setPanelIndex(1);
 	},
 	createCommandList: function() {	
-		this.createComponent({name:"toolComm", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
+		this.createComponent({name:"toolComm",  classes: "toolbar-style", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
 							{content: "Commands"},
 							{fit: true}]}
 			);		
-		
+		 
 		//create icons for the list of commands 
 		this.createComponent({
 			name: "IconGallery",
@@ -333,6 +347,7 @@ enyo.kind({
 			onDeselectedItems: "commandDeselect",
 			onSelectedItem: "commandTap", 
 			commands: this.commands,
+			style:"background:#FFF",
 			commandsImages: this.commandsImages,
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
@@ -340,12 +355,7 @@ enyo.kind({
 		);		
 		
 		if (enyo.Panels.isScreenNarrow()) {
-			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel, components: [
-				{kind: "onyx.Button", content: "Close", ontap: "backMenu"}
-			]});
-		}
-		else{
-			this.createComponent({kind: "onyx.Toolbar",container: this.$.imageIconPanel});
+			this.$.toolComm.createComponent({kind: "onyx.Button", content: "Close", ontap: "backMenu"});
 		}
         this.$.imageIconPanel.render();
     },

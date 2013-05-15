@@ -11,7 +11,7 @@ enyo.kind({
 		onBack:""
 	}, 
 	components:[
-		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Accounts" }, {fit: true}]},		 
+		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [ { name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "New Account", ontap: "newAccount"}]},		 
 				    {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
 					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"}, 
 					       {content: "Last 24 hours", style:"display: inline-block; width:24%;font-weight: bold"}, 
@@ -34,9 +34,7 @@ enyo.kind({
 		
 		var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button", content: "Create New Account", ontap: "newAccount"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
-		}else{ 
-		thisPanel.createComponent({kind: "onyx.Toolbar",  style:"background:#b1c2d7;border:1px solid #375d8c;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button",  content: "Create New Account", ontap: "newAccount"}]}).render();		
+		thisPanel.$.toolTop.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();
 		}
 		
 		var ajaxComponent = new enyo.Ajax({
@@ -58,6 +56,7 @@ enyo.kind({
 			console.log("Error to load the detail of the command!");
 			popup.delete();
 		});		
+		this.render();
 	},
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);

@@ -12,7 +12,7 @@ enyo.kind({
 		onBack:""
 	},
 	components:[
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c;border-bottom: 2px solid #88B0F2", components: [ { name: "title", content:"Services" }, {fit: true}]},
+		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "New Service", ontap: "newService", classes:"button-style-right"},{fit: true}]},
 			
 			{name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold;", components:[ 
 				{content: "Name", style:"display: inline-block; width:25% ;font-weight: bold"}, 
@@ -29,10 +29,10 @@ enyo.kind({
 	this.inherited(arguments);
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button", content: "New Service", ontap: "newService"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
-		}else{ 
-		thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button",  content: "New Service", ontap: "newService"}]}).render();		
+			 console.log("Screen narrow!");
+		     this.$.toolBar.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Close", ontap: "backMenu"}).render();
 		}
+		
 		results = new Array();
 	},
 	selectedAccount: function(sender, event){

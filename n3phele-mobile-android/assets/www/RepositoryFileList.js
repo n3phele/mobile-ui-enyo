@@ -15,11 +15,11 @@ enyo.kind({
 		onBack: ""
 	},
 	components:[
-		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Files" }, {fit: true}]},
+		{kind: "onyx.Toolbar",classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"},{kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
 		{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
-		]},
-		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Delete Repository", ontap: "deleteRepository"},{kind: "onyx.Button", content: "Create new folder", ontap: "newFolder"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}
+		]}
+		//{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Delete Repository", ontap: "deleteRepository"},{kind: "onyx.Button", content: "Create new folder", ontap: "newFolder"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)

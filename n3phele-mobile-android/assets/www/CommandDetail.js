@@ -11,7 +11,7 @@ enyo.kind({
 		onSelectedFile: ""
 	},
 	components:[
-		{kind: "onyx.Toolbar", components: [ { name: "title" }, {fit: true}]},
+		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "closePanel"}]},
 
 		{kind: "Panels", name:"panels", fit: true, classes: "panels-sample-sliding-panels panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "info", classes: "info", style: "width:15%;", components: [
@@ -26,8 +26,7 @@ enyo.kind({
 					
 				]}
 			]}
-		]},
-		{kind: "onyx.Toolbar", components: [{kind: "onyx.Button", content: "Close", ontap: "closePanel"}]}
+		]}
 	],
 	create: function(){
 		this.inherited(arguments)

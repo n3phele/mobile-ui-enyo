@@ -11,7 +11,9 @@ enyo.kind({
 		onClickItem:""
 	},
 	components:[
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c", components: [ { name: "title", content:"Add Service" }, {fit: true}]},
+		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
+		{kind: "onyx.Button" ,content: "<", classes:"button-style-left", ontap: "cancelAction"},
+		{ name: "title", content:"Add Service" }, {fit: true}]},
         {style:"margin: 3em auto;width:700px;", components:[
 		{kind: "FittableRows", name:"panel", fit: true, components: [{classes: "onyx-toolbar-inline", components: [
 		{content: "Name: ", style:"display:inline-block"},
@@ -24,9 +26,7 @@ enyo.kind({
 				{kind: "onyx.Input", name: "description", placeholder: "",style:"width: 500px;"}
 			]}]}
 			
-	    ]}]},
-	    
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Create", ontap: "newAccount"} , {kind: "onyx.Button" ,content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]}
+	    ]}]}	    
 	],
 	
 	selectedAccount: function(sender, event){

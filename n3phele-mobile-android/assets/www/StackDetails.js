@@ -11,7 +11,8 @@ enyo.kind({
 		{kind : "Scroller",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", content : "Stack Details", name : "title_1",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
+		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "closePanel"},
+				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
 		 	{content : "Name", name : "stack", style : "margin:0 0 0 10px;"},
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Version", name : "version", style : "margin:5px 0 5px 10px"},
@@ -24,12 +25,12 @@ enyo.kind({
 			   
 			    {content : "Account:",style:"padding: 80px  0px 0px;"}, {content : "AccountName",}
 			 
-			]},
+			]}/* ,
 					
 			{kind : "onyx.Toolbar", name : "toolbar", style : "background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain", components : [
-				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right", content : "Close", ontap : "closePanel",},
-				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;", content : "Run", ontap : "run"} 
-			]}
+				{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "closePanel",},
+				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"} 
+			]} */
 	],
 	create: function(){
 		this.inherited(arguments)

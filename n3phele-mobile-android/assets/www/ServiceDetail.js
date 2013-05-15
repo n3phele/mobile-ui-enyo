@@ -7,7 +7,9 @@ enyo.kind({
 	},
 	components: [
 		{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
-			{kind: "onyx.Toolbar", content: "Service Detail", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},				
+				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
+			{kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "close"},	
+			{content: "Service Detail", name: "title_1", }]},							
 				{content: "Service foo", name: "service foo", style:"margin: 15px 0 10px 10px; font-size:20px"}, 	
 				{name:"TreePanel", style:"height:60%;border:2px solid #375d8c", kind: "Scroller", fit: true, components:[			
 						{name: "res", kind:"onyx.Button",style:"width:30%;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; border-width: 2px",ontap:"resource", content: "Resource"}, 
@@ -58,11 +60,8 @@ enyo.kind({
 					{kind:"onyx.Button", content: "Update Node", style:"display:inline-block;margin-left:50px;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap:"updateNode"},
 				]}
 				]}			
-		]},	
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [   //style:"background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain;clear: both",
-			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content: "New Stack", ontap: "newStack"},	
-			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;float:right;", content: "Close", ontap: "close"},				
-		]}	,
+		]}	
+		//{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [   //style:"background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain;clear: both",
 	],	
 	nodeExpand: function(inSender, inEvent) {
 		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));

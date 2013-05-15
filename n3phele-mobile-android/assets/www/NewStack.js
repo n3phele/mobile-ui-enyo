@@ -10,7 +10,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-			{kind: "onyx.Toolbar", content: "New Stack", name: "title_1", style:"background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
+			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack"},{kind: "onyx.Button", classes:"button-style-left", content: "<", ontap: "backMenu"}]},
 				{kind: "onyx.InputDecorator",style: "width: 85%; margin:25px 0 25px 0;width:50%;border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
@@ -19,8 +19,8 @@ enyo.kind({
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
 				{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[]}
-				]},				
-		{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
+				]}			
+		//{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)

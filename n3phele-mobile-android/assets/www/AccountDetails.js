@@ -9,9 +9,11 @@ enyo.kind({
 	},
 	components : [
 		{kind : "Scroller",
+		style: "background: white",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", content : "Account", name : "title_1",style : "background:#b1c2d7;border:1px solid #375d8c;background-size:contain;color:#375d8c"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "<", ontap : "backMenu"},
+				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
 		 	{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
@@ -56,10 +58,10 @@ enyo.kind({
 			 ]}
 			]},
 					
-			{kind : "onyx.Toolbar", name : "toolbar", style : "background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain", components : [
+			/* {kind : "onyx.Toolbar", name : "toolbar", style : "background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain", components : [
 				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c; float:right", content : "Close", ontap : "closePanel"},
 				{kind : "onyx.Button", style : "background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", content : "Edit Account", ontap : "editAccount"} 
-			]}
+			]} */
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -93,8 +95,6 @@ enyo.kind({
 		if (event.originator.content){
 			this.$.cost.setPlaceholder(event.originator.content);
 			this.$.cost.addStyles("color:red");
-			//console.log(this.$.cost);
-			
 			//this.$.cost.placeholder.setStyle("color:red"); 
 		}
 	},
@@ -122,6 +122,9 @@ enyo.kind({
 		}		
 		
 		panel.reflow();		
+	},
+	backMenu: function( sender , event){
+		this.doBack(event);
 	},
 	editAccount: function(sender, envent){
 		this.doEditAcc(this.account);

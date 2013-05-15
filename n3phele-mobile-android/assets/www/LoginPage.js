@@ -5,7 +5,7 @@ enyo.kind({
 	classes: "onyx onyx-sample",
 	style: "padding: 0px",
 	components:[
-			{name: "topToolbar",kind: "onyx.Toolbar", components: [ {content: "N3PHELE"}, {fit: true}]},
+			{name: "topToolbar", classes: "toolbar-style", kind: "onyx.Toolbar", components: [ {content: "N3PHELE"}, {fit: true}]},
 				{classes: "panels-sample-sliding-content", allowHtml: true, style: "background: url('assets/bg_login.png') repeat; height: 100%; width:100%; display: table;", components:[
 						{name: "login-container", style: "vertical-align: middle; display:table-cell; text-align:center;", components:[
 								{name: "loginMsg"},

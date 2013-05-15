@@ -6,7 +6,7 @@ enyo.kind({
 		onBack: ""
 		},
 		components:[
-			{kind: "onyx.Toolbar", components: [	{content: "Recent Activity List"}, {fit: true} ]},
+			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Recent Activity List"}, {fit: true} ]},
 			//{classes: "onyx-sample-divider", content: "Recent Activities", style: "color: #375d8c", name:"divider"}, ##old format
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
@@ -55,10 +55,7 @@ enyo.kind({
 			this.inherited(arguments);
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-				thisPanel.createComponent({kind: "onyx.Toolbar", style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();		
-
-		}else{ 
-				thisPanel.createComponent({kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"}).render();
+				thisPanel.$.toolTop.createComponent({kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "backMenu"}).render();		
 		}
 			this.getRecentActivities(this.uid);
 		},
@@ -89,8 +86,8 @@ enyo.kind({
 		kind: "FittableRows",
 		fit: true,
 		components:[
-			{name: "topToolbar",kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true} ]},
-			{kind: "enyo.Scroller", fit: true, components: [
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true} ]},
+			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
@@ -110,11 +107,11 @@ enyo.kind({
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"},
 					{tag: "br"},
-					{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
+					//{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
 					{name: "narratives"}
 				]}
-			]},
-			{kind: "onyx.Toolbar", components: []}
+			]}
+			//{kind: "onyx.Toolbar", components: []}
 		],
 		constructor: function(args) {
 			this.inherited(arguments);

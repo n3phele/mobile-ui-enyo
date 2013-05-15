@@ -9,12 +9,12 @@ enyo.kind({
 	},
 	components: [
     {kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
-	{kind: "onyx.Toolbar", style:"background:#b1c2d7;background-size:contain;color:#375d8c",components: [ { name: "title", content:"Edit Account" }, {fit: true}]},
+	{kind: "onyx.Toolbar", style:"background:#b1c2d7;background-size:contain;color:#375d8c",components: [ { name: "title", content:"Edit Account" }, {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;width:87px" ,content: "Done", ontap: "save"} , {kind: "onyx.Button", content: "<", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"}]},
 	{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
 	
-		{name:"panel", style:"height:60%;", kind: "Scroller", fit: true, components: [
+		{name:"panel", kind: "Scroller", fit: true, components: [
 		{components: [
 		{content: "*Name: "},
 			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
@@ -49,7 +49,8 @@ enyo.kind({
 			]}]}
 			
 	
-	]} ]},{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;width:87px" ,content: "Edit", ontap: "save"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]}   ],
+	]} ]} //{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;width:87px" ,content: "Edit", ontap: "save"} , {kind: "onyx.Button", content: "Cancel", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"} ]}
+	],
 	
    //Funcs aqui,
 	

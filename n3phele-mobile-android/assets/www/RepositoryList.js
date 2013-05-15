@@ -3,7 +3,6 @@ enyo.kind({
 	name:"RepositoryList",
 	kind: "FittableRows",
 	fit: true,
-	style: "padding: 0px",
 	data: [],
 	commands: null,
 	commandsImages : null,
@@ -14,8 +13,13 @@ enyo.kind({
 		onBack: ""
 	},
 	components:[
-		{kind: "onyx.Toolbar", components: [ { name: "title", content:"Repositories" }, {fit: true}]},
-	      {name: "panel", components:[]}
+		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
+			{name: "title", content:"Repositories"},
+			{kind: "onyx.Button", content: "New Repository", ontap: "newrepo",classes:"button-style-right"}
+			//{fit: true}
+		]},  
+			
+	    {name: "panel", components:[]}
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -43,21 +47,22 @@ enyo.kind({
 				this.commandsImages.push("assets/folderG.png");
 		}		
 		var thisPanel = this;
-		thisPanel.createComponent({name: "IconGallery", kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 			commandsImages: this.commandsImages,
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
 			}).render();
-		//*************** Alterado código abaixo	
+		
 		if(this.callBy=="repositoryList"){
 		if (this.closePanel.isScreenNarrow()) {
-		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" },{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}).render();
-		}else{ 
-		thisPanel.createComponent({kind: "onyx.Toolbar", components: [ {kind: "onyx.Button", content: "Create New Repository", ontap: "newrepo" }]}).render();		
-		}}else if(this.callBy=="selectFile"){
-			thisPanel.createComponent({kind: "onyx.Toolbar", name: "btnClose", components: [ {kind: "onyx.Button", content: "Close", ontap: "backMenu"}]}).render();	
+		this.$.tollbar_top.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu"}).render(); 
+		} 
+		
+		}else if(this.callBy=="selectFile"){
+			this.$.tollbar_top.createComponent({kind: "onyx.Button", name: "btnClose",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();	
 		}		
 		thisPanel.render();
+		
 		thisPanel.reflow();	
 		})
 		.error(this, function(){
@@ -83,7 +88,8 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	backMenu: function( sender , event){
-		this.doBack(event);
+		console.log("botão clicado");
+		this.doBack(event);		
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.

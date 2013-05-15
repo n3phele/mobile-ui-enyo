@@ -7,13 +7,14 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
+	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style: "background: white", components: [
     
-	{kind: "onyx.Toolbar", components: [ { name: "title", content:"New Repository" }, {fit: true}]},
+	{kind: "onyx.Toolbar", classes: "toolbar-style", components: [ { name: "title", content:"New Repository" }, {kind:"onyx.Button", content: "Done", classes: "button-style-right", ontap:"save"},
+			{kind:"onyx.Button", content: "<", ontap:"cancel", classes: "button-style-left"}]},
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
-		{name:"panel", style:"height:73%;", kind: "Scroller", fit: true, components:[
+		{name:"panel", kind: "Scroller", fit: true, components:[
 		{components: [
 		{content: "*Name "},
 			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
@@ -56,24 +57,23 @@ enyo.kind({
 			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "password", type: "password", placeholder: "Enter Password here"}
 			]}]},
-			{components: [
+			/* {components: [
 			{content: "*Confirm Password "},
 			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
 				{kind: "onyx.Input", name: "confirmPass", type: "password", placeholder: "Cofirm Password here"}
-			]}]},
+			]}]}, */
 			{components: [
 			{content: "Accessible to all n3phele user?"},
 			{kind:"onyx.Checkbox", name: "access"},
 			]},
 			
 		]}
-	]}, 
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [
-			{kind:"onyx.Button", content: "Save", ontap:"save"},
-			{kind:"onyx.Button", content: "Cancel", ontap:"cancel",style:"float:right"},
-		]}
+	]}
+/* 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [
+			{kind:"onyx.Button", content: "Done", ontap:"save"},
+			{kind:"onyx.Button", content: "<", ontap:"cancel", classes: "button-style-left"}
+		]} */
 	],
-	
 	create: function() {
 		this.inherited(arguments);
 	},
