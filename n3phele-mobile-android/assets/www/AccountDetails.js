@@ -50,7 +50,7 @@ enyo.kind({
 					{content : "Total Cost", style : "display: inline-block; width:25%;font-weight: bold"}, 
 			    ]} 
 			]},
-			{name: "activeMachines", style: "padding-top:10px; padding-bottom:70px;", components:[		
+			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;", components:[		
 			    {content : "HP", style: "font-weight: bold; font-size:20px;"},
 			    {content : "...", style: "font-weight: bold; font-size:20px;"},
 			    {content : "...", style: "font-weight: bold; font-size:20px;"},

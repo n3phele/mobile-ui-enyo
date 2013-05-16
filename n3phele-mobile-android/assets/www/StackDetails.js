@@ -10,6 +10,7 @@ enyo.kind({
 	components : [
 		{kind : "Scroller",
 		classes : "scroller-sample-scroller enyo-fit",
+		style:"background:#fff",
 		components : [
 		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "closePanel"},
 				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
@@ -17,7 +18,7 @@ enyo.kind({
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Version", name : "version", style : "margin:5px 0 5px 10px"},
 			
-			{name: "total", style: "color:#b1c2d7;border-top:3px solid;"},
+			{name: "total", style: "color:#4F81bd;border-top:3px solid;"},
 			    {content : "Node count:",style:"padding-top:10px"},
 				{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", placeholder: "Number here",onchange:"inputChanged"}

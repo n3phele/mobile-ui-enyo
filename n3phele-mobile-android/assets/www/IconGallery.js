@@ -23,6 +23,7 @@
 enyo.kind({
 	name: "IconList",
 	kind: "Scroller",
+	style:"background:#fff",
 	data: [],
 	events: {
 		onSelectedItem: "",
