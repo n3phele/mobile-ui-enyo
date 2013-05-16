@@ -5,6 +5,7 @@ enyo.kind({
 	data: [],
 	commands: null,
 	commandsImages : null,
+	style:"background:#fff",
 	events: {
 		onSelectedStack: "",
 		onBack: ""
@@ -15,7 +16,7 @@ enyo.kind({
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
 				]},
-				{kind: "onyx.Button", style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px", content: "search", ontap: "search"},
+				{kind: "onyx.Button", classes:"button-combobox-style", content: "search", ontap: "search"},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
 				{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[]}

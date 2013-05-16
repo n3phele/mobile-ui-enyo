@@ -36,9 +36,9 @@ enyo.kind({
 					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
 					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
-						{classes: "onyx-sample-divider", content: "Main Menu", style: "color: #375d8c"},					
+						{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
 						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*65)+"px", onSetupItem: "setupItemMenu", components: [
-							{name: "menu_item",	classes: "panels-sample-flickr-item", ontap: "mainMenuTap", style: "box-shadow: -4px 0px 4px rgba(0,0,0,0.3);", components: [
+							{name: "menu_item",	classes: "panels-sample-flickr-item", ontap: "mainMenuTap", style: "box-shadow: -4px 0px 9px #4F81bd", components: [
 								{name:"menu_image", kind:"Image"},
 								{name: "menu_option",kind:"Image"}]},
 						]}

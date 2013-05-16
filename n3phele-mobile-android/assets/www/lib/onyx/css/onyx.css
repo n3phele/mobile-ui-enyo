@@ -81,7 +81,7 @@
   margin: 0;
   padding: 6px 18px;
   overflow: hidden;
-  border-radius: 3px;
+  /* border-radius: 3px; */
   /* for IE8 */
 
   border: 1px solid #707070;
@@ -568,7 +568,7 @@
 	*/
 
   padding: 9px 8px 10px 8px;
-  border: 1px solid #375d8c;
+  /* border: 1px solid #375d8c; */
   background:#b1c2d7;
   background-size: contain;
   color: #375d8c;

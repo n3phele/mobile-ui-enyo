@@ -14,15 +14,15 @@ enyo.kind({
 		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "closePanel"}]},
 
 		{kind: "Panels", name:"panels", fit: true, classes: "panels-sample-sliding-panels panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
-			{name: "info", classes: "info", style: "width:15%;", components: [
-				{kind: "Scroller", classes: "enyo-fit", touch: true, style: "width:90%;margin:auto;padding: 10px 0px;", components: [
+			{name: "info", classes: "info", style: "width:15%;background:#fff", components: [
+				{kind: "Scroller", classes: "enyo-fit", touch: true, style: "width:90%;margin:auto;padding: 10px 0px;background:#fff", components: [
 				     {name: "icon", tag: "img", classes: "card onyx-selected", style: "width:40%;height:auto"},
 				     {name: "cName", style: "margin-top: -10px;margin-bottom:15px; color: black;font-weight:bold"},
 				     {name: "description"}
 				]}
 			]},
 			{name: "params",classes: "params", fit: true, style: "padding: 0px",  components: [
-				{name: "comScroll", kind: "Scroller", classes: "enyo-fit", touch: true, components: [
+				{name: "comScroll", kind: "Scroller",style:"background:#fff", classes: "enyo-fit", touch: true, components: [
 					
 				]}
 			]}

@@ -4,7 +4,7 @@ enyo.kind({
 	name:"RemoveService",
 	kind: "FittableRows",
 	fit: true,
-	style: "padding: 0px",
+	style: "padding: 0px;background:#fff",
 	events: {
 		onCreateAcc: "",
 		onBack: "",
@@ -26,7 +26,7 @@ enyo.kind({
 				
 			]},
 	    ]},
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"}
+		//{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"}
 	],
 	create: function() {
 		this.inherited(arguments);
