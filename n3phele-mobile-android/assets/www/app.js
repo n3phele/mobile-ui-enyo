@@ -46,22 +46,7 @@ enyo.kind({
 				]}//end scroller
 			]},
 			{name: "imageIconPanel", style:"background:#FFF", kind:"FittableRows", fit:true, components:[
-				{name: "imageIcon",kind: "enyo.Scroller"},	
-				{name:"toolTop",  classes: "toolbar-style", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
-							{content: "Commands"},
-							{fit: true}]},
-{
-			name: "IconGallery",
-			kind: "IconList",
-			container: this.$.imageIconPanel,
-			onDeselectedItems: "commandDeselect",
-			onSelectedItem: "commandTap", 
-			style: "background:#FFF",
-			commands: this.commands,
-			commandsImages: this.commandsImages,
-			retrieveContentData: function(){
-				this.data = createCommandItems(this.commands, this.commandsImages); } 
-			} 				
+				{name: "imageIcon",kind: "enyo.Scroller"},		
 			]}			
 		]}
 	],	
@@ -72,56 +57,16 @@ enyo.kind({
 		popup.show();
 		if (!enyo.Panels.isScreenNarrow())
 			this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", 'uid' : this.uid});
-	
-		//setting connection parameters
-		var ajaxComponent = new enyo.Ajax({
-			url: serverAddress+"command",
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "GET",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		});
-		
-		//Requesting service reply
-		ajaxComponent
-		.go({'summary' : true, 'start' : 0, 'end' : 16, 'preferred' :true})
-		.response( this, function( sender, response ){
-			if(response.total == 0){alert("There is no recent activities!");return;}
 			
-			this.commandsData = response.elements;//get the response
-			this.commandsData = fixArrayInformation(this.commandsData);
-			this.commands = new Array();
-			this.commandsImages = new Array();
-			
-			var waiting = 0;
-			var errorIndex = new Array();// array containing the index of the icons that did exists 
-			for( var i in this.commandsData ){//set comand list information
-				this.commands.push( this.commandsData[i].name ); //set name
-				
-				var iconUrl = this.commandsData[i].icon; //get icon url
-					iconUrl = this.fixCommandIconUrl( iconUrl );//fix icon url 
-				
-			this.commandsData[i].icon = iconUrl;
-				this.commandsImages.push( iconUrl ); //set icon url fixed
-
-				//checking if icon exists
-				waiting++;
-				var test = new enyo.Ajax({ url : iconUrl, handleAs: "text", index: i });
-	
-		test.go().response(this,function(sender, response){
-					waiting--;
-					if(waiting == 0) this.replaceWrongIcons(errorIndex);
-					popup.delete();
-				}).error(this,function(sender, response){
-					waiting--;
-					errorIndex.push( sender.index );//adding icon with error
-				if(waiting == 0) this.replaceWrongIcons(errorIndex);	
-					popup.delete();
-				});
-			}// end for( var i in response.elements )
-		})
-		.error( this, function(){ console.log("Error to load the list of commands!!"); popup.delete();});
-		
+		this.createComponent({
+					kind: "CommandList", 
+					'uid' : this.uid, 
+					onSelectedCommand : "commandTap",
+					onNewRepository : "newRepository",
+					onBack: "backMenu",
+					"closePanel": enyo.Panels,
+					container: this.$.imageIconPanel
+				}).render();
 	},
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
@@ -149,7 +94,7 @@ enyo.kind({
 	mainMenuTap: function(inSender, inEvent) {
 		this.setTrackedRow(inEvent.index);	
 	
-		//Checking if the device has a small screen and adjust if necessa
+		//Checking if the device has a small screen and adjust if necessary
 		if (enyo.Panels.isScreenNarrow()) {
 			this.$.panels.setIndex(1);
 		}		
@@ -178,7 +123,15 @@ enyo.kind({
 			case 1:
 				//Command Menu
 				this.closeSecondaryPanels(2);
-				this.createCommandList();
+				this.createComponent({
+					kind: "CommandList", 
+					'uid' : this.uid, 
+					onSelectedCommand : "commandTap",
+					onNewRepository : "newRepository",
+					onBack: "backMenu",
+					"closePanel": enyo.Panels,
+					container: this.$.imageIconPanel
+				}).render();
 			break;
 			case 2:
 				//Activity History
@@ -206,7 +159,6 @@ enyo.kind({
 			break;
 		}//end switch
 	},	
-	
 	backMenu: function(){
 		this.$.panels.setIndex(0);
 	},
@@ -333,47 +285,22 @@ enyo.kind({
 		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},
-	createCommandList: function() {	
-		this.createComponent({name:"toolComm",  classes: "toolbar-style", kind: "onyx.Toolbar", container: this.$.imageIconPanel,components: [
-							{content: "Commands"},
-							{fit: true}]}
-			);		
-		 
-		//create icons for the list of commands 
-		this.createComponent({
-			name: "IconGallery",
-			kind: "IconList",
-			container: this.$.imageIconPanel,
-			onDeselectedItems: "commandDeselect",
-			onSelectedItem: "commandTap", 
-			commands: this.commands,
-			style:"background:#FFF",
-			commandsImages: this.commandsImages,
-			retrieveContentData: function(){
-				this.data = createCommandItems(this.commands, this.commandsImages); } 
-			} 
-		);		
-		
-		if (enyo.Panels.isScreenNarrow()) {
-			this.$.toolComm.createComponent({kind: "onyx.Button", content: "Close", ontap: "backMenu"});
-		}
-        this.$.imageIconPanel.render();
-    },
-
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {
+	console.log(inSender.data);
+	console.log(this.commandsData);
 		//check if command information is set
-		if( !( inEvent.index in this.commandsData ) ){
+		if( !( inEvent.index in inSender.data ) ){
 			alert("There is not commands in the database!");
 			return;
 		}
 		this.closeSecondaryPanels(2);//close old panels
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.commandsData[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.commandsData[inEvent.index].uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
-		this.$.CommandData = this.commandsData[inEvent.index];
+		this.$.CommandData = inSender.data[inEvent.index];
 		inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
 	/** Used to set the default command icon when the icon address doesn't exist**/

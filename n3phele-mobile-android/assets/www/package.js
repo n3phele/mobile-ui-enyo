@@ -31,5 +31,6 @@ enyo.depends(
 	"NewStack.js",
 	"StackDetails.js",
 	"ServiceDetail.js",
-	"EditAccount.js"
+	"EditAccount.js",
+	"CommandList.js"
 );
