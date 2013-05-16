@@ -8,9 +8,11 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-    {kind:"Scroller",classes: "scroller-sample-scroller enyo-fit",components: [
-	{kind: "onyx.Toolbar", style:"background:#b1c2d7;background-size:contain;color:#375d8c",components: [ { name: "title", content:"Edit Account" }, {kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;width:87px" ,content: "Done", ontap: "save"} , {kind: "onyx.Button", content: "<", style:"float:right;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c", ontap: "cancelAction"}]},
-	{tag: "br"},
+    {kind:"Scroller",style: "background: #fff",classes: "scroller-sample-scroller enyo-fit",components: [
+	{kind: "onyx.Toolbar",  classes: "toolbar-style",components: [ 
+		{name: "title", content:"Edit Account" }, {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "save"} , 
+	    {kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "cancelAction"}]},
+	    {tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
 	
@@ -31,7 +33,7 @@ enyo.kind({
 			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
-			{content: "v", allowHtml:true, style: "border-radius: 0 2px 2px 0;background-color:#FFFFFF;color:#375d8c;border-color:#375d8c;height:42px"},
+			{content: "v", allowHtml:true,classes:"button-combobox-style"},
 			{kind: "onyx.Menu", name: "cloudsList", style:"width:192px;background:#303030", components: [   
 				//{content: "EC2"},  
 				//{content: "HPZone1"}   

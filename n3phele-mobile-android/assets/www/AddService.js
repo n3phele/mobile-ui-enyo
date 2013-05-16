@@ -4,7 +4,7 @@ enyo.kind({
 	name:"AddService",
 	kind: "FittableRows",
 	fit: true,
-	style: "padding: 0px",
+	style: "padding: 0px;background:#fff",
 	events: {
 		onCreateAcc: "",
 		onBack: "",
