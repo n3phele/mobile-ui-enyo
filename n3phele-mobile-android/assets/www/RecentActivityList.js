@@ -6,7 +6,7 @@ enyo.kind({
 			//{kind: "onyx.Toolbar", components: [	{content: "Recent Activities"}, {fit: true} ]},
 			{classes: "onyx-sample-divider", content: "Recent Activities", style: "color: #375d8c", name:"divider"}, 
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
-				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
+				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 9px #4F81bd",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item

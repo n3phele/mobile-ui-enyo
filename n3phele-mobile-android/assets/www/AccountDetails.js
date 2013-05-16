@@ -42,7 +42,7 @@ enyo.kind({
 			]}]},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
 
-			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #88B0F2",components : [
+			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #4F81bd",components : [
 			   {name : "machines", style : "padding: 10px 0 1px 10px", components : [
 					{content : "Name", style : "display: inline-block; width:25%;font-weight: bold"},
 					{content : "Activity", style : "display: inline-block; width:25%;font-weight: bold"},
