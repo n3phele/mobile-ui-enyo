@@ -16,12 +16,12 @@ enyo.kind({
 		{ name: "title", content:"Add Service" }, {fit: true}]},
         {style:"margin: 3em auto;width:700px;", components:[
 		{kind: "FittableRows", name:"panel", fit: true, components: [{classes: "onyx-toolbar-inline", components: [
-		{content: "Name: ", style:"display:inline-block"},
+		{content: "Name: ", style:"display:inline-block;padding-right:38px;margin-left:1px"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "name", placeholder: ""}
 			]}]}, //End Name1
 			{components: [ 
-			{content: "Description:",style:"display:inline-block"},
+			{content: "Description:",style:"display:inline-block;padding-right:4px;margin-left:0px"},
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "",style:"width: 500px;"}
 			]}]}
