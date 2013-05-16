@@ -22,7 +22,7 @@ enyo.kind({
 		this.inherited(arguments)	
 	
 		if (this.closePanel.isScreenNarrow()) {
-			this.$.toolTop.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();
+			this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
 		stacks = new Array();
@@ -66,7 +66,6 @@ enyo.kind({
 		this.doSelectedCommand(inEvent);
 	},
 	backMenu: function(inSender, inEvent) {
-	console.log("oi");
 		this.doBack();
 	},
 	search: function(inSender, inEvent) {

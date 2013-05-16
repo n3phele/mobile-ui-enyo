@@ -136,8 +136,8 @@ enyo.kind({
 			case 2:
 				//Activity History
 				this.closeSecondaryPanels(2);
-				this.$.imageIconPanel.createComponent({
-					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels
+				this.createComponent({
+					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels, container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -159,7 +159,7 @@ enyo.kind({
 			break;
 		}//end switch
 	},	
-	backMenu: function(){
+	backMenu: function(inSender){
 		this.$.panels.setIndex(0);
 	},
 	setPanelIndex: function(index) {
@@ -218,23 +218,23 @@ enyo.kind({
 		//create panel to access account details
 		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(3);
 	},
 	newStack: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(2);		
+		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
-		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", "index": "4", onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(4);
 	},
 	stackDetail: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(3);		
+		this.closeSecondaryPanels(4);		
 		//create panel to show stack detail
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, "index": "5", onBack: "closePanel5", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(4);
+		this.$.panels.setIndex(5);
 	},
 	accountDetail: function(inSender,inEvent){		
 		//close old panels	
@@ -285,10 +285,21 @@ enyo.kind({
 		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},
+		closePanel4:function(inSender,inEvent){
+		this.closeSecondaryPanels(2);
+		this.closeSecondaryPanels(3);
+		this.closeSecondaryPanels(4);
+		this.setPanelIndex(3);
+	},
+		closePanel5:function(inSender,inEvent){
+		this.closeSecondaryPanels(2);
+		this.closeSecondaryPanels(3);
+		this.closeSecondaryPanels(4);
+		this.closeSecondaryPanels(5);
+		this.setPanelIndex(4);
+	},
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {
-	console.log(inSender.data);
-	console.log(this.commandsData);
 		//check if command information is set
 		if( !( inEvent.index in inSender.data ) ){
 			alert("There is not commands in the database!");
@@ -301,7 +312,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];
-		inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
+		//inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
 	/** Used to set the default command icon when the icon address doesn't exist**/
 	replaceWrongIcons: function( wrongIcons ){

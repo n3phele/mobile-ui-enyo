@@ -55,7 +55,7 @@ enyo.kind({
 		
 		if(this.callBy=="repositoryList"){
 		if (this.closePanel.isScreenNarrow()) {
-		this.$.tollbar_top.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu"}).render(); 
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
 		} 
 		
 		}else if(this.callBy=="selectFile"){
@@ -88,7 +88,6 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	backMenu: function( sender , event){
-		console.log("botão clicado");
 		this.doBack(event);		
 	},
 	setupItem: function(inSender, inEvent) {

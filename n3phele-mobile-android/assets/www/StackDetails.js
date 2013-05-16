@@ -12,7 +12,7 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		style:"background:#fff",
 		components : [
-		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "closePanel"},
+		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "backMenu"},
 				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
 		 	{content : "Name", name : "stack", style : "margin:0 0 0 10px;"},
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
@@ -26,12 +26,7 @@ enyo.kind({
 			   
 			    {content : "Account:",style:"padding: 80px  0px 0px;"}, {content : "AccountName",}
 			 
-			]}/* ,
-					
-			{kind : "onyx.Toolbar", name : "toolbar", style : "background:#b1c2d7;position:absolute;bottom:0;width:100%;border:1px solid #375d8c;background-size:contain", components : [
-				{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "closePanel",},
-				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"} 
-			]} */
+			]}
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -45,11 +40,13 @@ enyo.kind({
 			this.$.cost.setPlaceholder(event.originator.content);
 		}
 	},
-	
+	backMenu: function(inSender, inEvent) {
+		this.doBack();
+	},
 	closePanel: function(inSender, inEvent){
 		var panel = inSender.parent.parent.parent;
-		
-		panel.setIndex(3);				
+		console.log(panel);
+		panel.setIndex(4);				
 		panel.getActive().destroy();					
 		panel.panelCreated = false;
 		

@@ -34,7 +34,7 @@ enyo.kind({
 		
 		var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-		thisPanel.$.toolTop.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
 		var ajaxComponent = new enyo.Ajax({

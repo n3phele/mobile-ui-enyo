@@ -29,8 +29,7 @@ enyo.kind({
 	this.inherited(arguments);
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-			 console.log("Screen narrow!");
-		     this.$.toolBar.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Close", ontap: "backMenu"}).render();
+		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.toolBar}).render();
 		}
 		
 		results = new Array();
@@ -60,17 +59,12 @@ enyo.kind({
 	},
 	setupItem: function(sender, event){
 	   this.$.name.setContent("Service:" + event.index);
-	   results.push(this.$.name.getContent());
-	  
-	 
+	   results.push(this.$.name.getContent());	 
 		},
 	removeItem:function (sender,event)
 	{   
         var obj =  new Object();
 		obj.name = results[event.index];
-		//obj.setContent(results[event.index]);
-        console.log(obj);		
-	    console.log(results[event.index]);
 		this.doRemoveService(obj);
 	},
 	backMenu: function (sender, event){

@@ -15,7 +15,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components:[
-		{kind: "onyx.Toolbar",classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"},{kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
 		{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]}
@@ -28,6 +28,7 @@ enyo.kind({
 	},
 	updateFilesFromURI: function(uri, success){
 	this.$.Spin.show();
+	
 		var ajaxComponent = new enyo.Ajax({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -69,11 +70,12 @@ enyo.kind({
 					}
 		}		
 			var thisPanel = this;
+			
 			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 				commandsImages: this.commandsImages,container: thisPanel.$.panel,
 				retrieveContentData: function(){
 					this.data = createCommandItems(this.commands, this.commandsImages); } 
-				}).render();
+			}).render();
 			thisPanel.reflow();
 			
 			this.$.Spin.hide();
@@ -134,7 +136,7 @@ enyo.kind({
 		if(this.selected.mime == this.folderMime)
 		{
 			//put on path
-			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", container: this.$.btnTool }).render();				
+			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
 			this.path.push( newButton );
 			this.reflow();
 			
