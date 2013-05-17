@@ -30,7 +30,7 @@ enyo.kind({
 		this.inherited(arguments);
 		;
 		                                                               //"Are you sure you want to delete" + outratela.param +  " ?" 
-		this.$.name.setContent("Are you sure you want to delete -  Repository name here -?");
+		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
 	},
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);
@@ -53,7 +53,19 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	newAccount: function(sender, event){
-		this.doCreateAcc();
+		var ajaxComponent = new enyo.Ajax({
+			url: this.uri,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "DELETE",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); 		
+		ajaxComponent.go()
+		.response()
+		.error(this, function(){
+			console.log("Error to delete the detail of the command!");
+		});	
+		this.doBack(event);
 	},
 	setupItem: function(sender, event){
 

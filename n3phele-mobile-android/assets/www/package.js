@@ -9,6 +9,7 @@ enyo.depends(
 	"RepositoryFileList.js",
 	"RepositoryList.js",
 	"RemoveRepository.js",
+	"CreateFolder.js",
 	"AccountList.js",
 	"RecentActivityList.js",
 	"ActivityList.js",
