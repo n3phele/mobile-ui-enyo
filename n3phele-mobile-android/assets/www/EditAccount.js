@@ -54,8 +54,6 @@ enyo.kind({
 	]} ]} 
 	],
 	
-   //Funcs aqui,
-	
 	create: function() {
 		this.inherited(arguments);
 		
@@ -111,7 +109,7 @@ enyo.kind({
 		});
 	},
 	cancelAction: function(sender , event){
-		this.doBack(event);
+		this.doBack();
 	}
 });
 
