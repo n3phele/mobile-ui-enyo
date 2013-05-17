@@ -15,7 +15,7 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
 			{name: "title", content:"Repositories"},
-			{kind: "onyx.Button", content: "New Repository", ontap: "newrepo",classes:"button-style-right"}
+			{kind: "onyx.Button", content: "+", ontap: "newrepo",classes:"button-style-right"}
 			//{fit: true}
 		]},  
 			

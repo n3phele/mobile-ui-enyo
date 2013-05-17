@@ -174,7 +174,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name ,onRemoveRepository: "RemoveRepository", onCreateFolder:"CreateFolder" ,onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -212,6 +212,24 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},	
+		RemoveRepository: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);
+        console.log(inEvent);		
+		//create panel to create a new account
+		this.createComponent({ kind: "RemoveRepository", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},	
+	CreateFolder: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(2);
+        console.log(inEvent);		
+		//create panel to create a new account
+		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},
 	serviceDetail: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);		
@@ -224,15 +242,15 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
-		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", "index": "4", onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
 	stackDetail: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(4);		
+		this.closeSecondaryPanels(4);
 		//create panel to show stack detail
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, "index": "5", onBack: "closePanel5", container: this.$.panels }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, onBack: "closePanel5", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
@@ -242,15 +260,15 @@ enyo.kind({
 		//create panel to access account details
 		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(3);
 	},
 	editAccount: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(2);		
+		this.closeSecondaryPanels(3);		
 		//create panel to access account details
-		this.createComponent({ kind: "EditAccount", "uid": this.uid, "account": inEvent ,"uri": inEvent.uri, "account": inEvent, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "EditAccount", "uid": this.uid, "account": inEvent ,"uri": inEvent.uri, "account": inEvent, onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(4);
 	},
 	listRepository: function(inSender,inEvent){	
 		//close old panels		
@@ -285,18 +303,13 @@ enyo.kind({
 		this.closeSecondaryPanels(2);
 		this.setPanelIndex(1);
 	},
-		closePanel4:function(inSender,inEvent){
-		this.closeSecondaryPanels(2);
+	closePanel4:function(inSender,inEvent){
 		this.closeSecondaryPanels(3);
-		this.closeSecondaryPanels(4);
-		this.setPanelIndex(3);
+		this.$.panels.setIndex(2);
 	},
-		closePanel5:function(inSender,inEvent){
-		this.closeSecondaryPanels(2);
-		this.closeSecondaryPanels(3);
+	closePanel5:function(inSender,inEvent){
 		this.closeSecondaryPanels(4);
-		this.closeSecondaryPanels(5);
-		this.setPanelIndex(4);
+		this.$.panels.setIndex(3);
 	},
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {

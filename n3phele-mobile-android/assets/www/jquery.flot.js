@@ -452,7 +452,7 @@ Licensed under the MIT license.
                 xaxis: {
                     show: null, // null = auto-detect, true = always, false = never
                     position: "bottom", // or "top"
-                    mode: null, // null or "time"
+                   /* mode: null, // null or "time"
                     font: null, // null (derived from CSS in placeholder) or object like { size: 11, lineHeight: 13, style: "italic", weight: "bold", family: "sans-serif", variant: "small-caps" }
                     color: null, // base color, labels, ticks
                     tickColor: null, // possibly different color of ticks, e.g. "rgba(0,0,0,0.15)"
@@ -460,6 +460,7 @@ Licensed under the MIT license.
                     inverseTransform: null, // if transform is set, this should be the inverse function
                     min: null, // min. value to show, null means set automatically
                     max: null, // max. value to show, null means set automatically
+					tickLength: 0,
                     autoscaleMargin: null, // margin in % to add if auto-setting min/max
                     ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or app. number of ticks for auto-ticks
                     tickFormatter: null, // fn: number -> string
@@ -470,39 +471,46 @@ Licensed under the MIT license.
                     alignTicksWithAxis: null, // axis number or null for no sync
                     tickDecimals: null, // no. of decimals, null means auto
                     tickSize: null, // number or [number, "unit"]
-                    minTickSize: null // number or [number, "unit"]
+                    minTickSize: null // number or [number, "unit"]*/
+					
+					tickLength: 0,
+                   
                 },
                 yaxis: {
-                    autoscaleMargin: 0.02,
+                   autoscaleMargin: 0.02,
+					tickLength: 0,
                     position: "left" // or "right"
                 },
                 xaxes: [],
                 yaxes: [],
                 series: {
+				color:"#333",
                     points: {
                         show: false,
-                        radius: 3,
+                        radius: 5,
                         lineWidth: 2, // in pixels
-                        fill: true,
-                        fillColor: "#ffffff",
+                        fill: false,
+                        fillColor: "4F81BD",
                         symbol: "circle" // or callback
                     },
                     lines: {
+					show: false,
                         // we don't put in show: false so we can see
                         // whether lines were actively disabled
-                        lineWidth: 2, // in pixels
-                        fill: false,
-                        fillColor: null,
+                        lineWidth: 1, // in pixels
+                        fill: true,
+                        fillColor: "4F81BD",
                         steps: false
                         // Omit 'zero', so we can later default its value to
                         // match that of the 'fill' option.
                     },
                     bars: {
-                        show: false,
+                        show: true,
                         lineWidth: 2, // in pixels
                         barWidth: 1, // in units of the x axis
                         fill: true,
-                        fillColor: null,
+                        fillColor:"#4F81BD",
+						
                         align: "left", // "left", "right", or "center"
                         horizontal: false,
                         zero: true
@@ -513,7 +521,7 @@ Licensed under the MIT license.
                 grid: {
                     show: true,
                     aboveData: false,
-                    color: "#545454", // primary color used for outline and labels
+                    color: "#red", // primary color used for outline and labels
                     backgroundColor: null, // null for transparent, else color
                     borderColor: null, // set if different from the grid color
                     tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
