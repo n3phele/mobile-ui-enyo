@@ -12,7 +12,8 @@ enyo.kind({
 	callBy: "",
 	events: {
 		onSelectedItem: "",
-		onBack: ""
+		onBack: "",
+		onRemoveRepository:""
 	},
 	components:[
 		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
@@ -106,7 +107,7 @@ enyo.kind({
 		this.doBack(event);
 	},
 	deleteRepository: function( sender , event){
-		var ajaxComponent = new enyo.Ajax({
+		/*var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
@@ -118,7 +119,8 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
 		});	
-		this.backMenu();
+		this.backMenu();*/
+		this.doRemoveRepository();
 	},
 	newFolder: function( sender , event){
 		
