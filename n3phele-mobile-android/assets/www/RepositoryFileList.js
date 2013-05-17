@@ -13,7 +13,8 @@ enyo.kind({
 	events: {
 		onSelectedItem: "",
 		onBack: "",
-		onRemoveRepository:""
+		onRemoveRepository:"",
+	    onCreateFolder:""
 	},
 	components:[
 		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
@@ -126,7 +127,7 @@ enyo.kind({
 		this.doRemoveRepository(obj);
 	},
 	newFolder: function( sender , event){
-		
+		this.doCreateFolder();
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.
