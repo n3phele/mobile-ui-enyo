@@ -30,7 +30,7 @@ enyo.kind({
 		this.inherited(arguments);
 		;
 		                                                               //"Are you sure you want to delete" + outratela.param +  " ?" 
-		this.$.name.setContent("Are you sure you want to delete -  Repository name here -?");
+		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
 	},
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);

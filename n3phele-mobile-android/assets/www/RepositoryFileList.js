@@ -120,7 +120,10 @@ enyo.kind({
 			console.log("Error to delete the detail of the command!");
 		});	
 		this.backMenu();*/
-		this.doRemoveRepository();
+	    var obj =  new Object();
+	    console.log(this.repositoryName);
+		obj.name = this.repositoryName;
+		this.doRemoveRepository(obj);
 	},
 	newFolder: function( sender , event){
 		
