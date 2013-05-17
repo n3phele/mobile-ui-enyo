@@ -16,7 +16,7 @@ enyo.kind({
 		onRemoveRepository:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "New folder",classes: "button-style-right", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "<", ontap: "backMenu"}]},
 		{kind: "Scroller", name: "scroll",style:"background:#fff", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]}

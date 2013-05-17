@@ -12,7 +12,7 @@ enyo.kind({
 		onBack:""
 	},
 	components:[
-		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "New Service", ontap: "newService", classes:"button-style-right"},{fit: true}]},
+		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
 			
 			{name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold;", components:[ 
 				{content: "Name", style:"display: inline-block; width:25% ;font-weight: bold"}, 
