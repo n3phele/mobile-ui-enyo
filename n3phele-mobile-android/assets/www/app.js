@@ -223,12 +223,12 @@ enyo.kind({
 	},	
 	CreateFolder: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(2);
+		this.closeSecondaryPanels(3);
         console.log(inEvent);		
 		//create panel to create a new account
-		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(4);
 	},
 	serviceDetail: function(inSender,inEvent){		
 		//close old panels	
