@@ -2,6 +2,7 @@ var stacks;
 enyo.kind({
 	name: "CommandList",
 	kind: "FittableRows",
+	fit: true,
 	data: [],
 	commands: null,
 	commandsImages : null,
@@ -16,10 +17,7 @@ enyo.kind({
 					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
 				]},
 				{kind: "onyx.Button", classes:"button-combobox-style", content: "search", ontap: "search"},
-				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
-				{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", components:[]}
-				]}			
+				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false}		
 	],
 	create: function(){
 		this.inherited(arguments)	

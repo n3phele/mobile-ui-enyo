@@ -14,7 +14,7 @@ enyo.kind({
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "<", ontap : "backMenu"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
 		 	{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
