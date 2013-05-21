@@ -484,28 +484,29 @@ Licensed under the MIT license.
                 xaxes: [],
                 yaxes: [],
                 series: {
-				color:"#333",
+				color:"blue",
                     points: {
-                        show: false,
-                        radius: 5,
+                        show: true,
+                        radius: 1.5,
                         lineWidth: 2, // in pixels
                         fill: false,
                         fillColor: "4F81BD",
                         symbol: "circle" // or callback
                     },
                     lines: {
-					show: false,
+					show: true,
                         // we don't put in show: false so we can see
                         // whether lines were actively disabled
                         lineWidth: 1, // in pixels
-                        fill: true,
+                        fill: false,
                         fillColor: "4F81BD",
+						//color:"blue",
                         steps: false
                         // Omit 'zero', so we can later default its value to
                         // match that of the 'fill' option.
                     },
                     bars: {
-                        show: true,
+                        show: false,
                         lineWidth: 2, // in pixels
                         barWidth: 1, // in units of the x axis
                         fill: true,
