@@ -11,7 +11,7 @@ enyo.kind({
     {kind:"Scroller",style: "background: #fff",classes: "scroller-sample-scroller enyo-fit",components: [
 	{kind: "onyx.Toolbar",  classes: "toolbar-style",components: [ 
 		{name: "title", content:"Edit Account" }, {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "save"} , 
-	    {kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "cancelAction"}]},
+	    {kind: "onyx.Button", content: "Account Detail", classes:"button-style-left", ontap: "cancelAction"}]},
 	    {tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},

@@ -12,7 +12,7 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		style:"background:#fff",
 		components : [
-		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "<", ontap : "backMenu"},
+		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "backMenu"},
 				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
 		 	{content : "Name", name : "stack", style : "margin:0 0 0 10px;"},
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},

@@ -17,12 +17,15 @@ enyo.kind({
 				]},
 				{kind: "onyx.Button", classes:"button-combobox-style", content: "search", ontap: "search"},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
+				{kind: "Scroller", name: "scroll", fit: true, components: [
+		          {name: "panel", components:[]}
+				]}			
 	],
 	create: function(){
 		this.inherited(arguments)	
 	
 		if (this.closePanel.isScreenNarrow()) {
-			this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.toolTop}).render();
+			this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
 		stacks = new Array();

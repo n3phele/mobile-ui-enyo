@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	style: "padding: 0px",
+	 style:"background:#fff",
 	events: {
 		onCreateAcc: "",
 		onBack: "",
@@ -11,7 +12,7 @@ enyo.kind({
 		components:[
 		{kind: "onyx.Toolbar",classes:"toolbar-style", components: [
 				{kind: "onyx.Button",classes:"button-style-right",content: "Delete", ontap: "newAccount"} , 
-				{kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "cancelAction"} ,
+				{kind: "onyx.Button",classes:"button-style-left", content: "Repository List", ontap: "cancelAction"},	
 				{ name: "title", content:"Delete Repository", }, {fit: true}]},
 		{style:"margin: 3em auto;width:400px;", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
@@ -24,12 +25,11 @@ enyo.kind({
 				
 			]},
 	    ]},
-		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;clear: both"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		;
-		                                                               //"Are you sure you want to delete" + outratela.param +  " ?" 
+	//"Are you sure you want to delete" + outratela.param +  " ?" 
 		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
 	},
 	selectedAccount: function(sender, event){

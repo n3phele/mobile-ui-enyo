@@ -19,11 +19,12 @@ enyo.kind({
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
 	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #4F81bd", onSetupItem: "setupItem", components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
 				{name: "active",  style:"width:24%; display: inline-block" } ,
-				{name: "cloud", style:"width:25%; display: inline-block" }	    
+				{name: "cloud", style:"width:18%; display: inline-block" },
+				{name: "icon2", kind: "onyx.IconButton",style:"float:right;margin-right:-11px",src: "assets/next.png", ontap: "nextItem"} 	    				
 	         ]}
 	     ]}, 
 	],
@@ -34,7 +35,7 @@ enyo.kind({
 		
 		var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.toolTop}).render();
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
 		var ajaxComponent = new enyo.Ajax({

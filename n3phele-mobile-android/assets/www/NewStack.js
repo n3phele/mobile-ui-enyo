@@ -11,7 +11,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack"},{kind: "onyx.Button", classes:"button-style-left", content: "<", ontap: "backMenu"}]},
+			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack"},{kind: "onyx.Button", classes:"button-style-left", content: "Service Detail", ontap: "backMenu"}]},
 				{kind: "onyx.InputDecorator",style: "width: 85%; margin:25px 0 25px 10px; width:50%;border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}

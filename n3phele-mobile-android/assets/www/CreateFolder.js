@@ -10,7 +10,7 @@ enyo.kind({
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
-		{kind: "onyx.Button" ,content: "<", classes:"button-style-left", ontap: "cancelAction"},
+		{kind: "onyx.Button" ,content: "Repository", classes:"button-style-left", ontap: "cancelAction"},
 		{ name: "title", content:"Create Folder" }, {fit: true}]},
         {style:"margin: 3em auto;width:700px;", components:[
 		{kind: "FittableRows", name:"panel", fit: true, components: [{classes: "onyx-toolbar-inline", components: [

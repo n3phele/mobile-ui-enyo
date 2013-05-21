@@ -11,7 +11,7 @@ enyo.kind({
 		onSelectedFile: ""
 	},
 	components:[
-		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "closePanel"}]},
+		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "Command List", classes:"button-style-left", ontap: "closePanel"}]},
 
 		{kind: "Panels", name:"panels", fit: true, classes: "panels-sample-sliding-panels panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "info", classes: "info", style: "width:15%;background:#fff", components: [
@@ -76,9 +76,10 @@ enyo.kind({
 
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
-			this.$.info.destroy();
-		this.$.comScroll.render();
-		this.$.panels.reflow();
+		this.$.info.destroy();
+		//this.$.comScroll.render();
+		this.$.params.reflow();
+		this.render();
 	},
 	repository: function(sender, event){
 		this.doSelectedFile();
@@ -149,6 +150,6 @@ enyo.kind({
 			}		
 			
 			panel.reflow();		
-			panel.owner.$.IconGallery.deselectLastItem();			
+			//panel.owner.$.IconGallery.deselectLastItem();			
 	}	
 })

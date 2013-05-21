@@ -3,7 +3,8 @@ enyo.kind({
 		name:"ActivityList",
 		result: null,
 		events: {
-		onBack: ""
+		onBack: "",
+		onClose: "",
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Recent Activity List"}, {fit: true} ]},
@@ -11,6 +12,7 @@ enyo.kind({
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
+					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"}
 				]}//end item
 			]}
 		], //end components	
@@ -54,12 +56,15 @@ enyo.kind({
 			this.inherited(arguments);
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
-				this.createComponent({kind: "onyx.Button", content: "<", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
+				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 		}
 			this.getRecentActivities(this.uid);
 		},
 		backMenu: function (sender, event){
 			this.doBack();
+		},
+		closePanel: function (sender, event){
+			this.doClose();
 		},
 		itemTap: function( sender, event){
 			if(this.results == null ) return;
@@ -73,7 +78,7 @@ enyo.kind({
 			}
 			
 			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid, container: main.$.imageIconPanel});
+			main.createComponent({kind: "RecentActivityPanel", 'url': this.results[event.index].uri, onBack: "closePanel", 'uid': this.uid, container: main.$.imageIconPanel});
 		
 			panels.owner.$.imageIconPanel.render();
 		}
@@ -84,8 +89,11 @@ enyo.kind({
 		name:"RecentActivityPanel",
 		kind: "FittableRows",
 		fit: true,
+		events: {
+		onBack: ""
+		},
 		components:[
-			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true} ]},
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}, {kind: "onyx.Button", content: "Activity List", classes:"button-style-left", ontap: "backMenu"} ]},
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
@@ -206,19 +214,6 @@ enyo.kind({
 			panel.render();
 		},
 		backMenu: function( sender , event){
-			var panel = sender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
+			this.doBack();
 		}
 });

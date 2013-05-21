@@ -55,7 +55,7 @@ enyo.kind({
 		
 		if(this.callBy=="repositoryList"){
 		if (this.closePanel.isScreenNarrow()) {
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "<", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
 		} 
 		
 		}else if(this.callBy=="selectFile"){
