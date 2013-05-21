@@ -34,5 +34,6 @@ enyo.depends(
 	"StackDetails.js",
 	"ServiceDetail.js",
 	"EditAccount.js",
-	"CommandList.js"
+	"CommandList.js",
+	"Activity.js"
 );

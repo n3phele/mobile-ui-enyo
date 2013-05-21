@@ -137,7 +137,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels, container: this.$.imageIconPanel
+					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels, onSelectedActivity: "selectedActivity", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -169,6 +169,14 @@ enyo.kind({
 		else {
 			this.$.panels.setIndex(index-1);
 		}
+	},
+	selectedActivity: function(sender, event){		
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to show selected activity
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, "uri": event.uri, 'url': event.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
 	},
 	repositorySelected: function(inSender,inEvent){	
 		//close old panels	
