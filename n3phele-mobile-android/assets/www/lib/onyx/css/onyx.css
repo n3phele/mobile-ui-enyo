@@ -80,7 +80,7 @@
   white-space: nowrap;
   margin: 0;
   padding: 6px 18px;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* border-radius: 3px; */
   /* for IE8 */
 
