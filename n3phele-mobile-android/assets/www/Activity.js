@@ -22,7 +22,7 @@ enyo.kind({
 					{tag: "span", content: "Completed: ", style:"font-variant:small-caps;"}, 
 					{name: "acComplete", style:"display: inline-block"},
 					{tag: "br"},
-					{tag: "span", content: "Duration(in minutes): ", style:"font-variant:small-caps;"}, //seconds
+					{tag: "span", content: "Duration: ", style:"font-variant:small-caps;"}, //seconds
 					{name: "acDuration", style:"display: inline-block"},
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"},
@@ -66,8 +66,15 @@ enyo.kind({
 				
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
 				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
+
+				var duration = (Math.round(((d2-d1)/60000)*100)/100);
+				if(duration < 1){
+					duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
+				}else{
+					duration = duration + " minutes";
+				}
 				
-				thisPanel.$.acDuration.setContent(" "+(Math.round(((d2-d1)/60000)*100)/100)); 
+				thisPanel.$.acDuration.setContent(" "+ duration); 
 				
 				
 				var narrative = fixArrayInformation(response.narrative);

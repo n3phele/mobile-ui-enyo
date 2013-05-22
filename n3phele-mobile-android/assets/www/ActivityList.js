@@ -1,7 +1,8 @@
-var listSize = 3;
+var listSize = 15;
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,
+		fit: true,
 		events: {
 		onBack: "",
 		onClose: "",
@@ -9,7 +10,7 @@ enyo.kind({
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
+			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%; border-top: 2px solid #88B0F2", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" } ]},
 					{ name: "activity", style: "display:inline-block"},
@@ -29,7 +30,7 @@ enyo.kind({
 			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 			
 			ajaxComponent
-			.go({'summary' : true, 'start' : 0, 'end' : listSize-1})
+			.go({'summary' : true, 'start' : 0, 'end' : listSize})
 			.response( this, "processRecentActivities" )
 			.error( this, function(){ console.log("Error to load recent activities!!"); });
 		},

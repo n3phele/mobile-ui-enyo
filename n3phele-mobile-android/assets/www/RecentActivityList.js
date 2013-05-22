@@ -1,10 +1,10 @@
-var listSize = 3;
+var size = 3;
 enyo.kind({ 
 		name:"RecentActivityList",
 		result: null,
 		components:[
 			{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
+			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*size)+"px", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 9px #4F81bd",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
@@ -23,7 +23,7 @@ enyo.kind({
 			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 			
 			ajaxComponent
-			.go({'summary' : true, 'start' : 0, 'end' : listSize-1})
+			.go({'summary' : true, 'start' : 0, 'end' : size})
 			.response( this, "processRecentActivities" )
 			.error( this, function(){ console.log("Error to load recent activities!!"); });
 		},
@@ -68,19 +68,22 @@ enyo.kind({
 			}
 			
 			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid, container: main.$.imageIconPanel});
+			main.createComponent({kind: "ActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid, container: main.$.imageIconPanel});
 		
 			panels.owner.$.imageIconPanel.render();
 		},
 });
 
 enyo.kind({ 
-		name:"RecentActivityPanel",
+		name:"ActivityPanel",
 		kind: "FittableRows",
 		fit: true,
+		events: {
+		onBack: "",
+		},
 		components:[
-			{name: "topToolbar",kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true} ]},
-			{kind: "enyo.Scroller", fit: true, components: [
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}]},
+			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
@@ -95,16 +98,14 @@ enyo.kind({
 					{tag: "span", content: "Completed: ", style:"font-variant:small-caps;"}, 
 					{name: "acComplete", style:"display: inline-block"},
 					{tag: "br"},
-					{tag: "span", content: "Duration(in minutes): ", style:"font-variant:small-caps;"}, //seconds
+					{tag: "span", content: "Duration: ", style:"font-variant:small-caps;"}, //seconds
 					{name: "acDuration", style:"display: inline-block"},
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"},
 					{tag: "br"},
-					{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
 					{name: "narratives"}
 				]}
-			]},
-			{kind: "onyx.Toolbar", components: []}
+			]}
 		],
 		constructor: function(args) {
 			this.inherited(arguments);
@@ -142,7 +143,15 @@ enyo.kind({
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
 				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
 				
-				thisPanel.$.acDuration.setContent(" "+((d2-d1)/60000));
+				var duration = (Math.round(((d2-d1)/60000)*100)/100);
+				if(duration < 1){
+					duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
+				}else{
+					duration = duration + " minutes";
+				}
+				
+				thisPanel.$.acDuration.setContent(" "+ duration); 
+				
 				
 				
 				var narrative = fixArrayInformation(response.narrative);
@@ -191,7 +200,11 @@ enyo.kind({
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
 					panel.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
-				}
+					}else if(narrative[i].state=="error"){
+					panel.createComponent({kind:"Image", src:"assets/narrative-error.png", fit: true, style:"display: inline-block;"});
+					}else if(narrative[i].state=="warning"){
+					panel.createComponent({kind:"Image", src:"assets/narrative-warning.png", fit: true, style:"display: inline-block;"});
+					}
 					panel.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
 					panel.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
 					panel.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
@@ -200,19 +213,6 @@ enyo.kind({
 			panel.render();
 		},
 		backMenu: function( sender , event){
-			var panel = sender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
+			this.doBack();
 		}
 });
