@@ -6,7 +6,7 @@ enyo.kind({
 			{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 9px #4F81bd",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
-					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
+					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" }, ]},
 					{ name: "activity", style: "display:inline-block"},
 				]}//end item
 			]},
@@ -44,6 +44,11 @@ enyo.kind({
 			this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
 			var i = inEvent.index;
 			var item = this.results[i];
+			if(item.state == "COMPLETE"){
+				this.$.status.setSrc("assets/activities.png");
+			}else{
+				this.$.status.setSrc("assets/failed.png");
+			}
 			this.$.activity.setContent(item.name);
 		},
 

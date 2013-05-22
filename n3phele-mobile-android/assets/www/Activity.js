@@ -6,7 +6,7 @@ enyo.kind({
 		onBack: "",
 		},
 		components:[
-			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}, {kind: "onyx.Button", content: "Activity List", classes:"button-style-left", ontap: "backMenu"} ]},
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}, {kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} ]},
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
@@ -27,11 +27,9 @@ enyo.kind({
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"},
 					{tag: "br"},
-					//{tag: "span", content: "Log: ", style:"font-variant:small-caps;"},
 					{name: "narratives"}
 				]}
 			]}
-			//{kind: "onyx.Toolbar", components: []}
 		],
 		constructor: function(args) {
 			this.inherited(arguments);
@@ -69,7 +67,7 @@ enyo.kind({
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
 				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
 				
-				thisPanel.$.acDuration.setContent(" "+((d2-d1)/60000));
+				thisPanel.$.acDuration.setContent(" "+(Math.round(((d2-d1)/60000)*100)/100)); 
 				
 				
 				var narrative = fixArrayInformation(response.narrative);
@@ -118,7 +116,11 @@ enyo.kind({
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
 					panel.createComponent({kind:"Image", src:"assets/info.png", fit: true, style:"display: inline-block;"});
-				}
+					}else if(narrative[i].state=="error"){
+					panel.createComponent({kind:"Image", src:"assets/narrative-error.png", fit: true, style:"display: inline-block;"});
+					}else if(narrative[i].state=="warning"){
+					panel.createComponent({kind:"Image", src:"assets/narrative-warning.png", fit: true, style:"display: inline-block;"});
+					}
 					panel.createComponent({style:"display: inline-block;", content: "  [ "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+" ]  "});
 					panel.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
 					panel.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});

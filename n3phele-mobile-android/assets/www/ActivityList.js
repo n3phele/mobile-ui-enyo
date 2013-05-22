@@ -8,10 +8,10 @@ enyo.kind({
 		onSelectedActivity: ""
 		},
 		components:[
-			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Recent Activity List"}, {fit: true} ]},
+			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*listSize)+"px", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
-					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", style:"width: 70%;", src: "assets/activities.png" }, ]},
+					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" } ]},
 					{ name: "activity", style: "display:inline-block"},
 					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"}
 				]}//end item
@@ -33,7 +33,7 @@ enyo.kind({
 			.response( this, "processRecentActivities" )
 			.error( this, function(){ console.log("Error to load recent activities!!"); });
 		},
-		processRecentActivities: function( request, response){
+		processRecentActivities: function( request, response){		
 			if(response.total == 0){
 				this.$.divider.setContent("Without recent activities!");
 				this.$.list.applyStyle("display", "none !important");
@@ -50,9 +50,13 @@ enyo.kind({
 			this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
 			var i = inEvent.index;
 			var item = this.results[i];
+			if(item.state == "COMPLETE"){
+				this.$.status.setSrc("assets/activities.png");
+			}else{
+				this.$.status.setSrc("assets/failed.png");
+			}
 			this.$.activity.setContent(item.name);
 		},
-
 		create: function(){
 			this.inherited(arguments);
 			var thisPanel = this;

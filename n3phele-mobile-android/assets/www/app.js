@@ -214,7 +214,6 @@ enyo.kind({
 	removeService: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);
-        console.log(inEvent);		
 		//create panel to create a new account
 		this.createComponent({ kind: "RemoveService", "uid": this.uid,"service":inEvent ,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
@@ -230,8 +229,7 @@ enyo.kind({
 	},	
 	CreateFolder: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(3);
-        console.log(inEvent);		
+		this.closeSecondaryPanels(3);		
 		//create panel to create a new account
 		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
