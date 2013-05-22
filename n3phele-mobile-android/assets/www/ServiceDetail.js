@@ -122,7 +122,7 @@ enyo.kind({
 									{icon: "assets/file.png", content: "VM2"},
 								]},
 							]},	
-						]}).render();
+						]},{owner:this}).render();
 						
 		this.$.buttonsPanel.destroyClientControls();
 		
@@ -172,7 +172,7 @@ enyo.kind({
 									{icon: "assets/file.png", content: "Load Balancer"},
 								]},
 							]},	
-						]}).render();
+						]},{owner:this}).render();
 					
 		this.$.buttonsPanel.destroyClientControls();
 		

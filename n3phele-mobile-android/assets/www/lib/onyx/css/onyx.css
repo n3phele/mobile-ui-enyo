@@ -595,6 +595,7 @@
   margin-top: 0;
   margin-bottom: 0;
   height: 36px;
+  padding:0 10px 0 10px;
 }
 .onyx-toolbar .onyx-input-decorator {
   margin: 1px 3px;
