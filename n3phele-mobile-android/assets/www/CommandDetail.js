@@ -22,8 +22,7 @@ enyo.kind({
 				]}
 			]},
 			{name: "params",classes: "params", fit: true, style: "padding: 0px",  components: [
-				{name: "comScroll", kind: "Scroller",style:"background:#fff", classes: "enyo-fit", touch: true, components: [
-					
+				{name: "comScroll", kind: "Scroller",style:"background:#fff", classes: "enyo-fit", touch: true, components: [	 
 				]}
 			]}
 		]}

@@ -11,29 +11,19 @@ enyo.kind({
 	},
 		components:[
 		{kind: "onyx.Toolbar",classes:"toolbar-style", components: [
-				{kind: "onyx.Button",classes:"button-style-right",content: "Delete", ontap: "newAccount"} , 
+				{kind: "onyx.Button",classes:"button-style-right",content: "Delete", ontap: "deleteRepository"} , 
 				{kind: "onyx.Button",classes:"button-style-left", content: "Repository List", ontap: "cancelAction"},	
 				{ name: "title", content:"Delete Repository", }, {fit: true}]},
-		{style:"margin: 3em auto;width:400px;", components:[		
+		{style:"margin: 3em auto", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
-				{name:"name",content: "Repository", style:"display:inline-block"}, 
-				
-				/*{kind: "onyx.InputDecorator", style:"display:inline-block;margin-left:10px", components: [
-					{kind: "onyx.Input",name:"service", disabled: true, value: "Service to be deleted"}
-				]} ,*/ 
-				//{content: "Are you sure you want to delete this service? "},
-				
+				{name:"name",content: "Repository", style:"display:inline-block;"}, 
 			]},
 	    ]},
 	],
 	create: function() {
 		this.inherited(arguments);
-		;
 	//"Are you sure you want to delete" + outratela.param +  " ?" 
 		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
-	},
-	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -52,9 +42,9 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	newAccount: function(sender, event){
+	deleteRepository: function(sender, event){
 		var ajaxComponent = new enyo.Ajax({
-			url: this.uri,
+			url: this.repository.originator.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",
@@ -67,9 +57,6 @@ enyo.kind({
 		});	
 		this.doBack(event);
 	},
-	setupItem: function(sender, event){
-
-		},
 	cancelAction:function (sender,event)
 	{  
 		this.doBack();

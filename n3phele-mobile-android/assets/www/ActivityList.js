@@ -1,4 +1,4 @@
-var listSize = 5;
+var listSize = 3;
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,

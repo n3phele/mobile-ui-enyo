@@ -17,11 +17,10 @@ enyo.kind({
 	    onCreateFolder:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Remove", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu"}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right", ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu"}]},
 		{kind: "Scroller", name: "scroll",style:"background:#fff", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]}
-		//{kind: "onyx.Toolbar", name: "btnTool", components: [ {kind: "onyx.Button", content: "Delete Repository", ontap: "deleteRepository"},{kind: "onyx.Button", content: "Create new folder", ontap: "newFolder"},{kind: "onyx.Button", style: "float: right;", content: "Close", ontap: "backMenu"}]}
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -108,21 +107,7 @@ enyo.kind({
 		this.doBack(event);
 	},
 	deleteRepository: function( sender , event){
-		/*var ajaxComponent = new enyo.Ajax({
-			url: this.uri,
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "DELETE",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		}); 		
-		ajaxComponent.go()
-		.response()
-		.error(this, function(){
-			console.log("Error to delete the detail of the command!");
-		});	
-		this.backMenu();*/
 	    var obj =  new Object();
-	    console.log(this.repositoryName);
 		obj.name = this.repositoryName;
 		this.doRemoveRepository(obj);
 	},
