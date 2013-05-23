@@ -15,19 +15,19 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
 		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
-				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
+			{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
-				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:30 0 10px 22px",components : [  
-					{kind : "onyx.InputDecorator",style:"border:1px solid;height:20px",components : [ 
-					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000; padding:0px 40px 0px 0px;" }
+				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:10 0 10px 22px",components : [  
+					{kind : "onyx.InputDecorator",style:"border:1px solid;height:30px",components : [ 
+					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000; padding:6px 35px 10px 8px" }
 					]},   
-					{content : "v",allowHtml : true,classes:"button-combobox-style",style:"height:50px"},
-					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
+					{content : "v",allowHtml : true,classes:"button-combobox-style",style:"height:45px !important"},
+					{kind : "onyx.Menu", name : "costList", style : "width:235px;background:#B9B9BD;color:#000", components:[  //width:235px;top:0 !important
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
 					]}
