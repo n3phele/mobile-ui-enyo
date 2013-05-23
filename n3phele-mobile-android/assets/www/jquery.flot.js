@@ -526,10 +526,10 @@ Licensed under the MIT license.
                     backgroundColor: null, // null for transparent, else color
                     borderColor: null, // set if different from the grid color
                     tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
-                    margin: 0, // distance from the canvas edge to the grid
+                    margin: 5, // distance from the canvas edge to the grid
                     labelMargin: 5, // in pixels
-                    axisMargin: 8, // in pixels
-                    borderWidth: 2, // in pixels
+                    axisMargin: 2, // in pixels
+                    borderWidth: 1, // in pixels
                     minBorderMargin: null, // in pixels, null means taken from points radius
                     markings: null, // array of ranges or fn: axes -> array of ranges
                     markingsColor: "#f4f4f4",

@@ -39,7 +39,7 @@ enyo.kind({
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 
 			{kind: "Scroller", fit:true, components:[
-			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:605px; margin: auto;border:1px solid #DBDBDE", components : [
+			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:960; margin: auto;border:1px solid #DBDBDE", components : [
 			   
 			]}]},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
@@ -127,7 +127,8 @@ enyo.kind({
 		.response(this, function(sender, response){
 			response.elements = fixArrayInformation(response.elements);
 			results = response.elements;
-			this.createComponent({name : "chart",kind : "chart", "data": results, "type": this.$.cost.getPlaceholder(), container: this.$.chartPanel}).render();
+			//this.createComponent({name : "chart",kind : "chart", "data": results, "type": this.$.cost.getPlaceholder(), container: this.$.chartPanel}).render();
+			this.createChart(results, this.$.cost.getPlaceholder());
 			//this.$.list.setCount(results.length);
 			//this.$.list.reset();
 		})
@@ -136,6 +137,56 @@ enyo.kind({
 		popup.delete();
 		});		
 		
+	},
+
+	createChart: function(data, type){
+		var chartData = [];
+        
+		for(var i = 0; i < data.length; i++){
+			chartData[i] = [i, parseFloat(data[i])];
+		}
+
+        if (type == "Cumulative Cost") {
+            for (var i = 1; i < chartData.length; i++) {
+                chartData[i][1] = chartData[i][1] + chartData[i - 1][1];
+            }
+        }
+
+        var ticksOptions = [];
+		var fontsize;
+        var date = new Date();
+
+        if (this.days == 1) {
+		    fontsize = 11;
+        	date.setHours(date.getHours() - 23);
+        	var gap = 1;
+	        for (var i = 0; i < chartData.length; i+=gap) {
+	        	ticksOptions[i] = [i, date.getHours()+ "h"];
+	        	date.setHours(date.getHours() + gap);
+				console.log(ticksOptions.length);
+	        }
+    	}
+    	else{
+    		date.setDate(date.getDate() - (this.days - 1));
+    		var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    		var gap = (this.days == 30) ? 1 : 1;
+		    fontsize = (this.days==30)? 9:15
+    		for (var i = 0; i < chartData.length; i+=gap) {
+	        	ticksOptions[i] = [i, monthNames[date.getMonth()] + "" + date.getDate()];
+	        	date.setDate(date.getDate() + gap);
+				console.log(ticksOptions.length);
+	        }
+    	}
+
+		var options = {
+			xaxis: {
+			ticks: ticksOptions,
+			font: {size: fontsize,style: "italic",weight: "bold" , color:"black"}
+                
+			}
+		};
+
+		$.plot($("#n3phele_accountDetails_chartPanel"), [ chartData ], options);
 	}
 	
 });
