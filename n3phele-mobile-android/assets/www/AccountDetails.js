@@ -22,11 +22,11 @@ enyo.kind({
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
-				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:0 0 10px 22px",components : [  
-					{kind : "onyx.InputDecorator",style:"border:1px solid",components : [ 
-					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000"}
+				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:10 0 10px 22px",components : [  
+					{kind : "onyx.InputDecorator",style:"border:1px solid;height:30px",components : [ 
+					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000; padding:6px 35px 10px 8px" }
 					]},   
-					{content : "v",allowHtml : true,classes:"button-combobox-style"},
+					{content : "v",allowHtml : true,classes:"button-combobox-style",style:"height:20px"},
 					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
