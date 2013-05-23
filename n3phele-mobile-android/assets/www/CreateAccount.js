@@ -33,7 +33,7 @@ enyo.kind({
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
 			{content: "v", allowHtml:true, classes:"button-combobox-style"},
-			{kind: "onyx.Menu", name: "cloudsList", style:"width:192px;background:#303030", components: [
+			{kind: "onyx.Menu", name: "cloudsList", style:"width:192px;background:#B9B9BD;color:#000", components: [
 				{content: "EC2"},
 				{content: "HPZone1"}
 			]}
