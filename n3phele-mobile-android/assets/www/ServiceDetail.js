@@ -3,11 +3,12 @@ enyo.kind({
 	kind: "FittableRows",
 	events: {
 		onCreateStack: "",
-		onBack: ""
+		onBack: "",
+		onRemoveService: ""
 	}, 
 	components: [
 		{kind:"Scroller", style:"background:#fff",classes: "scroller-sample-scroller enyo-fit",components: [
-				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
+				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right", ontap: "removeService"},{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
 			{kind: "onyx.Button",classes:"button-style-left", content: "Service List", ontap: "close"},		
 			{content: "Service Detail", name: "title_1", }]},							
 				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px; font-size:20px"}, 
@@ -66,6 +67,7 @@ enyo.kind({
 	],	
 	nodeExpand: function(inSender, inEvent) {
 		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
+		//console.log(this.service);
 	},
 	newStack: function(inSender, inEvent) {
 		this.doCreateStack();
@@ -82,6 +84,10 @@ enyo.kind({
 	},
 	close: function(inSender, inEvent){
 		this.doBack();
+	},
+	removeService:function (sender,event)
+	{   
+        this.doRemoveService(this.service);
 	},
 	resource: function(inSender, inEvent) {
 		this.$.panel.destroyClientControls();

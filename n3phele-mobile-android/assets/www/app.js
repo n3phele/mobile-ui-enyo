@@ -153,7 +153,7 @@ enyo.kind({
 				//Services
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", onRemoveService: "removeService", "closePanel": enyo.Panels, onBack: "backMenu", onClickService: "serviceDetail", container: this.$.imageIconPanel
+					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", "closePanel": enyo.Panels, onBack: "backMenu", onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -239,7 +239,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" , onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
