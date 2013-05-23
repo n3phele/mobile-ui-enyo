@@ -15,7 +15,7 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
 		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
-				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
+			{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
@@ -27,7 +27,7 @@ enyo.kind({
 					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000; padding:6px 35px 10px 8px" }
 					]},   
 					{content : "v",allowHtml : true,classes:"button-combobox-style",style:"height:20px"},
-					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
+					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#B9B9BD;top:80%;color:#000", components:[  
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
 					]}

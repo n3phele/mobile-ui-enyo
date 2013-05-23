@@ -7,72 +7,60 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style: "background: white", components: [
-    
-	{kind: "onyx.Toolbar", classes: "toolbar-style", components: [ { name: "title", content:"New Repository" }, {kind:"onyx.Button", content: "Done", classes: "button-style-right", ontap:"save"},
-			{kind:"onyx.Button", content: "Repository List", ontap:"cancel", classes: "button-style-left"}]},
+	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style: "background: white", components: [    
+		{kind: "onyx.Toolbar", classes: "toolbar-style", components: [ 
+			{ name: "title", content:"New Repository" }, 
+			{kind:"onyx.Button", content: "Done", classes: "button-style-right", ontap:"save"},
+			{kind:"onyx.Button", content: "Repository List", ontap:"cancel", classes: "button-style-left"}
+		]},		
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
-		{tag: "br"},
-		{name:"panel", kind: "Scroller", fit: true, components:[
-		{components: [
-		{content: "*Name "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
-			]}]},
-			{components: [
-			{content: "Description "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
-			]}]},
-			{components: [
-			{content: "*Location URL "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "URL", placeholder: "Enter URL here"}
-			]}]},
-			{components: [
-			{content: "*Kind "},
-			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
-				{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
+		{tag: "br"},		
+	{style:"text-align:center", components:[		
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Enter name here"}
 			]},
-			{content: "v", allowHtml:true, classes:"button-combobox-style"},
-			{kind: "onyx.Menu", style:"width:192px;background:#303030", components: [
-				{content: "S3"},
-				{content: "Swift"}
+		{components: [			
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Enter description here"}
+			]}]},
+		{components: [			
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "URL",style:"float:left", placeholder: "Enter URL here"}
+			]}]},
+		{components: [	
+		//{style:"width: 87%",fit:true,components:[ 
+			{kind: "onyx.MenuDecorator", onSelect: "itemSelected",fit:true, components: [  //{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
+				{kind: "onyx.InputDecorator",style:"border:1px solid;margin-bottom:10px;width:87%", components: [  //{kind: "onyx.InputDecorator",style:"border:1px solid;width:76%;margin-bottom:10px;min-width:245px", components: [
+					{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}  //{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
+				]},
+				{content: "v", allowHtml:true, classes:"button-combobox-style"},
+				{kind: "onyx.Menu", style:"background:#B9B9BD;color:#000;margin-bottom:10px", components: [  //{kind: "onyx.Menu", style:"background:#B9B9BD;color:#000;width:90%;margin-bottom:10px", components: [
+					{content: "S3"},
+					{content: "Swift"}
+				]}
 			]}
-		]}]},
-			{components: [
-			{content: "*Base Path "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "path", placeholder: "Enter Base Path here"}
+		//]} 
+		]},
+		{components: [			
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "path",style:"float:left", placeholder: "Enter Base Path here"}
 			]}]},
-			{ components: [
-			{content: "*Authentication Id "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
+		{components: [			
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "id",style:"float:left", placeholder: "Enter Id here"}
 			]}]},
-			{components: [
-			{content: "*New Password "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "password", type: "password", placeholder: "Enter Password here"}
-			]}]},
-			/* {components: [
-			{content: "*Confirm Password "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
-				{kind: "onyx.Input", name: "confirmPass", type: "password", placeholder: "Cofirm Password here"}
-			]}]}, */
-			{components: [
-			{content: "Accessible to all n3phele user?"},
-			{kind:"onyx.Checkbox", name: "access"},
-			]},
-			
-		]}
+		{components: [			
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.Input", name: "password",style:"float:left", type: "password", placeholder: "Enter Password here"}
+			]}]},			
+		{components: [			
+			{content: "Accessible to all n3phele user?"}, 
+			{kind: "onyx.ToggleButton", onContent: "I", offContent: "O", onChange: "buttonToggle",style: "background-color: #35A8EE;"}, 
+		]},			
 	]}
-/* 		{kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [
-			{kind:"onyx.Button", content: "Done", ontap:"save"},
-			{kind:"onyx.Button", content: "<", ontap:"cancel", classes: "button-style-left"}
-		]} */
+	]}
+
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -94,7 +82,7 @@ enyo.kind({
 		var  id = sender.parent.owner.$.id.getValue();
 		var  password = sender.parent.owner.$.password.getValue();
 		var  confirmPass = sender.parent.owner.$.confirmPass.getValue();
-		var  access = sender.parent.owner.$.access.getValue();
+		var  access =  this.$.toggleButton.getValue();
 		console.log(kind.length);
 		//validate form
 		if( name.length == 0 || url.length == 0 || kind.length == 0 || path.length == 0 || id.length == 0 || password.length == 0 || confirmPass.length == 0){
