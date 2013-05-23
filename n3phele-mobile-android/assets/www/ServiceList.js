@@ -20,7 +20,7 @@ enyo.kind({
 			]},							
 
 	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false, style:"height:80%; border-top: 2px solid #88B0F2", fit: true, onSetupItem: "setupItem" , components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},
 				{name: "icon", kind: "onyx.IconButton", style:"float:right",src: "assets/remover.png", ontap: "removeItem"},
 				{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"} 
@@ -38,6 +38,7 @@ enyo.kind({
 	},
 	selectedAccount: function(sender, event){
 		this.doClickService();
+ 
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -61,8 +62,19 @@ enyo.kind({
 	},
 	setupItem: function(sender, event){
 	   this.$.name.setContent("Service:" + event.index);
-	   results.push(this.$.name.getContent());	 
-		},
+	   results.push(this.$.name.getContent());
+	   console.log(event.index);
+      
+	   console.log("Testando com" + event.index + "resultado de" + event.index % 2);
+	   if( event.index % 2 == 1)
+	   {
+	   this.$.item.applyStyle("background-color", "#F7F7F7")
+	   };
+         if( event.index % 2 == 0)
+	   {
+	   this.$.item.applyStyle("background-color", "white")
+	   };
+	   },
 	removeItem:function (sender,event)
 	{   
         var obj =  new Object();
