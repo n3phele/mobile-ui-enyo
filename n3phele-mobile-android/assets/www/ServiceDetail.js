@@ -8,7 +8,7 @@ enyo.kind({
 	}, 
 	components: [
 		{kind:"Scroller", style:"background:#fff",classes: "scroller-sample-scroller enyo-fit",components: [
-				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right", ontap: "removeService"},{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
+				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
 			{kind: "onyx.Button",classes:"button-style-left", content: "Service List", ontap: "close"},		
 			{content: "Service Detail", name: "title_1", }]},							
 				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px; font-size:20px"}, 
