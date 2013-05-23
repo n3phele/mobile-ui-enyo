@@ -213,11 +213,11 @@ enyo.kind({
 	},
 	removeService: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(2);
+		this.closeSecondaryPanels(3);
 		//create panel to create a new account
-		this.createComponent({ kind: "RemoveService", "uid": this.uid,"service":inEvent ,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RemoveService", "uid": this.uid,"service":inEvent ,"uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(4);
 	},	
 		RemoveRepository: function(inSender,inEvent){		
 		//close old panels	

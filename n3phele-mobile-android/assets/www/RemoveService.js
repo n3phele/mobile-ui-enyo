@@ -13,7 +13,7 @@ enyo.kind({
 		components:[
 		{kind: "onyx.Toolbar",classes:"toolbar-style", components: [
 				{kind: "onyx.Button",classes:"button-style-right",content: "Delete", ontap: "newAccount"} , 
-				{kind: "onyx.Button", content: "Service List", classes:"button-style-left", ontap: "cancelAction"} ,
+				{kind: "onyx.Button", content: "Service Detail", classes:"button-style-left", ontap: "cancelAction"} ,
 				{ name: "title", content:"Remove Service", }, {fit: true}]},
 		{style:"margin: 3em auto;width:400px;", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [

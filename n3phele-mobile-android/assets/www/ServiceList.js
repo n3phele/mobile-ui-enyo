@@ -14,10 +14,7 @@ enyo.kind({
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
 			
-			{name: "values", style:"padding: 10px 0 10px 10px; margin:auto; font-weight: bold;", components:[ 
-				{content: "Name", style:"display: inline-block; width:25% ;font-weight: bold"}, 
-					       					
-			]},							
+							
 
 	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false, style:"height:80%; border-top: 2px solid #88B0F2", fit: true, onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", components: [
