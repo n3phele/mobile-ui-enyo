@@ -14,43 +14,43 @@ enyo.kind({
 	{tag: "br"},
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},
-	
-		{name:"panel", kind: "Scroller", fit: true, components:[
+	{style:"text-align:center", components:[
+		/* {name:"panel", kind: "Scroller", fit: true, components:[ */
 		{components: [
-		{content: "*Name: "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
+		/* {content: "*Name: "}, */
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 				{kind: "onyx.Input", name: "name", placeholder: "Enter name here"}
 			]}]},
 			{components: [
-			{content: "Description: "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
+			/* {content: "Description: "}, */
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 				{kind: "onyx.Input", name: "description", placeholder: "Enter description here"}
 			]}]},
 			{components: [
-			{content: "*On Cloud: "},
+			/* {content: "*On Cloud: "}, */
 			{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-			{kind: "onyx.InputDecorator",style:"border:1px solid", components: [
+			{kind: "onyx.InputDecorator",style:"border:1px solid;width:90%;margin-bottom:10px", components: [
 				{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 			]},
 			{content: "v", allowHtml:true, classes:"button-combobox-style"},
-			{kind: "onyx.Menu", name: "cloudsList", style:"width:192px;background:#B9B9BD;color:#000", components: [
+			{kind: "onyx.Menu", name: "cloudsList", style:"width:90%;background:#B9B9BD;color:#000", components: [
 				{content: "EC2"},
 				{content: "HPZone1"}
 			]}
 		]}]},
 			{components: [
-			{content: "*Cloud Id: "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
+			/* {content: "*Cloud Id: "}, */
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 				{kind: "onyx.Input", name: "id", placeholder: "Enter Id here"}
 			]}]},
 			{components: [
-			{content: "*Cloud Secret: "},
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A", components: [
+			/* {content: "*Cloud Secret: "}, */
+			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 				{kind: "onyx.Input", name: "secret", type: "password", placeholder: "Enter secret here"}
 			]}]}
 			
 	
-		]}   
+	]}   
 		]}
 		/* {kind: "onyx.Toolbar",style:"background:#b1c2d7;border:1px solid #375d8c;position:absolute;bottom:0;width:100%;background-size:contain;color:#375d8c;", components: [ 
 			{kind: "onyx.Button",style:"background-color:#FFFFFF;color:#375d8c;border-color:#375d8c" ,content: "Create", ontap: "save"} , 

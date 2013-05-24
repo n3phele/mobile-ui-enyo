@@ -12,16 +12,15 @@ enyo.kind({
 	},
 	components: [
 			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "toolTop", components: [{ content: "Commands"}]},
-				{kind: "onyx.InputDecorator",style: "width: 85%; margin:25px 0 25px 10px; width:50%;border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
-					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
-					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
+
+				{kind: "onyx.InputDecorator",style: "position:relative; margin:25px 0 25px 10px; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
+					{name: "searchInput", fit: true, style: "width:60%;", kind: "onyx.Input", onchange: "searc"},
+					{kind: "Image", ontap: "search", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
 				]},
-				{kind: "onyx.Button", classes:"button-combobox-style", content: "search", ontap: "search"},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false}		
 	],
 	create: function(){
 		this.inherited(arguments)	
-	
 		if (this.closePanel.isScreenNarrow()) {
 			this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}

@@ -58,8 +58,8 @@ enyo.kind({
 				]},
 				{name: "buttonsPanel",components:[
 				{name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[ 
-					{kind:"onyx.Button", content: "Add Node", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addNode"},
-					{kind:"onyx.Button", content: "Update Node", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"updateNode"},
+					{kind:"onyx.Button", content: "Add Node", classes:"button-style", style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
+					{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"},
 				]}
 				]}			
 		]}	
@@ -132,9 +132,9 @@ enyo.kind({
 						
 		this.$.buttonsPanel.destroyClientControls();
 		
-		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
-			{kind:"onyx.Button", content: "Add Node", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addNode"},  
-			{kind:"onyx.Button", content: "Update Node", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"updateNode"}, 
+		this.$.buttonsPanel.createComponent({name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
+			{kind:"onyx.Button", content: "Add Database", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addDatabase"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
+			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style",  style:"width:98%;height:40px", ontap:"AddLoad"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
 		]}).render();
 		
 		this.$.rel.setStyle("width:30%;min-width:170px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 1px");
@@ -182,10 +182,10 @@ enyo.kind({
 					
 		this.$.buttonsPanel.destroyClientControls();
 		
-		this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[  // style:"margin:1em auto;width:400px;padding-right:1200px"
-			{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
-			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
-		]}).render();				
+		this.$.buttonsPanel.createComponent({name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
+			{kind:"onyx.Button", content: "Add Database", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addDatabase"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
+			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style",  style:"width:98%;height:40px", ontap:"AddLoad"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
+		]}).render();			
 		
 		this.$.res.setStyle("width:30%;min-width:170px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 1px");
 		this.$.rel.setStyle("width:30%;min-width:170px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 2px");

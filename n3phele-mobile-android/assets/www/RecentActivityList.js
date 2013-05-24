@@ -4,10 +4,11 @@ enyo.kind({
 		result: null,
 		components:[
 			{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(55*size)+"px", components:[
-				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 9px #4F81bd",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
-					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" }, ]},
-					{ name: "activity", style: "display:inline-block"},
+			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(60*size)+"px", components:[
+				{name: "item", style: "box-shadow: -4px 0px 9px #4F81bd",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
+					{kind: "Image", name:"status", classes: "panels-sample-flickr-thumbnail" },
+					{name: "activity", classes: "panels-sample-flickr-title"},
+					{name: "icon2", kind: "onyx.IconButton",classes: "panels-sample-flickr-icon", src: "assets/next.png", ontap: "itemTap"}
 				]}//end item
 			]},
 		], //end components	

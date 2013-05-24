@@ -11,11 +11,13 @@ enyo.kind({
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%; border-top: 2px solid #88B0F2", components:[
-				{name: "item", style: "padding: 10px 0 10px 10px; margin:auto; background-color: white; border:1px solid rgb(200,200,200)",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
-					{ style:"margin: 2px; display:inline-block", components: [ {tag:"img", name:"status", style:"width: 70%;", src: "assets/activities.png" } ]},
+				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
+					{ style:"margin: 2px; display:inline-block", components: [ 
+					{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 
+					]},
 					{ name: "activity", style: "display:inline-block"},
-					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"}
-				]}//end item
+					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "itemTap"}
+				]}//item item
 			]}
 		], //end components	
 		getRecentActivities: function( uid ){
@@ -48,7 +50,6 @@ enyo.kind({
 		},
 		setupItem: function(inSender, inEvent){
 			if(this.results == null ) return;
-			this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
 			var i = inEvent.index;
 			var item = this.results[i];
 			if(item.state == "COMPLETE"){

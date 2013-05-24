@@ -13,20 +13,17 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
 		{kind: "onyx.Button" ,content: "Service List", classes:"button-style-left", ontap: "cancelAction"},
-		{ name: "title", content:"New Service" }, {fit: true}]},
-        {style:"margin: 3em auto;width:700px;", components:[
-		{kind: "FittableRows", name:"panel", fit: true, components: [{classes: "onyx-toolbar-inline", components: [
-		{content: "Name: ", style:"display:inline-block;padding-right:38px;margin-left:1px"},
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", name: "name", placeholder: ""}
-			]}]}, //End Name1
-			{components: [ 
-			{content: "Description:",style:"display:inline-block;padding-right:4px;margin-left:0px"},
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", name: "description", placeholder: "",style:"width: 500px;"}
-			]}]}
-			
-	    ]}]}	    
+		{name: "title", content:"New Service" }, {fit: true}]},        
+		{kind: "FittableRows", name:"panel", fit: true, components: [
+				{style:"text-align:center;margin:2em auto", components:[							
+					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Enter name here"}
+					]},
+					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+							{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Enter description here"}
+					]}
+				]},				
+		]}		
 	],
 	
 	selectedAccount: function(sender, event){

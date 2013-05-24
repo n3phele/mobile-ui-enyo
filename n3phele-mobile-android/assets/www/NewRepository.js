@@ -56,7 +56,7 @@ enyo.kind({
 			]}]},			
 		{components: [			
 			{content: "Accessible to all n3phele user?"}, 
-			{kind: "onyx.ToggleButton", onContent: "I", offContent: "O", onChange: "buttonToggle",style: "background-color: #35A8EE;"}, 
+			{kind: "onyx.ToggleButton", onContent: "Yes", offContent: "No", onChange: "buttonToggle",style: "background-color: #35A8EE;"}, 
 		]},			
 	]}
 	]}
@@ -73,7 +73,6 @@ enyo.kind({
 		}
 	},
 	save: function(sender, event){
-		console.log(this.$.toggleButton.getValue());
 		//obtain form data
 		var  name = sender.parent.owner.$.name.getValue();
  		var  path = sender.parent.owner.$.path.getValue();
@@ -81,7 +80,6 @@ enyo.kind({
 		var kind = sender.parent.owner.$.kind.getPlaceholder();
 		var  id = sender.parent.owner.$.id.getValue();
 		var  password = sender.parent.owner.$.password.getValue();
-	;
 		var  access =  this.$.toggleButton.getValue();
 		console.log(kind.length);
 		//validate form

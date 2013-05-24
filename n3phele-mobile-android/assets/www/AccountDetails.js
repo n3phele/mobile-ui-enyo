@@ -19,7 +19,7 @@ enyo.kind({
 			{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
-			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
+			{kind : "onyx.Toolbar", content : "History", name : "title_2",style:"background:-webkit-linear-gradient(top,#96A4AE -7%,#B2BCC4 77%);background-size:contain;color:#fff;text-align:center;font-family:Helvetica"},
 		   
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
 				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:10 0 10px 22px",components : [  
@@ -42,9 +42,9 @@ enyo.kind({
 			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:605px; margin: auto;border:1px solid #DBDBDE", components : [
 			   
 			]}]},
-			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
+			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", style:"background:-webkit-linear-gradient(top,#96A4AE -7%,#B2BCC4 77%);background-size:contain;color:#fff;text-align:center;font-family:Helvetica"},
 
-			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #4F81bd",components : [
+			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #768BA7",components : [
 			   {name : "machines", style : "padding: 10px 0 1px 10px", components : [
 					{content : "Name", style : "display: inline-block; width:25%;font-weight: bold"},
 					{content : "Activity", style : "display: inline-block; width:25%;font-weight: bold"},

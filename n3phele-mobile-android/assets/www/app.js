@@ -34,13 +34,15 @@ enyo.kind({
 			{name: "left", components: [
 				{kind: "Scroller", classes: "enyo-fit", style: "background:#FFF", touch: true, components: [					
 					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
-					{name: "mainMenuPanel", style:"width:90%;margin:auto", components:[//div to align content
-					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 30px;"},
-						{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
-						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*65)+"px", onSetupItem: "setupItemMenu", components: [
-							{name: "menu_item",	classes: "panels-sample-flickr-item", ontap: "mainMenuTap", style: "box-shadow: -4px 0px 9px #4F81bd", components: [
-								{name:"menu_image", kind:"Image"},
-								{name: "menu_option",kind:"Image"}]},
+					{name: "mainMenuPanel", style:"width:95%; margin:auto;", components:[//div to align content
+					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
+						{kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
+						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*63)+"px", onSetupItem: "setupItemMenu", components: [
+							{name: "menu_item",	ontap: "mainMenuTap", classes: "panels-sample-flickr-item", style: "box-shadow: -4px 0px 9px #4F81bd;", components: [
+								{name:"menu_image",  kind:"Image", classes: "panels-sample-flickr-thumbnail"},	
+								{name: "menu_option", classes: "panels-sample-flickr-title"},
+								{name: "icon2", kind: "onyx.IconButton",classes: "panels-sample-flickr-icon", src: "assets/next.png", ontap: "mainMenuTap"}
+							]}
 						]}
 					]}// end mainMenuPanel
 				]}//end scroller
