@@ -57,10 +57,10 @@ enyo.kind({
 					]},						
 				]},
 				{name: "buttonsPanel",components:[
-				{name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[ 
-					{kind:"onyx.Button", content: "Add Node", classes:"button-style", style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
-					{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"},
-				]}
+				{name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
+			{kind:"onyx.Button", content: "Add Database", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addDatabase"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
+			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style",  style:"width:98%;height:40px", ontap:"AddLoad"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
+		]}
 				]}			
 		]}	
 		
