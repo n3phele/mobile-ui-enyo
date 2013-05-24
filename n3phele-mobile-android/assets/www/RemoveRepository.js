@@ -7,6 +7,7 @@ enyo.kind({
 	events: {
 		onCreateAcc: "",
 		onBack: "",
+		onDelete:"",
 		onClickItem:""
 	},
 		components:[
@@ -55,7 +56,8 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
 		});	
-		this.doBack(event);
+		//this.doBack(event);
+		this.doDelete();
 	},
 	cancelAction:function (sender,event)
 	{  

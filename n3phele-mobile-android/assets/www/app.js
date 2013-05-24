@@ -223,7 +223,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);	
 		//create panel to create a new account
-		this.createComponent({ kind: "RemoveRepository", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RemoveRepository", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel" , onDelete:"refreshRepository", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},	
