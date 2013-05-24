@@ -10,7 +10,7 @@ enyo.kind({
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%; border-top: 2px solid #88B0F2", components:[
+			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ 
 					{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 

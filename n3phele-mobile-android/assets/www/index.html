@@ -20,6 +20,15 @@
 	var serverAddress = "http://192.168.100.24:8888/resources/";
 	var c = new loginPage({classes: "enyo-unselectable"});
 	c.renderInto(document.body);
+	// autocomplete for tests (LOCAL) :) 
+	$('#loginPage_loginUser').val('test-user@gmail.com'); 
+	$('#loginPage_loginPw').val('testit!'); 
+	//-----------------
+	
+	// autocomplete for tests (CLOUND) :) 
+	//$('#loginPage_loginUser').val('root'); 
+	//$('#loginPage_loginPw').val('n3phelepoa'); 
+	//-----------------
 </script>
 </body>
 </html>

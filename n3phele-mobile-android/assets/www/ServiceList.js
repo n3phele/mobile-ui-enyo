@@ -16,7 +16,7 @@ enyo.kind({
 			
 							
 
-	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false, style:"height:80%; border-top: 2px solid #88B0F2", fit: true, onSetupItem: "setupItem" , components: [
+	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false, style:"height:80%", fit: true, onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"} 

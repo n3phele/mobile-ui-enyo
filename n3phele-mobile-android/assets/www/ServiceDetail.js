@@ -15,7 +15,7 @@ enyo.kind({
 				
 					{name: "res", kind:"onyx.Button",style:"width:30%;min-width:170px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 2px",ontap:"resource", content: "Resource"}, 
 					{name: "rel", kind:"onyx.Button",style:"width:30%;min-width:170px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px",ontap:"relationships", content: "Relationships"},
-				{name:"TreePanel", style:"height:60%;border:1px solid #375d8c", kind: "Scroller", fit: true, components:[									
+				{name:"TreePanel", style:"height:60%;border:1px solid #768BA7", kind: "Scroller", fit: true, components:[									
 						{name: "panel",components: [
 						{name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
 							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
