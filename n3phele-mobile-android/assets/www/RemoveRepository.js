@@ -49,7 +49,7 @@ enyo.kind({
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
+			sync: true, 
 		}); 		
 		ajaxComponent.go()
 		.response()
