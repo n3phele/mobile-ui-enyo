@@ -223,11 +223,11 @@ enyo.kind({
 	},	
 		RemoveRepository: function(inSender,inEvent){		
 		//close old panels	
-		this.closeSecondaryPanels(2);	
+		this.closeSecondaryPanels(3);	
 		//create panel to create a new account
-		this.createComponent({ kind: "RemoveRepository", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel" , onDelete:"refreshRepository", container: this.$.panels }).render();
+		this.createComponent({ kind: "RemoveRepository", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closeFilePanel" , onDelete:"refreshRepository2", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(4);
 	},	
 	CreateFolder: function(inSender,inEvent){		
 		//close old panels	
@@ -326,6 +326,13 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
+	},
+	refreshRepository2:function(inSender,inEvent)
+	{  this.closeSecondaryPanels(2);
+	   this.setPanelIndex(1);
+       if(this.$.panels.panelCreated)this.$.panels.destroyPanel(); //??
+       this.$.imageIconPanel.destroyClientControls(); // clear second painel
+	
 	},
 	
 	closePanel4:function(inSender,inEvent){
