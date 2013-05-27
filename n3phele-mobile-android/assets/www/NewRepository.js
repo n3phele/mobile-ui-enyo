@@ -17,21 +17,24 @@ enyo.kind({
 		{name: "Msg", style: "color:#FF4500;"},
 		{tag: "br"},		
 	{style:"text-align:center", components:[		
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Enter name here"}
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "name",style:"float:left;padding:7px 0 0 10px", placeholder: "Enter name here"}
 			]},
 		{components: [			
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Enter description here"}
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "description",style:"float:left;padding:7px 0 0 10px", placeholder: "Enter description here"}
 			]}]},
 		{components: [			
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "URL",style:"float:left", placeholder: "Enter URL here"}
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "URL",style:"float:left;padding:7px 0 0 10px", placeholder: "Enter URL here"}
 			]}]},
 		{components: [	
+		{tag:"select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[             /* <<<<--------------------- */
+			{tag:"option", content:"aaaaaaaa"}						                                                             /* <<<<--------------------- */
+		]}	
 		//{style:"width: 87%",fit:true,components:[ 
-			{kind: "onyx.MenuDecorator", onSelect: "itemSelected",fit:true, components: [  //{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-				{kind: "onyx.InputDecorator",style:"border:1px solid;margin-bottom:10px;width:87%", components: [  //{kind: "onyx.InputDecorator",style:"border:1px solid;width:76%;margin-bottom:10px;min-width:245px", components: [
+			/* {kind: "onyx.MenuDecorator", onSelect: "itemSelected",fit:true, components: [  //{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
+				{kind: "onyx.InputDecorator",style:"border:1px solid;margin-bottom:10px;width:76%", components: [  //{kind: "onyx.InputDecorator",style:"border:1px solid;width:76%;margin-bottom:10px;min-width:245px", components: [
 					{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}  //{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 				]},
 				{content: "v", allowHtml:true, classes:"button-combobox-style"},
@@ -39,20 +42,20 @@ enyo.kind({
 					{content: "S3"},
 					{content: "Swift"}
 				]}
-			]}
+			]} */
 		//]} 
 		]},
 		{components: [			
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "path",style:"float:left", placeholder: "Enter Base Path here"}
+			{kind: "onyx.InputDecorator",classes: "inputs",components: [
+				{kind: "onyx.Input", name: "path",style:"float:left;padding:7px 0 0 10px", placeholder: "Enter Base Path here"}
 			]}]},
 		{components: [			
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "id",style:"float:left", placeholder: "Enter Id here"}
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "id",style:"float:left;padding:7px 0 0 10px", placeholder: "Enter Id here"}
 			]}]},
 		{components: [			
-			{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-				{kind: "onyx.Input", name: "password",style:"float:left", type: "password", placeholder: "Enter Password here"}
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "password",style:"float:left;padding:7px 0 0 10px", type: "password", placeholder: "Enter Password here"}
 			]}]},			
 		{components: [			
 			{content: "Accessible to all n3phele user?"}, 

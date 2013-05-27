@@ -17,38 +17,31 @@ enyo.kind({
 		{tag: "br"},
 		{style:"text-align:center", components:[	
 			{name:"panel", kind: "Scroller", fit: true, components: [
-				{components: [
+				
 				//{content: "*Name: "},
-				{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.InputDecorator",classes: "inputs", components: [
 					{kind: "onyx.Input",style:"float:left", name: "name", placeholder: "Enter name here"}
-				]}]},
-				{components: [
-				//{content: "Description: "},
-				{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-					{kind: "onyx.Input",style:"float:left", name: "description", placeholder: "Enter description here"}
-				]}]},
-				{components: [
-				//{content: "*On Cloud: "},
-				{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-				{kind: "onyx.InputDecorator",style:"border:1px solid;margin-bottom:10px;width:87%", components: [
-					{kind: "onyx.Input", name: "cloud", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
 				]},
-				{content: "v", allowHtml:true,classes:"button-combobox-style"},
-				{kind: "onyx.Menu", name: "cloudsList", style:"width:90%;background:#B9B9BD;color:#000", components: [   
-					{content: "EC2"},  
-					{content: "HPZone1"}   
-				]}
-				]}]},
-				{components: [
+			
+				//{content: "Description: "},
+				{kind: "onyx.InputDecorator",classes: "inputs", components: [
+					{kind: "onyx.Input",style:"float:left", name: "description", placeholder: "Enter description here"}
+				]},
+			
+				//{content: "*On Cloud: "},
+				{tag:"select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
+					//{tag:"option", content:"aaaaaaaa"}						                                                             /* <<<<--------------------- */
+				]},
+				
 				//{content: "*Cloud Id: "},
-				{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.InputDecorator",classes: "inputs", components: [
 					{kind: "onyx.Input",style:"float:left", name: "id", placeholder: "Enter Id here"}
-				]}]},
-				{components: [
+				]},
+				
 				//{content: "*Cloud Secret: "},
-				{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
+				{kind: "onyx.InputDecorator",classes: "inputs", components: [
 					{kind: "onyx.Input",style:"float:left", name: "secret", type: "password", placeholder: "Enter secret here"}
-				]}]}	
+				]},	
 			]} 
 		]} 
 		]}	
@@ -62,12 +55,12 @@ enyo.kind({
 		
 		var cloudsErrors = function() { console.log("getting clouds error"); }
 		var thisPanel = this;
-		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
+		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( {tag: "option", content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 		this.$.name.setPlaceholder(this.account.name);
 		this.$.description.setPlaceholder(this.account.description);
-		this.$.cloud.setPlaceholder(this.account.cloudName);
+		this.$.cloudList.setContent(this.account.cloudName);
 	},
 	
 	itemSelected: function(inSender, inEvent) {

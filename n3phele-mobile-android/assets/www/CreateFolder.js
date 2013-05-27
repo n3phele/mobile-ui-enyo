@@ -18,8 +18,6 @@ enyo.kind({
 			{kind: "onyx.InputDecorator", components: [
 				{kind: "onyx.Input", name: "name", placeholder: ""}
 			]}]}, //End Name1
-		
-			
 	    ]}]}	    
 	],
 	

@@ -12,21 +12,21 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		style:"background:#fff",
 		components : [
-		 {kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "backMenu"},
+			{kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "backMenu"},
 				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
 		 	{content : "Name", name : "stack", style : "margin:0 0 0 10px;"},
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Version", name : "version", style : "margin:5px 0 5px 10px"},
-			
-			{name: "total", style: "color:#768BA7;border-top:3px solid;"},
-			    {content : "Node count:",style:"padding-top:10px"},
-				{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", placeholder: "Number here",onchange:"inputChanged"}
-			]},
-			   
-			    {content : "Account:",style:"padding: 80px  0px 0px;"}, {content : "AccountName",}
-			 
-			]}
+			{style:"text-align:center", components:[		
+				{name: "total", style: "color:#768BA7;border-top:3px solid;padding-bottom: 1%;"},								
+				{kind: "onyx.InputDecorator",classes: "inputs", components: [
+					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", placeholder: "Nodes number",onchange:"inputChanged"}
+				]},
+				{tag:"select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
+					{tag:"option", content:"aaaaaaaa"}						                                                             /* <<<<--------------------- */
+				]}					
+			]} 
+		]}
 	],
 	create: function(){
 		this.inherited(arguments)
