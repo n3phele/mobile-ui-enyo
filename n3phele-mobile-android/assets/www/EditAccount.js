@@ -20,12 +20,12 @@ enyo.kind({
 				
 				//{content: "*Name: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "name", placeholder: "Enter name here"}
+					{kind: "onyx.Input",style:"float:left", name: "name", placeholder: "Account name"}
 				]},
 			
 				//{content: "Description: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "description", placeholder: "Enter description here"}
+					{kind: "onyx.Input",style:"float:left", name: "description", placeholder: "Account description"}
 				]},
 			
 				//{content: "*On Cloud: "},
@@ -35,12 +35,12 @@ enyo.kind({
 				
 				//{content: "*Cloud Id: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "id", placeholder: "Enter Id here"}
+					{kind: "onyx.Input",style:"float:left", name: "id", placeholder: "Cloud Id"}
 				]},
 				
 				//{content: "*Cloud Secret: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "secret", type: "password", placeholder: "Enter secret here"}
+					{kind: "onyx.Input",style:"float:left", name: "secret", type: "password", placeholder: "Cloud secret"}
 				]},	
 			]} 
 		]} 

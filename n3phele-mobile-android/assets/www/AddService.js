@@ -17,10 +17,10 @@ enyo.kind({
 		{kind: "FittableRows", name:"panel", fit: true, components: [
 				{style:"text-align:center;margin:2em auto", components:[							
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Enter name here"}
+							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Service name"}
 					]},
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-							{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Enter description here"}
+							{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Service description"}
 					]}
 				]},				
 		]}		

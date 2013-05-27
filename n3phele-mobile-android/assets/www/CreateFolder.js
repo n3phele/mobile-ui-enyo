@@ -9,16 +9,14 @@ enyo.kind({
 		onClickItem:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
+		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [{kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
 		{kind: "onyx.Button" ,content: "Repository", classes:"button-style-left", ontap: "cancelAction"},
 		{ name: "title", content:"Create Folder" }, {fit: true}]},
-        {style:"margin: 3em auto;width:700px;", components:[
-		{kind: "FittableRows", name:"panel", fit: true, components: [{classes: "onyx-toolbar-inline", components: [
-		{content: "Name: ", style:"display:inline-block"},
-			{kind: "onyx.InputDecorator", components: [
-				{kind: "onyx.Input", name: "name", placeholder: ""}
-			]}]}, //End Name1
-	    ]}]}	    
+		{style:"text-align:center;padding-top: 3%;",components:[	
+			{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.Input", name: "name", style:"float:left;padding:7px 0 0 10px",  placeholder: "Folder name"}
+			]} //End Name1 
+			]}  
 	],
 	
 	selectedAccount: function(sender, event){
