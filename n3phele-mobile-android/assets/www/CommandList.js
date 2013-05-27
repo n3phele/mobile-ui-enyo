@@ -13,9 +13,11 @@ enyo.kind({
 	components: [
 			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "toolTop", components: [{ content: "Commands"}]},
 
-				{kind: "onyx.InputDecorator",style: "position:relative; margin:25px 0 25px 10px; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
-					{name: "searchInput", fit: true, style: "width:60%;", kind: "onyx.Input", onchange: "searc"},
-					{kind: "Image", ontap: "search", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
+				{kind: "onyx.InputDecorator",style: "margin:25px 0 25px 15px;display: block; width:95%; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
+					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
+					{kind: "onyx.Button",classes:"button-search-style", ontap: "search", components: [
+						{kind: "onyx.Icon", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png"}
+					]}
 				]},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false}		
 	],

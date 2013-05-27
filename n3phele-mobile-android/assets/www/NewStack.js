@@ -1,7 +1,6 @@
 var stacks;
 enyo.kind({
 	name: "NewStack",
-	kind: "FittableRows",
 	data: [],
 	commands: null,
 	commandsImages : null,
@@ -12,11 +11,12 @@ enyo.kind({
 	},
 	components: [
 			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack"},{kind: "onyx.Button", classes:"button-style-left", content: "Service Detail", ontap: "backMenu"}]},
-				{kind: "onyx.InputDecorator",style: "width: 85%; margin:25px 0 25px 10px; width:50%;border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
+				{kind: "onyx.InputDecorator",style: "margin:25px 0 25px 15px;display: block; width:95%; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
-					{kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png", style: "width: 20px; height: 20px;"}
+					{kind: "onyx.Button",classes:"button-search-style", ontap: "search", components: [
+						{kind: "onyx.Icon", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png"}
+					]}
 				]},
-				{kind: "onyx.Button", classes:"button-combobox-style", content: "search", ontap: "search"},
 				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
 				{kind: "Scroller", name: "scroll", fit: true, components: [
 		          {name: "panel", components:[]}
