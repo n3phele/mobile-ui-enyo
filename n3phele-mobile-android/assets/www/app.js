@@ -29,8 +29,8 @@ enyo.kind({
 		this.$.list.renderRow(this.trackedRow);
 	},
 	components: [
-		{name:"N3pheleCommands", style: "display:none"},
-		{kind: "Panels", style: "background:#FFF", panelCreated : false, fit: true, touch: true, classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
+		{name:"N3pheleCommands", style: "display:none"},   //User cant slide panels if draggable is set to false
+		{kind: "Panels", style: "background:#FFF", panelCreated : false, fit: true, touch: true,draggable:false ,classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
 				{kind: "Scroller", classes: "enyo-fit", style: "background:#FFF", touch: true, components: [					
 					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
