@@ -20,12 +20,12 @@ enyo.kind({
 				
 				//{content: "*Name: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "name", placeholder: "Account name"}
+					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", name: "name", placeholder: "Account name"}
 				]},
 			
 				//{content: "Description: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "description", placeholder: "Account description"}
+					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", name: "description", placeholder: "Account description"}
 				]},
 			
 				//{content: "*On Cloud: "},
@@ -35,12 +35,12 @@ enyo.kind({
 				
 				//{content: "*Cloud Id: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "id", placeholder: "Cloud Id"}
+					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", name: "id", placeholder: "Cloud Id"}
 				]},
 				
 				//{content: "*Cloud Secret: "},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input",style:"float:left", name: "secret", type: "password", placeholder: "Cloud secret"}
+					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", name: "secret", type: "password", placeholder: "Cloud secret"}
 				]},	
 			]} 
 		]} 
@@ -60,7 +60,7 @@ enyo.kind({
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 		this.$.name.setPlaceholder(this.account.name);
 		this.$.description.setPlaceholder(this.account.description);
-		this.$.cloudList.setContent(this.account.cloudName);
+		//this.$.cloudList.setContent(this.account.cloudName);
 	},
 	
 	itemSelected: function(inSender, inEvent) {

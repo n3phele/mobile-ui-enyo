@@ -1,7 +1,6 @@
 enyo.kind({  
 	name: "CreateAccount",
 	kind: "FittableRows",
-	
 	fit: true,
 	style: "padding: 0px",
 	events: {
@@ -48,7 +47,6 @@ enyo.kind({
 		
 		var n3pheleClient = new N3pheleClient();
 		n3pheleClient.uid = this.uid;
-		
 		var cloudsErrors = function() { console.log("getting clouds error"); }
 		var thisPanel = this;
 		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { tag: "option", content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
