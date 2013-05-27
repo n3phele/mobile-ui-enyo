@@ -15,7 +15,7 @@ enyo.kind({
 				{kind: "onyx.Button",classes:"button-style-right",content: "OK", ontap: "deleteRepository"} , 
 				{kind: "onyx.Button",classes:"button-style-left", content: "Repository List", ontap: "cancelAction"},	
 				{ name: "title", content:"Delete Repository", }, {fit: true}]},
-		{style:"margin: 3em auto", components:[		
+		{style:"margin: 3em auto;width:400px;", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
 				{name:"name",content: "Repository", style:"display:inline-block;"}, 
 			]},
