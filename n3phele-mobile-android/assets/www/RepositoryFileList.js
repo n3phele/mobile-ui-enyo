@@ -17,7 +17,7 @@ enyo.kind({
 	    onCreateFolder:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu"}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu"}]},
 		{kind: "Scroller", name: "scroll",style:"background:#fff", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]}
 		]}

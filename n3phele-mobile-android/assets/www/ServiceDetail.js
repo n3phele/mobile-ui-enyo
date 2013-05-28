@@ -8,7 +8,7 @@ enyo.kind({
 	}, 
 	components: [
 		{kind:"Scroller", style:"background:#fff",classes: "scroller-sample-scroller enyo-fit",components: [
-				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},	
+				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},
 			{kind: "onyx.Button",classes:"button-style-left", content: "Service List", ontap: "close"},		
 			{content: "Service Detail", name: "title_1", }]},							
 				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px"}, 
@@ -56,11 +56,23 @@ enyo.kind({
 					]},						
 				]},
 				{name: "buttonsPanel",components:[
-				{name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
-			{kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
-			{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
-		]}
-				]}			
+					{name: "buttons",style:"text-align:center",  components:[  
+						{kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
+						{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, 
+					]}
+				]},	
+				
+				{name:"button_bottom", components:[
+					{name:"button-bottom-stack",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center", components:[
+						{kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto" ,content: "New Stack", ontap: "newStack"}
+					]}
+				]} 
+				
+				
+				/* 	{name:"button-bottom-stack", components:[
+						{kind: "onyx.Button",  content: "New Stack", ontap: "newStack"}
+					]} */
+				
 		]}	
 		
 	],	

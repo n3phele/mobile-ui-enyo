@@ -91,6 +91,21 @@ box-align:center;
 	text-align:center;
 	font-family:Helvetica;	
 }
+
+.button-newStack{
+	background-image: -webkit-linear-gradient(top,#8196B3 37%,#496594 77%) !important;
+	border-radius:5px 5px !important;	
+	color:#FFF !important;	
+	
+	/* position: relative; 	 */
+    border-color:#656970 !important;
+	font-family: helvetica, arial, sans-serif;	
+} 
+
+.button-newStack:active{
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2) !important; 
+    top:0.5px;
+}
 	
 .button-style-left{
 	background-image: -webkit-linear-gradient(top,#8196B3 37%,#496594 77%) !important;
