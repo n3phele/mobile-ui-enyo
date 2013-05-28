@@ -330,16 +330,16 @@ enyo.kind({
 				this.$.imageIconPanel.render();	
 	},
 	refreshAccountList:function(inSender,inEvent)
-	{  
-		console.log("oi");
-		//this.closeSecondaryPanels(3);
-		this.closeSecondaryPanels(2);
-		this.backMenu();
+	{   
+	   this.setPanelIndex(1);
+	    this.closeSecondaryPanels(2);
+		if(this.$.panels.panelCreated)this.$.panels.destroyPanel(); //??
+       this.$.imageIconPanel.destroyClientControls(); // clear second painel
        //this.$.imageIconPanel.destroyClientControls();
-       this.createComponent({
-			kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
-		});
-		this.$.imageIconPanel.render();	
+     	this.createComponent({
+					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
+				});
+				this.$.imageIconPanel.render();	
 	},
 
 	closePanel4:function(inSender,inEvent){
