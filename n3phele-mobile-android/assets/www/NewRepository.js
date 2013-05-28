@@ -29,9 +29,9 @@ enyo.kind({
 				{kind: "onyx.Input", name: "URL",style:"float:left;padding:7px 0 0 10px", placeholder: "Location URL"}
 			]}]},
 		{components: [	
-		{tag:"select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[             /* <<<<--------------------- */
-			{tag:"option", content:"S3"},
-			{tag:"option", content:"Swift"}						                                                             /* <<<<--------------------- */
+		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[             /* <<<<--------------------- */
+			{content:"S3", value:"S3"},
+			{content:"Swift", content:"Swift"}						                                                             /* <<<<--------------------- */
 		]}	
 		//{style:"width: 87%",fit:true,components:[ 
 			/* {kind: "onyx.MenuDecorator", onSelect: "itemSelected",fit:true, components: [  //{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
@@ -69,19 +69,13 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 	},
-	
-	itemSelected: function(inSender, inEvent) {
-		//Menu selected item
-		if (inEvent.originator.content){
-			this.$.kind.setPlaceholder(inEvent.originator.content);
-		}
-	},
+
 	save: function(sender, event){
 		//obtain form data
 		var  name = sender.parent.owner.$.name.getValue();
  		var  path = sender.parent.owner.$.path.getValue();
 		var url = sender.parent.owner.$.URL.getValue();
-		var kind = sender.parent.owner.$.kind.getPlaceholder();
+		var kind = sender.parent.owner.$.select.getValue();
 		var  id = sender.parent.owner.$.id.getValue();
 		var  password = sender.parent.owner.$.password.getValue();
 		var  access =  this.$.toggleButton.getValue();
