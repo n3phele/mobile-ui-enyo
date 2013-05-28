@@ -51,8 +51,8 @@ enyo.kind({
 			{tag: "br"},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
 
-			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #4F81bd",components : [
-			   {name : "machines", style : "padding: 10px 0 1px 10px", components : [
+			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #768BA7",components : [
+			   {name : "machines", style : "padding: 10px 0 1px 10px;border-radius:0", components : [
 					{content : "Name", style : "display: inline-block; width:25%;font-weight: bold"},
 					{content : "Activity", style : "display: inline-block; width:25%;font-weight: bold"},
 					{content : "Age", style : "display: inline-block; width:25%;font-weight: bold"},
