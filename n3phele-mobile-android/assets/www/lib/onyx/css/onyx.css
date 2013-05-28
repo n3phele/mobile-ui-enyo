@@ -32,7 +32,9 @@
 .onyx {
   color: #333333;
   font-family: Helvetica;   /* font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif; */
-  font-size: 20px; 
+  /* font-size: 20px;  */
+  font-size: 17px; 
+  font-weight:bold;
   cursor: default;
   background-color: #eaeaea;
   /* remove automatic tap highlight color */
@@ -496,7 +498,9 @@
 /* TabButton.css */
 .onyx-radiobutton.onyx-tabbutton {
   padding: 8px 34px;
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 17px;
+  font-weight:bold;
   border-radius: 0px;
 }
 /* ToggleButton.css */
@@ -576,13 +580,15 @@
 
   white-space: nowrap;
   overflow: hidden;
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 17px;
+  font-weight:bold;
 }
 .onyx-toolbar-inline > *,
 .enyo-fittable-columns-layout.onyx-toolbar-inline > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 4px 6px 5px;
+ margin: 8px 9px 5px;
   box-sizing: border-box;
 }
 .onyx-toolbar .onyx-icon-button {
@@ -596,6 +602,7 @@
   margin-bottom: 0;
   height: 36px;
   padding:0 10px 0 10px;
+  margin-right:2px;
 }
 .onyx-toolbar .onyx-input-decorator {
   margin: 1px 3px;
