@@ -17,26 +17,16 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
 		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
-				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
-			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold; font-size:20px"},
+				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
+			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
-				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:0 0 10px 22px",components : [  
-					{kind : "onyx.InputDecorator",style:"border:1px solid",components : [ 
-					   {kind : "onyx.Input", name : "cost", disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000"}
-					]},   
-					{content : "v",allowHtml : true,classes:"button-combobox-style"},
-					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
-						{content : "Cost"},
-						{content : "Cumulative Cost"}
-					]}
-				]},
-				{kind:"select", classes:"styled-select", name:"costs", onchange: "itemSelected", style:"-webkit-appearance:none !important;outline:none; width: 80% !important;",components:[             /* <<<<--------------------- */
-					{tag:"option", value:"Cost", content:"Cost"},
-					{tag:"option", value:"Cumulative Cost", content:"Cumulative Cost"}						                                                             /* <<<<--------------------- */
+				{name:"select", kind: "Select", classes:"styled-select", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none;width: 80% !important; margin-bottom:10px",components:[             /* <<<<--------------------- */
+					{content:"Cost", value:"Cost"},
+					{content:"Cumulative Cost", content:"Cumulative Cost"}						                                                             /* <<<<--------------------- */
 				]},	
 				{kind : "onyx.Button", content : "24 hours", ontap : "button24",  classes:"button-style"}, 
 				{kind : "onyx.Button", content : "7 days", ontap : "button7",  classes:"button-style"},
@@ -59,8 +49,7 @@ enyo.kind({
 					{content : "Total Cost", style : "display: inline-block; width:25%;font-weight: bold"}, 
 				]} 
 			]},
-			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;", components:[       
-				
+			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;", components:[       	
 			 ]}
 			]},     
 	],
@@ -73,18 +62,11 @@ enyo.kind({
 		this.$.cloudName.setContent(this.account.cloudName);
 		accountId = this.account.uri;
 		accountId = accountId.substr(accountId.lastIndexOf('/'), accountId.length);
-		//this.$.cost.setPlaceholder("Cost");
 		this.setChart(1, "24 Hours Costs Chart");
 		
 	},
 	itemSelected: function(sender, event){
-		console.log("oi");
-		if (event.originator.content){
-			this.$.cost.setPlaceholder(event.originator.content);
-			this.$.cost.addStyles("color:red");
-			//this.$.cost.placeholder.setStyle("color:red");
 			this.setChart(this.days, this.$.btnContent.content);
-		}
 	},
 	button24: function(sender, event){
 		this.setChart(1, "24 Hours Costs Chart");
@@ -230,7 +212,7 @@ enyo.kind({
 
 			this.gap = Math.ceil(maxTicks / noTicks);
 
-			this.createChart(this.chartData, this.$.cost.getPlaceholder());
+			this.createChart(this.chartData, this.$.select.getValue());
 
 		}
 	}
