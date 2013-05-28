@@ -331,7 +331,7 @@ enyo.kind({
 	},
 	refreshAccountList:function(inSender,inEvent)
 	{   
-	   this.setPanelIndex(1);
+	   	this.setPanelIndex(1);
 	    this.closeSecondaryPanels(2);
 		if(this.$.panels.panelCreated)this.$.panels.destroyPanel(); //??
        this.$.imageIconPanel.destroyClientControls(); // clear second painel
