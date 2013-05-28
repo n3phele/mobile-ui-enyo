@@ -1,5 +1,7 @@
 var days;
 var accountId;
+var chartData = null;
+var gap = 1;
 enyo.kind({
 	name : "AccountDetails",
 	kind: "FittableRows",
@@ -15,36 +17,41 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
 		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
-			{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
-			{content : "Name of Account", name : "account", style : "margin:0 0 0 10px; font-weight: bold; font-size:20px"},
+				{kind : "onyx.Button", classes:"button-style-right", content : "Edit Account", ontap : "editAccount"}]},
+			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold; font-size:20px"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
-			{kind : "onyx.Toolbar", content : "History", name : "title_2",style:"background:-webkit-linear-gradient(top,#96A4AE -7%,#B2BCC4 77%);background-size:contain;color:#fff;text-align:center;font-family:Helvetica"},
+			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
-				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:10 0 10px 22px",components : [  
-					{kind : "onyx.InputDecorator",style:"border:1px solid;height:30px",components : [ 
-					   {kind : "onyx.Input", name : "cost",disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000; padding:6px 35px 10px 8px" }
+				{kind : "onyx.MenuDecorator", onSelect : "itemSelected", style:"padding:0 0 10px 22px",components : [  
+					{kind : "onyx.InputDecorator",style:"border:1px solid",components : [ 
+					   {kind : "onyx.Input", name : "cost", disabled:true, placeholder:"", style:"-webkit-text-fill-color: #000000"}
 					]},   
-					{content : "v",allowHtml : true,classes:"button-combobox-style",style:"height:45px !important"},
-					{kind : "onyx.Menu", name : "costList", style : "width:235px;background:#B9B9BD;color:#000", components:[  //width:235px;top:0 !important
+					{content : "v",allowHtml : true,classes:"button-combobox-style"},
+					{kind : "onyx.Menu", name : "costList", style : "width:192px;background:#303030;top:80%", components:[  
 						{content : "Cost"},
 						{content : "Cumulative Cost"}
 					]}
 				]},
+				{kind:"select", classes:"styled-select", name:"costs", onchange: "itemSelected", style:"-webkit-appearance:none !important;outline:none; width: 80% !important;",components:[             /* <<<<--------------------- */
+					{tag:"option", value:"Cost", content:"Cost"},
+					{tag:"option", value:"Cumulative Cost", content:"Cumulative Cost"}						                                                             /* <<<<--------------------- */
+				]},	
 				{kind : "onyx.Button", content : "24 hours", ontap : "button24",  classes:"button-style"}, 
 				{kind : "onyx.Button", content : "7 days", ontap : "button7",  classes:"button-style"},
 				{kind : "onyx.Button", content : "30 days", ontap : "button30",  classes:"button-style"} 
 			]},
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 
-			{kind: "Scroller", fit:true, components:[
-			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:500px; width:605px; margin: auto;border:1px solid #DBDBDE", components : [
+			//{kind: "Scroller", fit:true, components:[
+			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [
 			   
-			]}]},
-			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", style:"background:-webkit-linear-gradient(top,#96A4AE -7%,#B2BCC4 77%);background-size:contain;color:#fff;text-align:center;font-family:Helvetica"},
+			]},//]},
+			{tag: "br"},
+			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
 
-			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #768BA7",components : [
+			{name : "groupbox", kind : "onyx.Groupbox", style : "border-bottom: 1px solid #4F81bd",components : [
 			   {name : "machines", style : "padding: 10px 0 1px 10px", components : [
 					{content : "Name", style : "display: inline-block; width:25%;font-weight: bold"},
 					{content : "Activity", style : "display: inline-block; width:25%;font-weight: bold"},
@@ -66,10 +73,12 @@ enyo.kind({
 		this.$.cloudName.setContent(this.account.cloudName);
 		accountId = this.account.uri;
 		accountId = accountId.substr(accountId.lastIndexOf('/'), accountId.length);
-		this.$.cost.setPlaceholder("Cost");
+		//this.$.cost.setPlaceholder("Cost");
 		this.setChart(1, "24 Hours Costs Chart");
+		
 	},
 	itemSelected: function(sender, event){
+		console.log("oi");
 		if (event.originator.content){
 			this.$.cost.setPlaceholder(event.originator.content);
 			this.$.cost.addStyles("color:red");
@@ -103,7 +112,7 @@ enyo.kind({
 		panel.reflow();     
 	},
 	backMenu: function( sender , event){
-		this.doBack(event);
+		this.doBack();
 	},
 	editAccount: function(sender, envent){
 		this.doEditAcc(this.account);
@@ -126,11 +135,12 @@ enyo.kind({
 			results = response.elements;
 			//this.createComponent({name : "chart",kind : "chart", "data": results, "type": this.$.cost.getPlaceholder(), container: this.$.chartPanel}).render();
 			this.getAccountActivities();
-			this.createChart(results, this.$.cost.getPlaceholder());
+			//this.createChart(results, this.$.cost.getPlaceholder());
+			this.chartData = results;
+			this.resizeChart();
 		})
 		.error(this, function(){
 		console.log("Error to load the detail of the command!");
-		popup.delete();
 		});     
 		
 	},
@@ -155,30 +165,30 @@ enyo.kind({
 		if (this.days == 1) {
 			fontsize = 11;
 			date.setHours(date.getHours() - 23);
-			var gap = 1;
-			for (var i = 0; i < chartData.length; i+=gap) {
+			for (var i = 0; i < chartData.length; i+=this.gap) {
 				ticksOptions[i] = [i, date.getHours()+ "h"];
-				date.setHours(date.getHours() + gap);
+				date.setHours(date.getHours() + this.gap);
 			}
 		}
 		else{
 			date.setDate(date.getDate() - (this.days - 1));
 			var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-			var gap = (this.days == 30) ? 1 : 1;
-			fontsize = (this.days==30)? 9:15
-			for (var i = 0; i < chartData.length; i+=gap) {
+			fontsize = (this.days==30)? 9:13;
+			for (var i = 0; i < chartData.length; i+=this.gap) {
 				ticksOptions[i] = [i, monthNames[date.getMonth()] + "" + date.getDate()];
-				date.setDate(date.getDate() + gap);
+				date.setDate(date.getDate() + this.gap);
 			}
 		}
+
+		var noTickSize = (this.days == 1) ? 24 : this.days;
 
 		var options = {
 			xaxis: {
 				ticks: ticksOptions,
-				font: {size: fontsize,style: "italic",weight: "bold" , color:"black"}
-
+				font: {size: fontsize, style: "italic",weight: "bold" , color:"black"},
 			}
 		};
+
 		$.plot($("#n3phele_accountDetails_chartPanel"), [ chartData ], options);
 	},
 
@@ -199,7 +209,7 @@ enyo.kind({
 			
 			for (var i = 0; i < results.length; i++) {
 				this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].nameTop, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines, ontap: "backMenu"}).render();
 				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
 				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
 			};
@@ -207,8 +217,22 @@ enyo.kind({
 		})
 		.error(this, function(){
 		console.log("Error to load the detail of the command!");
-		popup.delete();
 		}); 
+	},
+
+	resizeChart: function(){
+
+		if (this.chartData != null) {
+			var placeholder = $("#n3phele_accountDetails_chartPanel");
+			noTicks = Math.ceil(placeholder.width() / 50);
+			var maxTicks = (this.days == 1) ? 24 : this.days;
+			if (maxTicks < noTicks) noTicks = maxTicks;
+
+			this.gap = Math.ceil(maxTicks / noTicks);
+
+			this.createChart(this.chartData, this.$.cost.getPlaceholder());
+
+		}
 	}
 	
 });

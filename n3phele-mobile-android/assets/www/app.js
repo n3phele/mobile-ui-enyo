@@ -57,8 +57,10 @@ enyo.kind({
 		this.inherited(arguments);
 		var popup = new spinnerPopup();
 		popup.show();
-		if (!enyo.Panels.isScreenNarrow())
-			this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", 'uid' : this.uid});
+		if (enyo.Panels.isScreenNarrow())
+				this.$.menu_item.addClass("menu");
+
+		this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
 			
 		this.createComponent({
 					kind: "CommandList", 
@@ -233,7 +235,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new account
-		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent,"uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "CreateFolder", "uid": this.uid , "repository":inEvent, "uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -265,7 +267,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -326,6 +328,18 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
+	},
+	refreshAccountList:function(inSender,inEvent)
+	{  
+		console.log("oi");
+		//this.closeSecondaryPanels(3);
+		this.closeSecondaryPanels(2);
+		this.backMenu();
+       //this.$.imageIconPanel.destroyClientControls();
+       this.createComponent({
+			kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
+		});
+		this.$.imageIconPanel.render();	
 	},
 
 	closePanel4:function(inSender,inEvent){

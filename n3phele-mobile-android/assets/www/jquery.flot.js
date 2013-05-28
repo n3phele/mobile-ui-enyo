@@ -33,7 +33,6 @@ Licensed under the MIT license.
 
 // the actual Flot code
 (function($) {
-
 	// Cache the prototype hasOwnProperty for faster access
 
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -450,7 +449,7 @@ Licensed under the MIT license.
                     sorted: null    // default to no legend sorting
                 },
                 xaxis: {
-                    show: null, // null = auto-detect, true = always, false = never
+                    show: true, // null = auto-detect, true = always, false = never
                     position: "bottom", // or "top"
                    /* mode: null, // null or "time"
                     font: null, // null (derived from CSS in placeholder) or object like { size: 11, lineHeight: 13, style: "italic", weight: "bold", family: "sans-serif", variant: "small-caps" }
@@ -472,13 +471,11 @@ Licensed under the MIT license.
                     tickDecimals: null, // no. of decimals, null means auto
                     tickSize: null, // number or [number, "unit"]
                     minTickSize: null // number or [number, "unit"]*/
-					
-					tickLength: 0,
-                   
+					tickLength: null
                 },
                 yaxis: {
                    autoscaleMargin: 0.02,
-					tickLength: 0,
+					tickLength: null,
                     position: "left" // or "right"
                 },
                 xaxes: [],
@@ -489,7 +486,7 @@ Licensed under the MIT license.
                         show: true,
                         radius: 1.5,
                         lineWidth: 2, // in pixels
-                        fill: false,
+                        fill: true,
                         fillColor: "4F81BD",
                         symbol: "circle" // or callback
                     },
@@ -499,7 +496,7 @@ Licensed under the MIT license.
                         // whether lines were actively disabled
                         lineWidth: 1, // in pixels
                         fill: false,
-                        fillColor: "4F81BD",
+                        fillColor: "#4F81BD",
 						//color:"blue",
                         steps: false
                         // Omit 'zero', so we can later default its value to
@@ -522,7 +519,7 @@ Licensed under the MIT license.
                 grid: {
                     show: true,
                     aboveData: false,
-                    color: "#red", // primary color used for outline and labels
+                    color: "black", // primary color used for outline and labels
                     backgroundColor: null, // null for transparent, else color
                     borderColor: null, // set if different from the grid color
                     tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
@@ -536,7 +533,7 @@ Licensed under the MIT license.
                     markingsLineWidth: 2,
                     // interactive stuff
                     clickable: false,
-                    hoverable: false,
+                    hoverable: true,
                     autoHighlight: true, // highlight in case mouse is near
                     mouseActiveRadius: 10 // how far the mouse can be away to activate an item
                 },
@@ -614,6 +611,7 @@ Licensed under the MIT license.
 
         // public attributes
         plot.hooks = hooks;
+        plot.options = options;
 
         // initialize
         initPlugins(plot);

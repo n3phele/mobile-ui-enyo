@@ -9,7 +9,7 @@ enyo.kind({
 		onClickItem:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [{kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
+		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [{kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newFolder"}, 
 		{kind: "onyx.Button" ,content: "Repository", classes:"button-style-left", ontap: "cancelAction"},
 		{ name: "title", content:"Create Folder" }, {fit: true}]},
 		{style:"text-align:center;padding-top: 3%;",components:[	
@@ -18,10 +18,6 @@ enyo.kind({
 			]} //End Name1 
 			]}  
 	],
-	
-	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
-	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
 			
@@ -39,12 +35,23 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	newService: function(sender, event){
-		this.doCreateAcc();
+	newFolder: function(sender, event){
+		console.log(this.uri);
+		var ajaxParams = {
+				url: this.uri+"/list",
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				method: "POST",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false, 
+			};
+		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
+		ajaxComponent
+		.go({ //We need to test this!!
+		})
+		.response( this, function(inSender, inResponse){
+		}).error( this, function(inSender, inResponse){
+		});
 	},
-	setupItem: function(sender, event){
-	
-		},
 	cancelAction:function (sender,event)
 	{  
 		this.doBack();

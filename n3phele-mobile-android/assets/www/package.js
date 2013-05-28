@@ -26,7 +26,7 @@ enyo.depends(
 	"CommandFiles.js",
 	"AccountDetails.js",
 	"jquery.flot.js",
-	
+	"jquery.flot.tooltip.js",
 	"ServiceList.js",
 	"AddService.js",
 	"RemoveService.js",
