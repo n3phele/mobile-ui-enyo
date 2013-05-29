@@ -149,7 +149,7 @@ enyo.kind({
 				//Accounts
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
+					name:"accountList",kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -267,7 +267,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", container: this.$.panels }).render();
+		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -332,14 +332,9 @@ enyo.kind({
 	refreshAccountList:function(inSender,inEvent)
 	{   
 	   	this.setPanelIndex(1);
-	    this.closeSecondaryPanels(2);
-		if(this.$.panels.panelCreated)this.$.panels.destroyPanel(); //??
-       this.$.imageIconPanel.destroyClientControls(); // clear second painel
-       //this.$.imageIconPanel.destroyClientControls();
-     	this.createComponent({
-					kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
-				});
-				this.$.imageIconPanel.render();	
+	    var obj = new Object();
+		obj.index = 3;
+		this.mainMenuTap(obj,obj);
 	},
 
 	closePanel4:function(inSender,inEvent){
