@@ -1,6 +1,7 @@
 function N3pheleClient(ajaxFactory)
 {
-	this.serverAddress = "http://n3phele-dev.appspot.com/resources/";
+	//this.serverAddress = "http://n3phele-dev.appspot.com/resources/";
+	this.serverAddress = serverAddress;
 	this.userName = "";
 	this.userPassword = "";
 	
