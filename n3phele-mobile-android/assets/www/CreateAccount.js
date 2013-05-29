@@ -4,7 +4,8 @@ enyo.kind({
 	fit: true,
 	style: "padding: 0px",
 	events: {
-		onBack: ""
+		onBack: "",
+		onSucess:"",
 	},
 	components: [
 	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style:"background:#fff", components: [    
@@ -26,7 +27,7 @@ enyo.kind({
 				{kind: "onyx.Input", name: "description", style:"float:left;padding:7px 0 0 10px",  placeholder: "Account description"}
 			]},
 			/* {content: "*On Cloud: "}, */
-			{tag:"select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
+			{kind:"Select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
 					//{tag:"option", content:"aaaaaaaa"}						                                                             /* <<<<--------------------- */
 			]},	
 			/* {content: "*Cloud Id: "}, */
@@ -49,7 +50,7 @@ enyo.kind({
 		n3pheleClient.uid = this.uid;
 		var cloudsErrors = function() { console.log("getting clouds error"); }
 		var thisPanel = this;
-		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { tag: "option", content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
+		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { tag: "option", content: clouds[i].name, value: clouds[i].uri, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 	},
 	
@@ -62,15 +63,15 @@ enyo.kind({
 	save: function(sender, event){
 		
 		//obtain form data
-		var  name = sender.parent.owner.$.name.getValue();
-		var  description = sender.parent.owner.$.description.getValue();
-		var  cloud = sender.parent.owner.$.cloud.getPlaceholder();
-		var  id = sender.parent.owner.$.id.getValue();
-		var  secret = sender.parent.owner.$.secret.getValue();
+		var  name = this.$.name.getValue();
+		var  description = this.$.description.getValue();
+		var  cloud = this.$.cloudsList.getValue();
+		var  id = this.$.id.getValue();
+		var  secret = this.$.secret.getValue();
 		//console.log(cloud);
 		//validate form
 		if( name.length == 0 || cloud.length == 0 || id.length == 0 || secret.length == 0){
-			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
+			this.$.Msg.setContent("Please, fill the form!");
 			return;
 		}		
 		//request
@@ -91,9 +92,10 @@ enyo.kind({
 			secret:secret
 		})
 		.response( this, function(inSender, inResponse){
-			sender.parent.owner.$.Msg.setContent("Sucess");
+			this.$.Msg.setContent("Success");
+			this.doSucess();
 		}).error( this, function(inSender, inResponse){
-			sender.parent.owner.$.Msg.setContent("Error");
+			this.$.Msg.setContent("Error");
 			popup.delete();
 		});
 	},

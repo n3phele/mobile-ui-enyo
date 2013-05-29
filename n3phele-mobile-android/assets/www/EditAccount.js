@@ -29,7 +29,7 @@ enyo.kind({
 				]},
 			
 				//{content: "*On Cloud: "},
-				{tag:"select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
+				{kind:"Select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
 					//{tag:"option", content:"aaaaaaaa"}						                                                             /* <<<<--------------------- */
 				]},
 				
@@ -55,7 +55,7 @@ enyo.kind({
 		
 		var cloudsErrors = function() { console.log("getting clouds error"); }
 		var thisPanel = this;
-		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( {tag: "option", content: clouds[i].name, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
+		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( {tag: "option", content: clouds[i].name, value: clouds[i].uri, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 		this.$.name.setPlaceholder(this.account.name);
@@ -72,20 +72,22 @@ enyo.kind({
 	save: function(sender, event){
 		
 		//obtain form data
-		var  name = sender.parent.owner.$.name.getValue();
-		var  description = sender.parent.owner.$.description.getValue();
-	    var  cloud = sender.parent.owner.$.cloud.getPlaceholder();
-		var  id = sender.parent.owner.$.id.getValue();
-		var  secret = sender.parent.owner.$.secret.getValue();
+		var accountId = this.account.uri;
+		accountId = accountId.substr(accountId.lastIndexOf('/') + 1,accountId.lenght);
+		var  name = this.$.name.getValue();
+		var  description = this.$.description.getValue();
+	    var  cloud = this.$.cloudsList.getValue();
+		var  id = this.$.id.getValue();
+		var  secret = this.$.secret.getValue();
 		
 		//validate form
 		if( name.length == 0 || cloud.length == 0 || id.length == 0 || secret.length == 0){
-			sender.parent.owner.$.Msg.setContent("Please, fill the form!");
+			this.$.Msg.setContent("Please, fill the form!");
 			return;
 		}		
 		//request
 		var ajaxParams = {
-				url: serverAddress+"account",
+				url: serverAddress + "account/" + accountId,
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/x-www-form-urlencoded",
@@ -93,11 +95,17 @@ enyo.kind({
 			};
 		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 		ajaxComponent
-		.go()
+		.go({ //We need to test this!!
+			name:name,
+			description:description,
+			cloud:cloud,
+			accountId:id,
+			secret:secret
+		})
 		.response( this, function(inSender, inResponse){
-			
+			this.$.Msg.setContent("Success");	
 		}).error( this, function(inSender, inResponse){
-			sender.parent.owner.$.Msg.setContent("Error");
+			this.$.Msg.setContent("Error");
 			popup.delete();
 		});
 	},
