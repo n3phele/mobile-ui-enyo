@@ -94,7 +94,7 @@ enyo.kind({
 		panel.reflow();     
 	},
 	backMenu: function( sender , event){
-		this.doBack();
+		this.doBack(event);
 	},
 	editAccount: function(sender, envent){
 		this.doEditAcc(this.account);
