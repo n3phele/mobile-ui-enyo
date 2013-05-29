@@ -296,6 +296,17 @@ box-align:center;
    border: 1px solid #9A9A9A;
  }
  
+ .styled-select {
+   /* width: 96% !important; */
+   height: 34px !important;
+   /* max-width:95%;   */ 
+   overflow: hidden !important;
+   background: url("assets/new_arrow.png")no-repeat right !important;    
+  /*  margin-bottom:10px; */
+   border-radius:3px;
+   border: 1px solid #9A9A9A;
+ }
+ 
  .styled-select select {
    background: transparent !important;
    width: 96% !important;

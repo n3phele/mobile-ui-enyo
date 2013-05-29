@@ -33,7 +33,7 @@
   color: #333333;
   font-family: Helvetica;   /* font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif; */
   /* font-size: 20px;  */
-  font-size: 17px; 
+  font-size: 17px !important; 
   font-weight:bold;
   cursor: default;
   background-color: #eaeaea;
@@ -499,7 +499,7 @@
 .onyx-radiobutton.onyx-tabbutton {
   padding: 8px 34px;
   /* font-size: 20px; */
-  font-size: 17px;
+  font-size: 17px !important;
   font-weight:bold;
   border-radius: 0px;
 }
@@ -581,7 +581,7 @@
   white-space: nowrap;
   overflow: hidden;
   /* font-size: 20px; */
-  font-size: 17px;
+  font-size: 17px !important;
   font-weight:bold;
 }
 .onyx-toolbar-inline > *,

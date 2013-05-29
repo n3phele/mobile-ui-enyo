@@ -10,7 +10,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack"},{kind: "onyx.Button", classes:"button-style-left", content: "Service Detail", ontap: "backMenu"}]},
+			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "title_1", components: [{ content: "New Stack", style:"padding-right:40px"},{kind: "onyx.Button", classes:"button-style-left", content: "Service Detail", ontap: "backMenu"}]},
 				{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "onyx.Button",classes:"button-search-style", ontap: "search", components: [

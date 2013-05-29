@@ -26,18 +26,16 @@ enyo.kind({
 			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
 				{name:"select", kind: "Select", classes:"styled-select", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none;width: 80% !important; margin-bottom:10px",components:[             /* <<<<--------------------- */
 					{content:"Cost", value:"Cost"},
-					{content:"Cumulative Cost", content:"Cumulative Cost"}						                                                             /* <<<<--------------------- */
+					{content:"Cumulative Cost", content:"Cumulative Cost"}						                                                             
 				]},	
 				{kind : "onyx.Button", content : "24 hours", ontap : "button24",  classes:"button-style"}, 
 				{kind : "onyx.Button", content : "7 days", ontap : "button7",  classes:"button-style"},
 				{kind : "onyx.Button", content : "30 days", ontap : "button30",  classes:"button-style"} 
 			]},
 			
-			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 
-			//{kind: "Scroller", fit:true, components:[
-			{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [
-			   
-			]},//]},
+			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 			
+				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
+			]},
 			{tag: "br"},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
 

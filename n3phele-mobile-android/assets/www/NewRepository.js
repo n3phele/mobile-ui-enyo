@@ -29,22 +29,10 @@ enyo.kind({
 				{kind: "onyx.Input", name: "URL",style:"float:left;padding:7px 0 0 10px", placeholder: "Location URL"}
 			]}]},
 		{components: [	
-		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[             /* <<<<--------------------- */
+		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[            
 			{content:"S3", value:"S3"},
-			{content:"Swift", content:"Swift"}						                                                             /* <<<<--------------------- */
-		]}	
-		//{style:"width: 87%",fit:true,components:[ 
-			/* {kind: "onyx.MenuDecorator", onSelect: "itemSelected",fit:true, components: [  //{kind: "onyx.MenuDecorator", onSelect: "itemSelected", components: [
-				{kind: "onyx.InputDecorator",style:"border:1px solid;margin-bottom:10px;width:76%", components: [  //{kind: "onyx.InputDecorator",style:"border:1px solid;width:76%;margin-bottom:10px;min-width:245px", components: [
-					{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}  //{kind: "onyx.Input", name: "kind", disabled: true, placeholder: "",style:"-webkit-text-fill-color: #000000"}
-				]},
-				{content: "v", allowHtml:true, classes:"button-combobox-style"},
-				{kind: "onyx.Menu", style:"background:#B9B9BD;color:#000;margin-bottom:10px", components: [  //{kind: "onyx.Menu", style:"background:#B9B9BD;color:#000;width:90%;margin-bottom:10px", components: [
-					{content: "S3"},
-					{content: "Swift"}
-				]}
-			]} */
-		//]} 
+			{content:"Swift", content:"Swift"}						                                                           
+		]}		
 		]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs",components: [

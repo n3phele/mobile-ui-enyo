@@ -19,7 +19,7 @@ enyo.kind({
 			{content : "Version", name : "version", style : "margin:5px 0 5px 10px"},
 			{style:"text-align:center", components:[		
 				{name: "total", style: "color:#768BA7;border-top:3px solid;padding-bottom: 1%;"},								
-				{kind: "onyx.InputDecorator",classes: "inputs", components: [
+				{kind: "onyx.InputDecorator",classes: "inputs",style:"margin-top:20px", components: [
 					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px", placeholder: "Number of nodes",onchange:"inputChanged"}
 				]},
 				{tag:"select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
