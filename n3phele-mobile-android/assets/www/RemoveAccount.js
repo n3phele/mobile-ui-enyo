@@ -1,3 +1,4 @@
+
 var results;
 var i = 0;
 enyo.kind({ 
@@ -49,7 +50,7 @@ enyo.kind({
 	},
 	deleteAccount: function(sender, event){
 		var ajaxComponent = new enyo.Ajax({
-			url: this.account.originator.uri,
+			url: this.account.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",
@@ -60,7 +61,8 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
 		});	
-		
+		console.log(this.uid);
+		console.log(this.account.uri);
 		this.doDelete();
 	},
 
