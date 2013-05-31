@@ -59,6 +59,8 @@ enyo.kind({
 			console.log("Error to delete the detail of the command!");
 		});	
 		//this.doBack(event);
+		console.log(this.uid);
+		console.log(this.repository.originator.uri);
 		this.doDelete();
 	},
 	cancelAction:function (sender,event)
