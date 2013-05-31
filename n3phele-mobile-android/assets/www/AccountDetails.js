@@ -35,7 +35,7 @@ enyo.kind({
 				{kind : "onyx.Button", content : "30 days", ontap : "button30",  style: "margin-left: 10px;", classes:"button-style"}
 				]},
 			
-			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 			
+			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold; text-align: center;"}, 			
 				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
 			]},
 			{tag: "br"},
