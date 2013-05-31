@@ -43,8 +43,8 @@ enyo.kind({
 		{tag:"div", name: "files", components:[]},
 		{tag:"div", style: "text-align:right", components:[
 			{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
-			{name:"btnUp", kind:"onyx.Button", content: "Select", ontap:"doSelectFile"},
-			{name:"btnDown", kind:"onyx.Button", content: "Download", ontap:"doFileDownload"},
+			{name:"btnUp", kind:"onyx.Button", content: "Select", classes:"button-style", ontap:"doSelectFile"},
+			{name:"btnDown", kind:"onyx.Button", content: "Download", classes:"button-style", ontap:"doFileDownload"},
 		]}
 	],
 	doSelectFile: function(inSender, inEvent){

@@ -9,14 +9,15 @@ enyo.kind({
 	style: "padding: 0px",
 	events: {
 		onEditAcc: "",
-		onBack: ""      
+		onBack: "",
+        onRemoveAccount:""		
 	},
 	components : [
 		{kind : "Scroller",
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
@@ -214,6 +215,11 @@ enyo.kind({
 			this.createChart(this.chartData, this.$.select.getValue());
 
 		}
-	}
+	},
+	removeAccount:function (sender,event)
+	{   
+	    console.log("oie!");
+        this.doRemoveAccount(this.account);
+	},
 	
 });

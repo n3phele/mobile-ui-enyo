@@ -5,7 +5,8 @@ enyo.kind({
 	fit: true,
 	style: "padding: 0px",
 	events: {
-		onBack: ""
+		onBack: "",
+		onEdit:""
 	},
 	components: [
 		{kind:"Scroller",style: "background: #fff",classes: "scroller-sample-scroller enyo-fit",components: [
@@ -107,11 +108,13 @@ enyo.kind({
 			secret:secret
 		})
 		.response( this, function(inSender, inResponse){
-			this.$.Msg.setContent("Success");	
+			this.$.Msg.setContent("Success");
+            this.doEdit();			
 		}).error( this, function(inSender, inResponse){
 			this.$.Msg.setContent("Error");
 			popup.delete();
 		});
+		
 	},
 	cancelAction: function(sender , event){
 		this.doBack();
