@@ -58,6 +58,16 @@ enyo.kind({
 				this.$.status.setSrc("assets/failed.png");
 			}
 			this.$.activity.setContent(item.name);
+			  
+			 if( i % 2 == 1)
+	   {
+	   this.$.item.applyStyle("background-color", "#F7F7F7")
+	   };
+         if( i % 2 == 0)
+	   {
+	   this.$.item.applyStyle("background-color", "white")
+	   };
+			
 		},
 		create: function(){
 			this.inherited(arguments);

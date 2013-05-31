@@ -59,6 +59,7 @@ enyo.kind({
 		
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
 		this.$.name.setPlaceholder(this.account.name);
+	
 		this.$.description.setPlaceholder(this.account.description);
 		//this.$.cloudList.setContent(this.account.cloudName);
 	},
@@ -74,7 +75,10 @@ enyo.kind({
 		//obtain form data
 		var accountId = this.account.uri;
 		accountId = accountId.substr(accountId.lastIndexOf('/') + 1,accountId.lenght);
-		var  name = this.$.name.getValue();
+	  var  name = this.$.name.getValue();
+		if(name  =="") { name = this.$.name.getPlaceholder();}
+		console.log(name);
+	 
 		var  description = this.$.description.getValue();
 	    var  cloud = this.$.cloudsList.getValue();
 		var  id = this.$.id.getValue();
