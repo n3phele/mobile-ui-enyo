@@ -274,11 +274,11 @@ enyo.kind({
 	removeAccount: function(inSender,inEvent)
 	{
 	//close old panels	
-		this.closeSecondaryPanels(2);		
+		this.closeSecondaryPanels(3);		
 		//create panel to access account details
-		this.createComponent({kind: "RemoveAccount", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "accountDetail", onDelete:"RefreshAccountList",container: this.$.panels }).render();
+		this.createComponent({kind: "RemoveAccount", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closePanel4", onDelete:"RefreshAccountList",container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(4);
 	},
 	editAccount: function(inSender,inEvent){		
 		//close old panels	
