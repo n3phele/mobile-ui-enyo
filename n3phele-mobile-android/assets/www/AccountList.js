@@ -19,7 +19,7 @@ enyo.kind({
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
 	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto; background-color: white; border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto;border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
 				{name: "active",  style:"width:20%; display: inline-block" } ,
@@ -91,6 +91,14 @@ enyo.kind({
 		this.$.cost.setContent("US$0.0");
 		this.$.active.setContent("0");
 		this.$.cloud.setContent(item.cloudName);
+		if( event.index % 2 == 1)
+	   {
+	   this.$.item.applyStyle("background-color", "#F7F7F7")
+	   };
+         if( event.index % 2 == 0)
+	   {
+	   this.$.item.applyStyle("background-color", "white")
+	   };
 	},
 	backMenu: function( sender , event){
 		this.doBack(event);
