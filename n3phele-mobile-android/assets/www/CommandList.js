@@ -19,10 +19,12 @@ enyo.kind({
 						{kind: "onyx.Icon", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png"}
 					]}
 				]},
-				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false}		
+				{name: "searchSpinner", kind: "Image", src: "http://nightly.enyojs.com/latest/sampler/assets/spinner.gif", showing: false},
+                {name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}				
 	],
 	create: function(){
-		this.inherited(arguments)	
+		this.inherited(arguments)
+         this.$.Spin.show();		
 		if (this.closePanel.isScreenNarrow()) {
 			this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
@@ -49,6 +51,7 @@ enyo.kind({
 				this.commands.push( this.data[i].name ); //set name
 				this.commandsImages.push("assets/Script.png");
 				stacks.push(this.data[i].name);
+				
 		}		
 		var thisPanel = this;
 		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
@@ -56,13 +59,14 @@ enyo.kind({
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
 			}).render();
-		
+		 this.$.Spin.hide();	
 		thisPanel.render();
 		thisPanel.reflow();	
 		})
 		.error(this, function(){
 			console.log("Error to load the list of repositories");
-		});		
+		});	
+ 		
 	},
 	itemTap: function(inSender, inEvent) {
 		this.doSelectedCommand(inEvent);

@@ -15,16 +15,16 @@ enyo.kind({
 	components:[
 		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
 			{name: "title", content:"Repositories"},
-			{kind: "onyx.Button", content: "+", ontap: "newrepo",classes:"button-style-right", style: "font-size: 20px !important;font-weight: bold;"}
+			{kind: "onyx.Button", content: "+", ontap: "newrepo",classes:"button-style-right", style: "font-size: 20px !important;font-weight: bold;"},
+						
 			//{fit: true}
 		]},  
-			
+	    	{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},
 	    {name: "panel", components:[]}
 	],
 	create: function(){
 		this.inherited(arguments)
-		var popup = new spinnerPopup();
-		popup.show();
+		 this.$.Spin.show();
 		
 		var ajaxComponent = new enyo.Ajax({
 			url: serverAddress+"repository",
@@ -60,7 +60,8 @@ enyo.kind({
 		
 		}else if(this.callBy=="selectFile"){
 			this.$.tollbar_top.createComponent({kind: "onyx.Button", name: "btnClose",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();	
-		}		
+		}
+        this.$.Spin.hide();		
 		thisPanel.render();
 		
 		thisPanel.reflow();	
