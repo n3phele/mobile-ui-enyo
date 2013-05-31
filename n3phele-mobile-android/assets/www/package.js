@@ -31,6 +31,7 @@ enyo.depends(
 	"AddService.js",
 	"RemoveService.js",
 	"NewStack.js",
+	"RemoveAccount.js",
 	"StackDetails.js",
 	"ServiceDetail.js",
 	"EditAccount.js",
