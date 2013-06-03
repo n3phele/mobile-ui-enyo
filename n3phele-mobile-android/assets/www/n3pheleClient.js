@@ -137,22 +137,25 @@ function N3pheleClient(ajaxFactory)
 			);	
 	}
 	
-	this.getChangesSince = function(sinceTime, uriToBeListen, success, error)
+	this.stamp = 0;
+	this.getChangesSince = function(uriToBeListen, success, error)
 	{		
 		var ajaxComponent = this.ajaxFactory.create({
 				url: this.serverAddress,
 				headers:{ 'authorization' : "Basic "+ this.uid },
 				method: "GET",
 				contentType: "application/x-www-form-urlencoded",
-				sync: false,
+				sync: false
 			}); //connection parameters
 			
 			ajaxComponent
-			.go({'summary' : false, 'changeOnly' : true, 'since' : sinceTime})
+			.go({'summary' : false, 'changeOnly' : true, 'since' : this.stamp})
 			.response( this, function(sender, response){
+				
+				this.stamp = response.stamp;
 				if( response.changeCount == 0 ) return;
 				
-				var changes = response.changeGroup.change;			
+				var changes = response.changeGroup.change;	
 				
 				for (var i=0;i<changes.length;i++)
 				{ 

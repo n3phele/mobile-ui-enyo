@@ -52,39 +52,40 @@ enyo.kind({
 			this.n3pheleClient.uid = this.uid;
 				
 			var thisPanel = this;
+			this.lastUpdate = 0;
 			var success = function (response) {		
+			
 				thisPanel.$.acName.setContent(" "+response.name);
 				thisPanel.$.acStatus.setContent(" "+response.state );
 				thisPanel.$.acComDesc.setContent(" "+response.description);
 				
 				var d1 = new Date(response.start);
-				thisPanel.lastUpdate = d1.getTime();
-				
 				var d2 = new Date(response.complete);
 				
-				if(d2) thisPanel.lastUpdate = d2.getTime();
-				
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
-				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
-
-				var duration = (Math.round(((d2-d1)/60000)*100)/100);
-				if(duration < 1){
-					duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
-				}else{
-					duration = duration + " minutes";
+				
+				var duration = "still running";
+				if(response.complete)
+				{
+					thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
+					duration = (Math.round(((d2-d1)/60000)*100)/100);
+					
+					if(duration < 1){
+						duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
+					}else{
+						duration = duration + " minutes";
+					}
 				}
 				
-				thisPanel.$.acDuration.setContent(" "+ duration); 
-				
-				
+				thisPanel.$.acDuration.setContent(" " + duration); 
+								
 				var narrative = fixArrayInformation(response.narrative);
 				
-				if(narrative && narrative.length > 0)
-				{
-					
+				/*if(narrative && narrative.length > 0)
+				{					
 					var stampDate = new Date(narrative[narrative.length-1].stamp);
 					thisPanel.lastUpdate = stampDate.getTime();					
-				}
+				}*/
 				
 				thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
 				
@@ -96,11 +97,11 @@ enyo.kind({
 			this.n3pheleClient.listActivityDetail(this.url, 0, 10, success, error);
 			
 			//When called update screen
-			var changesSuccess = function() { thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
+			var changesSuccess = function(change) { thisPanel.lastUpdate = change.stamp; thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
 			
 			var repeater = function() {
 				//see if new changes occured
-				thisPanel.n3pheleClient.getChangesSince(thisPanel.lastUpdate, thisPanel.url, changesSuccess);
+				thisPanel.n3pheleClient.getChangesSince(thisPanel.url, changesSuccess);
 			}
 			
 			//register update event here with setInterval
@@ -117,8 +118,10 @@ enyo.kind({
 			//clear panel_three
 			panel.destroyClientControls();			
 						
-			//fill it up with received data
-			for( var i in narrative ){
+			//fill it up with received data		
+			if(narrative.length > 0)
+			{
+				for( var i in narrative ){
 					panel.createComponent({tag: "br"});
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
@@ -132,7 +135,8 @@ enyo.kind({
 					panel.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
 					panel.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
 					panel.createComponent({tag: "br"});
-				}				
+				}
+			}				
 			panel.render();
 		},
 		backMenu: function( sender , event){
