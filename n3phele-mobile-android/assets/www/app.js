@@ -267,15 +267,24 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", container: this.$.panels }).render();
+		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", onRemoveAccount:"removeAccount",container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
+	},
+	removeAccount: function(inSender,inEvent)
+	{
+	//close old panels	
+		this.closeSecondaryPanels(3);		
+		//create panel to access account details
+		this.createComponent({kind: "RemoveAccount", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onBack: "closePanel4", onDelete:"refreshAccountList",container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
 	},
 	editAccount: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to access account details
-		this.createComponent({ kind: "EditAccount", "uid": this.uid, "account": inEvent ,"uri": inEvent.uri, "account": inEvent, onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "EditAccount", "uid": this.uid, "account": inEvent ,"uri": inEvent.uri, "account": inEvent, onBack: "closePanel4",onEdit:"refreshAccountList" ,container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
