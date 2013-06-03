@@ -142,6 +142,7 @@ function N3pheleClient(ajaxFactory)
 	}
 	
 	this.stamp = 0;
+	this.eventListeners = [];
 	this.getChangesSince = function(uriToBeListen, success, error)
 	{		
 		var ajaxComponent = this.ajaxFactory.create({
@@ -162,7 +163,7 @@ function N3pheleClient(ajaxFactory)
 				var changes = response.changeGroup.change;	
 				
 				for (var i=0;i<changes.length;i++)
-				{ 
+				{
 					if(changes[i].uri == uriToBeListen)
 					{
 						if( success ) success(changes[i]);
@@ -175,6 +176,27 @@ function N3pheleClient(ajaxFactory)
 					if (error) error();
 				}
 			);
+	}
+	
+	this.addListener = function(component, callback, uriToListen)
+	{
+		var newListener = new Object();
+		newListener.component = component;
+		newListener.callback = callback;
+		newListener.uri = uriToListen;
+		
+		this.eventListeners.push(newListener);
+	}
+	
+	this.removeListener = function(component)
+	{
+		for(var i in this.eventListeners)
+		{
+			if(this.eventListeners[i].component == component)
+			{
+				this.eventListeners.splice(i,1);
+			}
+		}
 	}
 	
 	this.listClouds = function(success, error)

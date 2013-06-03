@@ -26,28 +26,55 @@ var enyoAjaxFactory = new Object();
 var enyoAjax = new Object();
 enyoAjaxFactory.create = function(a) { return enyoAjax; };
 enyoAjax.error = function() { }
-enyoAjax.response = function(o, func) { func( enyoAjax, {"stamp":"1364832379405","changeGroup":{"stamp":"1364832379405","change":[{"stamp":"1364832379405","uri":"https://n3phele-dev.appspot.com/resources/process/182001","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"},{"stamp":"1364832379400","uri":"https://n3phele-dev.appspot.com/resources/process/182001_1","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"},{"stamp":"1364832379403","uri":"https://n3phele-dev.appspot.com/resources/action/181001","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"}]},"changeCount":"3","cacheAvailable":"true"}); return enyoAjax; }
+
+var responseThreeUpdates = {"stamp":"1364832379405","changeGroup":{"stamp":"1364832379405","change":[{"stamp":"1364832379405","uri":"https://n3phele-dev.appspot.com/resources/process/182001","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"},{"stamp":"1364832379400","uri":"https://n3phele-dev.appspot.com/resources/process/182001_1","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"},{"stamp":"1364832379403","uri":"https://n3phele-dev.appspot.com/resources/action/181001","deleted":"false","owner":"https://n3phele-dev.appspot.com/resources/user/154001","public":"false"}]},"changeCount":"3","cacheAvailable":"true"};
+var emptyResponse = {"stamp":"1369961575957","changeGroup":{"stamp":"1369961575957"},"changeCount":"0","cacheAvailable":"true"};
+var processUri = "https://n3phele-dev.appspot.com/resources/process/182001";
+enyoAjax.response = function(o, func) { func( enyoAjax, responseThreeUpdates); return enyoAjax; }
 enyoAjax.go = function() { return enyoAjax; }
 
 var n3pheleClient = new N3pheleClient(enyoAjaxFactory);
 	
-asyncTest( "list new updates and get the desired one", function() {
+test( "add a listener and remove it", function() {
 	
-	//Execution on success should return object. Direct comparison was bad ordered, comparing two important fields.
-	var success = function (change) {
-		equal( change.uri, "https://n3phele-dev.appspot.com/resources/process/182001" );
-		equal( change.owner, "https://n3phele-dev.appspot.com/resources/user/154001" );
-		start();
-	}
+	var aComponent = new Object();
+	aComponent.callback = function(response) { ok(true); }
 	
-	var error = function() 	{
-		ok(false, "should not got here, call throw error");
-		start();
-	}
+	equal(0, n3pheleClient.eventListeners.length, "listener array should started empty");
 	
-	n3pheleClient.getChangesSince("https://n3phele-dev.appspot.com/resources/process/182001", success, error);
+	n3pheleClient.addListener( aComponent, aComponent.callback, processUri );
+	
+	equal(1, n3pheleClient.eventListeners.length, "new listener should be added");
+	
+	n3pheleClient.removeListener(aComponent);
+	
+	equal(0, n3pheleClient.eventListeners.length, "listener array should be empty after removed the only listener");
+	
 });
 
+test( "add two listeners and remove both", function() {
+	
+	var aComponent1 = new Object();
+	aComponent1.callback = function(response) { ok(true); }
+	
+	var aComponent2 = new Object();
+	aComponent2.callback = function(response) { ok(true); }
+		
+	n3pheleClient.addListener( aComponent1, aComponent1.callback, processUri );
+	n3pheleClient.addListener( aComponent2, aComponent2.callback, processUri );
+	
+	equal(2, n3pheleClient.eventListeners.length, "two listener should be added");
+	
+	n3pheleClient.removeListener(aComponent1);
+	n3pheleClient.removeListener(aComponent2);
+	
+	equal(0, n3pheleClient.eventListeners.length, "listener array should be empty");
+	
+});
+
+
+
+/*
 asyncTest( "list new updates and none was desired", function() {
 	
 	//Execution on success should return object.
@@ -65,7 +92,7 @@ asyncTest( "list new updates and none was desired", function() {
 	expect(0);	
 	n3pheleClient.getChangesSince("https://n3phele-dev.appspot.com/resources/process/15000", success, error);
 	window.setTimeout(start, 100);	
-});
+}); */
 
 </script>
 </body>
