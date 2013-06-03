@@ -143,8 +143,12 @@ function N3pheleClient(ajaxFactory)
 	
 	this.stamp = 0;
 	this.eventListeners = [];
-	this.getChangesSince = function(uriToBeListen, success, error)
+	this.getChangesSince = function()
 	{		
+		if(this.eventListeners.length == 0) return;
+		
+		var thisComponent = this;
+	
 		var ajaxComponent = this.ajaxFactory.create({
 				url: this.serverAddress,
 				headers:{ 'authorization' : "Basic "+ this.uid },
@@ -161,14 +165,17 @@ function N3pheleClient(ajaxFactory)
 				if( response.changeCount == 0 ) return;
 				
 				var changes = response.changeGroup.change;	
-				
+								
 				for (var i=0;i<changes.length;i++)
 				{
-					if(changes[i].uri == uriToBeListen)
+					for(var j in thisComponent.eventListeners)
 					{
-						if( success ) success(changes[i]);
+						if(changes[i].uri == thisComponent.eventListeners[j].uri)
+						{
+							thisComponent.eventListeners[j].callback(changes[i]);
+						}
 					}
-				}								
+				}
 			})
 			.error( this, function()
 				{ 
@@ -178,6 +185,12 @@ function N3pheleClient(ajaxFactory)
 			);
 	}
 	
+	var self = this;
+	
+	this.startEventsDispatch = function() { self.eventInterval = window.setInterval( function() { self.getChangesSince(); }, 5000); };
+	
+	this.stopInterval = function() {  window.clearInterval(this.eventInterval); }
+	
 	this.addListener = function(component, callback, uriToListen)
 	{
 		var newListener = new Object();
@@ -186,6 +199,8 @@ function N3pheleClient(ajaxFactory)
 		newListener.uri = uriToListen;
 		
 		this.eventListeners.push(newListener);
+		
+		console.log("new listener registered");
 	}
 	
 	this.removeListener = function(component)
@@ -195,6 +210,7 @@ function N3pheleClient(ajaxFactory)
 			if(this.eventListeners[i].component == component)
 			{
 				this.eventListeners.splice(i,1);
+				console.log("a listener was removed");
 			}
 		}
 	}

@@ -33,9 +33,10 @@ var processUri = "https://n3phele-dev.appspot.com/resources/process/182001";
 enyoAjax.response = function(o, func) { func( enyoAjax, responseThreeUpdates); return enyoAjax; }
 enyoAjax.go = function() { return enyoAjax; }
 
-var n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+var n3pheleClient;
 	
 test( "add a listener and remove it", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
 	
 	var aComponent = new Object();
 	aComponent.callback = function(response) { ok(true); }
@@ -49,11 +50,11 @@ test( "add a listener and remove it", function() {
 	n3pheleClient.removeListener(aComponent);
 	
 	equal(0, n3pheleClient.eventListeners.length, "listener array should be empty after removed the only listener");
-	
+		
 });
 
 test( "add two listeners and remove both", function() {
-	
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
 	var aComponent1 = new Object();
 	aComponent1.callback = function(response) { ok(true); }
 	
@@ -72,27 +73,52 @@ test( "add two listeners and remove both", function() {
 	
 });
 
+asyncTest( "add a listener and call the callback method", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	n3pheleClient.startEventsDispatch();
+	
+	var aComponent = new Object();
+	aComponent.callback = function(response) { ok(true); }
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, processUri );
+	
+	n3pheleClient.getChangesSince();
+	expect(1);
+	window.setTimeout(start, 50);
+	n3pheleClient.stopInterval();
+});
 
+asyncTest( "add a listener and don't call the callback method", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	n3pheleClient.startEventsDispatch();
+	var aComponent = new Object();
+	aComponent.callback = function(response) { ok(false); }
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, "auri" );
+	
+	n3pheleClient.getChangesSince();
+	expect(0);
+	window.setTimeout(start, 50);
+	n3pheleClient.stopInterval();
+});
 
-/*
-asyncTest( "list new updates and none was desired", function() {
+asyncTest( "add two listeners and call only one callback method", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	n3pheleClient.startEventsDispatch();
+	var aComponent1 = new Object();
+	aComponent1.callback = function(response) { ok(true); }
 	
-	//Execution on success should return object.
-	var success = function (change) {
-		ok(false, "will not get here since no change will be passed");
-		start();
-	}
+	var aComponent2 = new Object();
+	aComponent2.callback = function(response) { ok(false); }
 	
-	var error = function() 	{
-		ok(false, "should not got here, call throw error");
-		start();
-	}
+	n3pheleClient.addListener( aComponent1, aComponent1.callback, processUri );
+	n3pheleClient.addListener( aComponent2, aComponent2.callback, "aUri" );
 	
-	//No assertion should be throw
-	expect(0);	
-	n3pheleClient.getChangesSince("https://n3phele-dev.appspot.com/resources/process/15000", success, error);
-	window.setTimeout(start, 100);	
-}); */
+	n3pheleClient.getChangesSince();
+	expect(1);
+	window.setTimeout(start, 50);
+	n3pheleClient.stopInterval();
+});
 
 </script>
 </body>

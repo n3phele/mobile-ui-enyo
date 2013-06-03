@@ -178,7 +178,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to show selected activity
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, "uri": event.uri, 'url': event.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, "uri": event.uri, 'url': event.uri, onBack: "closeFilePanel", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},

@@ -81,12 +81,6 @@ enyo.kind({
 								
 				var narrative = fixArrayInformation(response.narrative);
 				
-				/*if(narrative && narrative.length > 0)
-				{					
-					var stampDate = new Date(narrative[narrative.length-1].stamp);
-					thisPanel.lastUpdate = stampDate.getTime();					
-				}*/
-				
 				thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
 				
 				thisPanel.reflow();
@@ -97,21 +91,15 @@ enyo.kind({
 			this.n3pheleClient.listActivityDetail(this.url, 0, 10, success, error);
 			
 			//When called update screen
-			var changesSuccess = function(change) { thisPanel.lastUpdate = change.stamp; thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
+			var changesSuccess = function() { thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
 			
-			var repeater = function() {
-				//see if new changes occured
-				thisPanel.n3pheleClient.getChangesSince(thisPanel.url, changesSuccess);
-			}
-			
-			//register update event here with setInterval
-			this.interval = window.setInterval( repeater, 5000);
+			this.n3pheleClient.addListener(this, changesSuccess, this.url);
 		},
 		destroy: function() {
 			// do inherited teardown
 			this.inherited(arguments);
 			
-			window.clearInterval(this.interval);
+			this.n3pheleClient.removeListener(this);
 		},
 		//Update the narrative content to the specified panel (reset content)
 		updateNarrative: function(narrative, panel){
@@ -119,7 +107,7 @@ enyo.kind({
 			panel.destroyClientControls();			
 						
 			//fill it up with received data		
-			if(narrative.length > 0)
+			if( narrative !== undefined && narrative.length > 0)
 			{
 				for( var i in narrative ){
 					panel.createComponent({tag: "br"});
