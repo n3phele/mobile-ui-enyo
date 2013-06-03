@@ -14,7 +14,7 @@ enyo.kind({
 			{kind:"onyx.Button", content: "Repository List", ontap:"cancel", classes: "button-style-left"}
 		]},		
 		{tag: "br"},
-		{name: "Msg", style: "color:#FF4500;padding-left:7px"},
+		{name: "Msg", style: "color:#FF4500; text-align:center"},
 		{tag: "br"},		
 	{style:"text-align:center", components:[		
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
