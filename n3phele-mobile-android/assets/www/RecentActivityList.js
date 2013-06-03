@@ -1,4 +1,5 @@
 var size = 3;
+
 enyo.kind({ 
 		name:"RecentActivityList",
 		result: null,
@@ -69,7 +70,7 @@ enyo.kind({
 			}
 			
 			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({kind: "ActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid, container: main.$.imageIconPanel});
+			main.createComponent({name:"Activity",kind: "ActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid,"panels":panels ,container: main.$.imageIconPanel});
 		
 			panels.owner.$.imageIconPanel.render();
 		},
@@ -83,7 +84,7 @@ enyo.kind({
 		onBack: "",
 		},
 		components:[
-			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}]},
+			{name: "toolBar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}]},
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
@@ -119,7 +120,9 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			
+			if (enyo.Panels.isScreenNarrow()){
+				this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
+			}
 			//If not injected, create a default implementation
 			if(!this.n3pheleClient)
 			{
@@ -214,6 +217,15 @@ enyo.kind({
 			panel.render();
 		},
 		backMenu: function( sender , event){
-			this.doBack();
+			
+           var main = sender.owner.parent.owner;
+			var panels = main.$.panels;
+           	main.closeSecondaryPanels(2);
+
+			if (enyo.Panels.isScreenNarrow()){
+				panels.setIndex(0);
+			}
+			
+ 			
 		}
 });
