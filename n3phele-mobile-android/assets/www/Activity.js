@@ -6,7 +6,7 @@ enyo.kind({
 		onBack: "",
 		},
 		components:[
-			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity"}, {fit: true}, {kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} ]},
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity", style:"padding-right:15px"}, {fit: true}, {kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} ]},
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},

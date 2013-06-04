@@ -18,15 +18,15 @@ enyo.kind({
 		{tag: "br"},		
 	{style:"text-align:center", components:[		
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "name",style:"float:left;padding:7px 0 0 10px", placeholder: "Repository name"}
+				{kind: "onyx.Input", name: "name",style:"float:left;padding-left:10px", placeholder: "Repository name"}
 			]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "description",style:"float:left;padding:7px 0 0 10px", placeholder: "Repsoitory description"}
+				{kind: "onyx.Input", name: "description",style:"float:left;padding-left:10px", placeholder: "Repsoitory description"}
 			]}]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "URL",style:"float:left;padding:7px 0 0 10px", placeholder: "Location URL"}
+				{kind: "onyx.Input", name: "URL",style:"float:left;padding-left:10px", placeholder: "Location URL"}
 			]}]},
 		{components: [	
 		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[            
@@ -36,15 +36,15 @@ enyo.kind({
 		]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs",components: [
-				{kind: "onyx.Input", name: "path",style:"float:left;padding:7px 0 0 10px", placeholder: "Base Path"}
+				{kind: "onyx.Input", name: "path",style:"float:left;padding-left:10px", placeholder: "Base Path"}
 			]}]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "id",style:"float:left;padding:7px 0 0 10px", placeholder: "Authentication Id"}
+				{kind: "onyx.Input", name: "id",style:"float:left;padding-left:10px", placeholder: "Authentication Id"}
 			]}]},
 		{components: [			
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "password",style:"float:left;padding:7px 0 0 10px", type: "password", placeholder: "New password"}
+				{kind: "onyx.Input", name: "password",style:"float:left;padding-left:10px", type: "password", placeholder: "New password"}
 			]}]},			
 		{components: [			
 			{content: "Accessible to all n3phele user?"}, 

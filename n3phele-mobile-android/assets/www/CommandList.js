@@ -11,7 +11,7 @@ enyo.kind({
 		onBack: ""
 	},
 	components: [
-			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "toolTop", components: [{ content: "Commands"}]},
+			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "toolTop", components: [{ content: "Commands", style:"padding-right:25px"}]},
 
 				{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
