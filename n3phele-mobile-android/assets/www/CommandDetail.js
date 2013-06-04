@@ -8,7 +8,8 @@ enyo.kind({
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
 	events: {
-		onSelectedFile: ""
+		onSelectedFile: "",
+		onCommandCreated: ""
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "Command List", classes:"button-style-left", ontap: "closePanel"}]},
@@ -103,7 +104,7 @@ enyo.kind({
 		}
 	},
 	runCommand: function(sender, event){	
-		
+		var self = this;
 		//create JSON for post body in runcommand
 		var parameters = '{"Variable":[';
 		for(var i in Parameters.executionParameters){
@@ -123,7 +124,13 @@ enyo.kind({
 				}); 
 			
 			ajaxComponent.go()
-			.response(this, function(sender, response){})
+			.response(this, function(sender, response){
+				var location = sender.xhrResponse.headers.location;
+				var object = new Object();
+				object.location = location;
+				self.doCommandCreated(object);
+				//console.log(location);
+			})
 			.error(this, function(){
 				console.log("Error to load the detail of the command!");
 				popup.delete();

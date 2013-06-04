@@ -175,13 +175,20 @@ enyo.kind({
 		}
 	},
 	selectedActivity: function(sender, event){		
+		this.openActivityPanel(event.uri);
+	},
+	commandExecuted: function(sender, event){	
+		this.openActivityPanel(event.location);
+	},
+	openActivityPanel: function(uri){
 		//close old panels	
 		this.closeSecondaryPanels(2);		
-		//create panel to show selected activity
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, "uri": event.uri, 'url': event.uri, onBack: "closeFilePanel", container: this.$.panels, n3pheleClient: n3phele }).render();
+		//create panel to show selected activity		
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
-	},
+		this.$.panels.setIndex(3);	
+	}	
+	,	
 	repositorySelected: function(inSender,inEvent){	
 		//close old panels	
 		this.closeSecondaryPanels(2);		
@@ -313,7 +320,7 @@ enyo.kind({
 		FilesList[count] = inEvent;
 		count++;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -364,7 +371,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];
