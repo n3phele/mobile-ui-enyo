@@ -243,16 +243,16 @@ box-align:center;
 }
 
 .menu{
-	background-color: white;
- -webkit-transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
-  -ms-transition: all 0.5s linear;
-  -o-transition: all 0.5s linear;
-  transition: all 0.5s linear;
+	background-color: white !important;
+ -webkit-transition: all 0.5s linear !important;
+  -moz-transition: all 0.5s linear !important;
+  -ms-transition: all 0.5s linear !important;
+  -o-transition: all 0.5s linear !important;
+  transition: all 0.5s linear !important;
 }
 
 .menu:hover{
-  background-color: #D9D9D9;
+  background-color: #D9D9D9 !important;
 }
 
 .panels-sample-flickr-item {
