@@ -59,12 +59,14 @@ enyo.kind({
 			for( var i in this.data ){//set comand list information
 				this.commands.push( this.data[i].name ); //set name
 				var name = this.data[i].name;
-				if( name.indexOf(".tgz") != -1){
+				
+				/*if( name.indexOf(".tgz") != -1){
 				this.commandsImages.push("assets/tgz.png");
 				}
 				else if( name.indexOf(".pdf") != -1){
 					this.commandsImages.push("assets/pdf.png");
 					}
+
 				else if( name.indexOf(".jpg") != -1){
 					this.commandsImages.push("assets/jpg.png");
 					}
@@ -73,8 +75,8 @@ enyo.kind({
 					}
 				else if( name.indexOf(".png") != -1){
 					this.commandsImages.push("assets/png.png");
-					}
-				else if( this.data[i].mime == this.folderMime){
+					}*/
+				if( this.data[i].mime == this.folderMime){
 					this.commandsImages.push("assets/folderG.png");
 					}
 				else{
@@ -138,7 +140,7 @@ enyo.kind({
 	folderMime: "application/vnd.com.n3phele.PublicFolder",
 	itemTap: function(inSender, inEvent) {
 		this.selected = this.data[inEvent.index];
-		root = root +1;
+	
 		
 		
 		//If is a folder, open it
@@ -148,6 +150,7 @@ enyo.kind({
 			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.repositoryName, ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
 			this.path.push( newButton );
 			this.reflow();
+			root = root +1;
 			
 			this.$.ListIcon.destroy();
 			//download the new folder to data
