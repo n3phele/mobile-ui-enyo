@@ -52,39 +52,34 @@ enyo.kind({
 			this.n3pheleClient.uid = this.uid;
 				
 			var thisPanel = this;
+			this.lastUpdate = 0;
 			var success = function (response) {		
+			
 				thisPanel.$.acName.setContent(" "+response.name);
 				thisPanel.$.acStatus.setContent(" "+response.state );
 				thisPanel.$.acComDesc.setContent(" "+response.description);
 				
 				var d1 = new Date(response.start);
-				thisPanel.lastUpdate = d1.getTime();
-				
 				var d2 = new Date(response.complete);
 				
-				if(d2) thisPanel.lastUpdate = d2.getTime();
-				
 				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
-				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
-
-				var duration = (Math.round(((d2-d1)/60000)*100)/100);
-				if(duration < 1){
-					duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
-				}else{
-					duration = duration + " minutes";
-				}
 				
-				thisPanel.$.acDuration.setContent(" "+ duration); 
-				
-				
-				var narrative = fixArrayInformation(response.narrative);
-				
-				if(narrative && narrative.length > 0)
+				var duration = "still running";
+				if(response.complete)
 				{
+					thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
+					duration = (Math.round(((d2-d1)/60000)*100)/100);
 					
-					var stampDate = new Date(narrative[narrative.length-1].stamp);
-					thisPanel.lastUpdate = stampDate.getTime();					
+					if(duration < 1){
+						duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
+					}else{
+						duration = duration + " minutes";
+					}
 				}
+				
+				thisPanel.$.acDuration.setContent(" " + duration); 
+								
+				var narrative = fixArrayInformation(response.narrative);
 				
 				thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
 				
@@ -98,27 +93,23 @@ enyo.kind({
 			//When called update screen
 			var changesSuccess = function() { thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); }
 			
-			var repeater = function() {
-				//see if new changes occured
-				thisPanel.n3pheleClient.getChangesSince(thisPanel.lastUpdate, thisPanel.url, changesSuccess);
-			}
-			
-			//register update event here with setInterval
-			this.interval = window.setInterval( repeater, 5000);
+			this.n3pheleClient.addListener(this, changesSuccess, this.url);
 		},
 		destroy: function() {
 			// do inherited teardown
 			this.inherited(arguments);
 			
-			window.clearInterval(this.interval);
+			this.n3pheleClient.removeListener(this);
 		},
 		//Update the narrative content to the specified panel (reset content)
 		updateNarrative: function(narrative, panel){
 			//clear panel_three
 			panel.destroyClientControls();			
 						
-			//fill it up with received data
-			for( var i in narrative ){
+			//fill it up with received data		
+			if( narrative !== undefined && narrative.length > 0)
+			{
+				for( var i in narrative ){
 					panel.createComponent({tag: "br"});
 					var stamp = new Date(narrative[i].stamp);
 					if(narrative[i].state=="info"){
@@ -132,7 +123,8 @@ enyo.kind({
 					panel.createComponent({style:"display: inline-block;", content : " "+narrative[i].tag+" : "});
 					panel.createComponent({style:"display: inline-block;font-weight: bold;", content : " "+narrative[i].text});
 					panel.createComponent({tag: "br"});
-				}				
+				}
+			}				
 			panel.render();
 		},
 		backMenu: function( sender , event){
