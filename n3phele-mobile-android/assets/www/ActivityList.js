@@ -10,7 +10,7 @@ enyo.kind({
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%", components:[
+			{name: "list", kind: "PulldownList", fit: true, onPullRelease: "pullRelease", onPullComplete: "pullComplete", touch: true, onSetupItem: "setupItem", count: 1, style:"height:95%", components:[
 				{name: "item", style: "padding: 10px; box-shadow: -4px 0px 4px rgba(0,0,0,0.3);",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ 
 					{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 
@@ -54,7 +54,7 @@ enyo.kind({
 			var item = this.results[i];
 			if(item.state == "COMPLETE"){
 				this.$.status.setSrc("assets/activities.png");
-			}else{
+			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
 			}
 			this.$.activity.setContent(item.name);
@@ -84,8 +84,17 @@ enyo.kind({
 			this.doClose();
 		},
 		itemTap: function( sender, event){
-		
 			this.doSelectedActivity(this.results[event.index]);
-		}
-
+		},
+		 pullRelease:function() {
+       	 listSize = listSize+3;
+       	 this.getRecentActivities(this.uid);
+       	 this.$.list.completePull();
+    	},
+    	pullComplete:function() {
+       	 this.$.list.reset();
+         this.render();
+         this.reflow();
+         this.$.list.scrollToBottom();
+    	}
 });
