@@ -1,4 +1,5 @@
 /*** The main classes that mount the account list page  ****/
+var root = 0;
 enyo.kind({ 
 	name:"RepositoryFileList",
 	kind: "FittableRows",
@@ -17,7 +18,7 @@ enyo.kind({
 	    onCreateFolder:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"}, {name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu"}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"},{name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repository List", ontap: "backMenu", container:this.$.toolTop}]},
 		{kind: "Scroller", name: "scroll",style:"background:#fff", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]},
 				  {tag: "br"},
@@ -29,10 +30,17 @@ enyo.kind({
 		this.inherited(arguments)
 		this.$.title.setContent(this.repositoryName);
 		this.updateFilesFromURI(this.uri + "/list");
+       	
+
+		
 	},
 	updateFilesFromURI: function(uri, success){
 	this.$.Spin.show();
-	
+	this.$.backTop.hide();
+     if (root < 1) {this.$.backTop.show()};
+   
+				
+			
 		var ajaxComponent = new enyo.Ajax({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -130,6 +138,9 @@ enyo.kind({
 	folderMime: "application/vnd.com.n3phele.PublicFolder",
 	itemTap: function(inSender, inEvent) {
 		this.selected = this.data[inEvent.index];
+		root = root +1;
+		
+		
 		//If is a folder, open it
 		if(this.selected.mime == this.folderMime)
 		{
@@ -152,15 +163,18 @@ enyo.kind({
 	folderClicked: function(inSender,inEvent){
 		this.navigateBack(inSender.content);
 		this.$.btn.destroy();
+		
+		//this.$.backTop.hide();
 	},
 	navigateBack: function(folder){
 		//navigate back to repository/folder specified that is already on path
+		root = root - 1;
 		while(this.path[this.path.length-1].getContent() != folder)
 		{
 			var button = this.path.pop();
 			button.destroy();
+			
 		}
-		
 		var newUri = this.uri + '/list';
 		if( this.path.length > 1 )
 		{
@@ -171,6 +185,8 @@ enyo.kind({
 				prefix = prefix + this.path[i].getContent() + '%2F';
 			}
 		}
+		
+		console.log(root);
 		this.$.ListIcon.destroy();
 		this.updateFilesFromURI(newUri);
 	}

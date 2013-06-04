@@ -61,7 +61,7 @@ enyo.kind({
  		    {name: "jobs", kind: "onyx.InputDecorator", style: "background-color:white; width:50%; display: inline-block; margin-right:10px; ", components: [
        				{kind: "onyx.Input", placeholder: "Enter Job Name", name:"job"}
        		]},
-       		{kind:"onyx.Button", content: "Run", style: "margin-right:10px;", ontap: "runCommand" },
+       		{kind:"onyx.Button", content: "Run", style: "margin-right:10px;", classes:"button-style", ontap: "runCommand" },
        	]}, {owner: this});
 	},
 	runCommand: function(sender, event){

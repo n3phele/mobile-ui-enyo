@@ -9,31 +9,33 @@ enyo.kind({
 	style: "padding: 0px",
 	events: {
 		onEditAcc: "",
-		onBack: ""      
+		onBack: "",
+        onRemoveAccount:""		
 	},
 	components : [
 		{kind : "Scroller",
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
 			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
-			{name : "Panel", kind : "FittableRows", classes : "onyx-sample-tools", style: "margin: 1em auto;width: 360px;padding-left:70px", components : [  
-				{name:"select", kind: "Select", classes:"styled-select", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none;width: 80% !important; margin-bottom:10px",components:[             /* <<<<--------------------- */
+			{name: "SelPanel", style: "text-align: center; margin: 1em auto;", components: [
+				{kind:"Select", classes:"styled-select", name:"select", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none; width: 290px !important;",components:[     				/* <<<<--------------------- */
 					{content:"Cost", value:"Cost"},
 					{content:"Cumulative Cost", content:"Cumulative Cost"}						                                                             
-				]},	
-				{kind : "onyx.Button", content : "24 hours", ontap : "button24",  classes:"button-style"}, 
-				{kind : "onyx.Button", content : "7 days", ontap : "button7",  classes:"button-style"},
-				{kind : "onyx.Button", content : "30 days", ontap : "button30",  classes:"button-style"} 
-			]},
+				]}]},	
+				{name: "btnPanel", style: "text-align: center; margin: 1em auto;", components: [
+				{kind : "onyx.Button", content : "24 hours", ontap : "button24",style: "",  classes:"button-style"}, 
+				{kind : "onyx.Button", content : "7 days", ontap : "button7",  style: "margin-left: 10px;",classes:"button-style"},
+				{kind : "onyx.Button", content : "30 days", ontap : "button30",  style: "margin-left: 10px;", classes:"button-style"}
+				]},
 			
-			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold;width:205px;margin:auto;padding:0 110px 0 110px"}, 			
+			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold; text-align: center;"}, 			
 				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
 			]},
 			{tag: "br"},
@@ -213,6 +215,11 @@ enyo.kind({
 			this.createChart(this.chartData, this.$.select.getValue());
 
 		}
-	}
+	},
+	removeAccount:function (sender,event)
+	{   
+	    console.log("oie!");
+        this.doRemoveAccount(this.account);
+	},
 	
 });

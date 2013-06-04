@@ -1,32 +1,35 @@
+
+var results;
+var i = 0;
 enyo.kind({ 
-	name:"RemoveRepository",
+	name:"RemoveAccount",
 	kind: "FittableRows",
 	fit: true,
-	style: "padding: 0px",
-	 style:"background:#fff",
+	style: "padding: 0px;background:#fff",
 	events: {
-		onCreateAcc: "",
+		onDelete: "",
 		onBack: "",
-		onDelete:"",
 		onClickItem:""
 	},
 		components:[
 		{kind: "onyx.Toolbar",classes:"toolbar-style", components: [
-			{kind: "onyx.Button",classes:"button-style-right",content: "OK", ontap: "deleteRepository"} , 
-			{kind: "onyx.Button",classes:"button-style-left",style:"margin-right:-4px",  content: "Repository List", ontap: "cancelAction"},	
-			{ name: "title", content:"Delete Repository"}, 
-			{fit: true}
-		]},
+				{kind: "onyx.Button",classes:"button-style-right",content: "OK", ontap: "deleteAccount"} , 
+				{kind: "onyx.Button", content: "Account Detail", classes:"button-style-left", ontap: "cancelAction"} ,
+				{ name: "title", content:"Remove Account", }, {fit: true}]},
 		{style:"text-align:center;margin:3em auto", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
-				{name:"name",content: "Repository"}, 
+				{name:"account",content: "Account"},				
 			]},
-	    ]},
+	    ]},		
 	],
 	create: function() {
 		this.inherited(arguments);
-	//"Are you sure you want to delete" + outratela.param +  " ?" 
-		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
+		
+		
+		this.$.account.setContent("Are you sure you want to delete " + this.account.name + "   ?");
+	},
+	selectedAccount: function(sender, event){
+		this.doClickItem(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -45,9 +48,9 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	deleteRepository: function(sender, event){
+	deleteAccount: function(sender, event){
 		var ajaxComponent = new enyo.Ajax({
-			url: this.repository.originator.uri,
+			url: this.account.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",
@@ -58,11 +61,11 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
 		});	
-		//this.doBack(event);
 		console.log(this.uid);
-		console.log(this.repository.originator.uri);
+		console.log(this.account.uri);
 		this.doDelete();
 	},
+
 	cancelAction:function (sender,event)
 	{  
 		this.doBack();

@@ -59,7 +59,9 @@ enyo.kind({
 		} 
 		
 		}else if(this.callBy=="selectFile"){
-			this.$.tollbar_top.createComponent({kind: "onyx.Button", name: "btnClose",classes:"button-style-left", content: "<", ontap: "backMenu"}).render();	
+			if (this.closePanel.isScreenNarrow()) {
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Commands", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
+			} 		
 		}
         this.$.Spin.hide();		
 		thisPanel.render();
