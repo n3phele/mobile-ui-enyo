@@ -1,7 +1,11 @@
 function N3pheleClient(ajaxFactory)
 {
-	//this.serverAddress = "http://n3phele-dev.appspot.com/resources/";
-	this.serverAddress = serverAddress;
+	//this.serverAddress = "http://n3phele-dev.appspot.com/resources/";	
+	if(typeof(serverAddress)!=='undefined')
+	{
+		this.serverAddress = serverAddress;
+	}
+	
 	this.userName = "";
 	this.userPassword = "";
 	
@@ -138,8 +142,13 @@ function N3pheleClient(ajaxFactory)
 	}
 	
 	this.stamp = 0;
-	this.getChangesSince = function(uriToBeListen, success, error)
+	this.eventListeners = [];
+	this.getChangesSince = function()
 	{		
+		if(this.eventListeners.length == 0) return;
+		
+		var thisComponent = this;
+	
 		var ajaxComponent = this.ajaxFactory.create({
 				url: this.serverAddress,
 				headers:{ 'authorization' : "Basic "+ this.uid },
@@ -156,14 +165,17 @@ function N3pheleClient(ajaxFactory)
 				if( response.changeCount == 0 ) return;
 				
 				var changes = response.changeGroup.change;	
-				
+								
 				for (var i=0;i<changes.length;i++)
-				{ 
-					if(changes[i].uri == uriToBeListen)
+				{
+					for(var j in thisComponent.eventListeners)
 					{
-						if( success ) success(changes[i]);
+						if(changes[i].uri == thisComponent.eventListeners[j].uri)
+						{
+							thisComponent.eventListeners[j].callback(changes[i]);
+						}
 					}
-				}								
+				}
 			})
 			.error( this, function()
 				{ 
@@ -171,6 +183,36 @@ function N3pheleClient(ajaxFactory)
 					if (error) error();
 				}
 			);
+	}
+	
+	var self = this;
+	
+	this.startEventsDispatch = function() { self.eventInterval = window.setInterval( function() { self.getChangesSince(); }, 5000); };
+	
+	this.stopInterval = function() {  window.clearInterval(this.eventInterval); }
+	
+	this.addListener = function(component, callback, uriToListen)
+	{
+		var newListener = new Object();
+		newListener.component = component;
+		newListener.callback = callback;
+		newListener.uri = uriToListen;
+		
+		this.eventListeners.push(newListener);
+		
+		console.log("new listener registered");
+	}
+	
+	this.removeListener = function(component)
+	{
+		for(var i in this.eventListeners)
+		{
+			if(this.eventListeners[i].component == component)
+			{
+				this.eventListeners.splice(i,1);
+				console.log("a listener was removed");
+			}
+		}
 	}
 	
 	this.listClouds = function(success, error)
