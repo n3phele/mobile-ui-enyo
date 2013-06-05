@@ -2,6 +2,7 @@ var days;
 var accountId;
 var chartData = null;
 var gap = 1;
+
 enyo.kind({
 	name : "AccountDetails",
 	kind: "FittableRows",
@@ -10,7 +11,8 @@ enyo.kind({
 	events: {
 		onEditAcc: "",
 		onBack: "",
-        onRemoveAccount:""		
+        onRemoveAccount:""		,
+		onSelectMachine:""
 	},
 	components : [
 		{kind : "Scroller",
@@ -49,7 +51,7 @@ enyo.kind({
 					{content : "Total Cost", style : "display: inline-block; width:25%;font-weight: bold"}, 
 				]} 
 			]},
-			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;", components:[       	
+			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;" ,components:[       	
 			 ]},
 			 {kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto;background-image:-webkit-linear-gradient(top,#B5404A 100%,#9E0919 100%) !important" ,content: "Delete Account", ontap: "removeAccount"}			
 			]},
@@ -192,10 +194,11 @@ enyo.kind({
 			results = response.elements;
 			
 			for (var i = 0; i < results.length; i++) {
-				this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines, ontap: "backMenu"}).render();
-				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:15px;" ,container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:18px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:18px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:18px;", container: this.$.activeMachines}).render();
+			
 			};
 
 		})
@@ -223,5 +226,22 @@ enyo.kind({
 	    console.log("oie!");
         this.doRemoveAccount(this.account);
 	},
-	
+	getActivity:function(sender,event)
+	{  
+	  console.log(sender.getContent());
+	for (var i = 0; i < results.length; i++) {
+	    console.log("Caminhando:" + i);
+	    if(sender.getContent() == results[i].nameTop) { 
+		 console.log(results[i].uriTopLevel); 
+		 var obj =  new Object();
+		obj.name = results[i].uriTopLevel
+		 this.doSelectMachine(obj); //Sending obj with uritoplvl
+		 break;
+		
+		}
+		
+	   }
+	  
+	  
+	}
 });

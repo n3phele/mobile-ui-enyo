@@ -42,7 +42,7 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			
+			console.log(this.url);
 			//If not injected, create a default implementation
 			if(!this.n3pheleClient)
 			{
