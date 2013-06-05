@@ -29,7 +29,7 @@ enyo.kind({
 				{kind: "onyx.Input", name: "URL",style:"float:left;padding-left:10px", placeholder: "Location URL"}
 			]}]},
 		{components: [	
-		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px",components:[            
+		{name:"select", kind: "Select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none;margin-bottom:10px;padding-left:5px",components:[            
 			{content:"S3", value:"S3"},
 			{content:"Swift", content:"Swift"}						                                                           
 		]}		
