@@ -88,7 +88,7 @@ enyo.kind({
 		var i = event.index;
 		var item = results[i];
 		this.$.name.setContent(item.name);
-		this.$.cost.setContent("US$0.0");
+		this.$.cost.setContent(item.cost);
 		this.$.active.setContent("0");
 		this.$.cloud.setContent(item.cloudName);
 		if( event.index % 2 == 1)

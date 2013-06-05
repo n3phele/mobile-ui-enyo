@@ -19,7 +19,7 @@ enyo.kind({
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Accounts", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
@@ -194,10 +194,37 @@ enyo.kind({
 			results = response.elements;
 			
 			for (var i = 0; i < results.length; i++) {
-				this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:15px;" ,container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:18px;", ontap: "getActivity",container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:18px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:18px;", container: this.$.activeMachines}).render();
+			
+			   
+			     if(results[i].name.length >= 7)
+			   {   
+					var aux = results[i].name.substr(0,5)
+					aux = aux.concat("...")
+			   				this.createComponent({content : aux, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+
+			               
+			  }
+			  else
+			  {
+			  this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;" ,container: this.$.activeMachines}).render();
+			  }  
+				  if(results[i].nameTop.length >= 7)
+			   {   
+						var aux = results[i].nameTop.substr(0,5)
+						aux = aux.concat("...")
+			   				this.createComponent({content : aux, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+
+			               
+			  }
+				
+				else 
+				{
+				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+				}
+				this.createComponent({content : results[i].age, style: "display: inline-block; width:23%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].cost, style: "display: inline-block; width:27%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				
+				
 			
 			};
 
@@ -231,7 +258,7 @@ enyo.kind({
 	  console.log(sender.getContent());
 	for (var i = 0; i < results.length; i++) {
 	    console.log("Caminhando:" + i);
-	    if(sender.getContent() == results[i].nameTop) { 
+	    if(sender.getContent() == results[i].nameTop ||results[i].nameTop.substr(0,5).concat("...") ) { 
 		 console.log(results[i].uriTopLevel); 
 		 var obj =  new Object();
 		obj.name = results[i].uriTopLevel
