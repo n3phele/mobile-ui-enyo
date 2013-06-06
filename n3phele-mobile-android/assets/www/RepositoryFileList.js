@@ -82,7 +82,7 @@ enyo.kind({
 				this.commands.push( this.data[i].name ); //set name
 				var name = this.data[i].name;
 				
-				/*if( name.indexOf(".tgz") != -1){
+				if( name.indexOf(".tgz") != -1){
 				this.commandsImages.push("assets/tgz.png");
 				}
 				else if( name.indexOf(".pdf") != -1){
@@ -97,8 +97,8 @@ enyo.kind({
 					}
 				else if( name.indexOf(".png") != -1){
 					this.commandsImages.push("assets/png.png");
-					}*/
-				if( this.data[i].mime == this.folderMime){
+					}
+				else if( this.data[i].mime == this.folderMime){
 					this.commandsImages.push("assets/folderG.png");
 					}
 				else{

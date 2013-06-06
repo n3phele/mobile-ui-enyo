@@ -10,7 +10,7 @@ enyo.kind({
 		{kind:"Scroller", style:"background:#fff",classes: "scroller-sample-scroller enyo-fit",components: [
 				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},
 			{kind: "onyx.Button",classes:"button-style-left", content: "Services", ontap: "close"},		
-			{content: "Service Detail", name: "title_1", }]},							
+			{content: "Service", name: "title_1", }]},							
 				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px"}, 
 					{name: "res", kind:"onyx.Button",style:"width:30%;min-width:151px;background-color: white;border-radius:0px;padding:10px 18px; border-width: 2px",ontap:"resource", content: "Resource"}, 
 					{name: "rel", kind:"onyx.Button",style:"width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px",ontap:"relationships", content: "Relationships"},
