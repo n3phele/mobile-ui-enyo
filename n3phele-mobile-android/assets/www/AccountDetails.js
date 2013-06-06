@@ -2,7 +2,6 @@ var days;
 var accountId;
 var chartData = null;
 var gap = 1;
-
 enyo.kind({
 	name : "AccountDetails",
 	kind: "FittableRows",
@@ -11,7 +10,7 @@ enyo.kind({
 	events: {
 		onEditAcc: "",
 		onBack: "",
-        onRemoveAccount:""		,
+        onRemoveAccount:"",
 		onSelectMachine:""
 	},
 	components : [
@@ -38,7 +37,7 @@ enyo.kind({
 				]},
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold; text-align: center;"}, 			
-				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
+				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
 			]},
 			{tag: "br"},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
@@ -133,6 +132,15 @@ enyo.kind({
 
 	createChart: function(data, type){
 		var chartData = [];
+		var chartPanel = $("#n3phele_accountDetails_chartPanel");
+		var height;
+		if (document.height > document.width) {
+			height = document.height * 0.5;
+		}
+		else{
+			height = document.height * 0.7;
+		}
+		chartPanel.css("height", height + "px");
 		
 		for(var i = 0; i < data.length; i++){
 			chartData[i] = [i, parseFloat(data[i])];
@@ -175,7 +183,7 @@ enyo.kind({
 			}
 		};
 
-		$.plot($("#n3phele_accountDetails_chartPanel"), [ chartData ], options);
+		$.plot(chartPanel, [ chartData ], options);
 	},
 
 	getAccountActivities: function(){
