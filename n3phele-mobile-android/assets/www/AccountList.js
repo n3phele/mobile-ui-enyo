@@ -1,10 +1,10 @@
 /*** The main classes that mount the account list page  ****/
-var results;
 var listSize = 15;
 enyo.kind({ 
 	name:"AccountList",
 	kind: "FittableRows",
 	fit: true,
+	results:null,
 	style: "padding: 0px",
 	events: {
 		onCreateAcc: "",
@@ -50,8 +50,8 @@ enyo.kind({
 		ajaxComponent.go({'summary' : true, 'start' : 0, 'end' : listSize})
 		.response(this, function(sender, response){
 			response.elements = fixArrayInformation(response.elements);
-			results = response.elements;
-			this.$.list.setCount(results.length);
+			this.results = response.elements;
+			this.$.list.setCount(this.results.length);
 			this.$.list.reset();
 		})
 		.error(this, function(){
@@ -61,7 +61,7 @@ enyo.kind({
 		this.render();
 	},
 	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
+		this.doClickItem(this.results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -84,10 +84,10 @@ enyo.kind({
 		this.doCreateAcc();
 	},
 	setupItem: function(sender, event){
-		if(results == null ) return;
+		if(this.results == null ) return;
 		this.$.item.addRemoveClass("onyx-selected", sender.isSelected(event.index));
 		var i = event.index;
-		var item = results[i];
+		var item = this.results[i];
 		this.$.name.setContent(item.name);
 		this.$.cost.setContent("US$0.0");
 
@@ -101,7 +101,7 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	   if(results.length > listSize){
+	   if(this.results.length > listSize){
 	   this.$.list.createComponent({name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
 					{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAcc"},
 			]});

@@ -1,7 +1,9 @@
 var listSize = 15;
+
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,
+		start:false,
 		fit: true,
 		events: {
 		onBack: "",
@@ -19,11 +21,16 @@ enyo.kind({
 					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "itemTap"}
 				]},
 				{name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
-					{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAct"},
+					{name:"buttonMore",kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAct"},
+						    	{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:45%"},
+
 				]}//item item
 			]}
 		], //end components	
 		getRecentActivities: function( uid ){
+		this.$.Spin.show();
+		this.$.buttonMore.hide();
+	
 			var ajaxParams = {
 				url: serverAddress+"process",
 				headers:{ 'authorization' : "Basic "+ uid},
@@ -49,7 +56,13 @@ enyo.kind({
 			response.elements = fixArrayInformation(response.elements);
 			this.results = response.elements;
 			this.$.list.setCount(this.results.length);
+			 this.$.Spin.hide();
+			 this.$.buttonMore.show();
+            
 			this.$.list.reset();
+		if(this.start)this.$.list.scrollToBottom();
+        this.start = true;
+		
 		},
 		setupItem: function(inSender, inEvent){
 			if(this.results == null ) return;
@@ -77,7 +90,7 @@ enyo.kind({
 		create: function(){
 			this.inherited(arguments);
 			var thisPanel = this;
-
+          
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 			}
@@ -95,10 +108,7 @@ enyo.kind({
 		moreAct:function() {
        	 listSize = listSize+5;
        	 this.getRecentActivities(this.uid);
-         this.$.list.reset();
-         this.$.list.scrollToBottom();
-		 scroolToBottom();
-		 this.render();
-         this.reflow();
+         //this.$.list.reset();
+	
     	}
 });
