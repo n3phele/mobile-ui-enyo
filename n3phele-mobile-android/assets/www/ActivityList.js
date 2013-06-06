@@ -1,8 +1,9 @@
 var listSize = 15;
-var root;
+
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,
+		start:false,
 		fit: true,
 		events: {
 		onBack: "",
@@ -57,10 +58,11 @@ enyo.kind({
 			this.$.list.setCount(this.results.length);
 			 this.$.Spin.hide();
 			 this.$.buttonMore.show();
-            		 
+            
 			this.$.list.reset();
-		if(root!=0)this.$.list.scrollToBottom();
-        root = 1;		
+		if(this.start)this.$.list.scrollToBottom();
+        this.start = true;
+		
 		},
 		setupItem: function(inSender, inEvent){
 			if(this.results == null ) return;
@@ -88,7 +90,7 @@ enyo.kind({
 		create: function(){
 			this.inherited(arguments);
 			var thisPanel = this;
-             root = 0;
+          
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 			}

@@ -1,7 +1,7 @@
 /*** The main classes that mount the account list page  ****/
-var root = 0;
-var btnname;
-var rootname;
+
+
+
 enyo.kind({ 
 	name:"RepositoryFileList",
 	kind: "FittableRows",
@@ -9,6 +9,9 @@ enyo.kind({
 	repositoryName: "",
 	path: [],
 	folders:[],
+	rootname:null,
+	btnname:null,
+	root:null,
 	style: "padding: 0px",
 	data: [],
 	commands: null,
@@ -31,7 +34,7 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-		rootname = this.repositoryName;
+		this.rootname = this.repositoryName;
 		
 			if(this.repositoryName.length <=7)
 			{
@@ -49,7 +52,7 @@ enyo.kind({
 	updateFilesFromURI: function(uri, success){
 	this.$.Spin.show();
 	this.$.backTop.hide();
-     if (root < 1) {this.$.backTop.show()};
+     if (this.root < 1) {this.$.backTop.show()};
        
 
 	   if(this.repositoryName.length <=7)
@@ -147,13 +150,13 @@ enyo.kind({
 	},
 	deleteRepository: function( sender , event){
 	    var obj =  new Object();
-		obj.name = rootname;
+		obj.name = this.rootname;
 		this.doRemoveRepository(obj);
-		root = 0;
+		this.root = 0;
 	},
 	newFolder: function( sender , event){
 		this.doCreateFolder();
-		root = 0;
+		this.root = 0;
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.
@@ -172,25 +175,25 @@ enyo.kind({
 			//put on path
 			if(this.repositoryName.length <=7)
 			{
-			btnname = this.repositoryName;
+			this.btnname = this.repositoryName;
 			}
 			else 
 			{
-			btnname = this.repositoryName.substr(0,5).concat("...");
+			this.btnname = this.repositoryName.substr(0,5).concat("...");
 			}
 		
 			
-			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: btnname, ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
+			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.btnname, ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
 			this.path.push( newButton );
 			this.reflow();
-			root = root +1;
+			this.root = this.root +1;
 			
 			this.$.ListIcon.destroy();
 			//download the new folder to data
 			this.$.Spin.show();
-			btnname = this.selected.name;
+			this.btnname = this.selected.name;
 			this.folders.push(this.repositoryName);
-			this.repositoryName = btnname;
+			this.repositoryName = this.btnname;
 			console.log(this.repositoryName);
 			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 			
@@ -209,7 +212,7 @@ enyo.kind({
 	},
 	navigateBack: function(folder){
 		//navigate back to repository/folder specified that is already on path
-		root = root - 1;
+		this.root = this.root - 1;
 		this.repositoryName = this.folders.pop();
 		while(this.path[this.path.length-1].getContent() != folder)
 		{
@@ -228,7 +231,7 @@ enyo.kind({
 			}
 		}
 		
-		console.log(root);
+		console.log(this.root);
 		this.$.ListIcon.destroy();
 		this.updateFilesFromURI(newUri);
 	}
