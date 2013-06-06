@@ -204,7 +204,7 @@ enyo.kind({
 			for (var i = 0; i < results.length; i++) {
 			
 			   
-			     if(results[i].name.length >= 7)
+			     if(results[i].name.length >= 7 && enyo.Panels.isScreenNarrow())
 			   {   
 					var aux = results[i].name.substr(0,5)
 					aux = aux.concat("...")
@@ -216,7 +216,7 @@ enyo.kind({
 			  {
 			  this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;" ,container: this.$.activeMachines}).render();
 			  }  
-				  if(results[i].nameTop.length >= 7)
+				  if(results[i].nameTop.length >= 7 && enyo.Panels.isScreenNarrow())
 			   {   
 						var aux = results[i].nameTop.substr(0,5)
 						aux = aux.concat("...")
@@ -229,8 +229,8 @@ enyo.kind({
 				{
 				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #768BA7; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
 				}
-				this.createComponent({content : results[i].age, style: "display: inline-block; width:23%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].cost, style: "display: inline-block; width:27%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
 				this.createComponent({content : "", style: "display: inline-block; width:100%;font-weight: bold;border-top:2px solid #333333;padding-top:10px", container: this.$.activeMachines}).render();
 				
 				
