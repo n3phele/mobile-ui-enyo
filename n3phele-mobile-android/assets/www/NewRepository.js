@@ -11,7 +11,7 @@ enyo.kind({
 		{kind: "onyx.Toolbar", classes: "toolbar-style", components: [ 
 			{ name: "title", content:"New Repository" }, 
 			{kind:"onyx.Button", content: "Done", classes: "button-style-right", ontap:"save", style:"margin-left:-4px !important;margin-right:-2px !important"},
-			{kind:"onyx.Button", content: "Repository List", ontap:"cancel", classes: "button-style-left"}
+			{kind:"onyx.Button", content: "Repositories", ontap:"cancel", classes: "button-style-left"}
 		]},		
 		{tag: "br"},
 		{name: "Msg", style: "color:#FF4500; text-align:center"},

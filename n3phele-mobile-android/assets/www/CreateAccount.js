@@ -10,7 +10,7 @@ enyo.kind({
 	components: [
 	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style:"background:#fff", components: [    
 	{kind: "onyx.Toolbar",classes: "toolbar-style" ,components: [ { name: "title", content:"New Account" },{kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "save"} , 
-			{kind: "onyx.Button", content: "Account List", classes:"button-style-left", ontap: "cancelAction"}]},
+			{kind: "onyx.Button", content: "Accounts", classes:"button-style-left", ontap: "cancelAction"}]},
 	{tag: "br"},
 		{name: "Msg", style: "color:#FF4500; text-align:center"},
 		{tag: "br"},

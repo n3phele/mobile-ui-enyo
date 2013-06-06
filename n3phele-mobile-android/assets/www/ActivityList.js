@@ -10,13 +10,16 @@ enyo.kind({
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
-			{name: "list", kind: "PulldownList", fit: true, onPullRelease: "pullRelease", onPullComplete: "pullComplete", touch: true, onSetupItem: "setupItem", count: 1, style:"height:93%", components:[
+			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", style:"height:93%", components:[
 				{name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",  ontap: "itemTap", components:[
 					{ style:"margin: 2px; display:inline-block", components: [ 
-					{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 
+						{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 
 					]},
 					{ name: "activity", style: "display:inline-block"},
 					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "itemTap"}
+				]},
+				{name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
+					{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAct"},
 				]}//item item
 			]}
 		], //end components	
@@ -52,6 +55,7 @@ enyo.kind({
 			if(this.results == null ) return;
 			var i = inEvent.index;
 			var item = this.results[i];
+
 			if(item.state == "COMPLETE"){
 				this.$.status.setSrc("assets/activities.png");
 			}else if(item.state == "FAILED"){
@@ -67,14 +71,16 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
+	   this.$.more.canGenerate = !this.results[i+1];
 			
 		},
 		create: function(){
 			this.inherited(arguments);
 			var thisPanel = this;
+
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
-		}
+			}
 			this.getRecentActivities(this.uid);
 		},
 		backMenu: function (sender, event){
@@ -86,16 +92,13 @@ enyo.kind({
 		itemTap: function( sender, event){
 			this.doSelectedActivity(this.results[event.index]);
 		},
-		 pullRelease:function() {
+		moreAct:function() {
        	 listSize = listSize+5;
        	 this.getRecentActivities(this.uid);
-       	 this.$.list.completePull();
-    	},
-    	pullComplete:function() {
-       	 this.$.list.reset();
-         this.render();
-         this.reflow();
+         this.$.list.reset();
          this.$.list.scrollToBottom();
 		 scroolToBottom();
+		 this.render();
+         this.reflow();
     	}
 });

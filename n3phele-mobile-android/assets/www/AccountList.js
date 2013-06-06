@@ -1,5 +1,6 @@
 /*** The main classes that mount the account list page  ****/
 var results;
+var listSize = 15;
 enyo.kind({ 
 	name:"AccountList",
 	kind: "FittableRows",
@@ -18,14 +19,14 @@ enyo.kind({
 					       {content: "Active", style:"display: inline-block; width:20%;font-weight: bold"},
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
-	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
+	    {name: "list", kind: "List", touch: true, count: 1,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto;border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
 				{name: "active",  style:"width:20%; display: inline-block" } ,
 				{name: "cloud", style:"width:18%; display: inline-block" },
 				{name: "icon2", kind: "onyx.IconButton",style:"float:right;margin-right:-11px",src: "assets/next.png", ontap: "nextItem"} 	    				
-	         ]}
+	         ]},
 	     ]}, 
 	],
 	create: function(){
@@ -46,7 +47,7 @@ enyo.kind({
 			sync: false, 
 		}); 
 				
-		ajaxComponent.go()
+		ajaxComponent.go({'summary' : true, 'start' : 0, 'end' : listSize})
 		.response(this, function(sender, response){
 			response.elements = fixArrayInformation(response.elements);
 			results = response.elements;
@@ -88,7 +89,7 @@ enyo.kind({
 		var i = event.index;
 		var item = results[i];
 		this.$.name.setContent(item.name);
-	this.$.cost.setContent("US$0.0");
+		this.$.cost.setContent("US$0.0");
 
 		this.$.active.setContent("0");
 		this.$.cloud.setContent(item.cloudName);
@@ -100,6 +101,11 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
+	   if(results.length > listSize){
+	   this.$.list.createComponent({name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
+					{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAcc"},
+			]});
+		}
 	},
 	backMenu: function( sender , event){
 		this.doBack(event);
