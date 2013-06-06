@@ -153,6 +153,7 @@ enyo.kind({
 	},
 	newFolder: function( sender , event){
 		this.doCreateFolder();
+		root = 0;
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.
