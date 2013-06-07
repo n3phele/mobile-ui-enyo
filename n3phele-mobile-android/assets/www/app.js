@@ -166,7 +166,6 @@ enyo.kind({
 		}//end switch
 	},	
 	logout: function(inSender){
-		console.log("logout");
 		this.uid = null;
 		this.destroy();
 		window.location.assign("index.html");
