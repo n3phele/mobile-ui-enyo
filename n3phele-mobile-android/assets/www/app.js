@@ -33,7 +33,9 @@ enyo.kind({
 		{kind: "Panels", style: "background:#FFF", panelCreated : false, fit: true, touch: true,draggable:false ,classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
 				{kind: "Scroller", classes: "enyo-fit", style: "background:#FFF", touch: true, components: [					
-					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
+					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true},
+						{kind: "onyx.Button", name:"Logout", ontap:"logout", classes:"button-logout", content: "Logout"}
+					]}, //Panel Title
 					{name: "mainMenuPanel", style:"width:95%; margin:auto;", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
 						{kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
