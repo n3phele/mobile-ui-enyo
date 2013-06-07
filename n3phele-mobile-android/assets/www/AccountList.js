@@ -4,7 +4,7 @@ enyo.kind({
 	name:"AccountList",
 	kind: "FittableRows",
 	fit: true,
-	start:false,
+	
 	results:null,
 	style: "padding: 0px",
 	events: {
@@ -12,7 +12,7 @@ enyo.kind({
 		onClickItem:"",
 		onBack:""
 	}, 
-	components:[
+components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [ { name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "+", style: "font-size: 20px !important;font-weight: bold;", ontap: "newAccount"}]},		 
 				    {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
 					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"}, 
@@ -20,26 +20,27 @@ enyo.kind({
 					       {content: "Active", style:"display: inline-block; width:20%;font-weight: bold"},
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
 					]},						
-	    {name: "list", kind: "List", touch: true, count: 1,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
+	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto;border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
 				{name: "active",  style:"width:20%; display: inline-block" } ,
 				{name: "cloud", style:"width:18%; display: inline-block" },
 				{name: "icon2", kind: "onyx.IconButton",style:"float:right;margin-right:-11px",src: "assets/next.png", ontap: "nextItem"} 	    				
-	         ]},
-	     ]},
-		 {name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
-					{name:"buttonMore",kind: "onyx.Button", content: "More accounts", classes: "button-style", ontap: "moreAcc"},
-						    	{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:45%"},
-
-				]},
+	         ]}
+	     ]}, 
 	],
-	
-	getRecentAccounts: function( uid ){
-		this.$.Spin.show();
-		this.$.buttonMore.hide();
-	var ajaxComponent = new enyo.Ajax({
+	create: function(){
+		this.inherited(arguments)
+		var popup = new spinnerPopup();
+		popup.show();
+		
+		var thisPanel = this;
+			if (this.closePanel.isScreenNarrow()) {
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
+		}
+		
+		var ajaxComponent = new enyo.Ajax({
 			url: serverAddress+"account",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -47,54 +48,21 @@ enyo.kind({
 			sync: false, 
 		}); 
 				
-		ajaxComponent.go({'summary' : true, 'start' : 0, 'end' : listSize})
-		.response(this, "processRecentAccounts")
-		
+		ajaxComponent.go()
+		.response(this, function(sender, response){
+			response.elements = fixArrayInformation(response.elements);
+			results = response.elements;
+			this.$.list.setCount(results.length);
+			this.$.list.reset();
+		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
-			
-		});	
-		},
-		processRecentAccounts: function( request, response){		
-			if(response.total == 0){
-				this.$.divider.setContent("Without recent activities!");
-				this.$.list.applyStyle("display", "none !important");
-				this.reflow();
-				return;
-			}
-			
-			
-			response.elements = fixArrayInformation(response.elements);
-			this.results = response.elements;
-			this.$.list.setCount(this.results.length);
-			
-			response.elements = fixArrayInformation(response.elements);
-			this.results = response.elements;
-			this.$.list.setCount(this.results.length);
-			
-			this.$.Spin.hide();
-			if(listSize == this.results.length)  this.$.buttonMore.show();
-			else if(listSize != this.results.length) this.$.more.hide();
-            
-			this.$.list.reset();
-		if(this.start)this.$.list.scrollToBottom();
-        this.start = true;
-		
-		},
-	create: function(){
-		this.inherited(arguments)
-	
-		
-		var thisPanel = this;
-			if (this.closePanel.isScreenNarrow()) {
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
-		}
-		
-			
-		this.getRecentAccounts(this.uid);
+			popup.delete();
+		});		
+		this.render();
 	},
 	selectedAccount: function(sender, event){
-		this.doClickItem(this.results[event.index]);
+		this.doClickItem(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -117,22 +85,12 @@ enyo.kind({
 		this.doCreateAcc();
 	},
 	setupItem: function(sender, event){
-		if(this.results == null ) return;
+		if(results == null ) return;
 		this.$.item.addRemoveClass("onyx-selected", sender.isSelected(event.index));
 		var i = event.index;
-		var item = this.results[i];
-		
-		if (this.closePanel.isScreenNarrow() && item.name.length>7)
-		{
-		this.$.name.setContent(item.name.substr(0,5).concat("..."));
-		
-		}
-		else 
-		{
+		var item = results[i];
 		this.$.name.setContent(item.name);
-		}
 		this.$.cost.setContent("US$0.0");
-
 		this.$.active.setContent("0");
 		this.$.cloud.setContent(item.cloudName);
 		if( event.index % 2 == 1)
@@ -143,20 +101,11 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	   this.$.more.canGenerate = !this.results[i+1];
-	  
 	},
 	backMenu: function( sender , event){
 		this.doBack(event);
 	},
 	activate: function(sender, event){
 		this.doClickItem();
-	},
-	moreAcc:function() {
-       	 listSize = listSize+5;
-       	 this.getRecentAccounts(this.uid);
-		
-         //this.$.list.reset();
-	
-    	}
+	}
 });
