@@ -77,6 +77,7 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			//update files list
+			console.log(response);
 			response.crumbs.files = fixArrayInformation(response.files);			
 			this.data = response.files;
 			this.commands = new Array();

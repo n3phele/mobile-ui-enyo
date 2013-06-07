@@ -165,6 +165,12 @@ enyo.kind({
 			break;
 		}//end switch
 	},	
+	logout: function(inSender){
+		console.log("logout");
+		this.uid = null;
+		this.destroy();
+		window.location.assign("index.html");
+	},
 	backMenu: function(inSender){
 		this.$.panels.setIndex(0);
 	},
