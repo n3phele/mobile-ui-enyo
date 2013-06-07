@@ -10,14 +10,15 @@ enyo.kind({
 	events: {
 		onEditAcc: "",
 		onBack: "",
-        onRemoveAccount:""		
+        onRemoveAccount:"",
+		onSelectMachine:""
 	},
 	components : [
 		{kind : "Scroller",
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Activity List", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Accounts", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
@@ -36,7 +37,7 @@ enyo.kind({
 				]},
 			
 			{name : "btnContent", content: "24 Hours Costs Chart", style : "font-weight: bold; text-align: center;"}, 			
-				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; height:70%; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
+				{kind : "Panels", name : "chartPanel", style : "background:#F3F3F7; width:90%; margin: auto;border:1px solid #DBDBDE", onresize:"resizeChart", components : [			   
 			]},
 			{tag: "br"},
 			{kind : "onyx.Toolbar", content : "Active Machines", name : "title_3", classes: "toolbar-style"},
@@ -49,9 +50,11 @@ enyo.kind({
 					{content : "Total Cost", style : "display: inline-block; width:25%;font-weight: bold"}, 
 				]} 
 			]},
-			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;", components:[       	
-			 ]}
-			]},     
+			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;" ,components:[       	
+			 ]},
+			 {kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto;background-image:-webkit-linear-gradient(top,#B5404A 100%,#9E0919 100%) !important" ,content: "Delete Account", ontap: "removeAccount"}			
+			]},
+          			
 	],
 	create: function(){
 		this.inherited(arguments)
@@ -129,6 +132,15 @@ enyo.kind({
 
 	createChart: function(data, type){
 		var chartData = [];
+		var chartPanel = $("#n3phele_accountDetails_chartPanel");
+		var height;
+		if (document.height > document.width) {
+			height = document.height * 0.5;
+		}
+		else{
+			height = document.height * 0.7;
+		}
+		chartPanel.css("height", height + "px");
 		
 		for(var i = 0; i < data.length; i++){
 			chartData[i] = [i, parseFloat(data[i])];
@@ -171,7 +183,7 @@ enyo.kind({
 			}
 		};
 
-		$.plot($("#n3phele_accountDetails_chartPanel"), [ chartData ], options);
+		$.plot(chartPanel, [ chartData ], options);
 	},
 
 	getAccountActivities: function(){
@@ -190,10 +202,39 @@ enyo.kind({
 			results = response.elements;
 			
 			for (var i = 0; i < results.length; i++) {
-				this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines, ontap: "backMenu"}).render();
-				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
-				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:20px;", container: this.$.activeMachines}).render();
+			
+			   
+			     if(results[i].name.length >= 7 && enyo.Panels.isScreenNarrow())
+			   {   
+					var aux = results[i].name.substr(0,5)
+					aux = aux.concat("...")
+			   				this.createComponent({content : aux, style: "display: inline-block; text-decoration: underline; color: #f000; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+
+			               
+			  }
+			  else
+			  {
+			  this.createComponent({content : results[i].name, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;" ,container: this.$.activeMachines}).render();
+			  }  
+				  if(results[i].nameTop.length >= 7 && enyo.Panels.isScreenNarrow())
+			   {   
+						var aux = results[i].nameTop.substr(0,5)
+						aux = aux.concat("...")
+			   				this.createComponent({content : aux, style: "display: inline-block; text-decoration: underline; color: #768BA7; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+
+			               
+			  }
+				
+				else 
+				{
+				this.createComponent({content : results[i].nameTop, style: "display: inline-block; text-decoration: underline; color: #768BA7; width:25%;font-weight: bold; font-size:17px;", ontap: "getActivity",container: this.$.activeMachines}).render();
+				}
+				this.createComponent({content : results[i].age, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : results[i].cost, style: "display: inline-block; width:25%;font-weight: bold; font-size:17px;", container: this.$.activeMachines}).render();
+				this.createComponent({content : "", style: "display: inline-block; width:100%;font-weight: bold;border-top:2px solid #333333;padding-top:10px", container: this.$.activeMachines}).render();
+				
+				
+			
 			};
 
 		})
@@ -221,5 +262,22 @@ enyo.kind({
 	    console.log("oie!");
         this.doRemoveAccount(this.account);
 	},
-	
+	getActivity:function(sender,event)
+	{  
+	  console.log(sender.getContent());
+	for (var i = 0; i < results.length; i++) {
+	    console.log("Caminhando:" + i + "content:" + sender.getContent());
+	    if(sender.getContent() == results[i].nameTop || sender.getContent() == results[i].nameTop.substr(0,5).concat("...") ) { 
+		 console.log(results[i].uriTopLevel); 
+		 var obj =  new Object();
+		obj.name = results[i].uriTopLevel
+		 this.doSelectMachine(obj); //Sending obj with uritoplvl
+		 break;
+		
+		}
+		
+	   }
+	  
+	  
+	}
 });

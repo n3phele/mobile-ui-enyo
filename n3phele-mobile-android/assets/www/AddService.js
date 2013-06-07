@@ -12,8 +12,8 @@ enyo.kind({
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
-		{kind: "onyx.Button" ,content: "Service List", classes:"button-style-left", ontap: "cancelAction"},
-		{name: "title", content:"New Service" }, {fit: true}]},        
+		{kind: "onyx.Button" ,content: "Services", classes:"button-style-left", ontap: "cancelAction"},
+		{name: "title", content:"New Service", style:"padding-left:20px" }, {fit: true}]},        
 		{kind: "FittableRows", name:"panel", fit: true, components: [
 				{style:"text-align:center;margin:2em auto", components:[							
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [

@@ -19,7 +19,8 @@ enyo.kind({
 });
 
 fixArrayInformation = function( arr ){
-	if( arr == 'undefined' )
+
+	if( arr == 'undefined' || typeof(arr) == 'undefined' )
 		return new Array();
 		
 	//correcting the type of information

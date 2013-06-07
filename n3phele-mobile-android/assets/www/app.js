@@ -33,7 +33,9 @@ enyo.kind({
 		{kind: "Panels", style: "background:#FFF", panelCreated : false, fit: true, touch: true,draggable:false ,classes: "panels-sample-sliding-panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "left", components: [
 				{kind: "Scroller", classes: "enyo-fit", style: "background:#FFF", touch: true, components: [					
-					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true} ]}, //Panel Title
+					{kind: "onyx.Toolbar", classes:"toolbar-style",  components: [ {content: "N3phele"}, {fit: true},
+						{kind: "onyx.Button", name:"Logout", ontap:"logout", classes:"button-logout", content: "Logout"}
+					]}, //Panel Title
 					{name: "mainMenuPanel", style:"width:95%; margin:auto;", components:[//div to align content
 					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
 						{kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
@@ -163,6 +165,12 @@ enyo.kind({
 			break;
 		}//end switch
 	},	
+	logout: function(inSender){
+		console.log("logout");
+		this.uid = null;
+		this.destroy();
+		window.location.assign("index.html");
+	},
 	backMenu: function(inSender){
 		this.$.panels.setIndex(0);
 	},
@@ -175,13 +183,20 @@ enyo.kind({
 		}
 	},
 	selectedActivity: function(sender, event){		
+		this.openActivityPanel(event.uri);
+	},
+	commandExecuted: function(sender, event){	
+		this.openActivityPanel(event.location);
+	},
+	openActivityPanel: function(uri){
 		//close old panels	
 		this.closeSecondaryPanels(2);		
-		//create panel to show selected activity
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, "uri": event.uri, 'url': event.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		//create panel to show selected activity		
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
-	},
+		this.$.panels.setIndex(3);	
+	}	
+	,	
 	repositorySelected: function(inSender,inEvent){	
 		//close old panels	
 		this.closeSecondaryPanels(2);		
@@ -267,9 +282,22 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", onRemoveAccount:"removeAccount",container: this.$.panels }).render();
+		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", onRemoveAccount:"removeAccount",onSelectMachine:"goToActivity",container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
+	},
+	
+	goToActivity:function(inSender,inEvent)
+	{  
+	//close old panels	
+		this.closeSecondaryPanels(3);		
+		//create panel to show selected activity		
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': inEvent.name, onBack: "closePanel4", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);	
+	
+	  //console.log(sender);
+	  console.log(inEvent.name);
 	},
 	removeAccount: function(inSender,inEvent)
 	{
@@ -313,7 +341,7 @@ enyo.kind({
 		FilesList[count] = inEvent;
 		count++;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -364,7 +392,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];

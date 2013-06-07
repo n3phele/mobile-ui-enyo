@@ -72,6 +72,7 @@ enyo.kind({
 		this.listTools.splice(0, 0, p);
 		this.inherited(arguments);
 		this.setPulling();
+		console.log("Oi");
 	},
 	initComponents: function() {
 		this.createChrome(this.pulldownTools);

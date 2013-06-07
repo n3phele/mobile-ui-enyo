@@ -10,21 +10,21 @@ enyo.kind({
 	components: [
 	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style:"background:#fff", components: [    
 	{kind: "onyx.Toolbar",classes: "toolbar-style" ,components: [ { name: "title", content:"New Account" },{kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "save"} , 
-			{kind: "onyx.Button", content: "Account List", classes:"button-style-left", ontap: "cancelAction"}]},
+			{kind: "onyx.Button", content: "Accounts", classes:"button-style-left", ontap: "cancelAction"}]},
 	{tag: "br"},
-		{name: "Msg", style: "color:#FF4500;"},
+		{name: "Msg", style: "color:#FF4500; text-align:center"},
 		{tag: "br"},
 	{style:"text-align:center", components:[
 		/* {name:"panel", kind: "Scroller", fit: true, components:[ */
 		
 		/* {content: "*Name: "}, */
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "name", style:"float:left;padding:7px 0 0 10px",  placeholder: "Account name"}
+				{kind: "onyx.Input", name: "name", style:"float:left;padding-left:10px",  placeholder: "Account name"}
 			]},
 			
 			/* {content: "Description: "}, */
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "description", style:"float:left;padding:7px 0 0 10px",  placeholder: "Account description"}
+				{kind: "onyx.Input", name: "description", style:"float:left;padding-left:10px",  placeholder: "Account description"}
 			]},
 			/* {content: "*On Cloud: "}, */
 			{kind:"Select", classes:"styled-select", name:"cloudsList", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
@@ -32,11 +32,11 @@ enyo.kind({
 			]},	
 			/* {content: "*Cloud Id: "}, */
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "id", style:"float:left;padding:7px 0 0 10px",  placeholder: "Cloud Id"}
+				{kind: "onyx.Input", name: "id", style:"float:left;padding-left:10px",  placeholder: "Cloud Id"}
 			]},	
 			/* {content: "*Cloud Secret: "}, */
 			{kind: "onyx.InputDecorator",classes: "inputs", components: [
-				{kind: "onyx.Input", name: "secret", type: "password",style:"float:left;padding:7px 0 0 10px",  placeholder: "Cloud secret"}
+				{kind: "onyx.Input", name: "secret", type: "password",style:"float:left;padding-left:10px",  placeholder: "Cloud secret"}
 			]},
 	]}   
 	]}

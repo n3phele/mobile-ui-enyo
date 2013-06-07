@@ -25,7 +25,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-	//"Are you sure you want to delete" + outratela.param +  " ?" 
+
 		this.$.name.setContent("Are you sure you want to delete " + this.repository.name + " ?");
 	},
 	closePanel: function(inSender, inEvent){

@@ -1,5 +1,5 @@
 var results;
-
+var listSize = 15;
 enyo.kind({ 
 	name:"ServiceList",
 	kind: "FittableRows",
@@ -13,10 +13,10 @@ enyo.kind({
 	},
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px !important;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
-	    {name: "list", kind: "List", count: 100, touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", components: [
-	         	{name: "name", style:"width: 75%; display: inline-block",ontap: "selectedAccount"},
-		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "nextItem"} 
+	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	         	{name: "name", style:"width: 75%; display: inline-block"},
+		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
 	     ]}, 
 	],	
@@ -26,7 +26,7 @@ enyo.kind({
 			if (this.closePanel.isScreenNarrow()) {
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
 		}
-		
+		this.$.list.setCount(listSize);
 		results = new Array();
 	},
 	selectedAccount: function(sender, event){
@@ -34,7 +34,6 @@ enyo.kind({
 	   var obj =  new Object();
 		obj.name = results[event.index];
 		this.doClickService(obj);
- 
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -59,7 +58,7 @@ enyo.kind({
 	setupItem: function(sender, event){
 	   this.$.name.setContent("Service:" + event.index);
 	   results.push(this.$.name.getContent());
-	   //console.log("Testando com" + event.index + "resultado de" + event.index % 2);
+	   
 	   if( event.index % 2 == 1)
 	   {
 	   this.$.item.applyStyle("background-color", "#F7F7F7")
@@ -68,10 +67,13 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	   },
+	  // if(results.length > listSize){
+	  // this.$.list.createComponent({name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
+	//				{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreServ"},
+//			]});
+		//}
+	  },
 	backMenu: function (sender, event){
 		this.doBack();
-	},
-
-
+	}
 });

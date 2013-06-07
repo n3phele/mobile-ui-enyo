@@ -1,16 +1,18 @@
 /*** The main classes that mount the account list page  ****/
-var results;
+
 enyo.kind({ 
 	name:"AccountList",
 	kind: "FittableRows",
 	fit: true,
+	
+	results:null,
 	style: "padding: 0px",
 	events: {
 		onCreateAcc: "",
 		onClickItem:"",
 		onBack:""
 	}, 
-	components:[
+components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [ { name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "+", style: "font-size: 20px !important;font-weight: bold;", ontap: "newAccount"}]},		 
 				    {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
 					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"}, 

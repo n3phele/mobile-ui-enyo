@@ -12,7 +12,7 @@ enyo.kind({
 		classes : "scroller-sample-scroller enyo-fit",
 		style:"background:#fff",
 		components : [
-			{kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "backMenu"},
+			{kind : "onyx.Toolbar",  classes: "toolbar-style",name : "title_1", components: [ { content : "Stack Details"},{kind : "onyx.Button", classes:"button-style-left", content : "Stacks", ontap : "backMenu"},
 				{kind : "onyx.Button",  classes:"button-style-right", content : "Run", ontap : "run"}]},
 		 	{content : "Name", name : "stack", style : "margin:0 0 0 10px;"},
 			{content : "Description", name : "description", style : "margin-top:0; text-align:center"},
@@ -20,7 +20,7 @@ enyo.kind({
 			{style:"text-align:center", components:[		
 				{name: "total", style: "color:#768BA7;border-top:3px solid;padding-bottom: 1%;"},								
 				{kind: "onyx.InputDecorator",classes: "inputs",style:"margin-top:20px", components: [
-					{kind: "onyx.Input",style:"float:left;padding:7px 0 0 10px;", placeholder: "Number of nodes",onchange:"inputChanged"}
+					{kind: "onyx.Input",style:"float:left;padding-left:10px", placeholder: "Number of nodes",onchange:"inputChanged"}
 				]},
 				{tag:"select", classes:"styled-select", style:"-webkit-appearance:none !important;outline:none",components:[             /* <<<<--------------------- */
 					{tag:"option", content:"Accounts"}						                                                             /* <<<<--------------------- */
