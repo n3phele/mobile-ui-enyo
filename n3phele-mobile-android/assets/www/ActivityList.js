@@ -1,4 +1,4 @@
-var listSize = 15;
+
 
 enyo.kind({ 
 		name:"ActivityList",
@@ -30,6 +30,7 @@ enyo.kind({
 		getRecentActivities: function( uid ){
 		this.$.Spin.show();
 		this.$.buttonMore.hide();
+		
 	
 			var ajaxParams = {
 				url: serverAddress+"process",
@@ -56,8 +57,9 @@ enyo.kind({
 			response.elements = fixArrayInformation(response.elements);
 			this.results = response.elements;
 			this.$.list.setCount(this.results.length);
-			 this.$.Spin.hide();
-			 this.$.buttonMore.show();
+			this.$.Spin.hide();
+			if(listSize == this.results.length)  this.$.buttonMore.show();
+			else if(listSize != this.results.length) this.$.more.hide();
             
 			this.$.list.reset();
 		if(this.start)this.$.list.scrollToBottom();
@@ -89,14 +91,16 @@ enyo.kind({
 		},
 		create: function(){
 			this.inherited(arguments);
+			var listSize = 15;
 			var thisPanel = this;
-          
+            console.log(listSize);
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 			}
 			this.getRecentActivities(this.uid);
 		},
 		backMenu: function (sender, event){
+		   
 			this.doBack();
 		},
 		closePanel: function (sender, event){
@@ -108,6 +112,7 @@ enyo.kind({
 		moreAct:function() {
        	 listSize = listSize+5;
        	 this.getRecentActivities(this.uid);
+		 
          //this.$.list.reset();
 	
     	}
