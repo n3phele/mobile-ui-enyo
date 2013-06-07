@@ -88,7 +88,16 @@ enyo.kind({
 		this.$.item.addRemoveClass("onyx-selected", sender.isSelected(event.index));
 		var i = event.index;
 		var item = this.results[i];
+		
+		if (this.closePanel.isScreenNarrow() && item.name.length>7)
+		{
+		this.$.name.setContent(item.name.substr(0,5).concat("..."));
+		
+		}
+		else 
+		{
 		this.$.name.setContent(item.name);
+		}
 		this.$.cost.setContent("US$0.0");
 
 		this.$.active.setContent("0");
