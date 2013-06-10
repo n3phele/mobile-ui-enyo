@@ -26,7 +26,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({ kind: "commandFilesLine", files: this.files, data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], data: linesInfo[i], type: this.type });
 		}
 	}
 });
@@ -35,7 +35,7 @@ enyo.kind({
 	name: "commandFilesLine",
 	classes: "commandFilesLine",
 	style:"padding: 1px;",
-	files: "",
+	file: "",
 	events: {
 		onSelectedItem: ""
 	},
@@ -52,11 +52,8 @@ enyo.kind({
 	},
 	create: function(){
 		this.inherited(arguments);
-		this.files = fixArrayInformation(this.files);
-		for(var i in this.files){
-			this.$.files.createComponent({content: this.files[i].name, style:"padding:4px; font-weight:bold"}).render();
-		}
-		
+
+		this.$.files.createComponent({content: this.file.name, style:"padding:4px; font-weight:bold"}).render();		
 		
 		if(this.type == "output"){
 			this.$.btnUp.addClass("btnInactive");

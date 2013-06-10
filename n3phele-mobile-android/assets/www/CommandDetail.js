@@ -129,14 +129,12 @@ enyo.kind({
 				var object = new Object();
 				object.location = location;
 				self.doCommandCreated(object);
-				//console.log(location);
 			})
 			.error(this, function(){
 				console.log("Error to load the detail of the command!");
-				popup.delete();
 			});	
 		}else{
-			console.log("Put job name!");
+			alert("Put job name!");
 		}
 		
 		this.closePanel(this);
