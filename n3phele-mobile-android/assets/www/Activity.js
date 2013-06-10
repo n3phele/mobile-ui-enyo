@@ -1,3 +1,4 @@
+var porco;
 enyo.kind({ 
 		name:"RecentActivityPanel",
 		kind: "FittableRows",
@@ -6,7 +7,7 @@ enyo.kind({
 		onBack: "",
 		},
 		components:[
-			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity", style:"padding-right:15px"}, {fit: true}, {kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} ]},
+			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	{content: "Activity", style:"padding-right:15px"}, {fit: true}, {name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} ]},
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [
 				{name: "panel_three", classes: "panels-sample-sliding-content", allowHtml: true, fit:true, components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, {name: "acName", style:"font-weight: bold; display: inline-block"},
@@ -43,6 +44,20 @@ enyo.kind({
 		create: function() {
 			this.inherited(arguments);
 			console.log(this.url);
+			
+			   if (this.menulist == true) 
+			{      if (!enyo.Panels.isScreenNarrow())
+			         {
+				      this.$.backbtn.hide();
+			              }
+		     		
+					this.$.backbtn.setContent("Menu");
+					
+
+			}
+			
+			
+			
 			//If not injected, create a default implementation
 			if(!this.n3pheleClient)
 			{
@@ -128,6 +143,13 @@ enyo.kind({
 			panel.render();
 		},
 		backMenu: function( sender , event){
-			this.doBack();
+            if (this.menulist == true) 
+			{     
+					this.panels.setIndex(0);
+
+			}
+		  else  
+              {		  this.doBack(); }
+			
 		}
 });
