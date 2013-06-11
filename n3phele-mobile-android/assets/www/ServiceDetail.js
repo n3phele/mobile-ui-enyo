@@ -1,3 +1,4 @@
+var porco;
 enyo.kind({
 	name: "ServiceDetails",
 	kind: "FittableRows",
@@ -33,13 +34,17 @@ enyo.kind({
 				]},	
 				
 			
-        {kind: "onyx.Toolbar",classes: "toolbar-style", components:
-		[
-					{kind: "onyx.Button", content: "Resource", style:"width:45%;" },		
+      
+					/*{name:"reso",kind: "onyx.Button", content: "Resource", style:"width:50%;", ontap:"resource" },		
 
-					{kind: "onyx.Button", content: "Relationship", style:"width:45%;" , ontap:"relationships" },		
-
-		]}
+					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
+             
+				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
+					{content: "Resource",style:"width:100%;" ,active: true, ontap:"resources"},
+					{content: "Relationship",style:"width:100%;",ontap:"relationships"}		
+				]},
+			
+		
 		
 		
 	],	
@@ -72,5 +77,14 @@ enyo.kind({
 	close: function(inSender, inEvent){
 		this.doBack();
 	},
+	relationships:function(inSender,inEvent)
+	{
+	 console.log("relationships!");
+	},
+	resources:function(inSender,inEvent)
+	{   
+
+      console.log("resources!");
+	}
 	
 });
