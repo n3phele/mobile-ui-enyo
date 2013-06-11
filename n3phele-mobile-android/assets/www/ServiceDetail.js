@@ -40,8 +40,8 @@ enyo.kind({
 					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
              
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
-					{content: "Resource",style:"width:50%;padding-top:30px" ,active: true, ontap:"resources"},
-					{name:"rela",content: "Relationship",style:"width:50%;padding-top:30px",ontap:"relationships"}		
+					{content: "Resource",style:"width:50%;padding-top:25px;padding-bottom:25px" ,active: true, ontap:"resources"},
+					{name:"rela",content: "Relationship",style:"width:50%;padding-top:25px;padding-bottom:25px",ontap:"relationships"}		
 				]},
 			
 		
