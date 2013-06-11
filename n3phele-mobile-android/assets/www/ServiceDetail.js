@@ -107,8 +107,13 @@ enyo.kind({
 			thisPanel.reflow();
 	},
 	itemTap: function(inSender, inEvent) {
-		this.doSelectedStack(inEvent);
-		console.log(inEvent);
+		//this.doSelectedStack(inEvent);
+		
+		var obj =  new Object();
+		obj.name = inEvent.name;
+		obj.vnum = this.vnum;
+		console.log(obj);
+			this.doSelectedStack(obj);
 	},
 	
 });
