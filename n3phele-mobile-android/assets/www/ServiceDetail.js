@@ -40,8 +40,8 @@ enyo.kind({
 					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
              
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
-					{content: "Resource",style:"width:100%;" ,active: true, ontap:"resources"},
-					{content: "Relationship",style:"width:100%;",ontap:"relationships"}		
+					{content: "Resource",style:"width:50%;padding-top:30px" ,active: true, ontap:"resources"},
+					{name:"rela",content: "Relationship",style:"width:50%;padding-top:30px",ontap:"relationships"}		
 				]},
 			
 		
@@ -78,7 +78,8 @@ enyo.kind({
 		this.doBack();
 	},
 	relationships:function(inSender,inEvent)
-	{
+	{ 
+	porco = this.$.rela;
 	 console.log("relationships!");
 	},
 	resources:function(inSender,inEvent)
