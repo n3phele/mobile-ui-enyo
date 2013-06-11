@@ -11,7 +11,8 @@ enyo.kind({
 	events: {
 		onCreateStack: "",
 		onBack: "",
-		onRemoveService: ""
+		onRemoveService: "",
+		onSelectedStack:"",
 	}, 
 	components: [
 	
@@ -89,7 +90,7 @@ enyo.kind({
       this.vnum = 0;
       console.log("resources!" + this.vnum );
 	},
-		search: function(inSender, inEvent) {
+    search: function(inSender, inEvent) {
 	var search =  new Array();
 		 for (var i in stacks) {
 			if (stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
@@ -105,6 +106,9 @@ enyo.kind({
 		}).render();
 			thisPanel.reflow();
 	},
-	
+	itemTap: function(inSender, inEvent) {
+		this.doSelectedStack(inEvent);
+		console.log(inEvent);
+	},
 	
 });
