@@ -6,6 +6,7 @@ enyo.kind({
 	commands: null,
 	commandsImages : null,
 	stacks:null,
+	vnum:null,
 	style:"background:#fff",
 	events: {
 		onCreateStack: "",
@@ -50,7 +51,8 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments)
-				
+		    this.vnum = 0;		
+			
 			this.commands = new Array();
 			this.commandsImages = new Array();
 			stacks = ["Stack01", "Stack02", "Stack03", "StackXY"]
@@ -79,13 +81,30 @@ enyo.kind({
 	},
 	relationships:function(inSender,inEvent)
 	{ 
-	porco = this.$.rela;
-	 console.log("relationships!");
+      this.vnum = 1;
+	 console.log("relationships!" + this.vnum);
 	},
 	resources:function(inSender,inEvent)
 	{   
-
-      console.log("resources!");
-	}
+      this.vnum = 0;
+      console.log("resources!" + this.vnum );
+	},
+		search: function(inSender, inEvent) {
+	var search =  new Array();
+		 for (var i in stacks) {
+			if (stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
+			search.push(stacks[i]);
+        }
+    }
+	this.$.panel.destroyClientControls();
+		var thisPanel = this;
+		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			commandsImages: this.commandsImages,container: thisPanel.$.panel,
+			retrieveContentData: function(){
+			this.data = createCommandItems(search, this.commandsImages); } 
+		}).render();
+			thisPanel.reflow();
+	},
+	
 	
 });
