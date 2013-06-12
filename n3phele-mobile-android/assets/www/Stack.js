@@ -25,9 +25,11 @@ enyo.kind({
 	create: function(){
 	this.inherited(arguments);
 			var thisPanel = this;
-		//this.$.title.setContent(this.stack.name);
+		this.$.title.setContent(this.stack.name);
 		this.$.list.setCount(listSize);
 		results = new Array();
+		console.log(this.stack);
+		
 	},
 	selectedAccount: function(sender, event){
 	//Service details will have the delete opt
@@ -40,7 +42,9 @@ enyo.kind({
 		this.doCreateService();
 	},
 	setupItem: function(sender, event){
-	   this.$.name.setContent("VM:" + event.index);
+	  if(this.stack.vnum == 0)
+     {
+	  this.$.name.setContent("VM:" + event.index);
 	   results.push(this.$.name.getContent());
 	   
 	   if( event.index % 2 == 1)
@@ -51,11 +55,8 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	  // if(results.length > listSize){
-	  // this.$.list.createComponent({name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
-	//				{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreServ"},
-//			]});
-		//}
+	   }
+
 	  },
 	backMenu: function (sender, event){
 		this.doBack();

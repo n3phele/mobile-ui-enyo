@@ -112,7 +112,7 @@ enyo.kind({
 		var obj =  new Object();
 		obj.name = inEvent.name;
 		obj.vnum = this.vnum;
-		console.log(obj);
+		//console.log(obj);
 			this.doSelectedStack(obj);
 	},
 	
