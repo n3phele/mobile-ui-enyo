@@ -14,13 +14,20 @@ enyo.kind({
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Stack" },
        {kind : "onyx.Button", classes:"button-style-left", content : "Service", ontap : "backMenu"},
-		{kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px !important;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
+		,{fit: true}]},
 	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
-	     ]}, 
+	     ]},
+		 {name: "buttonsPanel",components:[
+					{name: "buttons",style:"text-align:center",  components:[  
+						{name:"b1",kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
+						{name:"b2",kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, 
+					]}
+				]},	
+				
 	],	
 	create: function(){
 	this.inherited(arguments);
@@ -29,6 +36,16 @@ enyo.kind({
 		this.$.list.setCount(listSize);
 		results = new Array();
 		console.log(this.stack);
+		if(this.stack.vnum == 1)
+		{
+		this.$.b1.setContent("Add database");
+		this.$.b2.setContent("Add load balancer");
+		}
+		else
+		{
+		this.$.b1.setContent("Add Node");
+		this.$.b2.setContent("Update Node");
+		}
 		
 	},
 	selectedAccount: function(sender, event){
@@ -36,6 +53,8 @@ enyo.kind({
 	   var obj =  new Object();
 		obj.name = results[event.index];
 		this.doClickService(obj);
+		
+		
 	},
 	
 	newService: function(sender, event){
@@ -46,6 +65,21 @@ enyo.kind({
      {
 	  this.$.name.setContent("VM:" + event.index);
 	   results.push(this.$.name.getContent());
+	 }
+     else
+	 {
+	 //Just for mockup reference since we also want to display contents in the list that are load balancer
+	 if(event.index % 2 == 1)  
+	 { 
+	 this.$.name.setContent("Load balancer:");
+	 }
+	 else
+	 {
+	 this.$.name.setContent("Database:");
+	 }
+	 
+	 
+	 }
 	   
 	   if( event.index % 2 == 1)
 	   {
@@ -55,8 +89,6 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	   }
-
 	  },
 	backMenu: function (sender, event){
 		this.doBack();
