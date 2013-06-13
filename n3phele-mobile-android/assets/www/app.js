@@ -324,6 +324,7 @@ enyo.kind({
 		this.$.panels.setIndex(4);
 	},
 	listRepository: function(inSender,inEvent){	
+		count = inEvent.index;
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
@@ -346,7 +347,6 @@ enyo.kind({
 		this.closeSecondaryPanels(3);
 		this.closeSecondaryPanels(2);	
 		FilesList[count] = inEvent;
-		count++;
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();

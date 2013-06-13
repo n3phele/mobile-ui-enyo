@@ -1,5 +1,6 @@
 /*** The main classes that mount the command detail page  ****/
 var Parameters;
+var listFile = new Array();
 enyo.kind({ 
 	name:"CommandDetail",
 	kind: "FittableRows",
@@ -45,6 +46,7 @@ enyo.kind({
 		.response(this, function(sender, response){
 			Parameters = response;
 			this.setDynamicData(response);
+			console.log(response);
 			popup.delete();
 		})
 		.error(this, function(){
@@ -82,7 +84,7 @@ enyo.kind({
 		this.render();
 	},
 	repository: function(sender, event){
-		this.doSelectedFile();
+		this.doSelectedFile(event);
 	},
 	repositorySelected: function(inSender,inEvent){				
 		this.$.repositoryFiles.destroy();
@@ -105,14 +107,34 @@ enyo.kind({
 	},
 	runCommand: function(sender, event){	
 		var self = this;
+		var value;
+		var countFile = 0;
 		//create JSON for post body in runcommand
 		var parameters = '{"Variable":[';
+
 		for(var i in Parameters.executionParameters){
+			console.log(Parameters.executionParameters[i].name);
+			console.log(Parameters.executionParameters[i].type);
+			value = this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name);
 			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
-			Parameters.executionParameters[i].type+'", "value":["'+this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name)+'"]},';
+			Parameters.executionParameters[i].type+'", "value":["'+value+'"]},';
 		}
+
+		var a = fixArrayInformation(Parameters.inputFiles);
+		console.log(a);
+
+		for (var i = 0; i < this.files.length; i++) {
+			console.log(a[i]);
+			console.log(a[i].name);
+			value = this.files[i].path;
+			parameters += '{"name":"'+a[i].name+'", "type":"File", "value":["'+value+'"]},';
+		};
+		
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
+
+		console.log(parameters);
+
 		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = new enyo.Ajax({
 				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
@@ -155,5 +177,8 @@ enyo.kind({
 			
 			panel.reflow();		
 			//panel.owner.$.IconGallery.deselectLastItem();			
+	},
+	runFile: function(inSender, inEvent){
+		//{"name":"file1.txt", "type":"File", "value":["swift:///cat.n"]}
 	}	
 })
