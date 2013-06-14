@@ -161,10 +161,23 @@ enyo.kind({
 		}else{
 			alert("Put job name!");
 		}
-	
 	},
-	
-	runFile: function(inSender, inEvent){
-		//{"name":"file1.txt", "type":"File", "value":["swift:///cat.n"]}
-	}	
+	closePanel: function(inSender, inEvent){
+			var panel = inSender.parent.parent.parent;
+			
+			panel.setIndex(2);				
+			panel.getActive().destroy();					
+			panel.panelCreated = false;
+			
+			if (enyo.Panels.isScreenNarrow()) {
+				panel.setIndex(1);
+			}
+			else {
+				panel.setIndex(0);
+			}		
+			
+			panel.reflow();		
+			//panel.owner.$.IconGallery.deselectLastItem();			
+	}
+
 })
