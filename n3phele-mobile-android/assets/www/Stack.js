@@ -21,10 +21,11 @@ enyo.kind({
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
 	     ]},
+		 {name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
 		 {name: "buttonsPanel",components:[
 					{name: "buttons",style:"text-align:center",  components:[  
-						{name:"b1",kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
-						{name:"b2",kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, 
+						{name:"b1",kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:0.8em auto", ontap:"addNode"},
+						{name:"b2",kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px;margin:1.0em auto", ontap:"updateNode"}, 
 					]}
 				]},	
 				

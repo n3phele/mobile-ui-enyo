@@ -33,7 +33,7 @@ enyo.kind({
 			{name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
 
 		{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;"}
+		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}
 				  
 				]},	
 				
