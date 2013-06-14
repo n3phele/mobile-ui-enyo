@@ -29,10 +29,12 @@ enyo.kind({
 					]}
 				]}, 
 						
-				
+		
 			{name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
+
 		{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", style: "border 1px solid" , components:[]}
+		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;"}
+				  
 				]},	
 				
 			
@@ -40,7 +42,7 @@ enyo.kind({
 					/*{name:"reso",kind: "onyx.Button", content: "Resource", style:"width:50%;", ontap:"resource" },		
 
 					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
-             
+                	
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
 					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
 					{name:"rela",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
@@ -53,19 +55,24 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		    this.vnum = 0;		
-			
+			this.$.Spin.show();
 			this.commands = new Array();
 			this.commandsImages = new Array();
 			stacks = ["Stack01", "Stack02", "Stack03", "StackXY"]
 			for(var i in stacks){
 				this.commands.push(stacks[i]);
 			}
-			
 			for(var i in this.commands){
 			this.commandsImages.push("assets/folder.png");
 			}
+			this.showData();
+	
+	},
+	showData:function()
+	{
+		this.$.Spin.hide();
 		var thisPanel = this;
-			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			thisPanel.createComponent({kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 				commandsImages: this.commandsImages,container: thisPanel.$.panel,
 				retrieveContentData: function(){
 					this.data = createCommandItems(this.commands, this.commandsImages); } 
@@ -81,14 +88,19 @@ enyo.kind({
 		this.doBack();
 	},
 	relationships:function(inSender,inEvent)
-	{ 
+	{ this.$.panel.destroyClientControls();
+	  this.$.Spin.show();
+     
+	 setTimeout(enyo.bind(this, this.showData),200);
       this.vnum = 1;
-	 console.log("relationships!" + this.vnum);
 	},
 	resources:function(inSender,inEvent)
-	{   
+	{ 
+	this.$.panel.destroyClientControls();
+	  this.$.Spin.show();
+     
+	 setTimeout(enyo.bind(this, this.showData),200);
       this.vnum = 0;
-      console.log("resources!" + this.vnum );
 	},
     search: function(inSender, inEvent) {
 	var search =  new Array();
