@@ -1,5 +1,3 @@
-
-
 enyo.kind({ 
 		name:"ActivityList",
 		result: null,
@@ -75,6 +73,8 @@ enyo.kind({
 				this.$.status.setSrc("assets/activities.png");
 			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
+			}else{
+				this.$.status.setSrc("assets/spinner2.png");
 			}
 			this.$.activity.setContent(item.name);
 			  

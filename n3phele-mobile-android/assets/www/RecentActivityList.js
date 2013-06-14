@@ -46,10 +46,13 @@ enyo.kind({
 			this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
 			var i = inEvent.index;
 			var item = this.results[i];
+			
 			if(item.state == "COMPLETE"){
 				this.$.status.setSrc("assets/activities.png");
-			}else{
+			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
+			}else{
+				this.$.status.setSrc("assets/spinner2.png");
 			}
 			this.$.activity.setContent(item.name);
 		},
