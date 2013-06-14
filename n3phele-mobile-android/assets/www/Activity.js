@@ -49,7 +49,7 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			console.log(this.url);
+			console.log(this);
 				   if (this.menulist == true) 
 			{      if (!enyo.Panels.isScreenNarrow())
 			         {
@@ -59,6 +59,10 @@ enyo.kind({
 					this.$.backbtn.setContent("Menu");
 					
 
+			}
+			else if (this.num == 0)
+			{
+			this.$.backbtn.setContent("Commands");
 			}
 			
 			//If not injected, create a default implementation

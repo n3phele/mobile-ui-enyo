@@ -150,6 +150,9 @@ enyo.kind({
 				var location = sender.xhrResponse.headers.location;
 				var object = new Object();
 				object.location = location;
+				object.num = 0;
+				console.log(object);
+	       
 				self.doCommandCreated(object);
 			})
 			.error(this, function(){
@@ -158,26 +161,9 @@ enyo.kind({
 		}else{
 			alert("Put job name!");
 		}
-		
-		this.closePanel(this);
+	
 	},
-	closePanel: function(inSender, inEvent){
-			var panel = inSender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
-			//panel.owner.$.IconGallery.deselectLastItem();			
-	},
+	
 	runFile: function(inSender, inEvent){
 		//{"name":"file1.txt", "type":"File", "value":["swift:///cat.n"]}
 	}	

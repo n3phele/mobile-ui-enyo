@@ -185,7 +185,13 @@ enyo.kind({
 		this.openActivityPanel(event.uri);
 	},
 	commandExecuted: function(sender, event){	
-		this.openActivityPanel(event.location);
+			//close old panels	
+		this.closeSecondaryPanels(4);		
+		//create panel to show selected activity	
+         console.log(event);		
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);	
 	},
 	openActivityPanel: function(uri){
 		//close old panels	
@@ -378,6 +384,13 @@ enyo.kind({
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 3;
+		this.mainMenuTap(obj,obj);
+	},
+	refreshCommands:function(inSender,inEvent)
+	{
+	this.setPanelIndex(1);
+	    var obj = new Object();
+		obj.index = 1;
 		this.mainMenuTap(obj,obj);
 	},
 
