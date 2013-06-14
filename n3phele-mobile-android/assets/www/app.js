@@ -185,7 +185,13 @@ enyo.kind({
 		this.openActivityPanel(event.uri);
 	},
 	commandExecuted: function(sender, event){	
-		this.openActivityPanel(event.location);
+			//close old panels	
+		this.closeSecondaryPanels(4);		
+		//create panel to show selected activity	
+         console.log(event);		
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);	
 	},
 	openActivityPanel: function(uri){
 		//close old panels	
@@ -257,7 +263,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" , onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -266,6 +272,14 @@ enyo.kind({
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
 		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
+	},
+	Stack: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(3);		
+		//create panel to create a new stack
+		this.createComponent({ kind: "Stack", "uid": this.uid, "uri": inEvent.uri,"stack":inEvent  ,onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -316,6 +330,7 @@ enyo.kind({
 		this.$.panels.setIndex(4);
 	},
 	listRepository: function(inSender,inEvent){	
+		count = inEvent.index;
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
@@ -338,7 +353,6 @@ enyo.kind({
 		this.closeSecondaryPanels(3);
 		this.closeSecondaryPanels(2);	
 		FilesList[count] = inEvent;
-		count++;
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
@@ -370,6 +384,13 @@ enyo.kind({
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 3;
+		this.mainMenuTap(obj,obj);
+	},
+	refreshCommands:function(inSender,inEvent)
+	{
+	this.setPanelIndex(1);
+	    var obj = new Object();
+		obj.index = 1;
 		this.mainMenuTap(obj,obj);
 	},
 

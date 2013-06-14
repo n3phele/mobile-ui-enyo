@@ -46,10 +46,13 @@ enyo.kind({
 			this.$.item.addRemoveClass("onyx-selected", inSender.isSelected(inEvent.index));
 			var i = inEvent.index;
 			var item = this.results[i];
+			
 			if(item.state == "COMPLETE"){
 				this.$.status.setSrc("assets/activities.png");
-			}else{
+			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
+			}else{
+				this.$.status.setSrc("assets/spinner2.png");
 			}
 			this.$.activity.setContent(item.name);
 		},
@@ -62,15 +65,15 @@ enyo.kind({
 			if(this.results == null ) return;
 			var main = sender.owner.parent.owner;
 			var panels = main.$.panels;
-
-			main.closeSecondaryPanels(2);
+            var menulist = true;
+			//main.closeSecondaryPanels(2);
 
 			if (enyo.Panels.isScreenNarrow()){
 				panels.setIndex(1);
 			}
 			
 			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({name:"Activity",kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid,"panels":panels ,container: main.$.imageIconPanel, 
+			main.createComponent({name:"Activity",kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid,"panels":panels, "menulist":menulist ,container: main.$.imageIconPanel, 
 			n3pheleClient: n3phele}); //n3phele variable is currently a global one defined on index.html.
 		
 			panels.owner.$.imageIconPanel.render();

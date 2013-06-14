@@ -29,6 +29,7 @@ enyo.depends(
 	"jquery.flot.tooltip.js",
 	"ServiceList.js",
 	"AddService.js",
+	"Stack.js",
 	"RemoveService.js",
 	"NewStack.js",
 	"RemoveAccount.js",

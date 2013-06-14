@@ -26,7 +26,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], index: i, data: linesInfo[i], type: this.type });
 		}
 	}
 });
@@ -36,6 +36,7 @@ enyo.kind({
 	classes: "commandFilesLine",
 	style:"padding: 1px;",
 	file: "",
+	index: "",
 	events: {
 		onSelectedItem: ""
 	},
@@ -48,7 +49,8 @@ enyo.kind({
 		]}
 	],
 	doSelectFile: function(inSender, inEvent){
-		this.doSelectedItem();
+		fileindex = {index: this.index};
+		this.doSelectedItem(fileindex);
 	},
 	create: function(){
 		this.inherited(arguments);

@@ -73,7 +73,6 @@ enyo.kind({
 				zone = zones[i];
 			}
 		}
-		console.log(this.$.job.getValue());
 		this.doRunCommand();
 	},
 	getValue: function(){

@@ -1,198 +1,131 @@
+var porco;
 enyo.kind({
 	name: "ServiceDetails",
 	kind: "FittableRows",
+	data: [],
+	commands: null,
+	commandsImages : null,
+	stacks:null,
+	vnum:null,
+	style:"background:#fff",
 	events: {
 		onCreateStack: "",
 		onBack: "",
-		onRemoveService: ""
+		onRemoveService: "",
+		onSelectedStack:"",
 	}, 
 	components: [
-		{kind:"Scroller", style:"background:#fff",classes: "scroller-sample-scroller enyo-fit",components: [
+	
 				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},
 			{kind: "onyx.Button",classes:"button-style-left", content: "Services", ontap: "close"},		
+		{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},
 			{content: "Service", name: "title_1", }]},							
-				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px"}, 
-					{name: "res", kind:"onyx.Button",style:"width:30%;min-width:151px;background-color: white;border-radius:0px;padding:10px 18px; border-width: 2px",ontap:"resource", content: "Resource"}, 
-					{name: "rel", kind:"onyx.Button",style:"width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px",ontap:"relationships", content: "Relationships"},
-				{name:"TreePanel", style:"height:60%;border:1px solid #768BA7 ", kind: "Scroller", fit: true, components:[									
-						{name: "panel",components: [
-						{name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 2", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 3", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 4",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 5",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-						]},	
-					]},						
-				]},
-				{name: "buttonsPanel",components:[
-					{name: "buttons",style:"text-align:center",  components:[  
-						{kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"},
-						{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, 
+				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px"},
+				 
+				 	{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
+					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
+					{kind: "onyx.Button",classes:"button-search-style", ontap: "search", components: [
+						{kind: "onyx.Icon", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png"}
 					]}
+				]}, 
+						
+		
+			{name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
+
+		{kind: "Scroller", name: "scroll", fit: true, components: [
+		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}
+				  
 				]},	
 				
-			{name:"button_bottom", components:[
-				{name:"button-bottom-stack",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center", components:[
-					{kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto" ,content: "New Stack", ontap: "newStack"}
-				]}
-			]} 				
-		]}
+			
+      
+					/*{name:"reso",kind: "onyx.Button", content: "Resource", style:"width:50%;", ontap:"resource" },		
+
+					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
+                	
+				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
+					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
+					{name:"rela",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
+				]},
+			
+		
+		
 		
 	],	
-	nodeExpand: function(inSender, inEvent) {
-		inSender.setIcon("assets/" + (inSender.expanded ? "folder-open.png" : "folder.png"));
-		//console.log(this.service);
+	create: function(){
+		this.inherited(arguments)
+		    this.vnum = 0;		
+			this.$.Spin.show();
+			this.commands = new Array();
+			this.commandsImages = new Array();
+			stacks = ["Stack01", "Stack02", "Stack03", "StackXY"]
+			for(var i in stacks){
+				this.commands.push(stacks[i]);
+			}
+			for(var i in this.commands){
+			this.commandsImages.push("assets/folder.png");
+			}
+			this.showData();
+	
 	},
+	showData:function()
+	{
+		this.$.Spin.hide();
+		var thisPanel = this;
+			thisPanel.createComponent({kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+				commandsImages: this.commandsImages,container: thisPanel.$.panel,
+				retrieveContentData: function(){
+					this.data = createCommandItems(this.commands, this.commandsImages); } 
+				}).render();
+			thisPanel.reflow();
+	},
+	
 	newStack: function(inSender, inEvent) {
 		this.doCreateStack();
 	},
-	nodeTap: function(inSender, inEvent) {
-		var node = inEvent.originator;
-		this.$.selection.select(node.id, node);
-	},
-	select: function(inSender, inEvent) {
-		inEvent.data.$.caption.applyStyle("background-color", "lightblue");
-	},
-	deselect: function(inSender, inEvent) {
-		inEvent.data.$.caption.applyStyle("background-color", null);
-	},
+	
 	close: function(inSender, inEvent){
 		this.doBack();
 	},
-	removeService:function (sender,event)
-	{   
-        this.doRemoveService(this.service);
+	relationships:function(inSender,inEvent)
+	{ this.$.panel.destroyClientControls();
+	  this.$.Spin.show();
+     
+	 setTimeout(enyo.bind(this, this.showData),200);
+      this.vnum = 1;
 	},
-	resource: function(inSender, inEvent) {
-		this.$.panel.destroyClientControls();
-		
-		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 2",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 3", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 4", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 5",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "VM1"},
-									{icon: "assets/file.png", content: "VM2"},
-								]},
-							]},	
-						]},{owner:this}).render();
-						
-		this.$.buttonsPanel.destroyClientControls();
-		
-		this.$.buttonsPanel.createComponent({name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
-			{kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addNode"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
-			{kind:"onyx.Button", content: "Update Node", classes:"button-style",  style:"width:98%;height:40px", ontap:"updateNode"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
-		]}).render();
-		
-		this.$.rel.setStyle("width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 1px");
-		this.$.res.setStyle("width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 2px");
+	resources:function(inSender,inEvent)
+	{ 
+	this.$.panel.destroyClientControls();
+	  this.$.Spin.show();
+     
+	 setTimeout(enyo.bind(this, this.showData),200);
+      this.vnum = 0;
 	},
-	relationships: function(inSender, inEvent) {
-		this.$.panel.destroyClientControls();
-		this.$.panel.createComponent({name: "Tree", style: "margin: 15px 0 0 20px;height:30%", components: [
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder-open.png", content: "Stack 1", expandable: true, expanded: true, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Database"},
-									{icon: "assets/file.png", content: "Load Balancer"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 2", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Database"},
-									{icon: "assets/file.png", content: "Load Balancer"}, 
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 3",  expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Database"},
-									{icon: "assets/file.png", content: "Load Balancer"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 4", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Database"},
-									{icon: "assets/file.png", content: "Load Balancer"},
-								]},
-							]},	
-							{kind: "Selection", onSelect: "select", onDeselect: "deselect"},
-							{kind: "Scroller", fit: true, components: [
-								{kind: "Node", icon: "assets/folder.png", content: "Stack 5", expandable: true, expanded: false, onExpand: "nodeExpand", onNodeTap: "nodeTap", components: [
-									{icon: "assets/file.png", content: "Database"},
-									{icon: "assets/file.png", content: "Load Balancer"},
-								]},
-							]},	
-						]},{owner:this}).render();
-					
-		this.$.buttonsPanel.destroyClientControls();
-		
-		this.$.buttonsPanel.createComponent({name: "buttons",style:"text-align:center",  components:[  // this.$.buttonsPanel.createComponent({name: "buttons", style:"margin:1em auto;width:400px;float:left", components:[
-			{kind:"onyx.Button", content: "Add Database", classes:"button-style",  style:"width:98%;height:40px;margin:1em auto", ontap:"addDatabase"}, //{kind:"onyx.Button", content: "Add Database", classes:"button-style", style:"display:inline-block;margin-left:20px", ontap:"addDatabase"}, 
-			{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style",  style:"width:98%;height:40px", ontap:"AddLoad"}, //{kind:"onyx.Button", content: "Add Load Balancer", classes:"button-style", style:"display:inline-block;margin-left:50px", ontap:"AddLoad"},
-		]}).render();			
-		
-		this.$.res.setStyle("width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 1px");
-		this.$.rel.setStyle("width:30%;min-width:151px;background-color:#FFFFFF;border-radius:0px;padding:10px 18px; border-width: 2px");
+    search: function(inSender, inEvent) {
+	var search =  new Array();
+		 for (var i in stacks) {
+			if (stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
+			search.push(stacks[i]);
+        }
+    }
+	this.$.panel.destroyClientControls();
+		var thisPanel = this;
+		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			commandsImages: this.commandsImages,container: thisPanel.$.panel,
+			retrieveContentData: function(){
+			this.data = createCommandItems(search, this.commandsImages); } 
+		}).render();
+			thisPanel.reflow();
 	},
+	itemTap: function(inSender, inEvent) {
+		//this.doSelectedStack(inEvent);
+		
+		var obj =  new Object();
+		obj.name = inEvent.name;
+		obj.vnum = this.vnum;
+		//console.log(obj);
+			this.doSelectedStack(obj);
+	},
+	
 });

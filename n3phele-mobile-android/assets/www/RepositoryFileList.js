@@ -1,7 +1,4 @@
 /*** The main classes that mount the account list page  ****/
-
-
-
 enyo.kind({ 
 	name:"RepositoryFileList",
 	kind: "FittableRows",
@@ -77,7 +74,6 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			//update files list
-			console.log(response);
 			response.crumbs.files = fixArrayInformation(response.files);			
 			this.data = response.files;
 			this.commands = new Array();
@@ -199,9 +195,10 @@ enyo.kind({
 			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 			
 		}
-		if(this.callBy=="selectFile"){
-			this.doSelectedItem(this.selected);
-		}else if(this.callBy=="repositoryList"){
+		if(this.selected.mime != this.folderMime && this.callBy=="selectFile"){
+			pathFile={name: this.selected.name, path: this.repositoryName+":///"+this.selected.name};
+			this.doSelectedItem(pathFile);
+		}else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
 			console.log("Do Download!");
 		}
 	},
