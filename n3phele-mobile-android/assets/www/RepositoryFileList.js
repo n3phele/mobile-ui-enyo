@@ -179,10 +179,10 @@ enyo.kind({
 	newFolder: function( sender , event){
 	console.log("click");
 		if(this.callBy=="outputFile"){
-		var str;
+		var str="";
 		  for(var i in this.folders)
 		  {
-		     //if ( i != undefined) str = "/"+i;
+		      str = "/"+i;
 		  }
 		  console.log(str);
 		
