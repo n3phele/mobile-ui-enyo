@@ -6,9 +6,7 @@ enyo.kind({
 	repositoryName: "",
 	path: [],
 	folders:[],
-	commandPath: "",
-	rootname:null,
-	btnname:null,
+	foldername:null,
 	root:null,
 	style: "padding: 0px",
 	data: [],
@@ -32,17 +30,7 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-		this.rootname = this.repositoryName;
-		
-			if(this.repositoryName.length <=7)
-			{
-			var name = this.repositoryName;
-			}
-			else 
-			{
-			var name = this.repositoryName.substr(0,5).concat("...");
-			}
-		this.$.title.setContent(name);
+	     
 		this.updateFilesFromURI(this.uri + "/list");
 
 		
@@ -50,10 +38,18 @@ enyo.kind({
 	updateFilesFromURI: function(uri, success){
 	this.$.Spin.show();
 	this.$.backTop.hide();
-     if (this.root < 1) {this.$.backTop.show()};
-       
-
-	   if(this.repositoryName.length <=7)
+     
+	 
+	 console.log("Folders:");
+	 console.log(this.folders);
+	 
+	 
+	 
+	 
+	 //Set toolbar title as root name here if we are not visiting any folders or came back from folders
+	 if (this.root < 1) {
+	 this.$.backTop.show()
+	  if(this.repositoryName.length <=7)
 			{
 			var name = this.repositoryName;
 			}
@@ -62,6 +58,26 @@ enyo.kind({
 			var name = this.repositoryName.substr(0,5).concat("...");
 			}
 		this.$.title.setContent(name);
+	        }
+			
+	//Change the name in toolbar to the folder we are current visiting		
+	  else
+	  {
+	  
+	     if(this.foldername.length <=7)
+			{
+			var name = this.foldername;
+			}
+			else 
+			{
+			var name = this.foldername.substr(0,5).concat("...");
+			}
+		this.$.title.setContent(name);
+	   }
+	  
+       
+
+	  
 				
 			
 		var ajaxComponent = new enyo.Ajax({
@@ -148,7 +164,7 @@ enyo.kind({
 	},
 	deleteRepository: function( sender , event){
 	    var obj =  new Object();
-		obj.name = this.rootname;
+		obj.name = this.repositoryName;
 		this.doRemoveRepository(obj);
 		this.root = 0;
 	},
@@ -165,23 +181,12 @@ enyo.kind({
 	folderMime: "application/vnd.com.n3phele.PublicFolder",
 	itemTap: function(inSender, inEvent) {
 		this.selected = this.data[inEvent.index];
-	    //this.commandPath = commandPath + "/" + this.selected.name;
+	    
 		
 		//If is a folder, open it
 		if(this.selected.mime == this.folderMime)
-		{
-			//put on path
-			if(this.repositoryName.length <=7)
-			{
-			this.btnname = this.repositoryName;
-			}
-			else 
-			{
-			this.btnname = this.repositoryName.substr(0,5).concat("...");
-			}
-		
-			
-			var newButton = this.createComponent({name:"btn", kind: "onyx.Button", pathCommand: this.repositoryName, content: this.btnname, ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
+		{   
+		    var newButton = this.createComponent({name:"btn", kind: "onyx.Button", content: this.$.title.getContent(), ontap: "folderClicked", classes: "button-style-left", container: this.$.toolTop }).render();				
 			this.path.push( newButton );
 			this.reflow();
 			this.root = this.root +1;
@@ -189,18 +194,16 @@ enyo.kind({
 			this.$.ListIcon.destroy();
 			//download the new folder to data
 			this.$.Spin.show();
-			this.btnname = this.selected.name;
-			this.folders.push(this.repositoryName);
-			this.repositoryName = this.btnname;
-			console.log(this.repositoryName);
-			this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
+			this.foldername = this.selected.name;
+			this.folders.push(this.foldername);
+			
+			console.log("Root é:" + this.repositoryName);
+			console.log("Folders deu push em:" + this.foldername);
+	        this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 			
 		}
 		if(this.selected.mime != this.folderMime && this.callBy=="selectFile"){
-			for (var i = 0; i < this.folders.length; i++) {
-				this.commandPath = this.commandPath + "/" + this.folders[i];
-			};
-			pathFile={name: this.selected.name, path: this.repositoryName+"://"+this.commandPath+"/"+this.selected.name};
+			pathFile={name: this.selected.name, path: this.repositoryName+":///"+this.selected.name};
 			this.doSelectedItem(pathFile);
 		}else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
 			console.log("Do Download!");
@@ -210,15 +213,18 @@ enyo.kind({
 		this.navigateBack(inSender.content);
 		this.$.btn.destroy();
 		
-		//this.$.backTop.hide();
 	},
 	navigateBack: function(folder){
 		//navigate back to repository/folder specified that is already on path
 		this.root = this.root - 1;
-		this.repositoryName = this.folders.pop();
+		var aux = this.folders.pop();
+		
+		console.log("voltando de:" + aux);
+		
 		while(this.path[this.path.length-1].getContent() != folder)
 		{
 			var button = this.path.pop();
+			
 			button.destroy();
 			
 		}
@@ -233,7 +239,6 @@ enyo.kind({
 			}
 		}
 		
-		console.log(this.root);
 		this.$.ListIcon.destroy();
 		this.updateFilesFromURI(newUri);
 	}
