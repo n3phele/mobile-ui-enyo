@@ -10,12 +10,13 @@ enyo.kind({
 	events: {
 		onSelectedItem: "",
 		onNewRepository: "",
-		onBack: ""
+		onBack: "",
+		onSelectedRepository:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
 			{name: "title", content:"Repositories"},
-			{kind: "onyx.Button", content: "+", ontap: "newrepo",classes:"button-style-right", style: "font-size: 20px !important;font-weight: bold;"},
+			{name:"add",kind: "onyx.Button", content: "+", ontap: "newrepo",classes:"button-style-right", style: "font-size: 20px !important;font-weight: bold;"},
 						
 			//{fit: true}
 		]},  
@@ -24,6 +25,10 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
+		
+		  if(this.callBy=="selectFile" || this.callBy=="outputFile"){
+		this.$.add.hide();
+		}
 		 this.$.Spin.show();
 		
 		var ajaxComponent = new enyo.Ajax({
@@ -100,8 +105,20 @@ enyo.kind({
 	    this.$.description.setContent(data.description);
 	},
 	itemTap: function(inSender, inEvent) {
-		this.selected = this.data[inEvent.index];	
+	this.selected = this.data[inEvent.index];
+	
+      if(this.callBy=="outputFile"){
+			var obj = new Object();
+			obj.info = this.selected;
+			obj.name = this.outputfile;
+			this.doSelectedRepository(obj);
+		} 
+	  
+		else
+		{
+       
 		this.doSelectedItem(this.selected);
+		}
 		return true;
 	},
 	newrepo: function(sender, event){

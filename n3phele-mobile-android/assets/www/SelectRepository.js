@@ -24,7 +24,9 @@ enyo.kind({
 	],
 	selectRepository: function(sender, event){
 		// go to the repository list
-		console.log("repository");
+		var obj = new Object();
+		obj.name = this.$.name.getValue();
+        this.doSelectRepository(obj);	
 	},
 	cancelAction:function (sender,event)
 	{  

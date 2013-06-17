@@ -332,10 +332,11 @@ enyo.kind({
 	},
 	addFileInRepository: function(inSender,inEvent){	
 		//close old panels	
+		countOutput = inEvent.index;
 		this.closeSecondaryPanels(2);		
 		console.log(inEvent);
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "SelectRepository", "uid": this.uid, "uri" : inEvent.uri, onSelectRepository: "listRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "SelectRepository", "uid": this.uid, "uri" : inEvent.uri, onSelectRepository: "listOutputRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -348,11 +349,36 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
+	listOutputRepository: function(inSender,inEvent){
+		console.log(inEvent.name);	
+		
+		//close old panels		
+		this.closeSecondaryPanels(2);	
+		//create panel of Repositories to select a file
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "outputFile","outputfile":inEvent.name ,"uri": inEvent.uri, "closePanel": enyo.Panels,onSelectedRepository:"outputFileRepository" ,onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
+	},
 	fileRepository: function(inSender,inEvent){				
 		//close old panels	
-		this.closeSecondaryPanels(4);		
+		this.closeSecondaryPanels(4);
+      			console.log("huehue");
+
+        console.log(inEvent);
+       		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name , onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
+	},
+		outputFileRepository: function(inSender,inEvent){				
+		//close old panels	
+		this.closeSecondaryPanels(4);
+      	
+        console.log(inEvent);
+       		
+		//create panel of files based on repository selected
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.info.uri,"outputfile":inEvent.name ,callBy: "outputFile", "repositoryName" : inEvent.info.name  ,onSelectedRepository : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
@@ -361,10 +387,17 @@ enyo.kind({
 		this.closeSecondaryPanels(5);
 		this.closeSecondaryPanels(4);
 		this.closeSecondaryPanels(3);
-		this.closeSecondaryPanels(2);	
+		this.closeSecondaryPanels(2);
+      if(inEvent.type == "input")		
+		{
 		FilesList[count] = inEvent;
+		}
+		else
+		{
+		 OutputFilesList[countOutput] = inEvent;
+		}
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList,"outputFiles":OutputFilesList ,onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},

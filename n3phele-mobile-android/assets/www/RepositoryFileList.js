@@ -17,10 +17,10 @@ enyo.kind({
 		onSelectedItem: "",
 		onBack: "",
 		onRemoveRepository:"",
-	    onCreateFolder:""
+	    onSelectedRepository:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"},{name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repositories", ontap: "backMenu", container:this.$.toolTop}]},
+		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {name:"delete",kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{name:"add",kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"},{name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repositories", ontap: "backMenu", container:this.$.toolTop}]},
 		{kind: "Scroller", name: "scroll",style:"background:#fff", fit: true, components: [
 		          {name: "panel", components:[{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"}]},
 				  {tag: "br"},
@@ -30,7 +30,15 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-	     
+		
+	     if(this.callBy=="selectFile"){
+			this.$.delete.hide();
+			this.$.add.hide();
+		}
+		 if(this.callBy=="outputFile"){
+			this.$.delete.hide();
+			this.$.add.setContent("Done");
+		}
 		this.updateFilesFromURI(this.uri + "/list");
 
 		
@@ -169,7 +177,20 @@ enyo.kind({
 		this.root = 0;
 	},
 	newFolder: function( sender , event){
-		this.doCreateFolder();
+	console.log("click");
+		if(this.callBy=="outputFile"){
+		var str;
+		  for(var i in this.folders)
+		  {
+		     //if ( i != undefined) str = "/"+i;
+		  }
+		  console.log(str);
+		
+			pathFile={name: this.selected.name, path: this.repositoryName+"://"+ str + "/" +this.selected.name,type:"output"};
+			this.doSelectedRepository(pathFile);
+		}
+	
+		
 		this.root = 0;
 	},
 	setupItem: function(inSender, inEvent) {
@@ -203,10 +224,18 @@ enyo.kind({
 			
 		}
 		if(this.selected.mime != this.folderMime && this.callBy=="selectFile"){
-			pathFile={name: this.selected.name, path: this.repositoryName+":///"+this.selected.name};
+		 	var str = "";
+		  for(var i in this.folders)
+		  {
+		     str = "/"+this.folders[i];
+		  }
+		  console.log(str);
+		
+			pathFile={name: this.selected.name, path: this.repositoryName+"://"+ str + "/" +this.selected.name, type:"input"};
+			console.log(pathFile);
 			this.doSelectedItem(pathFile);
 		}else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
-			console.log("Do Download!");
+			
 		}
 	},
 	folderClicked: function(inSender,inEvent){
