@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>File Repository - Unit Tests</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../generalFunctions.js" type="text/javascript"></script>
+<script src="../N3pheleClient.js" type="text/javascript"></script>
+<script src="../FileRepository.js" type="text/javascript"></script>
+<script>
+
+//Fake data
+var repositoryList = [
+{
+	"name":"swift",
+	"uri":"https://n3phele-dev.appspot.com/resources/repository/122007",
+	"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+	"public":"false",
+	"description":"n3phele public swift repo",
+	"target":"https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/",
+	"root":"n3phele-agent","kind":"Swift"
+},
+{
+	"name":"s3desktop",
+	"uri":"https://n3phele-dev.appspot.com/resources/repository/132003",
+	"owner":"https://n3phele-dev.appspot.com/resources/user/122004",
+	"public":"false",
+	"description":"n3phele desktop on Amazon S3",
+	"target":"https://s3.amazonaws.com",
+	"root":"n3phele-132003","kind":"S3"
+}
+];
+
+var fileList = [
+{
+	mime: "application/octet-stream",
+	modified: "2012-07-28T14:21:02.537Z",
+	name: "addswap",
+	repository: "https://n3phele-dev.appspot.com/resources/repository/174045",
+	repositoryName: "Test",
+	size: "666"
+},
+{
+	mime: "application/vnd.com.n3phele.PublicFolder",
+	name: "archive",
+	repository: "https://n3phele-dev.appspot.com/resources/repository/174045",
+	repositoryName: "Test",
+	size: "0"
+}
+];
+
+//Fake N3pheleClient
+var n3pheleClient = new Object();
+n3pheleClient.listRepositories = function(success, error)
+{
+	success(repositoryList);
+}
+n3pheleClient.listRepositoryFiles = function( object ,success, error)
+{
+	success(fileList);
+}
+var args = new Object();
+args.n3pheleClient = n3pheleClient;
+	
+asyncTest( "get files from repository location", function() {
+	var panel = new FileRepository(args);
+	var repositoryDom = new Object();
+	//json object from server is accessed using this variable
+	repositoryDom.object = function() { return repositoryList[0]; };
+	repositoryDom.reflow = function() {};
+	var addswap = false;
+	var archive = false;
+	//Verify if create component is receiving objects
+	repositoryDom.createComponent = function(object) { if (object.object.name == "addswap") { addswap = true; } if( object.object.name == "archive") { archive = true; } };
+	panel.repositoryTap(repositoryDom);
+	
+	setTimeout(function() {
+		ok( addswap );
+		ok( archive );
+		start();
+	}, 100);
+});
+
+</script>
+</body>
+</html>
