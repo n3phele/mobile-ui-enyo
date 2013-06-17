@@ -1,6 +1,7 @@
 enyo.kind({
 	name: "commandFilesGroup",
 	files: "",
+	output :"",
 	components:[
 		{tag: "br"},
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
@@ -26,7 +27,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], index: i, data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i],outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
 		}
 	}
 });
@@ -56,8 +57,9 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 
-		this.$.files.createComponent({content: this.file.name, style:"padding:4px; font-weight:bold"}).render();		
-		
+		this.$.files.createComponent({content: this.file.name, style:"padding:4px; font-weight:bold"}).render();
+        console.log(this.data);		
+		//this.$.files.createComponent({content:this.outputfile.name,style:"padding:4px;font-weight:bold"}).render();
 		if(this.type == "output"){
 			this.$.btnUp.addClass("btnInactive");
 			this.$.btnDown.addClass("btnActive");			

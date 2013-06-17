@@ -182,11 +182,14 @@ enyo.kind({
 		var str="";
 		  for(var i in this.folders)
 		  {
-		      str = "/"+i;
+		      str = "/"+this.folders[i];
+			  this.folders.pop();
 		  }
 		  console.log(str);
-		
-			pathFile={name: this.selected.name, path: this.repositoryName+"://"+ str + "/" +this.selected.name,type:"output"};
+		  this.folders = new Array();
+		  //console.log(this.folders);
+			pathFile={name: this.outputfile, path: this.repositoryName+"://"+ str + "/" +this.outputfile,type:"output"};
+			console.log(pathFile);
 			this.doSelectedRepository(pathFile);
 		}
 	
