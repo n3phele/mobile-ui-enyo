@@ -49,7 +49,7 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			console.log(this);
+			console.log(this.url);
 				   if (this.menulist == true) 
 			{      if (!enyo.Panels.isScreenNarrow())
 			         {
@@ -59,10 +59,6 @@ enyo.kind({
 					this.$.backbtn.setContent("Menu");
 					
 
-			}
-			else if (this.num == 0)
-			{
-			this.$.backbtn.setContent("Commands");
 			}
 			
 			//If not injected, create a default implementation
@@ -152,17 +148,17 @@ enyo.kind({
 					if(i% 2 == 1){	
 						this.createComponent({tag:"tr", container:this.$.table, components:[	
 							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center;background-color:#F7F7F7", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px;background-color:#F7F7F7", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px;background-color:#F7F7F7", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding:8px 0 8px 5px;background-color:#F7F7F7", content : " "+narrative[i].text}							
+							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding-left:5px;background-color:#F7F7F7", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
+							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding-left:5px;background-color:#F7F7F7", content : " "+narrative[i].tag+":"},						
+							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding:8px 0 8px 5px;background-color:#F7F7F7", content : " "+narrative[i].text}							
 						]}),						
 						this.render();
 					}else if(i% 2 == 0){
 						this.createComponent({tag:"tr", container:this.$.table, components:[	
 							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding:8px 0 8px 5px", content : " "+narrative[i].text}							
+							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding-left:5px", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
+							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding-left:5px", content : " "+narrative[i].tag+":"},						
+							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left:outset #E0E0E3;white-space: normal;padding:8px 0 8px 5px", content : " "+narrative[i].text}							
 						]}),						
 						this.render();
 					}	
