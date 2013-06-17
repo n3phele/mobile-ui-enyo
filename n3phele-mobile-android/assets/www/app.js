@@ -344,7 +344,7 @@ enyo.kind({
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository",onSelectRepository onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
