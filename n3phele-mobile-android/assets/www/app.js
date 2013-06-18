@@ -334,7 +334,6 @@ enyo.kind({
 		//close old panels	
 		countOutput = inEvent.index;
 		this.closeSecondaryPanels(2);		
-		console.log(inEvent);
 		//create panel of files based on repository selected
 		this.createComponent({ kind: "SelectRepository", "uid": this.uid, "uri" : inEvent.uri, onSelectRepository: "listOutputRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
@@ -349,9 +348,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
-	listOutputRepository: function(inSender,inEvent){
-		console.log(inEvent.name);	
-		
+	listOutputRepository: function(inSender,inEvent){		
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
@@ -373,10 +370,7 @@ enyo.kind({
 	},
 		outputFileRepository: function(inSender,inEvent){				
 		//close old panels	
-		this.closeSecondaryPanels(4);
-      	
-        console.log(inEvent);
-       		
+		this.closeSecondaryPanels(4);		
 		//create panel of files based on repository selected
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.info.uri,"outputfile":inEvent.name ,callBy: "outputFile", "repositoryName" : inEvent.info.name  ,onSelectedRepository : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
@@ -397,7 +391,7 @@ enyo.kind({
 		 OutputFilesList[countOutput] = inEvent;
 		}
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList,"outputFiles":OutputFilesList ,onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},

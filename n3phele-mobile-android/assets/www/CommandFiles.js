@@ -27,7 +27,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i],outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
 		}
 	}
 });
@@ -37,6 +37,7 @@ enyo.kind({
 	classes: "commandFilesLine",
 	style:"padding: 1px;",
 	file: "",
+	outputfile: "",
 	index: "",
 	events: {
 		onSelectedItem: "",
@@ -56,14 +57,13 @@ enyo.kind({
 	},
 	create: function(){
 		this.inherited(arguments);
-
-		this.$.files.createComponent({content: this.file.name, style:"padding:4px; font-weight:bold"}).render();
-        console.log(this.data);		
 		//this.$.files.createComponent({content:this.outputfile.name,style:"padding:4px;font-weight:bold"}).render();
 		if(this.type == "output"){
+			this.$.files.createComponent({content: this.outputfile.path, style:"padding:4px; font-weight:bold"}).render();
 			this.$.btnUp.addClass("btnInactive");
 			this.$.btnDown.addClass("btnActive");			
 		}else{//input
+			this.$.files.createComponent({content: this.file.name, style:"padding:4px; font-weight:bold"}).render();
 			this.$.btnUp.addClass("btnActive");
 			this.$.btnDown.addClass("btnInactive");
 		}

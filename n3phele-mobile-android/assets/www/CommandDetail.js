@@ -35,7 +35,6 @@ enyo.kind({
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
 		popup.show();
-		
 		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -48,7 +47,6 @@ enyo.kind({
 		.response(this, function(sender, response){
 			Parameters = response;
 			this.setDynamicData(response);
-			console.log(response);
 			popup.delete();
 		})
 		.error(this, function(){
@@ -95,7 +93,6 @@ enyo.kind({
 		this.$.panelRepo.reflow();
 	},
 	selectRepository: function(sender, event){
-		console.log("Ovelha");
 		this.doOutputFile(event);
 	},
 	tabTap: function( sender, event ){
