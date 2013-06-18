@@ -134,14 +134,12 @@ enyo.kind({
 		var commandOutputFiles = fixArrayInformation(Parameters.outputFiles);
 		console.log(commandOutputFiles);
 
-		for (var i = 0; i < this.files.length; i++) {
-			value = this.files[i].path;
+		for (var i = 0; i < this.outputFiles.length; i++) {
+			value = this.outputFiles[i].path;
 			parameters += '{"name":"'+commandOutputFiles[i].name+'", "type":"File", "value":["'+value+'"]},';
-		};
-		
+		};	
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-
 		console.log(parameters);
 
 		if(this.$.commandExec.getJob()!=""){	
@@ -161,7 +159,6 @@ enyo.kind({
 				object.location = location;
 				object.num = 0;
 				console.log(object);
-	       
 				self.doCommandCreated(object);
 			})
 			.error(this, function(){
