@@ -11,7 +11,7 @@ enyo.kind({
 		onClickItem:""
 	},
 	components:[
-		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newAccount"}, 
+		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newService"}, 
 		{kind: "onyx.Button" ,content: "Services", classes:"button-style-left", ontap: "cancelAction"},
 		{name: "title", content:"New Service", style:"padding-left:20px" }, {fit: true}]},        
 		{kind: "FittableRows", name:"panel", fit: true, components: [
@@ -47,7 +47,37 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	newService: function(sender, event){
-		this.doCreateAcc();
+		
+		var  name = this.$.name.getValue();
+		var arg = "";
+			
+		//request
+		
+		var ajaxParams = {
+				url: serverAddress+"process/exec?action:StackService",
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				method: "POST",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false, 
+			};
+		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
+		ajaxComponent
+		.go({ //We need to test this!!
+			name:name,
+			arg:arg,
+			
+		})
+		.response( this, function(inSender, inResponse){
+		console.log ("Sucesso");
+			
+		}).error( this, function(inSender, inResponse){
+					console.log ("Erro");
+
+		});
+	
+		
+		
+		
 	},
 	setupItem: function(sender, event){
 	   this.$.name.setContent("Service:" + i);
