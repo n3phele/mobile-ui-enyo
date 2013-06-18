@@ -17,7 +17,8 @@ enyo.kind({
 		onSelectedItem: "",
 		onBack: "",
 		onRemoveRepository:"",
-	    onSelectedRepository:""
+	    onSelectedRepository:"",
+		onBackCommand:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {name:"delete",kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{name:"add",kind: "onyx.Button", content: "+",classes: "button-style-right", style: "font-size: 20px !important;font-weight: bold;", ontap: "newFolder"},{name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repositories", ontap: "backMenu", container:this.$.toolTop}]},
@@ -30,6 +31,7 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
+		console.log(this.uri);
 		
 	     if(this.callBy=="selectFile"){
 			this.$.delete.hide();
@@ -38,6 +40,7 @@ enyo.kind({
 		 if(this.callBy=="outputFile"){
 			this.$.delete.hide();
 			this.$.add.setContent("Done");
+			this.$.add.setStyle("font-size: 12px !important");
 		}
 		this.updateFilesFromURI(this.uri + "/list");
 

@@ -16,7 +16,7 @@ var countOutput = 0;
 enyo.kind({
 	name: "com.N3phele",
 	kind: "FittableRows",
-	classes: "enyo-unselectable",
+	classes: "onyx enyo-fit",
 	menu:["Files","Commands","Activity History","Accounts","Services"],	
 	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png","./assets/service.png"],
 	commands: null,
@@ -335,16 +335,17 @@ enyo.kind({
 		countOutput = inEvent.index;
 		this.closeSecondaryPanels(2);		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "SelectRepository", "uid": this.uid, "uri" : inEvent.uri, onSelectRepository: "listOutputRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "SelectRepository", "uid": this.uid, "uri" : inEvent.uri, onSelectRepository: "listOutputRepository", onBack: "fileSelected", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
 	listRepository: function(inSender,inEvent){	
-		count = inEvent.index;
+		count = inEvent.event.index;
+		console.log(inEvent);
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel",onBackCommand:"fileSelected", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -352,7 +353,7 @@ enyo.kind({
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "outputFile","outputfile":inEvent.name ,"uri": inEvent.uri, "closePanel": enyo.Panels,onSelectedRepository:"outputFileRepository" ,onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "outputFile","outputfile":inEvent.name ,"uri": inEvent.uri, "closePanel": enyo.Panels,onSelectedRepository:"outputFileRepository", onBackCommand:"fileSelected" ,onSelectedItem : "fileRepository", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -364,7 +365,7 @@ enyo.kind({
         console.log(inEvent);
        		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected",onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
@@ -372,7 +373,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(4);		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.info.uri,"outputfile":inEvent.name ,callBy: "outputFile", "repositoryName" : inEvent.info.name  ,onSelectedRepository : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.info.uri,"outputfile":inEvent.name ,callBy: "outputFile","repositoryName" : inEvent.info.name  ,onSelectedRepository : "fileSelected", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},

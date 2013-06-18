@@ -91,6 +91,7 @@ enyo.kind({
 		},
 		create: function(){
 			this.inherited(arguments);
+			console.log("tamanho de listSize:" + listSize);
 			var listSize = 15;
 			var thisPanel = this;
             console.log(listSize);

@@ -1,5 +1,4 @@
 var results;
-var listSize = 3;
 enyo.kind({ 
 	name:"Stack",
 	kind: "FittableRows",

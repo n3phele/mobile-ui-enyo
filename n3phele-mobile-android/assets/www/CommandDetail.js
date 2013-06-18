@@ -55,6 +55,7 @@ enyo.kind({
 		});		
 	},
 	setDynamicData: function( data ){
+      //console.log(this.uri);
 		this.$.title.setContent(data.name);
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
@@ -84,14 +85,13 @@ enyo.kind({
 		this.render();
 	},
 	repository: function(sender, event){
-		this.doSelectedFile(event);
+	   var Obj = new Object();
+	   Obj.event = event;
+	   Obj.uri = this.uri;
+	   console.log(Obj);
+		this.doSelectedFile(Obj);
 	},
-	repositorySelected: function(inSender,inEvent){				
-		this.$.repositoryFiles.destroy();
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, "repositoryName" : inEvent.name , onBack: "closeFilePanel", container: this.$.panelRepo }).render();
-		this.reflow();
-		this.$.panelRepo.reflow();
-	},
+	
 	selectRepository: function(sender, event){
 		this.doOutputFile(event);
 	},

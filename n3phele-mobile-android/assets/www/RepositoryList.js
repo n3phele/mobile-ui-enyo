@@ -12,6 +12,7 @@ enyo.kind({
 		onNewRepository: "",
 		onBack: "",
 		onSelectedRepository:"",
+		onBackCommand:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
@@ -100,7 +101,17 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	backMenu: function( sender , event){
-		this.doBack(event);		
+	if(this.callBy=="outputFile")
+	{  
+	  console.log("hue");
+	  this.doBackCommand();
+	}
+	else if(this.callBy="selectFile")
+	{
+	this.doBackCommand();
+	}
+	else
+		this.doBack(event);
 	},
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.
