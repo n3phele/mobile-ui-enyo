@@ -47,24 +47,35 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	newService: function(sender, event){
-		
+		console.log("A");
 		var  name = this.$.name.getValue();
-		var arg = "";
+
 			
 		//request
 		
-		var ajaxParams = {
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=StackService&name=" + name +"&arg=",
+		
+		var ajaxComponent = new enyo.Ajax({
+				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=StackService",
 				//dataType: 'json',
-				//contentType: "application/json",
+				handleAs:"json",
+			
+			
+			/*POST
+				415	Unsupported Media Type	Content-Type			server doesn’t support that content type
+			400	Bad Request				e.g. validation error
+			
+			*/
+			
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
-				contentType: "application/x-www-form-urlencoded",
+				//contentType: "application/x-www-form-urlencoded",
+				contentType: "application/json",
+				postBody: name,
 				sync: false, 
-			};
-		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
-		ajaxComponent
-		.go()
+				
+				
+			}); //connection parameters
+		ajaxComponent.go()
 		.response( this, function(inSender, inResponse){
 		console.log ("Sucesso");
 		}).error( this, function(inSender, inResponse){
