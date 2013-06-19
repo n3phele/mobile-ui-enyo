@@ -54,7 +54,9 @@ enyo.kind({
 		//request
 		
 		var ajaxParams = {
-				url: serverAddress+"process/exec?action:StackService",
+				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=StackService&name=" + name +"&arg=",
+				//dataType: 'json',
+				//contentType: "application/json",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/x-www-form-urlencoded",
@@ -62,14 +64,9 @@ enyo.kind({
 			};
 		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 		ajaxComponent
-		.go({ //We need to test this!!
-			name:name,
-			arg:arg,
-			
-		})
+		.go()
 		.response( this, function(inSender, inResponse){
 		console.log ("Sucesso");
-			
 		}).error( this, function(inSender, inResponse){
 					console.log ("Erro");
 
