@@ -74,7 +74,7 @@ enyo.kind({
 			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
 			}else{
-				this.$.status.setSrc("assets/spinner2.png");
+				this.$.status.setSrc("assets/spinner2.gif");
 			}
 			this.$.activity.setContent(item.name);
 			  

@@ -81,7 +81,9 @@ enyo.kind({
 					thisPanel.$.acStatus.setSrc("assets/failed.png");
 				}else if(response.state === "COMPLETE"){
 					thisPanel.$.acStatus.setSrc("assets/activities.png");
-				}	
+				}else{
+					thisPanel.$.acStatus.setSrc("assets/spinner2.gif");
+				}			
 					
 				if (enyo.Panels.isScreenNarrow()) {
 					thisPanel.$.acStatus.setStyle("float:right;padding-top:10px");
