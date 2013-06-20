@@ -1,9 +1,10 @@
 var results;
-var listSize = 15;
+
 enyo.kind({ 
 	name:"ServiceList",
 	kind: "FittableRows",
 	fit: true,
+	listSize:null,
 	style: "padding: 0px",
 	events: {
 		onCreateService: "",
@@ -22,6 +23,7 @@ enyo.kind({
 	],	
 	create: function(){
 	this.inherited(arguments);
+	listSize = 5;
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
