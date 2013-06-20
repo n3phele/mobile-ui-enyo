@@ -110,7 +110,7 @@ enyo.kind({
 	{
 	this.doBackCommand();
 	}
-	else
+
 		this.doBack(event);
 	},
 	setupItem: function(inSender, inEvent) {

@@ -4,7 +4,8 @@ enyo.kind({
 		result: null,
 		
 		components:[
-			{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
+			{name:"atbar",kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
+			{name:"line",classes:"list-divider"},
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(60*size)+"px", components:[
 				{name: "item", style: "box-shadow: -4px 0px 9px #768BA7",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{kind: "Image", name:"status", classes: "panels-sample-flickr-thumbnail" },
@@ -59,6 +60,14 @@ enyo.kind({
 
 		create: function(){
 			this.inherited(arguments);
+			if (enyo.Panels.isScreenNarrow())
+			{
+			this.$.atbar.hide();
+			}
+			else 
+			{
+			this.$.line.hide();
+			}
 			size = 2;
 			this.getRecentActivities(this.uid);
 		},
