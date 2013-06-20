@@ -39,8 +39,8 @@ enyo.kind({
 						{kind: "onyx.Button", name:"Logout", ontap:"logout", classes:"button-logout", content: "Logout"}
 					]}, //Panel Title
 					{name: "mainMenuPanel", style:"width:95%; margin:auto;", components:[//div to align content
-					    {kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
-						{kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
+					    {name:"n3pheleimg",kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
+						{name:"mainmenupn",kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
 						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*63)+"px", onSetupItem: "setupItemMenu", components: [
 							{name: "menu_item",	ontap: "mainMenuTap", classes: "panels-sample-flickr-item", style: "box-shadow: -4px 0px 9px #768BA7", components: [
 								{name:"menu_image",  kind:"Image", classes: "panels-sample-flickr-thumbnail"},	
@@ -62,8 +62,26 @@ enyo.kind({
 		var popup = new spinnerPopup();
 		popup.show();
 		if (enyo.Panels.isScreenNarrow())
-				this.$.menu_item.addClass("menu");
+		{
+	     this.$.n3pheleimg.hide();
+		 this.$.mainmenupn.hide();
+		}
+		this.$.menu_item.addClass("menu");
+         //test this!
+		 document.addEventListener(("pause"), enyo.bind(this, this.paused), false);
+				
+				
+				
+		var statejson = window.localStorage.getItem("laststate");
 
+   if (statejson) {
+      try {
+         var state = enyo.json.parse(statejson);
+      } catch (e) {
+         // The JSON could not be parsed...
+      }
+   }		
+        
 		this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
 			
 		this.createComponent({
@@ -76,6 +94,17 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				}).render();
 	},
+	
+	
+	//paused func
+	  paused: function()
+   {
+      window.localStorage.setItem("laststate", enyo.json.stringify(this.getState()));
+   },
+	
+	
+	
+	
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
 		this.getActive().destroy();					

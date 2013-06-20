@@ -1,8 +1,8 @@
-var size = 3;
-
+var size=2;
 enyo.kind({ 
 		name:"RecentActivityList",
 		result: null,
+		
 		components:[
 			{kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(60*size)+"px", components:[
@@ -59,6 +59,7 @@ enyo.kind({
 
 		create: function(){
 			this.inherited(arguments);
+			size = 2;
 			this.getRecentActivities(this.uid);
 		},
 		itemTap: function( sender, event){

@@ -3,6 +3,7 @@ enyo.kind({
 		result: null,
 		start:false,
 		fit: true,
+		listSize:null,
 		events: {
 		onBack: "",
 		onClose: "",
@@ -91,8 +92,8 @@ enyo.kind({
 		},
 		create: function(){
 			this.inherited(arguments);
-			console.log("tamanho de listSize:" + listSize);
-			var listSize = 15;
+			//console.log("tamanho de listSize:" + listSize);
+			listSize = 15;
 			var thisPanel = this;
             console.log(listSize);
 			if (this.closePanel.isScreenNarrow()) {
