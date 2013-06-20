@@ -66,10 +66,22 @@ enyo.kind({
 	     this.$.n3pheleimg.hide();
 		 this.$.mainmenupn.hide();
 		}
+		this.$.menu_item.addClass("menu");
+         //test this!
+		 document.addEventListener(("pause"), enyo.bind(this, this.paused), false);
+				
+				
+				
+		var statejson = window.localStorage.getItem("laststate");
 
-		
-				this.$.menu_item.addClass("menu");
-
+   if (statejson) {
+      try {
+         var state = enyo.json.parse(statejson);
+      } catch (e) {
+         // The JSON could not be parsed...
+      }
+   }		
+        
 		this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
 			
 		this.createComponent({
@@ -82,6 +94,17 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				}).render();
 	},
+	
+	
+	//paused func
+	  paused: function()
+   {
+      window.localStorage.setItem("laststate", enyo.json.stringify(this.getState()));
+   },
+	
+	
+	
+	
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
 		this.getActive().destroy();					
