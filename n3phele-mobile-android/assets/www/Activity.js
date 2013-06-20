@@ -1,6 +1,6 @@
 enyo.kind({ 
-		name:"RecentActivityPanel",
-		kind: "FittableRows",
+		name:"RecentActivityPanel",		
+		layoutKind: "FittableRowsLayout",
 		fit: true,
 		a:"", 		
 		events: {
@@ -9,7 +9,7 @@ enyo.kind({
 		components:[
 			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	
 				{content: "Activity", style:"padding-right:15px"}, 
-				{fit: true}, 
+				//fit: true}, 
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
 				{name:"b",style:"background:#fff;padding:10px", components:[
@@ -34,7 +34,7 @@ enyo.kind({
 			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [  
 				{name: "panel_three", classes: "panels-sample-sliding-content", style:"padding-top:0px !important", components:[					
 					{name: "narratives"},
-					{tag:"table border=0 cellspacing=0",name:"table",  components:[]}						
+					{tag:"table border=0 cellspacing=0",fit:true,name:"table",  components:[]}	  //tag:"table border=0 cellspacing=0"					
 				]},
 			]}			
 		],
@@ -154,17 +154,17 @@ enyo.kind({
 					if(i% 2 == 1){	
 						this.createComponent({tag:"tr", container:this.$.table, components:[	
 							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center;background-color:#F7F7F7", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px;background-color:#F7F7F7", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px;background-color:#F7F7F7", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding:8px 0 8px 5px;background-color:#F7F7F7", content : " "+narrative[i].text}							
+							{tag:"td", style:"width:100px;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px;background-color:#F7F7F7", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   "},					
+							//{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px;background-color:#F7F7F7", content : " "+narrative[i].tag+":"},						
+							{tag:"td", style:"font-weight:normal;border-bottom:2px solid rgb(200,200,200);padding:8px 0 8px 5px;background-color:#F7F7F7", content : " "+narrative[i].text}							
 						]}),						
 						this.render();
 					}else if(i% 2 == 0){
 						this.createComponent({tag:"tr", container:this.$.table, components:[	
 							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px", content: "   "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
-							{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding-left:5px", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"width:1500px;font-weight: bold;border-bottom:2px solid rgb(200,200,200);border-left-style:outset;white-space: normal;padding:8px 0 8px 5px", content : " "+narrative[i].text}							
+							{tag:"td", style:"width:100px;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
+							//{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px", content : " "+narrative[i].tag+":"},						
+							{tag:"td", style:"font-weight:normal;border-bottom:2px solid rgb(200,200,200);padding:8px 0 8px 5px", content : " "+narrative[i].text}							
 						]}),						
 						this.render();
 					}	
