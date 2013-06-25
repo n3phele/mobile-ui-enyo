@@ -12,7 +12,7 @@ enyo.kind({
 				//fit: true}, 
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
-				{name:"b",style:"background:#fff;padding:10px", components:[
+				{name:"base",style:"background:#fff;padding:10px 10px 0 10px", components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, 
 					{name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
@@ -31,12 +31,11 @@ enyo.kind({
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"}					
 				]},
-			{kind: "enyo.Scroller", fit: true, style:"background:#FFF",components: [  
-				{name: "panel_three", classes: "panels-sample-sliding-content", style:"padding-top:0px !important", components:[					
-					{name: "narratives"},
-					{tag:"table border=0 cellspacing=0",fit:true,name:"table",  components:[]}	  //tag:"table border=0 cellspacing=0"					
-				]},
-			]}			
+		{kind: "enyo.Scroller",style:"background:#fff", fit: true, components: [	
+			{name: "panel_three", fit:true, style:"background:#FFF", components:[	
+				{name: "narratives"}				
+			]},			
+		]},	
 		],
 		constructor: function(args) {
 			this.inherited(arguments);
@@ -142,7 +141,7 @@ enyo.kind({
 			//fill it up with received data		
 			if( narrative !== undefined && narrative.length > 0)
 			{
-				for( var i in narrative ){					
+				for( var i in narrative ){					  
 						if(narrative[i].state=="info"){
 							this.a = ("assets/info.png");
 						}else if(narrative[i].state=="error"){
@@ -150,24 +149,14 @@ enyo.kind({
 						}else if(narrative[i].state=="warning"){
 							this.a = "assets/narrative-warning.png";
 						}
-					var stamp = new Date(narrative[i].stamp);	
-					if(i% 2 == 1){	
-						this.createComponent({tag:"tr", container:this.$.table, components:[	
-							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center;background-color:#F7F7F7", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:100px;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px;background-color:#F7F7F7", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   "},					
-							//{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px;background-color:#F7F7F7", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"font-weight:normal;border-bottom:2px solid rgb(200,200,200);padding:8px 0 8px 5px;background-color:#F7F7F7", content : " "+narrative[i].text}							
-						]}),						
-						this.render();
-					}else if(i% 2 == 0){
-						this.createComponent({tag:"tr", container:this.$.table, components:[	
-							{tag:"td",  fit: true, style:"width:3%;border-bottom:2px solid rgb(200,200,200);white-space: normal;text-align:center", components:[{kind:"Image",src:this.a}]},						
-							{tag:"td", style:"width:100px;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   "},						
-							//{tag:"td", style:"width:5%;border-bottom:2px solid rgb(200,200,200);white-space: normal;padding-left:5px", content : " "+narrative[i].tag+":"},						
-							{tag:"td", style:"font-weight:normal;border-bottom:2px solid rgb(200,200,200);padding:8px 0 8px 5px", content : " "+narrative[i].text}							
-						]}),						
-						this.render();
-					}	
+					var stamp = new Date(narrative[i].stamp);
+					
+					if(i% 2 == 1){							
+							panel.createComponent({style:"background-color:#F7F7F7;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" , style:"background-color:#F7F7F7", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   ",style:"background-color:#F7F7F7"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:#F7F7F7"}]})
+					}
+					else if(i% 2 == 0){					
+							panel.createComponent({style:"background-color:white;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" ,style:"background-color:white", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   ",style:"background-color:white"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:white"}]})
+					}				
 				}
 			}				
 			panel.render();
