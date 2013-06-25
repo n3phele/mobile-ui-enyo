@@ -12,7 +12,7 @@ enyo.kind({
 				//fit: true}, 
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
-				{name:"b",style:"background:#fff;padding:10px 10px 0 10px", components:[
+				{name:"base",style:"background:#fff;padding:10px 10px 0 10px", components:[
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, 
 					{name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
