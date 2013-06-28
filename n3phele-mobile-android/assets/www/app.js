@@ -41,12 +41,12 @@ enyo.kind({
 					{name: "mainMenuPanel", style:"width:95%; margin:auto;", components:[//div to align content
 					    {name:"n3pheleimg",kind:"Image", src:"assets/cloud-theme.gif", fit: true, style:  "padding-left:30px; padding-top: 15px;"},
 						{name:"mainmenupn",kind: "onyx.Toolbar",classes: "toolbar-style", style: "padding:0",components:[ {content: "Main Menu"},{fit: true}]},					
-						{kind: "List", name: "list", fit: true, touch:true, count:5, style: "height:"+(5*63)+"px", onSetupItem: "setupItemMenu", components: [
+						{kind: "List", name: "list",fit:true,touch:true,touchOverscroll:false, count:5, style: "height:"+(5*63)+"px", onSetupItem: "setupItemMenu", components: [
 							{name: "menu_item",	ontap: "mainMenuTap", classes: "panels-sample-flickr-item", style: "box-shadow: -4px 0px 9px #768BA7", components: [
 								{name:"menu_image",  kind:"Image", classes: "panels-sample-flickr-thumbnail"},	
 								{name: "menu_option", classes: "panels-sample-flickr-title"},
-								{name: "icon2", kind: "onyx.IconButton",classes: "panels-sample-flickr-icon", src: "assets/next.png", ontap: "mainMenuTap"}
-							]}
+								{name: "icon2", kind: "onyx.IconButton",classes: "panels-sample-flickr-icon", src: "assets/next.png", ontap: "mainMenuTap"}								
+							]}							
 						]}
 					]}// end mainMenuPanel
 				]}//end scroller
@@ -68,9 +68,7 @@ enyo.kind({
 		}
 		this.$.menu_item.addClass("menu");
          //test this!
-		 document.addEventListener(("pause"), enyo.bind(this, this.paused), false);
-				
-				
+		 document.addEventListener(("pause"), enyo.bind(this, this.paused), false);				
 				
 		var statejson = window.localStorage.getItem("laststate");
 
