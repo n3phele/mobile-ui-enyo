@@ -1,4 +1,4 @@
-package com.example.other;
+package com.example.n3phele;
 import org.apache.cordova.*;
 
 
@@ -6,16 +6,24 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable.Orientation;
 
+import java.awt.*;
 import com.google.ads.*;
+
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.content.pm.ActivityInfo;
+import java.lang.*;
 
 public class MainActivity extends DroidGap {
-	private static final String AdMob_Ad_Unit = "a151486bf0b55b1";
-	private AdView adView;
-	
+	private static final String AdMob_Ad_Unit = "a151486bf0b55b1";	
+	//private static int SCREEN_ORIENTATION_PORTRAIT;
+	private AdView adView;		
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {	
@@ -38,15 +46,45 @@ public class MainActivity extends DroidGap {
 	}
 	
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
+	public void onConfigurationChanged(Configuration newConfig) {                                                                                                                                                                                                                                         
 	    super.onConfigurationChanged(newConfig);
 
-	    // Checks the orientation of the screen
-	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	        Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	        Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+	   
+	    DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+	    int width = metrics.widthPixels;
+	    int height = metrics.heightPixels;
+	
+	    
+   
+	
+	    if(height<= 480){
+	     
+	    	setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 	    	
 	    }
+	              
+	    }
+	    
+	    
 	}
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

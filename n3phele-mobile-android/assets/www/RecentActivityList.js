@@ -6,7 +6,7 @@ enyo.kind({
 		components:[
 			{name:"atbar",kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
 			{name:"line",classes:"list-divider"},
-			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", count: 1, style: "height:"+(60*size)+"px", components:[
+			{name: "list", kind: "List", classes:"enyo-unselectable",  draggable:false, fit:true,touch:true,touchOverscroll:false, onSetupItem: "setupItem", count: 1, style: "background-color:#fff;height:"+(60*size)+"px", components:[
 				{name: "item", style: "box-shadow: -4px 0px 9px #768BA7",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
 					{kind: "Image", name:"status", classes: "panels-sample-flickr-thumbnail" },
 					{name: "activity", classes: "panels-sample-flickr-title"},
@@ -53,7 +53,7 @@ enyo.kind({
 			}else if(item.state == "FAILED"){
 				this.$.status.setSrc("assets/failed.png");
 			}else{
-				this.$.status.setSrc("assets/spinner2.png");
+				this.$.status.setSrc("assets/spinner2.gif");
 			}
 			this.$.activity.setContent(item.name);
 		},
