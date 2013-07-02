@@ -259,7 +259,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to create a new account
-		this.createComponent({ kind: "AddService", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "AddService", "uid": this.uid, "uri": inEvent.uri, onBack: "refreshServiceList", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
@@ -297,9 +297,10 @@ enyo.kind({
 	},
 	newStack: function(inSender,inEvent){		
 		//close old panels	
+		
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
-		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri, onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri , "service":inEvent,onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -313,9 +314,10 @@ enyo.kind({
 	},
 	stackDetail: function(inSender,inEvent){		
 		//close old panels	
+		
 		this.closeSecondaryPanels(4);
 		//create panel to show stack detail
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, "uri": inEvent.uri, "stack": inEvent, onBack: "closePanel5", container: this.$.panels }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid,  'uri': inSender.data[inEvent.index].uri, "stack": inSender.uri, onBack: "closePanel5", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
@@ -449,6 +451,13 @@ enyo.kind({
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 3;
+		this.mainMenuTap(obj,obj);
+	},
+		refreshServiceList:function(inSender,inEvent)
+	{   
+	   	this.setPanelIndex(1);
+	    var obj = new Object();
+		obj.index = 4;
 		this.mainMenuTap(obj,obj);
 	},
 	refreshCommands:function(inSender,inEvent)

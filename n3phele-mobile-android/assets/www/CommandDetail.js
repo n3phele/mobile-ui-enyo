@@ -47,6 +47,7 @@ enyo.kind({
 		.response(this, function(sender, response){
 			Parameters = response;
 			this.setDynamicData(response);
+			
 			popup.delete();
 		})
 		.error(this, function(){

@@ -24,26 +24,51 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-				
+		
+		
 			this.commands = new Array();
 			this.commandsImages = new Array();
-			stacks = ["jenkins", "cassandra", "hadoop", "mongodb", "mysql", "phpmyadmin", "postgresql", "rails", "joomla", "wordpress"]
-			for(var i in stacks){
-				this.commands.push(stacks[i]);
-			}
 			
-			for(var i in this.commands){
-			this.commandsImages.push("assets/Script.png");
-			}
-			var thisPanel = this;
-			thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
-				commandsImages: this.commandsImages,container: thisPanel.$.panel,
-				retrieveContentData: function(){
-					this.data = createCommandItems(this.commands, this.commandsImages); } 
-				}).render();
-			thisPanel.reflow();
+		stacks = new Array();
+			
+			var ajaxComponent = new enyo.Ajax({
+			url: serverAddress+"command",
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); 
+				
+		ajaxComponent.go()
+		.response(this, function(sender, response){
+	
+			response.elements = fixArrayInformation(response.elements);
+			
+			this.data = response.elements;
+			this.commands = new Array();
+			this.commandsImages = new Array();
+			for( var i in this.data ){//set command list information
+				this.commands.push( this.data[i].name ); //set name
+				this.commandsImages.push("assets/Script.png");
+				stacks.push(this.data[i].name);
+				
+		}		
+		var thisPanel = this;
+		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+			commandsImages: this.commandsImages,
+			retrieveContentData: function(){
+				this.data = createCommandItems(this.commands, this.commandsImages); } 
+			}).render();
+			
+		thisPanel.render();
+		thisPanel.reflow();	
+		})
+		.error(this, function(){
+			console.log("Error to load the list of repositories");
+		});	
 	},
 	itemTap: function(inSender, inEvent) {
+     
 		this.doSelectedStack(inEvent);
 	},
 	backMenu: function(inSender, inEvent) {
