@@ -53,7 +53,7 @@ enyo.kind({
 				this.commandsImages.push("assets/folderG.png");
 		}		
 		var thisPanel = this;
-		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
+		thisPanel.createComponent({name: "IconGallery", classes:"keyframe_2", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 			commandsImages: this.commandsImages,
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 

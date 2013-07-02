@@ -2,6 +2,7 @@ enyo.kind({
 		name:"RecentActivityPanel",		
 		layoutKind: "FittableRowsLayout",
 		fit: true,
+		style:"background-color:#fff",
 		a:"", 		
 		events: {
 		onBack: "",
@@ -31,7 +32,7 @@ enyo.kind({
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"}					
 				]},
-		{kind: "enyo.Scroller",style:"background:#fff", fit: true, components: [	
+		{kind: "enyo.Scroller",style:"background:#fff", classes:"keyframe", fit: true, components: [	
 			{name: "panel_three", fit:true, style:"background:#FFF", components:[	
 				{name: "narratives"}				
 			]},			
@@ -71,7 +72,7 @@ enyo.kind({
 			}
 			//the authentication header
 			this.n3pheleClient.uid = this.uid;
-	
+				
 			var thisPanel = this;
 			this.lastUpdate = 0;
 			var success = function (response) {		
@@ -136,9 +137,9 @@ enyo.kind({
 		//Update the narrative content to the specified panel (reset content)
 		updateNarrative: function(narrative, panel){
 			//clear panel_three
-			panel.destroyClientControls();			
-						
-			//fill it up with received data		
+			panel.destroyClientControls();	
+			
+			//fill it up with received data				
 			if( narrative !== undefined && narrative.length > 0)
 			{
 				for( var i in narrative ){					  
