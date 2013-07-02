@@ -24,7 +24,7 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-			console.log(this.service);
+		
 		
 			this.commands = new Array();
 			this.commandsImages = new Array();
@@ -68,11 +68,7 @@ enyo.kind({
 		});	
 	},
 	itemTap: function(inSender, inEvent) {
-       console.log(inEvent);
-	   /*var Obj = new Object();
-	   Obj.service = this.service;
-	   Obj.ev = inEvent;
-	   console.log(Obj);*/
+     
 		this.doSelectedStack(inEvent);
 	},
 	backMenu: function(inSender, inEvent) {

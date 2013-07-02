@@ -6,6 +6,7 @@ kind: "FittableRows",
 	fit: true,
 	files: "",
 	outputFiles: "",
+	processUri:null,
 
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
@@ -34,8 +35,8 @@ kind: "FittableRows",
 	],
 	create: function(){
 		this.inherited(arguments)
-		console.log("Minha uri:");
-	     console.log(this.stack); //URI 
+	
+	     //console.log(this.stack); // minha URI 
 		var popup = new spinnerPopup();
 		popup.show();
 		
@@ -57,7 +58,26 @@ kind: "FittableRows",
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 			popup.delete();
-		});		
+		});	
+
+     var ajaxComponent = new enyo.Ajax({
+			url: this.stack,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+			}); 
+				
+		ajaxComponent.go()
+		.response(this, function(sender, response){
+		   this.processUri = response.process;
+		  
+			
+		})
+		.error(this, function(){
+			console.log("Error to load the detail of the command!");
+			popup.delete();
+		});				
 	},
 	setDynamicData: function( data ){
       //console.log(this.uri);
@@ -94,7 +114,7 @@ kind: "FittableRows",
 	   var Obj = new Object();
 	   Obj.event = event;
 	   Obj.uri = this.uri;
-	   console.log(Obj);
+	 
 		this.doSelectedFile(Obj);
 	},
 	
@@ -150,7 +170,7 @@ kind: "FittableRows",
 
 		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = new enyo.Ajax({
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent=",
+				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+ this.processUri,
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
