@@ -69,6 +69,7 @@ enyo.kind({
  		
 	},
 	itemTap: function(inSender, inEvent) {
+
 		this.doSelectedCommand(inEvent);
 	},
 	backMenu: function(inSender, inEvent) {

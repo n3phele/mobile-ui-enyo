@@ -1,4 +1,3 @@
-var porco;
 enyo.kind({
 	name: "ServiceDetails",
 	kind: "FittableRows",
@@ -20,7 +19,7 @@ enyo.kind({
 			{kind: "onyx.Button",classes:"button-style-left", content: "Services", ontap: "close"},		
 		{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},
 			{content: "Service", name: "title_1", }]},							
-				{content: "Service foo", name: "service foo", style:"margin: 25px 0 30px 10px"},
+				{content: "Service foo", name: "service", style:"margin: 25px 0 30px 10px"},
 				 
 				 	{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
@@ -39,9 +38,7 @@ enyo.kind({
 				
 			
       
-					/*{name:"reso",kind: "onyx.Button", content: "Resource", style:"width:50%;", ontap:"resource" },		
-
-					{name:"rela",kind: "onyx.Button", content: "Relationship" , style:"width:50%;" , ontap:"relationships" },*/
+					
                 	
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
 					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
@@ -54,6 +51,8 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments)
+	
+		this.$.service.setContent(this.service.name);
 		    this.vnum = 0;		
 			this.$.Spin.show();
 			this.commands = new Array();
@@ -81,7 +80,8 @@ enyo.kind({
 	},
 	
 	newStack: function(inSender, inEvent) {
-		this.doCreateStack();
+	   //console.log(this.service);
+		this.doCreateStack(this.service);
 	},
 	
 	close: function(inSender, inEvent){

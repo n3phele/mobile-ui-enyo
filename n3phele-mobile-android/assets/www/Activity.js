@@ -71,7 +71,7 @@ enyo.kind({
 			}
 			//the authentication header
 			this.n3pheleClient.uid = this.uid;
-				
+		    console.log(this.n3pheleClient.uid);
 			var thisPanel = this;
 			this.lastUpdate = 0;
 			var success = function (response) {		

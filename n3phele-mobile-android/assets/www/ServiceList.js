@@ -1,10 +1,9 @@
-var results;
 
 enyo.kind({ 
 	name:"ServiceList",
 	kind: "FittableRows",
 	fit: true,
-	listSize:null,
+	results:null,
 	style: "padding: 0px",
 	events: {
 		onCreateService: "",
@@ -23,19 +22,30 @@ enyo.kind({
 	],	
 	create: function(){
 	this.inherited(arguments);
-	listSize = 5;
+          var listSize;
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
 		}
-		this.$.list.setCount(listSize);
+			var ajaxParams = {
+				url: "https://n3phele-dev.appspot.com/resources/action/stackServiceActions",
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				method: "GET",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false, 
+			};	
+			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters		
+			ajaxComponent
+			.go()
+			.response( this, "processRecentActivities" )
+			.error( this, function(){ console.log("Error to load recent activities!!"); });
 		results = new Array();
 	},
 	selectedAccount: function(sender, event){
 	//Service details will have the delete opt
-	   var obj =  new Object();
-		obj.name = results[event.index];
-		this.doClickService(obj);
+
+		
+		this.doClickService(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;
@@ -58,8 +68,8 @@ enyo.kind({
 		this.doCreateService();
 	},
 	setupItem: function(sender, event){
-	   this.$.name.setContent("Service:" + event.index);
-	   results.push(this.$.name.getContent());
+	   this.$.name.setContent(listSize[event.index].name);
+	   results.push(listSize[event.index]);
 	   
 	   if( event.index % 2 == 1)
 	   {
@@ -75,6 +85,21 @@ enyo.kind({
 //			]});
 		//}
 	  },
+	  
+	  processRecentActivities: function( request, response){		
+			if(response.total == 0){
+				this.$.divider.setContent("Without Services!");
+				this.$.list.applyStyle("display", "none !important");
+				this.reflow();
+				return; 
+			}
+			response.elements = fixArrayInformation(response.elements);
+			listSize = response.elements;
+			//console.log(listSize);
+			this.$.list.setCount(listSize.length);
+		    this.$.list.reset();
+			
+		},
 	backMenu: function (sender, event){
 		this.doBack();
 	}
