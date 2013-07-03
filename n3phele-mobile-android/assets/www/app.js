@@ -300,7 +300,7 @@ enyo.kind({
 		
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
-		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri , "service":inEvent,onSelectedStack: "stackDetail", onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri , "service":inEvent,onSelectedStack: "stackTap", onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -312,15 +312,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
-	stackDetail: function(inSender,inEvent){		
-		//close old panels	
-		
-		this.closeSecondaryPanels(4);
-		//create panel to show stack detail
-		this.createComponent({ kind: "StackDetails", "uid": this.uid,  'uri': inSender.data[inEvent.index].uri, "stack": inSender.uri, onBack: "closePanel5", container: this.$.panels }).render();
-		this.$.panels.reflow();
-		this.$.panels.setIndex(5);
-	},
+
 	accountDetail: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);		
@@ -420,6 +412,7 @@ enyo.kind({
 		{
 		 OutputFilesList[countOutput] = inEvent;
 		}
+		console.log(this.$.CommandData.uri);
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
@@ -487,6 +480,21 @@ enyo.kind({
 		
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted" }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+		this.$.CommandData = inSender.data[inEvent.index];
+		//inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
+	},
+		stackTap: function(inSender, inEvent) {
+		//check if command information is set
+		if( !( inEvent.index in inSender.data ) ){
+			alert("There is not commands in the database!");
+			return;
+		}
+		this.closeSecondaryPanels(2);//close old panels
+		
+		//create panel of details by selected Command 
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri, onBack: "closePanel" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];

@@ -36,7 +36,7 @@ kind: "FittableRows",
 	create: function(){
 		this.inherited(arguments)
 	
-	     //console.log(this.stack); // minha URI 
+	     console.log(this.stack); // minha URI 
 		var popup = new spinnerPopup();
 		popup.show();
 		
@@ -51,7 +51,7 @@ kind: "FittableRows",
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			Parameters = response;
-			console.log(response);
+			//console.log(response);
 			this.setDynamicData(response);
 			popup.delete();
 		})
@@ -71,8 +71,8 @@ kind: "FittableRows",
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 		   this.processUri = response.process;
-		  
-			
+		    console.log("minha uri:");
+			console.log(this.processUri);
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
@@ -177,10 +177,11 @@ kind: "FittableRows",
 				postBody: parameters,
 				sync: false, 
 				}); 
-			
+		
 			ajaxComponent.go()
 			.response(this, function(sender, response){
-				var location = sender.xhrResponse.headers.location;
+			console.log(response);
+			    var location = sender.xhrResponse.headers.location;
 				var object = new Object();
 				object.location = location;
 				object.num = 0;
