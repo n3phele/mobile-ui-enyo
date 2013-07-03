@@ -61,7 +61,7 @@ enyo.kind({
 		this.inherited(arguments);
 		var popup = new spinnerPopup();
 		popup.show();
-		if (enyo.Panels.isScreenNarrow())
+		if (enyo.Panels.isScreenNarrow() && (document.width < 400))
 		{
 	     this.$.n3pheleimg.hide();
 		 this.$.mainmenupn.hide();

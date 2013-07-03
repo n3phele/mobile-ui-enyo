@@ -52,7 +52,10 @@ enyo.kind({
 			]},
 			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;" ,components:[       	
 			 ]},
-			 {kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto;background-image:-webkit-linear-gradient(top,#B5404A 100%,#9E0919 100%) !important" ,content: "Delete Account", ontap: "removeAccount"}			
+			 
+			{name: "buttons",style:"text-align:center",  components:[  		
+				{kind: "onyx.Button",  classes:"button-newStack",  style:"width:98%;height:40px;margin:1em auto;background-image:-webkit-linear-gradient(top,#B5404A 100%,#9E0919 100%) !important" ,content: "Delete Account", ontap: "removeAccount"}			
+			]},
 			]},
           			
 	],

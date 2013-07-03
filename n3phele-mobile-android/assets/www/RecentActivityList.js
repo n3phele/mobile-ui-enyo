@@ -60,7 +60,7 @@ enyo.kind({
 
 		create: function(){
 			this.inherited(arguments);
-			if (enyo.Panels.isScreenNarrow())
+			if (enyo.Panels.isScreenNarrow() && (document.width < 400))
 			{
 			this.$.atbar.hide();
 			}
