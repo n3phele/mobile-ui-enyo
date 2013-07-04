@@ -217,7 +217,7 @@ enyo.kind({
 			//close old panels	
 		this.closeSecondaryPanels(4);		
 		//create panel to show selected activity	
-         console.log(event);		
+       	
 		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);	
@@ -332,7 +332,6 @@ enyo.kind({
 		this.$.panels.setIndex(4);	
 	
 	  //console.log(sender);
-	  console.log(inEvent.name);
 	},
 	removeAccount: function(inSender,inEvent)
 	{
@@ -362,7 +361,7 @@ enyo.kind({
 	},
 	listRepository: function(inSender,inEvent){	
 		count = inEvent.event.index;
-		console.log(inEvent);
+		
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
@@ -381,9 +380,7 @@ enyo.kind({
 	fileRepository: function(inSender,inEvent){				
 		//close old panels	
 		this.closeSecondaryPanels(4);
-      			console.log("huehue");
 
-        console.log(inEvent);
        		
 		//create panel of files based on repository selected
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected",onBack: "closeFilePanel", container: this.$.panels }).render();
@@ -412,7 +409,7 @@ enyo.kind({
 		{
 		 OutputFilesList[countOutput] = inEvent;
 		}
-		console.log(this.$.CommandData.uri);
+		
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
