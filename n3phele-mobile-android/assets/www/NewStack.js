@@ -26,6 +26,7 @@ enyo.kind({
 		this.inherited(arguments)
 		
 		
+		
 			this.commands = new Array();
 			this.commandsImages = new Array();
 			

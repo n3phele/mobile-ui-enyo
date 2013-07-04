@@ -21,6 +21,7 @@ enyo.kind({
 	menuImages:["./assets/files.png","./assets/commands.png","./assets/activityHistory.png","./assets/accounts.png","./assets/service.png"],
 	commands: null,
 	commandsImages : null,
+	serviceaction:null,
 	published: {
 		trackedRow: -1
 	},
@@ -369,6 +370,16 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
+		listRepository2: function(inSender,inEvent){	
+		count = inEvent.event.index;
+		
+		//close old panels		
+		this.closeSecondaryPanels(2);	
+		//create panel of Repositories to select a file
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository2", onBack: "closeFilePanel",onBackCommand:"fileSelected", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
+	},
 	listOutputRepository: function(inSender,inEvent){		
 		//close old panels		
 		this.closeSecondaryPanels(2);	
@@ -387,6 +398,16 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
+		fileRepository2: function(inSender,inEvent){				
+		//close old panels	
+		this.closeSecondaryPanels(4);
+
+       		
+		//create panel of files based on repository selected
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
+	},
 		outputFileRepository: function(inSender,inEvent){				
 		//close old panels	
 		this.closeSecondaryPanels(4);		
@@ -397,6 +418,8 @@ enyo.kind({
 	},
 	fileSelected: function(inSender,inEvent){
 		//close old panels		
+		
+		console.log("problema");
 		this.closeSecondaryPanels(5);
 		this.closeSecondaryPanels(4);
 		this.closeSecondaryPanels(3);
@@ -412,6 +435,28 @@ enyo.kind({
 		
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
+	},
+		fileSelected2: function(inSender,inEvent){
+		//close old panels		
+		
+		console.log("problema");
+		this.closeSecondaryPanels(5);
+		this.closeSecondaryPanels(4);
+		this.closeSecondaryPanels(3);
+		this.closeSecondaryPanels(2);
+      if(inEvent.type == "input")		
+		{
+		FilesList[count] = inEvent;
+		}
+		else
+		{
+		 OutputFilesList[countOutput] = inEvent;
+		}
+		
+		//create panel of details by selected Command 
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository2", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" , "stack":serviceaction }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -489,9 +534,9 @@ enyo.kind({
 			return;
 		}
 		this.closeSecondaryPanels(2);//close old panels
-		
+		serviceaction = inSender.uri;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri, onBack: "closePanel" }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri, onBack: "closePanel" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];

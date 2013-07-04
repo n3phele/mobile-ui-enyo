@@ -2,6 +2,7 @@ enyo.kind({
 	name: "ServiceDetails",
 	kind: "FittableRows",
 	data: [],
+	id:null,
 	commands: null,
 	commandsImages : null,
 	stacks:null,
@@ -51,6 +52,14 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments)
+		
+		
+		console.log(this.service.uri);
+	    id = this.service.uri;
+		id=id.split("/");
+		id = id.pop();
+		console.log(id);
+		
 		var stacks;
 	    var ajaxComponent = new enyo.Ajax({
 			url: this.service.uri,
@@ -140,9 +149,10 @@ enyo.kind({
 	},
 	itemTap: function(inSender, inEvent) {
 		//this.doSelectedStack(inEvent);
-		
+		console.log("minha id:" + id);
 		var obj =  new Object();
 		obj.name = inEvent.name;
+		obj.id = id;
 		obj.vnum = this.vnum;
 		//console.log(obj);
 			this.doSelectedStack(obj);

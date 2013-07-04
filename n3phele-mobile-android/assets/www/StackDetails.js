@@ -36,7 +36,8 @@ kind: "FittableRows",
 	create: function(){
 		this.inherited(arguments)
 	
-	     
+	     console.log("AA");
+		 console.log(this.stack);
 		var popup = new spinnerPopup();
 		popup.show();
 		

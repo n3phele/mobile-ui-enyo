@@ -35,6 +35,7 @@ enyo.kind({
 	],	
 	create: function(){
 	this.inherited(arguments);
+	console.log(this.stack);
 			var thisPanel = this;
 			var listSize = 5;
 		this.$.title.setContent(this.stack.name);
