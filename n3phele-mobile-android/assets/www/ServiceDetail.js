@@ -51,20 +51,40 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments)
-	
-		this.$.service.setContent(this.service.name);
-		    this.vnum = 0;		
-			this.$.Spin.show();
-			this.commands = new Array();
+		var stacks;
+	    var ajaxComponent = new enyo.Ajax({
+			url: this.service.uri,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+			}); 
+				
+		ajaxComponent.go()
+		.response(this, function(sender, response){
+		  stacks = response.stacks
+		  this.commands = new Array();
 			this.commandsImages = new Array();
-			stacks = ["Stack01", "Stack02", "Stack03", "StackXY"]
+			
 			for(var i in stacks){
-				this.commands.push(stacks[i]);
+				this.commands.push(stacks[i].name);
 			}
 			for(var i in this.commands){
 			this.commandsImages.push("assets/folder.png");
 			}
 			this.showData();
+			
+		})
+		.error(this, function(){
+			console.log("Error to load the detail of the command!");
+			popup.delete();
+		});					
+	
+		
+		this.$.service.setContent(this.service.name);
+		    this.vnum = 0;		
+			this.$.Spin.show();
+			
 	
 	},
 	showData:function()
