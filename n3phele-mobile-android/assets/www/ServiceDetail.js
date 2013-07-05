@@ -2,9 +2,11 @@ enyo.kind({
 	name: "ServiceDetails",
 	kind: "FittableRows",
 	data: [],
+	id:null,
 	commands: null,
 	commandsImages : null,
 	stacks:null,
+	action: null,
 	vnum:null,
 	style:"background:#fff",
 	events: {
@@ -35,24 +37,19 @@ enyo.kind({
 		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}
 				  
 				]},	
-				
-			
-      
-					
-                	
+    	
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
 					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
 					{name:"rela",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
-				]},
-			
-		
-		
-		
+				]},		
 	],	
 	create: function(){
 		this.inherited(arguments)
+	
 		var stacks;
-	    var ajaxComponent = new enyo.Ajax({
+		
+
+		var ajaxComponent = new enyo.Ajax({
 			url: this.service.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -61,31 +58,16 @@ enyo.kind({
 			}); 
 				
 		ajaxComponent.go()
-		.response(this, function(sender, response){
-		  stacks = response.stacks
-		  this.commands = new Array();
-			this.commandsImages = new Array();
-			
-			for(var i in stacks){
-				this.commands.push(stacks[i].name);
-			}
-			for(var i in this.commands){
-			this.commandsImages.push("assets/folder.png");
-			}
-			this.showData();
-			
-		})
+		.response(this, "stackList")
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 			popup.delete();
-		});					
-	
-		
+		});		
+
 		this.$.service.setContent(this.service.name);
-		    this.vnum = 0;		
-			this.$.Spin.show();
-			
-	
+		this.vnum = 0;		
+		this.$.Spin.show();
+
 	},
 	showData:function()
 	{
@@ -100,8 +82,10 @@ enyo.kind({
 	},
 	
 	newStack: function(inSender, inEvent) {
-	   //console.log(this.service);
-		this.doCreateStack(this.service);
+	   
+	   var obj = new Object();
+	   obj.uri = this.action;
+		this.doCreateStack(obj);
 	},
 	
 	close: function(inSender, inEvent){
@@ -140,12 +124,47 @@ enyo.kind({
 	},
 	itemTap: function(inSender, inEvent) {
 		//this.doSelectedStack(inEvent);
-		
+		console.log("minha id:" + id);
 		var obj =  new Object();
 		obj.name = inEvent.name;
+		obj.id = id;
 		obj.vnum = this.vnum;
 		//console.log(obj);
 			this.doSelectedStack(obj);
 	},
+	stackList: function(sender, response){
+		this.action = response.action;
+		
+		id = this.action;
+		id= id.split("/");
+		id = id.pop();
+		console.log(response);
+		var ajax = new enyo.Ajax({
+			url: response.action,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+			}); 
+				
+		ajax.go()
+		.response(this, function(sender, response){
+		  stacks = response.stacks
+		  this.commands = new Array();
+			this.commandsImages = new Array();
+			
+			for(var i in stacks){
+				this.commands.push(stacks[i].name);
+			}
+			for(var i in this.commands){
+			this.commandsImages.push("assets/folder.png");
+			}
+			this.showData();
+			
+		})
+		.error(this, function(){
+			console.log("Error to load the detail of the command!");
+		});					
+	}
 	
 });

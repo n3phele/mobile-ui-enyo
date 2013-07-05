@@ -38,5 +38,6 @@ enyo.depends(
 	"EditAccount.js",
 	"CommandList.js",
 	"Activity.js",
-	"SelectRepository.js"
+	"SelectRepository.js",
+	"Relationship.js"
 );

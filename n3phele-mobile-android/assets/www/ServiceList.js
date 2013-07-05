@@ -14,7 +14,7 @@ enyo.kind({
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px !important;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
 	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedService", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
@@ -28,7 +28,7 @@ enyo.kind({
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
 		}
 			var ajaxParams = {
-				url: "https://n3phele-dev.appspot.com/resources/action/stackServiceActions",
+				url: "https://n3phele-dev.appspot.com/resources/process/activeServiceActions",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "GET",
 				contentType: "application/x-www-form-urlencoded",
@@ -37,14 +37,12 @@ enyo.kind({
 			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters		
 			ajaxComponent
 			.go()
-			.response( this, "processRecentActivities" )
+			.response( this, "processActions" )
 			.error( this, function(){ console.log("Error to load recent activities!!"); });
 		results = new Array();
 	},
-	selectedAccount: function(sender, event){
+	selectedService: function(sender, event){
 	//Service details will have the delete opt
-
-		
 		this.doClickService(results[event.index]);
 	},
 	closePanel: function(inSender, inEvent){
@@ -79,14 +77,10 @@ enyo.kind({
 	   {
 	   this.$.item.applyStyle("background-color", "white")
 	   };
-	  // if(results.length > listSize){
-	  // this.$.list.createComponent({name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
-	//				{kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreServ"},
-//			]});
-		//}
+
 	  },
 	  
-	  processRecentActivities: function( request, response){		
+	  processActions: function( request, response){		
 			if(response.total == 0){
 				this.$.divider.setContent("Without Services!");
 				this.$.list.applyStyle("display", "none !important");
@@ -95,7 +89,6 @@ enyo.kind({
 			}
 			response.elements = fixArrayInformation(response.elements);
 			listSize = response.elements;
-			//console.log(listSize);
 			this.$.list.setCount(listSize.length);
 		    this.$.list.reset();
 			

@@ -468,3 +468,247 @@ box-align:center;
 		margin-left:15px;
 	}
 }
+
+/*MEDIA QUERIES FOR STACK EXAMPLE*/
+
+/* for 1600px or less */
+@media screen and (max-width: 1600px) {	
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:97%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 1280px or less */
+@media screen and (max-width: 1280px) {	
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:97%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 1024px or less (IPad landscape)*/
+@media screen and (max-width: 1024px){
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:96%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 800px or less */
+@media screen and (max-width: 800px) {	
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:94%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 768px or less (IPad portrait)*/
+@media screen and (max-width: 768px){
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:94%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 720px or less */
+@media screen and (max-width: 720px) {	
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:50px 0 0 20px;
+		border-radius:8px 8px;
+		width:94%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:140px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.styled-select {
+		width: 96% !important;
+		height: 34px !important;
+		max-width:95%;   
+		overflow: hidden !important;
+		background: url("assets/new_arrow.png")no-repeat right !important;    
+		margin-bottom:10px;
+		border-radius:6px;
+		border: 1px solid #9A9A9A;
+		background-color:#fff !important;		
+	}
+	.input{
+		margin:25px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
+/* for 350px or less (IPhone and Android landscape)*/
+@media screen and (max-width: 350px){
+	.containerDrop{
+		border:1px solid #768BA7;
+		background-color:#768BA7;
+		text-align:center;
+		margin:28px 0 0 20px;
+		border-radius:8px 8px;
+		width:87%;
+		height:250px;
+	}
+	.containerSelect{
+		border:1px solid #768BA7;
+		margin:26px 20px 0 20px;
+		background-color:#768BA7;
+		border-radius:8px 8px;				
+	}
+	.input{
+		margin:25px 10px 25px 10px;
+		display: block;
+		border-radius:6px 6px;
+		background-color:#fff
+	}	
+}
+
