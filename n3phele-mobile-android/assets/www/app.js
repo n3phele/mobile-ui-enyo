@@ -546,7 +546,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 		serviceaction = inSender.uri;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri, onBack: "closePanel" }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri, onBack: "closePanel4" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];
