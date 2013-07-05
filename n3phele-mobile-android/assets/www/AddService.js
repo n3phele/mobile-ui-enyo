@@ -50,7 +50,7 @@ enyo.kind({
 		var  name = this.$.name.getValue();
 		var postJson = "{}";
 		var ajaxComponent = new enyo.Ajax({
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=StackService&name="+name+"&arg=&parent=",
+				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=&parent=",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
