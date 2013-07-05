@@ -84,6 +84,8 @@ enyo.kind({
 		//this.$.comScroll.render();
 		this.$.params.reflow();
 		this.render();
+		
+
 	},
 	repository: function(sender, event){
 	   var Obj = new Object();

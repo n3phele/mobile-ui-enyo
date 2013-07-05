@@ -6,8 +6,9 @@ enyo.kind({
 	fit: true,
 
 	results:null,
-	style: "padding: 0px",
+	style: "padding: 0px;background-color:#fff",
 	events: {
+	    onCreateRelationship: "",
 		onCreateService: "",
 		onRemoveService: "",
 		onClickService:"",
@@ -44,8 +45,8 @@ enyo.kind({
 		console.log(this.stack);
 		if(this.stack.vnum == 1)
 		{
-		this.$.b1.setContent("Add database");
-		this.$.b2.setContent("Add load balancer");
+		this.$.b1.setContent("Add Relationship");
+		this.$.b2.hide();		
 		}
 		else
 		{
@@ -98,5 +99,10 @@ enyo.kind({
 	  },
 	backMenu: function (sender, event){
 		this.doBack();
-	}
+	},
+	addNode: function(inSender, inEvent){
+		if(this.stack.vnum == 1){
+			this.doCreateRelationship();	
+		}
+	}	
 });

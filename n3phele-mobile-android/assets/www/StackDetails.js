@@ -5,6 +5,7 @@ enyo.kind({
 kind: "FittableRows",
 	fit: true,
 	files: "",
+	myurl:null,
 	outputFiles: "",
 	processUri:null,
 
@@ -36,8 +37,8 @@ kind: "FittableRows",
 	create: function(){
 		this.inherited(arguments)
 	
-	     console.log("AA");
-		 console.log(this.stack);
+	     
+		 //console.log(this.stack);
 		var popup = new spinnerPopup();
 		popup.show();
 		
@@ -108,6 +109,10 @@ kind: "FittableRows",
 		//this.$.comScroll.render();
 		this.$.params.reflow();
 		this.render();
+		
+		
+		
+		
 	},
 	repository: function(sender, event){
 	   var Obj = new Object();
@@ -166,10 +171,26 @@ kind: "FittableRows",
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
 		console.log(parameters);
+		
+		// resources/process/deleteStackService?id=1239014
+			
+		//deletethis
+			if(this.$.title.getContent() == "deleteJujuService")
+		{ 
+		myurl = "https://n3phele-dev.appspot.com/resources/process/deleteStackService?id=1239014";
+	
+	
+		}
+		else
+		{
+		  myurl = "https://n3phele-dev.appspot.com/resources/process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+ this.processUri;
+		
+		}
+	
 
 		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = new enyo.Ajax({
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+ this.processUri,
+				url: myurl,
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
