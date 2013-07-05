@@ -82,7 +82,7 @@ enyo.kind({
 	},
 	
 	newStack: function(inSender, inEvent) {
-	   //console.log(this.service);
+	   
 	   var obj = new Object();
 	   obj.uri = this.action;
 		this.doCreateStack(obj);

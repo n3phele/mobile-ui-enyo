@@ -38,7 +38,7 @@ kind: "FittableRows",
 		this.inherited(arguments)
 	
 	     
-		 //console.log(this.stack);
+		
 		var popup = new spinnerPopup();
 		popup.show();
 		
@@ -106,7 +106,7 @@ kind: "FittableRows",
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
 		this.$.info.destroy();
-		//this.$.comScroll.render();
+		
 		this.$.params.reflow();
 		this.render();
 		
