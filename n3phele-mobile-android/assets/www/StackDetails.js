@@ -177,13 +177,13 @@ kind: "FittableRows",
 		//deletethis
 			if(this.$.title.getContent() == "deleteJujuService")
 		{ 
-		myurl = "https://n3phele-dev.appspot.com/resources/process/deleteStackService?id=1239014";
+		myurl = serverAddress+"process/deleteStackService?id=1239014";
 	
 	
 		}
 		else
 		{
-		  myurl = "https://n3phele-dev.appspot.com/resources/process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+ this.processUri;
+		  myurl = serverAddress+"process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+ this.processUri;
 		
 		}
 	

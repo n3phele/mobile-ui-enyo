@@ -28,7 +28,7 @@ enyo.kind({
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
 		}
 			var ajaxParams = {
-				url: "https://n3phele-dev.appspot.com/resources/process/activeServiceActions",
+				url: serverAddress+"process/activeServiceActions",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "GET",
 				contentType: "application/x-www-form-urlencoded",
