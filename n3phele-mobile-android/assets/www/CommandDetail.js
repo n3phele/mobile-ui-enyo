@@ -147,7 +147,7 @@ enyo.kind({
 
 		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = new enyo.Ajax({
-				url: "https://n3phele-dev.appspot.com/resources/process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
+				url: serverAddress+"process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
