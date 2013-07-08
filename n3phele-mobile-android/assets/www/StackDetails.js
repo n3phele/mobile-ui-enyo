@@ -37,8 +37,6 @@ kind: "FittableRows",
 	create: function(){
 		this.inherited(arguments)
 	
-	     
-		
 		var popup = new spinnerPopup();
 		popup.show();
 		
@@ -146,15 +144,14 @@ kind: "FittableRows",
 		var parameters = '{"Variable":[';
 
 		for(var i in Parameters.executionParameters){
-			console.log(Parameters.executionParameters[i].name);
-			console.log(Parameters.executionParameters[i].type);
+		
 			value = this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name);
 			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
 			Parameters.executionParameters[i].type+'", "value":["'+value+'"]},';
 		}
 
 		var commandFiles = fixArrayInformation(Parameters.inputFiles);
-		console.log(commandFiles);
+	
 
 		for (var i = 0; i < this.files.length; i++) {
 			value = this.files[i].path;
@@ -162,7 +159,6 @@ kind: "FittableRows",
 		};
 
 		var commandOutputFiles = fixArrayInformation(Parameters.outputFiles);
-		console.log(commandOutputFiles);
 
 		for (var i = 0; i < this.outputFiles.length; i++) {
 			value = this.outputFiles[i].path;
@@ -170,14 +166,14 @@ kind: "FittableRows",
 		};	
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-		console.log(parameters);
+	
 		
 		// resources/process/deleteStackService?id=1239014
 			
 		//deletethis
 			if(this.$.title.getContent() == "deleteJujuService")
 		{ 
-		myurl = serverAddress+"process/deleteStackService?id=1239014";
+		myurl = serverAddress+"process/deleteStackService?id="+this.id;
 	
 	
 		}
