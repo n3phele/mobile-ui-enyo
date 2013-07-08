@@ -85,6 +85,7 @@ enyo.kind({
 	   
 	   var obj = new Object();
 	   obj.uri = this.action;
+	   obj.id = id;
 		this.doCreateStack(obj);
 	},
 	
@@ -124,12 +125,11 @@ enyo.kind({
 	},
 	itemTap: function(inSender, inEvent) {
 		//this.doSelectedStack(inEvent);
-		console.log("minha id:" + id);
+		
 		var obj =  new Object();
 		obj.name = inEvent.name;
 		obj.id = id;
 		obj.vnum = this.vnum;
-		//console.log(obj);
 			this.doSelectedStack(obj);
 	},
 	stackList: function(sender, response){
@@ -138,7 +138,6 @@ enyo.kind({
 		id = this.action;
 		id= id.split("/");
 		id = id.pop();
-		console.log(response);
 		var ajax = new enyo.Ajax({
 			url: response.action,
 			headers:{ 'authorization' : "Basic "+ this.uid},
