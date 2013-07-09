@@ -26,7 +26,7 @@ enyo.kind({
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
 		     this.createComponent({kind: "onyx.Button", classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolBar}).render();
-		}
+		} 
 			var ajaxParams = {
 				url: serverAddress+"process/activeServiceActions",
 				headers:{ 'authorization' : "Basic "+ this.uid},
@@ -58,7 +58,6 @@ enyo.kind({
 			else {
 				panel.setIndex(0);
 			}		
-			
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
@@ -85,13 +84,13 @@ enyo.kind({
 				this.$.divider.setContent("Without Services!");
 				this.$.list.applyStyle("display", "none !important");
 				this.reflow();
+				
 				return; 
 			}
 			response.elements = fixArrayInformation(response.elements);
 			listSize = response.elements;
 			this.$.list.setCount(listSize.length);
 		    this.$.list.reset();
-			
 		},
 	backMenu: function (sender, event){
 		this.doBack();

@@ -59,9 +59,7 @@ enyo.kind({
 	//Service details will have the delete opt
 	   var obj =  new Object();
 		obj.name = results[event.index];
-		this.doClickService(obj);
-		
-		
+		this.doClickService(obj);	
 	},
 	
 	newService: function(sender, event){
@@ -71,7 +69,7 @@ enyo.kind({
 	  if(this.stack.vnum == 0)
      {
 	  this.$.name.setContent("VM:" + event.index);
-	   results.push(this.$.name.getContent());
+	   
 	 }
      else
 	 {

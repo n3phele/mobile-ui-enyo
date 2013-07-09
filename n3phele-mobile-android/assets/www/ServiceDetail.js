@@ -8,6 +8,7 @@ enyo.kind({
 	stacks:null,
 	action: null,
 	vnum:null,
+	relations: null,
 	style:"background:#fff",
 	events: {
 		onCreateStack: "",
@@ -22,22 +23,18 @@ enyo.kind({
 		{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},
 			{content: "Service", name: "title_1", }]},							
 				{content: "Service foo", name: "service", style:"margin: 25px 0 30px 10px"},
-				 
+				 {name: "searchBar", components: [ 
 				 	{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
 					{kind: "onyx.Button",classes:"button-search-style", ontap: "search", components: [
 						{kind: "onyx.Icon", src: "http://nightly.enyojs.com/latest/sampler/assets/search-input-search.png"}
 					]}
-				]}, 
-						
-		
+				]}
+				]},
 			{name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
-
 		{kind: "Scroller", name: "scroll", fit: true, components: [
-		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}
-				  
+		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}, 
 				]},	
-    	
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
 					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
 					{name:"rela",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
@@ -48,7 +45,6 @@ enyo.kind({
 	
 		var stacks;
 		
-
 		var ajaxComponent = new enyo.Ajax({
 			url: this.service.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -92,20 +88,21 @@ enyo.kind({
 	close: function(inSender, inEvent){
 		this.doBack();
 	},
+	
 	relationships:function(inSender,inEvent)
 	{ this.$.panel.destroyClientControls();
 	  this.$.Spin.show();
-     
-	 setTimeout(enyo.bind(this, this.showData),200);
-      this.vnum = 1;
+	 setTimeout(enyo.bind(this, this.relationshipList ),200);
+      this.$.searchBar.hide();
 	},
 	resources:function(inSender,inEvent)
 	{ 
 	this.$.panel.destroyClientControls();
 	  this.$.Spin.show();
      
-	 setTimeout(enyo.bind(this, this.showData),200);
+	 setTimeout(enyo.bind(this,this.showData ),200);
       this.vnum = 0;
+	   this.$.searchBar.show();
 	},
     search: function(inSender, inEvent) {
 	var search =  new Array();
@@ -125,7 +122,6 @@ enyo.kind({
 	},
 	itemTap: function(inSender, inEvent) {
 		//this.doSelectedStack(inEvent);
-		
 		var obj =  new Object();
 		obj.name = inEvent.name;
 		obj.id = id;
@@ -148,7 +144,10 @@ enyo.kind({
 				
 		ajax.go()
 		.response(this, function(sender, response){
-		  stacks = response.stacks
+		this.relations =fixArrayInformation(response.relationships);
+		console.log(this.relations);
+		response.stacks = fixArrayInformation(response.stacks);
+		 stacks = response.stacks
 		  this.commands = new Array();
 			this.commandsImages = new Array();
 			
@@ -159,11 +158,30 @@ enyo.kind({
 			this.commandsImages.push("assets/folder.png");
 			}
 			this.showData();
-			
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 		});					
+	},
+	
+	relationshipList: function(sender, event){
+		this.$.Spin.hide();
+		var thisPanel = this;
+			thisPanel.createComponent({name: "list", kind: "List", touch: true, multiSelect: false,style: "height: 80%", fit: true, container: thisPanel.$.panel,components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", components: [
+	         	{name: "relation", style:"width: 75%; display: inline-block"}
+	         ]}
+	     ]}, {owner: this});
+		 
+		this.populateRelations();
+		 thisPanel.render();
+		 thisPanel.reflow();
+	},
+	populateRelations: function(sender, event){
+		this.$.list.setCount(this.relations.length);
+		for(var i =0; i<this.relations.length;i++){
+			this.$.relation.setContent(this.relations[i].name);
+		}
 	}
 	
 });
