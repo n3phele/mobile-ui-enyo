@@ -100,7 +100,7 @@ enyo.kind({
 	},
 	addNode: function(inSender, inEvent){
 		if(this.stack.vnum == 1){
-			this.doCreateRelationship();	
+			//this.doCreateRelationship();	
 		}
 	}	
 });

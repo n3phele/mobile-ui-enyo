@@ -15,14 +15,17 @@ enyo.kind({
 		onBack: "",
 		onRemoveService: "",
 		onSelectedStack:"",
+		onCreateRelationship: "",
 	}, 
 	components: [
-	
 				{kind: "onyx.Toolbar",classes: "toolbar-style",components:[ {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeService"},
 			{kind: "onyx.Button",classes:"button-style-left", content: "Services", ontap: "close"},		
 		{kind: "onyx.Button",classes:"button-style-right", content: "New Stack", ontap: "newStack"},
 			{content: "Service", name: "title_1", }]},							
 				{content: "Service foo", name: "service", style:"margin: 25px 0 30px 10px"},
+				{name: "btnRelation", style: "text-align: center", components: [ 
+					{name:"b1",kind:"onyx.Button", content: "Add Relationship", classes:"button-style",  style:"width:98%;height:40px;margin:0.8em auto", ontap:"addRelationship"},
+				 ]},
 				 {name: "searchBar", components: [ 
 				 	{kind: "onyx.InputDecorator",style: "margin:25px 10px 25px 10px;display: block; border-radius:6px 6px", layoutKind: "FittableColumnsLayout", components: [
 					{name: "searchInput", fit: true, kind: "onyx.Input", onchange: "searc"},
@@ -42,9 +45,8 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments)
-	
+		this.$.btnRelation.hide();
 		var stacks;
-		
 		var ajaxComponent = new enyo.Ajax({
 			url: this.service.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -57,7 +59,6 @@ enyo.kind({
 		.response(this, "stackList")
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
-			popup.delete();
 		});		
 
 		this.$.service.setContent(this.service.name);
@@ -77,8 +78,7 @@ enyo.kind({
 			thisPanel.reflow();
 	},
 	
-	newStack: function(inSender, inEvent) {
-	   
+	newStack: function(inSender, inEvent) {  
 	   var obj = new Object();
 	   obj.uri = this.action;
 	   obj.id = id;
@@ -91,7 +91,8 @@ enyo.kind({
 	
 	relationships:function(inSender,inEvent)
 	{ this.$.panel.destroyClientControls();
-	  this.$.Spin.show();
+	 this.$.Spin.show();
+	 this.$.btnRelation.show();
 	 setTimeout(enyo.bind(this, this.relationshipList ),200);
       this.$.searchBar.hide();
 	},
@@ -99,7 +100,7 @@ enyo.kind({
 	{ 
 	this.$.panel.destroyClientControls();
 	  this.$.Spin.show();
-     
+     this.$.btnRelation.hide();
 	 setTimeout(enyo.bind(this,this.showData ),200);
       this.vnum = 0;
 	   this.$.searchBar.show();
@@ -121,12 +122,11 @@ enyo.kind({
 			thisPanel.reflow();
 	},
 	itemTap: function(inSender, inEvent) {
-		//this.doSelectedStack(inEvent);
 		var obj =  new Object();
 		obj.name = inEvent.name;
 		obj.id = id;
 		obj.vnum = this.vnum;
-			this.doSelectedStack(obj);
+		this.doSelectedStack(obj);
 	},
 	stackList: function(sender, response){
 		this.action = response.action;
@@ -172,7 +172,6 @@ enyo.kind({
 	         	{name: "relation", style:"width: 75%; display: inline-block"}
 	         ]}
 	     ]}, {owner: this});
-		 
 		this.populateRelations();
 		 thisPanel.render();
 		 thisPanel.reflow();
@@ -182,6 +181,9 @@ enyo.kind({
 		for(var i =0; i<this.relations.length;i++){
 			this.$.relation.setContent(this.relations[i].name);
 		}
+	},
+	addRelationship: function(sender, event){
+		this.doCreateRelationship();
 	}
 	
 });
