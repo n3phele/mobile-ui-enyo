@@ -28,9 +28,9 @@ enyo.kind({
 						{content:"Stack_02"}						                                                             
 					]}
 				]},
-				{name: "SelPanel", style: "margin: 1em auto; padding:0 10px 0 10px", components: [
+				{name: "SelPanel2", style: "margin: 1em auto; padding:0 10px 0 10px", components: [
 					{content:"Relation", style:"padding-top:17px;color:#fff"},
-					{kind:"Select", classes:"styled-select", name:"select", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none; background-color:#fff !important",components:[     				/* <<<<--------------------- */
+					{kind:"Select", classes:"styled-select", name:"select2", onchange:"itemSelected", style:"-webkit-appearance:none !important;outline:none; background-color:#fff !important",components:[     				/* <<<<--------------------- */
 						{content:"Stack_03"},
 						{content:"Stack_04"}						                                                             
 					]}

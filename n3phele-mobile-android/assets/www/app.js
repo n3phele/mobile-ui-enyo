@@ -293,8 +293,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
-		
+		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -321,7 +320,7 @@ enyo.kind({
 		//close old panels			
 		this.closeSecondaryPanels(4);
 		//create panel to show stack detail
-		this.createComponent({ kind: "Relationship","uid": this.uid, container: this.$.panels, onBack: "closePanel5" }).render();   //   'uri': inSender.data[inEvent.index].uri,
+		this.createComponent({ kind: "Relationship","uid": this.uid, container: this.$.panels, onBack: "closePanel4" }).render();   //   'uri': inSender.data[inEvent.index].uri,
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
