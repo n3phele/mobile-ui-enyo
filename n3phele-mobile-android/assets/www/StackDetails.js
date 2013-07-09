@@ -75,7 +75,6 @@ kind: "FittableRows",
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
-			popup.delete();
 		});				
 	},
 	setDynamicData: function( data ){
@@ -212,6 +211,7 @@ kind: "FittableRows",
 		}
 	},
 	closePanel: function(inSender, inEvent){
+	 console.log("ae");
 		this.doBack();	
 	}
 

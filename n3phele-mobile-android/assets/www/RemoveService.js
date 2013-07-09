@@ -23,8 +23,6 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		
-		
 		this.$.service.setContent("Are you sure you want to delete " + this.service.name + "   ?");
 	},
 	selectedAccount: function(sender, event){

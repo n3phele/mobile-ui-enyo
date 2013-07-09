@@ -302,7 +302,6 @@ enyo.kind({
 		//close old panels	
 		
 		if(id==null)id = inEvent.id;
-		
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
 		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri , "service":inEvent,onSelectedStack: "stackTap", onBack: "closePanel4", container: this.$.panels }).render();
@@ -550,9 +549,9 @@ enyo.kind({
 	
 		serviceaction = inSender.uri;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel4" }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(2);
+		this.$.panels.setIndex(3);
 		this.$.CommandData = inSender.data[inEvent.index];
 		//inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
