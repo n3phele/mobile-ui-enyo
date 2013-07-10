@@ -188,12 +188,19 @@ enyo.kind({
 			break;
 			case 4:
 				//Services
-				this.closeSecondaryPanels(2);
+				
+				/*this.closeSecondaryPanels(2);
 				this.createComponent({
 					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", "closePanel": enyo.Panels, onBack: "backMenu", onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
-			break;
+			break;*/
+			this.closeSecondaryPanels(2);
+			this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
+			
+			
 		}//end switch
 	},	
 	logout: function(inSender){
@@ -386,11 +393,11 @@ enyo.kind({
 		count = inEvent.event.index;
 		
 		//close old panels		
-		this.closeSecondaryPanels(2);	
+		//this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository2", onBack: "closeFilePanel",onBackCommand:"fileSelected", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, onSelectedItem : "fileRepository2", onBack: "closePanel4",onBackCommand:"fileSelected2", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(6);
 	},
 	listOutputRepository: function(inSender,inEvent){		
 		//close old panels		
@@ -412,13 +419,13 @@ enyo.kind({
 	},
 		fileRepository2: function(inSender,inEvent){				
 		//close old panels	
-		this.closeSecondaryPanels(4);
+		//this.closeSecondaryPanels(4);
 
        		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closePanel5", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(5);
+		this.$.panels.setIndex(7);
 	},
 		outputFileRepository: function(inSender,inEvent){				
 		//close old panels	
@@ -451,12 +458,10 @@ enyo.kind({
 	},
 		fileSelected2: function(inSender,inEvent){
 		//close old panels		
-		
+				this.closeSecondaryPanels(4);//close old panels
 
-		this.closeSecondaryPanels(5);
-		this.closeSecondaryPanels(4);
-		this.closeSecondaryPanels(3);
-		this.closeSecondaryPanels(2);
+
+	
       if(inEvent.type == "input")		
 		{
 		FilesList[count] = inEvent;
@@ -467,9 +472,9 @@ enyo.kind({
 		}
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository2", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" , "stack":serviceaction,"id":id }).render();
+		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository2", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" , "stack":serviceaction,"id":id,onBack: "closePanel5" }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(4);
+		this.$.panels.setIndex(5);
 	},
 	closeFilePanel:function(inSender,inEvent){
 		this.closeSecondaryPanels(2);
@@ -544,13 +549,13 @@ enyo.kind({
 			alert("There is not commands in the database!");
 			return;
 		}
-		this.closeSecondaryPanels(2);//close old panels
+		this.closeSecondaryPanels(4);//close old panels
 	
 		serviceaction = inSender.uri;
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(5);
 		this.$.CommandData = inSender.data[inEvent.index];
 		//inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
