@@ -189,16 +189,16 @@ enyo.kind({
 			case 4:
 				//Services
 				
-				/*this.closeSecondaryPanels(2);
+				this.closeSecondaryPanels(2);
 				this.createComponent({
 					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", "closePanel": enyo.Panels, onBack: "backMenu", onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
-			break;*/
-			this.closeSecondaryPanels(2);
+			break;
+			/*this.closeSecondaryPanels(2);
 			this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
-		this.$.panels.setIndex(3);
+		this.$.panels.setIndex(3);*/
 			
 			
 		}//end switch
