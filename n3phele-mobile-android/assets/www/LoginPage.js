@@ -54,7 +54,9 @@ enyo.kind({
 			popup.delete();
 			mainPage.renderInto(document.body);
 		}).error( this, function(inSender, inResponse){
-			sender.parent.owner.$.loginMsg.setContent("Access denied!");
+		
+		  if(inResponse == 403 ) sender.parent.owner.$.loginMsg.setContent("Incorrect username or password!");
+		  else	sender.parent.owner.$.loginMsg.setContent("Access denied!");
 			popup.delete();
 		});
 		

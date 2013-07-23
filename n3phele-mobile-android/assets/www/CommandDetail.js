@@ -6,6 +6,7 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	files: "",
+	commandType:null,
 	outputFiles: "",
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
@@ -32,9 +33,10 @@ enyo.kind({
 		]}
 	],
 	create: function(){
-		this.inherited(arguments)
+		this.inherited(arguments);
 		var popup = new spinnerPopup();
 		popup.show();
+		console.log(this.uri);
 		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -46,9 +48,11 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			Parameters = response;
+			
+			if(response.processor == null || response.processor.length == 0) this.commandType = "Job";
+			else this.commandType="StackService";
 			this.setDynamicData(response);
 			
-			popup.delete();
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
@@ -57,6 +61,7 @@ enyo.kind({
 	},
 	setDynamicData: function( data ){
       //console.log(this.uri);
+	  console.log(this.commandType);
 		this.$.title.setContent(data.name);
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
@@ -146,8 +151,9 @@ enyo.kind({
 		console.log(parameters);
 
 		if(this.$.commandExec.getJob()!=""){	
+		console.log(parameters);
 			var ajaxComponent = new enyo.Ajax({
-				url: serverAddress+"process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
+				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",

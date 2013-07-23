@@ -4,6 +4,7 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	results:null,
+	
 	style: "padding: 0px",
 	events: {
 		onCreateService: "",
@@ -62,6 +63,8 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	newService: function(sender, event){
+	
+	
 		this.doCreateService();
 	},
 	setupItem: function(sender, event){
