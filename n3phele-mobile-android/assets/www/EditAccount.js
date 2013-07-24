@@ -59,7 +59,7 @@ enyo.kind({
 		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( {tag: "option", content: clouds[i].name, value: clouds[i].uri, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
-		this.$.name.setPlaceholder(this.account.name);
+		this.$.name.setPlaceholder(this.account.accountName);
 	
 		this.$.description.setPlaceholder(this.account.description);
 		//this.$.cloudList.setContent(this.account.cloudName);
@@ -74,7 +74,7 @@ enyo.kind({
 	save: function(sender, event){
 		
 		//obtain form data
-		var accountId = this.account.uri;
+		var accountId = this.account.uriAccount;
 		accountId = accountId.substr(accountId.lastIndexOf('/') + 1,accountId.lenght);
 	  var  name = this.$.name.getValue();
 		if(name  =="") { name = this.$.name.getPlaceholder();}

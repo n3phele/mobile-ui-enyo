@@ -50,7 +50,7 @@ enyo.kind({
 	},
 	deleteAccount: function(sender, event){
 		var ajaxComponent = new enyo.Ajax({
-			url: this.account.uri,
+			url: this.account.uriAccount,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",

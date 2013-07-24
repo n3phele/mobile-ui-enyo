@@ -6,6 +6,7 @@ enyo.kind({
 	fit: true,
 	
 	results:null,
+	datainfo:null,
 	style: "padding: 0px",
 	events: {
 		onCreateAcc: "",
@@ -59,10 +60,49 @@ components:[
 			console.log("Error to load the detail of the command!");
 			popup.delete();
 		});		
+		/////
+		
+		var ajaxComponent = new enyo.Ajax({
+			url: serverAddress+"account/",
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); 
+				
+		ajaxComponent.go()
+		.response(this, function(sender, response){
+			response.elements = fixArrayInformation(response.elements);
+			datainfo = response.elements;
+			
+		})
+		.error(this, function(){
+			console.log("Error to load the detail of the command!");
+			popup.delete();
+		});	
+		
+		
 		this.render();
 	},
 	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
+	var description = "";
+	
+	for (var i=0;i<datainfo.length;i++)
+		{ 
+        if(datainfo[i].uri == results[event.index].uriAccount) description = datainfo[i].description;
+		}
+		console.log(results[event.index]);
+		
+		
+        var myObject = new Object();
+		myObject.accountName = results[event.index].accountName;
+		myObject.actives = results[event.index].actives;
+		myObject.cloud = results[event.index].cloud;
+		myObject.cost = results[event.index].cost;
+		myObject.uriAccount = results[event.index].uriAccount;
+		myObject.description = description;
+		
+ 		this.doClickItem(myObject);
 	},
 	closePanel: function(inSender, inEvent){
 			var panel = inSender.parent.parent.parent;

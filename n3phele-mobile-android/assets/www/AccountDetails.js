@@ -64,7 +64,7 @@ enyo.kind({
 		var popup = new spinnerPopup();
 		popup.show();		
 		this.$.account.setContent(this.account.accountName);
-		this.$.description.setContent(this.account.accountName);
+		this.$.description.setContent(this.account.description);
 	    this.$.cloudName.setContent(this.account.cloud);
 		accountId = this.account.uriAccount;
 		accountId = accountId.substr(accountId.lastIndexOf('/'), accountId.length);
