@@ -39,13 +39,14 @@ enyo.kind({
 		          {name: "panel", style: "border 1px solid" , components:[]},{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:47%;margin-top:100px"}, 
 				]},	
 				{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
-					{content: "Resource",style:"width:50%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
+					{content: "Resource",style:"width:100%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
 					{name:"rela",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
 				]},		
 	],	
 	create: function(){
 		this.inherited(arguments)
 		this.$.btnRelation.hide();
+		this.$.rela.hide(); //for now
 		var stacks;
 		var ajaxComponent = new enyo.Ajax({
 			url: this.service.uri,
