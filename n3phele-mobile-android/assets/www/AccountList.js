@@ -41,7 +41,7 @@ components:[
 		}
 		
 		var ajaxComponent = new enyo.Ajax({
-			url: serverAddress+"account",
+			url: serverAddress+"account/accountData",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
 			contentType: "application/x-www-form-urlencoded",
@@ -89,10 +89,10 @@ components:[
 		this.$.item.addRemoveClass("onyx-selected", sender.isSelected(event.index));
 		var i = event.index;
 		var item = results[i];
-		this.$.name.setContent(item.name);
-		this.$.cost.setContent("US$0.0");
-		this.$.active.setContent("0");
-		this.$.cloud.setContent(item.cloudName);
+		this.$.name.setContent(item.accountName);
+		this.$.cost.setContent(item.cost);
+		this.$.active.setContent(item.actives);
+		this.$.cloud.setContent(item.cloud);
 		if( event.index % 2 == 1)
 	   {
 	   this.$.item.applyStyle("background-color", "#F7F7F7")

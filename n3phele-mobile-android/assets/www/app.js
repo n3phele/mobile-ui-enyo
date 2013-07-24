@@ -195,10 +195,9 @@ enyo.kind({
 				});
 				this.$.imageIconPanel.render();	
 			break;
-			/*this.closeSecondaryPanels(2);
-			this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
-		this.$.panels.reflow();
-		this.$.panels.setIndex(3);*/
+			
+			
+
 			
 			
 		}//end switch

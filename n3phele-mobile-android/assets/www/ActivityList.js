@@ -71,12 +71,16 @@ enyo.kind({
 			var item = this.results[i];
 
 			if(item.state == "COMPLETE"){
-				this.$.status.setSrc("assets/activities.png");
+				this.$.status.setSrc("assets/activities.png");			
+			}else if(item.state == "CANCELLED"){
+				this.$.status.setSrc("assets/cancelled.png");				
 			}else if(item.state == "FAILED"){
-				this.$.status.setSrc("assets/failed.png");
+				this.$.status.setSrc("assets/failed.png");				
+			}else if(item.state =="BLOCKED"){  
+				this.$.status.setSrc("assets/blocked.png");					
 			}else{
 				this.$.status.setSrc("assets/spinner2.gif");
-			}
+			}	
 			this.$.activity.setContent(item.name);
 			  
 			 if( i % 2 == 1)

@@ -6,6 +6,7 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true,
 	files: "",
+	commandType:null,
 	outputFiles: "",
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
@@ -32,9 +33,9 @@ enyo.kind({
 		]}
 	],
 	create: function(){
-		this.inherited(arguments)
+		this.inherited(arguments);
 		var popup = new spinnerPopup();
-		popup.show();
+		popup.show();		
 		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -46,17 +47,18 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			Parameters = response;
+			
+			if(response.processor == null || response.processor.length == 0) this.commandType = "Job";
+			else this.commandType="StackService";
 			this.setDynamicData(response);
 			
-			popup.delete();
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 			popup.delete();
 		});		
 	},
-	setDynamicData: function( data ){
-      //console.log(this.uri);
+	setDynamicData: function( data ){     
 		this.$.title.setContent(data.name);
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
@@ -90,8 +92,7 @@ enyo.kind({
 	repository: function(sender, event){
 	   var Obj = new Object();
 	   Obj.event = event;
-	   Obj.uri = this.uri;
-	   console.log(Obj);
+	   Obj.uri = this.uri;	   
 		this.doSelectedFile(Obj);
 	},
 	
@@ -143,11 +144,11 @@ enyo.kind({
 		};	
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-		console.log(parameters);
+		//console.log(parameters);
 
-		if(this.$.commandExec.getJob()!=""){	
+		if(this.$.commandExec.getJob()!=""){		
 			var ajaxComponent = new enyo.Ajax({
-				url: serverAddress+"process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
+				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
@@ -160,8 +161,7 @@ enyo.kind({
 				var location = sender.xhrResponse.headers.location;
 				var object = new Object();
 				object.location = location;
-				object.num = 0;
-				console.log(object);
+				object.num = 0;				
 				self.doCommandCreated(object);
 			})
 			.error(this, function(){

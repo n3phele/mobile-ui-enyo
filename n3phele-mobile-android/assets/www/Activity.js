@@ -77,30 +77,42 @@ enyo.kind({
 			this.lastUpdate = 0;
 			var success = function (response) {		
 				
-				if(response.state === "FAILED" ){
+				if(response.state == "CANCELLED" ){
+					thisPanel.$.acStatus.setSrc("assets/cancelled.png");	
+				}else if(response.state == "FAILED"){
 					thisPanel.$.acStatus.setSrc("assets/failed.png");
-				}else if(response.state === "COMPLETE"){
+				}else if(response.state == "COMPLETE"){
 					thisPanel.$.acStatus.setSrc("assets/activities.png");
+				}else if(response.state =="BLOCKED"){  
+					thisPanel.$.acStatus.setSrc("assets/blocked.png");					
 				}else{
 					thisPanel.$.acStatus.setSrc("assets/spinner2.gif");
-				}			
+				}	
 					
 				if (enyo.Panels.isScreenNarrow()) {
 					thisPanel.$.acStatus.setStyle("float:right;padding-top:10px");
-				}	
-				
+				}					
 				thisPanel.$.acName.setContent(" "+response.name);				
 				thisPanel.$.acComDesc.setContent(" "+response.description);
-				
+				var minstart = 0;
+				var mincomplete = 0;
 				var d1 = new Date(response.start);
 				var d2 = new Date(response.complete);
 				
-				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes());
+				
+					if(d1.getMinutes()<10)  minstart = "0" + d1.getMinutes();
+					else minstart = d1.getMinutes();
+				
+				
+				thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+minstart);
 				
 				var duration = "still running";
 				if(response.complete)
-				{
-					thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes());
+				{   
+				  	if(d2.getMinutes()<10)  mincomplete = "0" + d2.getMinutes();
+					else mincomplete = d2.getMinutes();
+				
+					thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+mincomplete);
 					duration = (Math.round(((d2-d1)/60000)*100)/100);
 					
 					if(duration < 1){
@@ -150,14 +162,17 @@ enyo.kind({
 						}else if(narrative[i].state=="warning"){
 							this.a = "assets/narrative-warning.png";
 						}
+					var minutes = 0;	
 					var stamp = new Date(narrative[i].stamp);
-					
+					if(stamp.getMinutes()<10)  minutes = "0" + stamp.getMinutes();
+					else minutes = stamp.getMinutes();
+				
 					if(i% 2 == 1){							
-							panel.createComponent({style:"background-color:#F7F7F7;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" , style:"background-color:#F7F7F7", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   ",style:"background-color:#F7F7F7"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:#F7F7F7"}]})
+							panel.createComponent({style:"background-color:#F7F7F7;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" , style:"background-color:#F7F7F7", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"   ",style:"background-color:#F7F7F7"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:#F7F7F7"}]})
 					}
 					else if(i% 2 == 0){					
-							panel.createComponent({style:"background-color:white;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" ,style:"background-color:white", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+stamp.getMinutes()+"   ",style:"background-color:white"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:white"}]})
-					}				
+							panel.createComponent({style:"background-color:white;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" ,style:"background-color:white", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"   ",style:"background-color:white"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:white"}]})
+					}					
 				}
 			}				
 			panel.render();

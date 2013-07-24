@@ -4,6 +4,14 @@ enyo.kind({
 	name:"AddService",
 	kind: "FittableRows",
 	fit: true,
+	myuri:null,
+	send:null,
+	uri:null,
+	zone:null,
+	clouds:null,
+   uris:null,
+   zones:null,
+	account:null,
 	style: "padding: 0px;background:#fff",
 	events: {
 		onCreateAcc: "",
@@ -19,12 +27,53 @@ enyo.kind({
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Service name"}
 					]},
-					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-							{kind: "onyx.Input", name: "description",style:"float:left", placeholder: "Service description"}
-					]}
+				
+					{name: "checkBox", classes: "onyx-sample-tools", components: [	
+			]},
 				]},				
 		]}		
 	],
+	 create: function()
+	 {    this.clouds = new Array();
+            this.uris = new Array();
+			this.zones = new Array();
+	 	this.inherited(arguments);
+		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1360001"
+	  var ajaxComponent = new enyo.Ajax({
+			 url:this.myuri,
+			 headers:{ 'authorization' : "Basic "+ this.uid},
+			 method: "GET",
+			 contentType: "application/x-www-form-urlencoded",
+			 sync: false, 
+			 }); 
+				
+		 ajaxComponent.go()
+	.response(this, function(sender, response){
+        response = fixArrayInformation(response.cloudAccounts);
+		accounts = new Array();
+		accounts = response;		
+		this.setDynamicData(accounts);
+ 	        
+		 })
+		 .error(this, function(){
+			 console.log("Error to load the detail of the command!");
+		 });	
+	 },
+	
+	setDynamicData: function( data ){    
+			for( var i in data ){           
+				this.createComponent({name: data[i].accountName, kind: "serviceLine", data: data[i] });
+			this.clouds[i] = eval("this.$."+data[i].accountName);
+			this.uris[i] = data[i].accountUri;
+			this.zones[i] = data[i].implementation;
+			//this.render();
+		 this.render();
+			
+			
+			}
+
+	},
+	
 	
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);
@@ -46,30 +95,37 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	newService: function(sender, event){
+	newService: function(sender, event){	   
+		for(var i in this.clouds){
+			var c = this.clouds[i].$.execCheck.getValue();			
+			if(c==true){
+				this.send = eval(this.clouds[i].$.execSend.getValue());
+				this.uri = this.uris[i];
+				this.zone = this.zones[i];				
+			}
+		}
+	
+	
+	
 		var  name = this.$.name.getValue();
-		var postJson = "{}";
-		var ajaxComponent = new enyo.Ajax({
-				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=&parent=",
+       var parameters = '{"Variable":[{"name":"notify", "type":"Boolean", "value":["'+this.send+'"]},{"name":"account", "type":"Object", "value":["'+this.uri+'"]}]}';
+     //	   {"Variable":[{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["https://n3phele-dev.appspot.com/resources/account/402005"]}]} 
+	   var ajaxComponent = new enyo.Ajax({
+				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=NShell+"+encodeURIComponent(this.myuri+"#"+this.zone) + "&parent=",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
 				contentType: "application/json",
-				postBody: postJson,
+				postBody: parameters,
 				sync: false, 
 				}); 
 			
 		ajaxComponent.go()
 		.response( this, function(inSender, inResponse){
-		console.log ("Sucesso");
+		this.doBack();		
 		}).error( this, function(inSender, inResponse){
-					console.log ("Erro");
-
 		});
 	},
-	setupItem: function(sender, event){
-	   this.$.name.setContent("Service:" + i);
-	   i++;
-		},
+	
 	cancelAction:function (sender,event)
 	{  
 		this.doBack();
@@ -78,4 +134,21 @@ enyo.kind({
 	activate: function(sender, event){
 		this.doClickItem();
 	}
+});
+enyo.kind({
+	name: "serviceLine",
+	classes: "commandFilesLine",
+	style:"padding: 1px;", 
+	components:[
+		{classes: "onyx-sample-tools", style:"width:"+execCloudName+"%", components: [
+				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block"}
+		]},
+		{kind:"onyx.Checkbox",style:"width:"+execCloudEmail+"%", name: "execSend"}
+	],
+	create: function(){
+		this.inherited(arguments);
+		this.$.execCheck.setValue(false);
+		this.$.execCloud.setContent(this.data.accountName);
+		this.$.execSend.setValue(false);
+	}	
 });

@@ -62,11 +62,11 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
-		popup.show();
-		this.$.account.setContent(this.account.name);
-		this.$.description.setContent(this.account.description);
-		this.$.cloudName.setContent(this.account.cloudName);
-		accountId = this.account.uri;
+		popup.show();		
+		this.$.account.setContent(this.account.accountName);
+		this.$.description.setContent(this.account.accountName);
+	    this.$.cloudName.setContent(this.account.cloud);
+		accountId = this.account.uriAccount;
 		accountId = accountId.substr(accountId.lastIndexOf('/'), accountId.length);
 		this.setChart(1, "24 Hours Costs Chart");
 		
@@ -262,7 +262,7 @@ enyo.kind({
 	},
 	removeAccount:function (sender,event)
 	{   
-	    console.log("oie!");
+	    
         this.doRemoveAccount(this.account);
 	},
 	getActivity:function(sender,event)
