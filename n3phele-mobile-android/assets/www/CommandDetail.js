@@ -35,8 +35,7 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 		var popup = new spinnerPopup();
-		popup.show();
-		console.log(this.uri);
+		popup.show();		
 		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -59,9 +58,7 @@ enyo.kind({
 			popup.delete();
 		});		
 	},
-	setDynamicData: function( data ){
-      //console.log(this.uri);
-	  console.log(this.commandType);
+	setDynamicData: function( data ){     
 		this.$.title.setContent(data.name);
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
@@ -95,8 +92,7 @@ enyo.kind({
 	repository: function(sender, event){
 	   var Obj = new Object();
 	   Obj.event = event;
-	   Obj.uri = this.uri;
-	   console.log(Obj);
+	   Obj.uri = this.uri;	   
 		this.doSelectedFile(Obj);
 	},
 	
@@ -148,10 +144,9 @@ enyo.kind({
 		};	
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-		console.log(parameters);
+		//console.log(parameters);
 
-		if(this.$.commandExec.getJob()!=""){	
-		console.log(parameters);
+		if(this.$.commandExec.getJob()!=""){		
 			var ajaxComponent = new enyo.Ajax({
 				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
@@ -166,8 +161,7 @@ enyo.kind({
 				var location = sender.xhrResponse.headers.location;
 				var object = new Object();
 				object.location = location;
-				object.num = 0;
-				console.log(object);
+				object.num = 0;				
 				self.doCommandCreated(object);
 			})
 			.error(this, function(){

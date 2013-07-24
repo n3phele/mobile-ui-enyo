@@ -51,8 +51,7 @@ enyo.kind({
 	.response(this, function(sender, response){
         response = fixArrayInformation(response.cloudAccounts);
 		accounts = new Array();
-		accounts = response;
-		console.log(accounts);
+		accounts = response;		
 		this.setDynamicData(accounts);
  	        
 		 })
@@ -61,10 +60,8 @@ enyo.kind({
 		 });	
 	 },
 	
-	setDynamicData: function( data ){
-    console.log(data);
-			for( var i in data ){
-           console.log(data[i]);
+	setDynamicData: function( data ){    
+			for( var i in data ){           
 				this.createComponent({name: data[i].accountName, kind: "serviceLine", data: data[i] });
 			this.clouds[i] = eval("this.$."+data[i].accountName);
 			this.uris[i] = data[i].accountUri;
@@ -98,20 +95,13 @@ enyo.kind({
 			panel.reflow();		
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
-	newService: function(sender, event){
-	
-	
-	   console.log(this.clouds);
+	newService: function(sender, event){	   
 		for(var i in this.clouds){
-			var c = this.clouds[i].$.execCheck.getValue();
-			console.log(c);
+			var c = this.clouds[i].$.execCheck.getValue();			
 			if(c==true){
 				this.send = eval(this.clouds[i].$.execSend.getValue());
 				this.uri = this.uris[i];
-				this.zone = this.zones[i];
-				console.log(zone);
-				console.log(uri);
-				console.log(send);
+				this.zone = this.zones[i];				
 			}
 		}
 	
@@ -131,11 +121,8 @@ enyo.kind({
 			
 		ajaxComponent.go()
 		.response( this, function(inSender, inResponse){
-		this.doBack();
-		console.log ("Sucesso");
+		this.doBack();		
 		}).error( this, function(inSender, inResponse){
-					console.log ("Erro");
-
 		});
 	},
 	

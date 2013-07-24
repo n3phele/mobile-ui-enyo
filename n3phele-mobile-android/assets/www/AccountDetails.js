@@ -62,8 +62,7 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
-		popup.show();
-		console.log(this.account);
+		popup.show();		
 		this.$.account.setContent(this.account.accountName);
 		this.$.description.setContent(this.account.accountName);
 	    this.$.cloudName.setContent(this.account.cloud);
