@@ -167,7 +167,7 @@ enyo.kind({
 	         	{name: "relation", style:"width: 75%; display: inline-block"}
 	         ]}
 	     ]}, {owner: this});
-		this.populateRelations();Fse
+		this.populateRelations();
 		 thisPanel.render();
 		 thisPanel.reflow();
 	},

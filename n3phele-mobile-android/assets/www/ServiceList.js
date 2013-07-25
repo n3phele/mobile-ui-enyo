@@ -92,8 +92,7 @@ enyo.kind({
 	  },
 	  
 	  processActions: function( request, response){		
-			if(response.total == 0){
-				//this.$.divider.setContent("Without Services!");
+			if(response.total == 0){				
 				this.$.list.applyStyle("display", "none !important");
 				this.reflow();
 					this.$.Spin.hide();
