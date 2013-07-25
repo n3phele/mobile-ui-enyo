@@ -87,7 +87,7 @@ enyo.kind({
 				contentType: "application/x-www-form-urlencoded",
 				sync: false, 
 			};
-		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
+		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
 		ajaxComponent
 		.go({
 			name:name,

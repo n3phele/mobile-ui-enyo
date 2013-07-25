@@ -89,7 +89,7 @@ enyo.kind({
 	  
 				
 			
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",

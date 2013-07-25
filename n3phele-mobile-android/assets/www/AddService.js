@@ -40,7 +40,7 @@ enyo.kind({
 			this.zones = new Array();
 	 	this.inherited(arguments);
 		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1360001"
-	  var ajaxComponent = new enyo.Ajax({
+	  var ajaxComponent = n3phele.ajaxFactory.create({
 			 url:this.myuri,
 			 headers:{ 'authorization' : "Basic "+ this.uid},
 			 method: "GET",
@@ -113,7 +113,7 @@ enyo.kind({
 	
 		var  name = this.$.name.getValue();
        var parameters = '{"Variable":[{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["'+this.uri+'"]}]}';
-	   var ajaxComponent = new enyo.Ajax({
+	   var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=NShell+"+encodeURIComponent(this.myuri+"#"+this.zone) + "&parent=",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
