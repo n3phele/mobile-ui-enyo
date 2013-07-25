@@ -35,12 +35,10 @@ enyo.kind({
 		
 	     if(this.callBy=="selectFile"){
 			this.$.delete.hide();
-			this.$.add.hide();
 		}
 		 if(this.callBy=="outputFile"){
 			this.$.delete.hide();
-			this.$.add.setContent("Done");
-			this.$.add.setStyle("font-size: 12px !important");
+		
 		}
 		this.updateFilesFromURI(this.uri + "/list");
 

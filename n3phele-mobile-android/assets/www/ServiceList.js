@@ -14,15 +14,22 @@ enyo.kind({
 	},
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px !important;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
-	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
+		  {name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},
+		    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedService", components: [
 	         	{name: "name", style:"width: 75%; display: inline-block"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
-	     ]}, 
+	     ]},	  {tag: "br"},
+		{name: "Msg", style: "color:#FF4500; text-align:center"},
+		{tag: "br"},
+   		 
+		
 	],	
 	create: function(){
 	this.inherited(arguments);
+		this.$.Spin.show();
+
           var listSize;
 			var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
@@ -39,7 +46,9 @@ enyo.kind({
 			ajaxComponent
 			.go()
 			.response( this, "processActions" )
-			.error( this, function(){ console.log("Error to load recent activities!!"); });
+			.error( this, function(){
+						this.$.Msg.setContent("Error to load recent activities!!!");
+                        this.$.Spin.hide();});
 		results = new Array();
 	},
 	selectedService: function(sender, event){
@@ -84,9 +93,12 @@ enyo.kind({
 	  
 	  processActions: function( request, response){		
 			if(response.total == 0){
-				this.$.divider.setContent("Without Services!");
+				//this.$.divider.setContent("Without Services!");
 				this.$.list.applyStyle("display", "none !important");
 				this.reflow();
+					this.$.Spin.hide();
+								this.$.Msg.setContent("No current Services in the list!");
+
 				
 				return; 
 			}
@@ -94,6 +106,7 @@ enyo.kind({
 			listSize = response.elements;
 			this.$.list.setCount(listSize.length);
 		    this.$.list.reset();
+			this.$.Spin.hide();
 		},
 	backMenu: function (sender, event){
 		this.doBack();

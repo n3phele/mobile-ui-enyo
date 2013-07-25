@@ -3,10 +3,10 @@ enyo.kind({
 		layoutKind: "FittableRowsLayout",
 		fit: true,
 		style:"background-color:#fff",
-		a:"", 		
+		icon:"", 		
 		events: {
 		onBack: "",
-		},
+		}, 
 		components:[
 			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	
 				{content: "Activity", style:"padding-right:15px"}, 
@@ -17,9 +17,9 @@ enyo.kind({
 					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, 
 					{name: "acName", style:"font-weight: bold; display: inline-block"},
 					{tag: "br"},
-					{tag: "span", content: "Command: ", style:"font-variant:small-caps;"}, 
-					{name: "acComDesc", style:"display: inline-block"},
-					{kind:"Image", src:this.a, name: "acStatus", style:"float:right;padding:10px 50px 0 0"},
+					{tag: "span", content: "Running: ", style:"font-variant:small-caps;"}, 
+					{name: "acComDesc", style:"display: inline-block;color:#0066cc"},
+					{kind:"Image", src:this.icon, name: "acStatus", style:"float:right;padding:10px 50px 0 0"},
 					{tag : "br"},
 					{tag: "span", content: "Started: ", style:"font-variant:small-caps;"}, 					
 					{name: "acStart", style:"display: inline-block"},					
@@ -156,23 +156,30 @@ enyo.kind({
 			{
 				for( var i in narrative ){					  
 						if(narrative[i].state=="info"){
-							this.a = ("assets/info.png");
+							this.icon = ("assets/info.png");
 						}else if(narrative[i].state=="error"){
-							this.a = "assets/narrative-error.png";
+							this.icon = "assets/narrative-error.png";
 						}else if(narrative[i].state=="warning"){
-							this.a = "assets/narrative-warning.png";
+							this.icon = "assets/narrative-warning.png"; 
 						}
 					var minutes = 0;	
 					var stamp = new Date(narrative[i].stamp);
 					if(stamp.getMinutes()<10)  minutes = "0" + stamp.getMinutes();
 					else minutes = stamp.getMinutes();
 				
-					if(i% 2 == 1){							
-							panel.createComponent({style:"background-color:#F7F7F7;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" , style:"background-color:#F7F7F7", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"   ",style:"background-color:#F7F7F7"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:#F7F7F7"}]})
-					}
-					else if(i% 2 == 0){					
-							panel.createComponent({style:"background-color:white;border:1px solid rgb(200,200,200)", components:[{ classes:"image", kind:"Image" ,style:"background-color:white", src:this.a} , { classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"   ",style:"background-color:white"},{ classes:"content", content : " "+narrative[i].text,style:"background-color:white"}]})
-					}					
+					if(i% 2 == 1){ panel.createComponent({style:"background-color:#F7F7F7;border:1px solid rgb(200,200,200)", components:[
+						{classes:"image", kind:"Image" , style:"background-color:#F7F7F7;float:left", src:this.icon},
+						{classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"    " ,style:"background-color:#F7F7F7;float:left;padding-left:10px;display: inline-block"},
+						{content:"   " + narrative[i].tag,style:"color:#0066cc;padding-left:10px;display: inline-block"},
+						{classes:"content", content : " "+narrative[i].text,style:"background-color:#F7F7F7"}
+					]})} 
+					else if(i% 2 == 0)
+						{panel.createComponent({style:"background-color:white;border:1px solid rgb(200,200,200)", components:[
+						{classes:"image", kind:"Image" ,style:"background-color:white;float:left", src:this.icon},
+						{classes:"dateTime", content:"   "+stamp.getFullYear()+"-"+(stamp.getMonth()+1)+"-"+stamp.getDate()+" "+stamp.getHours()+":"+minutes+"   ",style:"background-color:white;float:left;;padding-left:10px;display: inline-block"},
+						{content:"   " + narrative[i].tag,style:"color:#0066cc;padding-left:10px;display: inline-block"},
+						{classes:"content", content : " "+narrative[i].text,style:"background-color:white"}
+					]})}				
 				}
 			}				
 			panel.render();

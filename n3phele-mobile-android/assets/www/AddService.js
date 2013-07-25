@@ -68,7 +68,7 @@ enyo.kind({
 				);
 				
 				
-			this.clouds[i] = eval("this.$."+data[i].accountName);
+			this.clouds[i] = eval("this.$.checkBox.$."+data[i].accountName);
 			this.uris[i] = data[i].accountUri;
 			this.zones[i] = data[i].implementation;
 		 this.render();
@@ -103,7 +103,7 @@ enyo.kind({
 		for(var i in this.clouds){
 			var c = this.clouds[i].$.execCheck.getValue();			
 			if(c==true){
-				this.send = eval(this.clouds[i].$.execSend.getValue());
+			
 				this.uri = this.uris[i];
 				this.zone = this.zones[i];				
 			}

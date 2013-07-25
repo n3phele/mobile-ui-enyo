@@ -81,7 +81,7 @@ enyo.kind({
 			search.push(stacks[i]);
         }
     }
-	this.$.panel.destroyClientControls();
+	this.destroyClientControls();
 		var thisPanel = this;
 		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
 			commandsImages: this.commandsImages,container: thisPanel.$.panel,
