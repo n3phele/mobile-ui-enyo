@@ -28,11 +28,11 @@ function N3pheleClient(ajaxFactory)
 	
 	this.getRecentRequests = function()
 	{
-		console.log("getRecentRequest() = " + this.recentRequests);
+		//console.log("getRecentRequest() = " + this.recentRequests);
 		var count = this.recentRequests;
 		this.recentRequests = 0;
 		
-		console.log("count = " + count + " getRecentRequest() = " + this.recentRequests);
+		//console.log("count = " + count + " getRecentRequest() = " + this.recentRequests);
 		return count;
 	}
 	
@@ -167,7 +167,7 @@ function N3pheleClient(ajaxFactory)
 		var expired = (this.counter >= this.backoff) ? true : false;
 		var recentRequests = this.getRecentRequests();
 		
-		console.log("counter = " + this.counter + " backoff = " + this.backoff + " expired = " + expired + " recentRequests = " + recentRequests);
+		//console.log("counter = " + this.counter + " backoff = " + this.backoff + " expired = " + expired + " recentRequests = " + recentRequests);
 		
 		if(recentRequests > 0)
 		{
