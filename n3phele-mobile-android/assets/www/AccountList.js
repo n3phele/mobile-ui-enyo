@@ -41,7 +41,7 @@ components:[
 		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account/accountData",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -62,7 +62,7 @@ components:[
 		});		
 		/////
 		
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account/",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",

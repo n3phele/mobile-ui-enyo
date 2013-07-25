@@ -109,7 +109,7 @@ enyo.kind({
 	setChart: function(days, title){
 		this.$.btnContent.setContent(title);
 		this.days = days;
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account"+ accountId + "/lastcompleted/" + days +"/get",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -190,7 +190,7 @@ enyo.kind({
 	},
 
 	getAccountActivities: function(){
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account"+ accountId + "/runningprocess/get",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
