@@ -26,7 +26,7 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		
-		this.$.account.setContent("Are you sure you want to delete " + this.account.name + "   ?");
+		this.$.account.setContent("Are you sure you want to delete " + this.account.accountName + "   ?");
 	},
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);

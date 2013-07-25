@@ -12,13 +12,11 @@ enyo.kind({
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
 			{name: "list", kind: "List", fit: true, touch: true, onSetupItem: "setupItem", style:"height:93%", components:[
-				{name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",  ontap: "itemTap", components:[
-					{ style:"margin: 2px; display:inline-block", components: [ 
-						{tag:"img", name:"status", style:"width: 65%;", src: "assets/activities.png" } 
-					]},
-					{ name: "activity", style: "display:inline-block"},
-					{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png", ontap: "itemTap"}
-				]},
+				{name: "item", style: "box-shadow: -4px 0px 9px #768BA7",  classes: "panels-sample-flickr-item enyo-border-box",  ontap: "itemTap", components:[
+					{kind: "Image", name:"status", classes: "panels-sample-flickr-thumbnail" },
+					{name: "activity", classes: "panels-sample-flickr-title"},
+					{name: "icon2", kind: "onyx.IconButton",classes: "panels-sample-flickr-icon", src: "assets/next.png", ontap: "itemTap"}
+				]},//end item
 				{name: "more", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)",components: [
 					{name:"buttonMore",kind: "onyx.Button", content: "More activities", classes: "button-style", ontap: "moreAct"},
 						    	{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:"margin-left:45%"},

@@ -113,14 +113,8 @@ enyo.kind({
 			search.push(stacks[i]);
         }
     }
-	this.$.panel.destroyClientControls();
-		var thisPanel = this;
-		thisPanel.createComponent({name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
-			commandsImages: this.commandsImages,container: thisPanel.$.panel,
-			retrieveContentData: function(){
-			this.data = createCommandItems(search, this.commandsImages); } 
-		}).render();
-			thisPanel.reflow();
+	this.$.panel.destroyClientControls();	
+
 	},
 	itemTap: function(inSender, inEvent) {
 		var obj =  new Object();
