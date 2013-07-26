@@ -3,7 +3,9 @@ enyo.kind({
 		layoutKind: "FittableRowsLayout",
 		fit: true,
 		style:"background-color:#fff",
-		icon:"", 		
+		icon:"", 
+		activityName:"",
+		activityDesc:"",		
 		events: {
 		onBack: "",
 		}, 
@@ -14,21 +16,21 @@ enyo.kind({
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
 				{name:"base",style:"background:#fff;padding:10px 10px 0 10px", components:[
-					{tag: "span", content: "Name: ", style:"font-variant:small-caps;"}, 
-					{name: "acName", style:"font-weight: bold; display: inline-block"},
+					{tag: "span", content: "Name: "}, 
+					{name: "acName",classes: "activityName"},
 					{tag: "br"},
-					{tag: "span", content: "Running: ", style:"font-variant:small-caps;"}, 
-					{name: "acComDesc", style:"display: inline-block;color:#0066cc"},
-					{kind:"Image", src:this.icon, name: "acStatus", style:"float:right;padding:10px 50px 0 0"},
+					{tag: "span", content: "Running: "}, 
+					{name: "acComDesc",classes: "running"},
+					{kind:"Image", src:this.icon, name: "acStatus", classes:"status"},
 					{tag : "br"},
-					{tag: "span", content: "Started: ", style:"font-variant:small-caps;"}, 					
-					{name: "acStart", style:"display: inline-block"},					
+					{tag: "span", content: "Started: "}, 					
+					{name: "acStart",classes: "started"},					
 					{tag : "br"},
-					{tag: "span", content: "Completed: ", style:"font-variant:small-caps;"}, 
-					{name: "acComplete", style:"display: inline-block"},
+					{tag: "span", content: "Completed: "}, 
+					{name: "acComplete",classes: "completed"},
 					{tag: "br"},
-					{tag: "span", content: "Duration: ", style:"font-variant:small-caps;"}, //seconds
-					{name: "acDuration", style:"display: inline-block"},
+					{tag: "span", content: "Duration: "}, //seconds
+					{name: "acDuration",classes: "duration"},
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"}					
 				]},
@@ -49,7 +51,7 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			console.log(this);
+			
 				   if (this.menulist == true) 
 			{      if (!enyo.Panels.isScreenNarrow())
 			         {
@@ -89,11 +91,37 @@ enyo.kind({
 					thisPanel.$.acStatus.setSrc("assets/spinner2.gif");
 				}	
 					
-				if (enyo.Panels.isScreenNarrow()) {
-					thisPanel.$.acStatus.setStyle("float:right;padding-top:10px");
-				}					
-				thisPanel.$.acName.setContent(" "+response.name);				
-				thisPanel.$.acComDesc.setContent(" "+response.description);
+				if ($(window).width() < 350){
+					if(response.name.length < 22){
+						this.activityName = response.name;
+					}else {
+						this.activityName = response.name.substr(0,19).concat("...");						
+					}						
+						if (response.description.length < 23){							
+							this.activityDesc = response.description;
+						}else {							
+							this.activityDesc = response.description.substr(0,22).concat("...");  
+						}	
+				} else{  
+					if(response.name.length < 70){
+						this.activityName = response.name;
+					}else{
+						this.activityName = response.name.substr(0,65).concat("...");
+					}	
+					
+					if(response.description.length < 70)
+					{
+					this.activityDesc = response.description;
+					}
+					else 
+					{
+					this.activityDesc = response.description.substr(0,66).concat("...");  
+					}	
+				} 
+				
+					
+				thisPanel.$.acName.setContent(" "+this.activityName);				
+				thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
 				var minstart = 0;
 				var mincomplete = 0;
 				var d1 = new Date(response.start);

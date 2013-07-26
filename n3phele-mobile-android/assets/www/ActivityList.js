@@ -3,6 +3,7 @@ enyo.kind({
 		result: null,
 		start:false,
 		fit: true,
+		activityName:"",
 		listSize:null,
 		events: {
 		onBack: "",
@@ -37,7 +38,7 @@ enyo.kind({
 				sync: false, 
 			};
 			
-			var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 			
 			ajaxComponent
 			.go({'summary' : true, 'start' : 0, 'end' : listSize})
@@ -78,18 +79,32 @@ enyo.kind({
 				this.$.status.setSrc("assets/blocked.png");					
 			}else{
 				this.$.status.setSrc("assets/spinner2.gif");
-			}	
-			this.$.activity.setContent(item.name);
+			}				
+			  
+			if ($(window).width() < 350){
+					if(item.name.length < 23){
+						this.activityName = item.name;
+					}else {
+						this.activityName = item.name.substr(0,20).concat("...");						
+					}						
+			} else{  
+					if(item.name.length < 65){
+						this.activityName = item.name;
+					}else{
+						this.activityName = item.name.substr(0,60).concat("...");
+					}
+			}  
+			this.$.activity.setContent(this.activityName);
 			  
 			 if( i % 2 == 1)
-	   {
-	   this.$.item.applyStyle("background-color", "#F7F7F7")
-	   };
-         if( i % 2 == 0)
-	   {
-	   this.$.item.applyStyle("background-color", "white")
-	   };
-	   this.$.more.canGenerate = !this.results[i+1];
+			   {
+			   this.$.item.applyStyle("background-color", "#F7F7F7")
+			   };
+				 if( i % 2 == 0)
+			   {
+			   this.$.item.applyStyle("background-color", "white")
+			   };
+			   this.$.more.canGenerate = !this.results[i+1];
 			
 		},
 		create: function(){

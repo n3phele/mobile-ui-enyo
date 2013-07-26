@@ -20,8 +20,11 @@ components:[
 					       {content: "Last 24 hours", style:"display: inline-block; width:24%;font-weight: bold"}, 
 					       {content: "Active", style:"display: inline-block; width:20%;font-weight: bold"},
 					       {content: "Cloud", style:"display: inline-block; width:25%;font-weight: bold"},					
-					]},						
-	    {name: "list", kind: "List", count: 1, touch: true,  multiSelect: false, fit: true, style:"height:87%;border-top: 2px solid #768BA7", onSetupItem: "setupItem", components: [
+					]},
+
+        {name: "divider", classes: "list-divider"},	
+         {name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},		
+	    {name: "list", kind: "List", touch: true,  multiSelect: false, fit: true, style:"height:87%;", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto;border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"} , 
 				{name: "cost",  style:"width:24%; display: inline-block;" } , 
@@ -29,12 +32,16 @@ components:[
 				{name: "cloud", style:"width:18%; display: inline-block" },
 				{name: "icon2", kind: "onyx.IconButton",style:"float:right;margin-right:-11px",src: "assets/next.png", ontap: "nextItem"} 	    				
 	         ]}
-	     ]}, 
+	     ]},
+         {tag: "br"},
+		{name: "Msg", style: "color:#FF4500; text-align:center"},
+		{tag: "br"},		 
 	],
 	create: function(){
 		this.inherited(arguments)
 		var popup = new spinnerPopup();
-		popup.show();
+		
+		this.$.Spin.show();
 		
 		var thisPanel = this;
 			if (this.closePanel.isScreenNarrow()) {
@@ -55,10 +62,12 @@ components:[
 			results = response.elements;
 			this.$.list.setCount(results.length);
 			this.$.list.reset();
+			this.$.Spin.hide();
 		})
 		.error(this, function(){
-			console.log("Error to load the detail of the command!");
-			popup.delete();
+		this.$.Msg.setContent("No current Accounts in the list!");
+
+  			this.$.Spin.hide();
 		});		
 		/////
 		
@@ -91,9 +100,7 @@ components:[
 		{ 
         if(datainfo[i].uri == results[event.index].uriAccount) description = datainfo[i].description;
 		}
-		console.log(results[event.index]);
-		
-		
+
         var myObject = new Object();
 		myObject.accountName = results[event.index].accountName;
 		myObject.actives = results[event.index].actives;

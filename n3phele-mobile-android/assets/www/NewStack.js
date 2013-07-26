@@ -31,7 +31,7 @@ enyo.kind({
 			
 		stacks = new Array();
 			
-			var ajaxComponent = n3phele.ajaxFactory.create({
+			var ajaxComponent = new enyo.Ajax({
 			url: serverAddress+"command",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",

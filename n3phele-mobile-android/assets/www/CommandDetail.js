@@ -36,7 +36,7 @@ enyo.kind({
 		this.inherited(arguments);
 		var popup = new spinnerPopup();
 		popup.show();		
-		var ajaxComponent = n3phele.ajaxFactory.create({
+		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -147,7 +147,7 @@ enyo.kind({
 		//console.log(parameters);
 
 		if(this.$.commandExec.getJob()!=""){		
-			var ajaxComponent = n3phele.ajaxFactory.create({
+			var ajaxComponent = new enyo.Ajax({
 				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",

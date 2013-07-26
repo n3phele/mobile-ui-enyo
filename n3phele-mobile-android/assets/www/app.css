@@ -81,7 +81,7 @@ box-align:center;
 	background-color:  #768BA7;
 	font-size: 14px;
 	font-weight: bold;
-	padding: 2px 7px;
+	padding: 1px 2px;
 }
 
 .toolbar-style{
@@ -466,6 +466,65 @@ box-align:center;
 	}
 	.image-white{
 		margin-left:15px;
+	}
+}
+
+/*MEDIA QUERIES FOR COLUMNS*/
+
+/* for 1600px or less */
+@media screen and (max-width: 1600px) {	
+	.activityName{
+		padding-left:43px;
+		font-weight: normal; 
+		display: inline-block;
+	}
+	.running{
+		padding-left:23px;
+		font-weight: normal; 
+		display: inline-block;
+		color:#0066cc;
+	}
+	.started{
+		padding-left:31px;
+		font-weight: normal; 
+		display: inline-block;
+	}
+	.completed{
+		padding-left:5px;
+		font-weight: normal; 
+		display: inline-block;
+	}
+	.duration{
+		padding-left:21px;
+		font-weight: normal; 
+		display: inline-block;
+	}
+	.status{
+		float:right;
+		padding:10px 50px 0 0;
+	}
+}
+
+/* for 350px or less (IPhone and Android landscape)*/
+@media screen and (max-width: 350px){
+	.activityName{
+		padding-left:43px;
+	}
+	.running{
+		padding-left:23px;
+	}
+	.started{
+		padding-left:31px;
+	}
+	.completed{
+		padding-left:5px;
+	}
+	.duration{
+		padding-left:22px;
+	}
+	.status{
+		float:right;
+		padding:10px 5px 0 0;
 	}
 }
 

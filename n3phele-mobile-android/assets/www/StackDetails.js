@@ -40,7 +40,7 @@ kind: "FittableRows",
 		var popup = new spinnerPopup();
 		popup.show();
 		
-		var ajaxComponent = n3phele.ajaxFactory.create({
+		var ajaxComponent = new enyo.Ajax({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -60,7 +60,7 @@ kind: "FittableRows",
 			popup.delete();
 		});	
 
-     var ajaxComponent = n3phele.ajaxFactory.create({
+     var ajaxComponent = new enyo.Ajax({
 			url: this.stack,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -184,7 +184,7 @@ kind: "FittableRows",
 	
 
 		if(this.$.commandExec.getJob()!=""){	
-			var ajaxComponent = n3phele.ajaxFactory.create({
+			var ajaxComponent = new enyo.Ajax({
 				url: myurl,
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",

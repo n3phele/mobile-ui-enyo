@@ -32,7 +32,7 @@ enyo.kind({
 		}
 		 this.$.Spin.show();
 		
-		var ajaxComponent = n3phele.ajaxFactory.create({
+		var ajaxComponent = new enyo.Ajax({
 			url: serverAddress+"repository",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -68,7 +68,7 @@ enyo.kind({
 		
 		else if(this.callBy=="selectFile" || this.callBy=="outputFile"){
 			
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Commands", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
+		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Command", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
 			 		
 		}
 		
@@ -103,7 +103,6 @@ enyo.kind({
 	backMenu: function( sender , event){
 	if(this.callBy=="outputFile")
 	{  
-	  console.log("hue");
 	  this.doBackCommand();
 	}
 	else if(this.callBy="selectFile")

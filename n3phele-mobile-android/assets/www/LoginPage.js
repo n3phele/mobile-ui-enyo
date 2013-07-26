@@ -43,7 +43,7 @@ enyo.kind({
 		};
 		
 		sender.parent.owner.$.loginMsg.setClasses("loginMsgEnable");
-		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+		var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
 		ajaxComponent
 		.go()
 		.response( this, function(inSender, inResponse){

@@ -23,6 +23,9 @@ enyo.kind({
 		{kind: "onyx.Button" ,content: "Services", classes:"button-style-left", ontap: "cancelAction"},
 		{name: "title", content:"New Service", style:"padding-left:20px" }, {fit: true}]},        
 		{kind: "FittableRows", name:"panel", fit: true, components: [
+		  {tag: "br"},
+		{name: "Msg", style: "color:#FF4500; text-align:center"},
+   		 
 				{style:"text-align:center;margin:2em auto", components:[							
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Service name"}
@@ -105,15 +108,10 @@ enyo.kind({
 			if(c==true){
 			
 				this.uri = this.uris[i];
-				this.zone = this.zones[i];				
-			}
-		}
-	
-	
-	
-		var  name = this.$.name.getValue();
-       var parameters = '{"Variable":[{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["'+this.uri+'"]}]}';
-	   var ajaxComponent = n3phele.ajaxFactory.create({
+				this.zone = this.zones[i];
+                var  name = this.$.name.getValue();
+				var parameters = '{"Variable":[{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["'+this.uri+'"]}]}';
+			    var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=NShell+"+encodeURIComponent(this.myuri+"#"+this.zone) + "&parent=",
 				headers:{ 'authorization' : "Basic "+ this.uid},
 				method: "POST",
@@ -126,7 +124,13 @@ enyo.kind({
 		.response( this, function(inSender, inResponse){
 		this.doBack();		
 		}).error( this, function(inSender, inResponse){
-		});
+		});				
+			}
+		}
+	 if(this.zone == null) { 
+		this.$.Msg.setContent("Select your account!");
+                    }	 
+ 
 	},
 	
 	cancelAction:function (sender,event)
