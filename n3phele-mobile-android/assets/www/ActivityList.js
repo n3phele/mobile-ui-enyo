@@ -38,7 +38,7 @@ enyo.kind({
 				sync: false, 
 			};
 			
-			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
+			var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
 			
 			ajaxComponent
 			.go({'summary' : true, 'start' : 0, 'end' : listSize})
@@ -109,10 +109,9 @@ enyo.kind({
 		},
 		create: function(){
 			this.inherited(arguments);
-			//console.log("tamanho de listSize:" + listSize);
 			listSize = 15;
 			var thisPanel = this;
-            console.log(listSize);
+
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 			}

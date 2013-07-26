@@ -412,15 +412,12 @@ enyo.kind({
 
        		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected",onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected",onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
-		fileRepository2: function(inSender,inEvent){				
-		//close old panels	
-		//this.closeSecondaryPanels(4);
-
-       		
+	fileRepository2: function(inSender,inEvent){				
+		
 		//create panel of files based on repository selected
 		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closePanel5", container: this.$.panels }).render();
 		this.$.panels.reflow();
@@ -455,12 +452,9 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
-		fileSelected2: function(inSender,inEvent){
+	fileSelected2: function(inSender,inEvent){
 		//close old panels		
 				this.closeSecondaryPanels(4);//close old panels
-
-
-	
       if(inEvent.type == "input")		
 		{
 		FilesList[count] = inEvent;

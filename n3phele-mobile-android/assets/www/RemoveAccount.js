@@ -61,8 +61,6 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
 		});	
-		console.log(this.uid);
-		console.log(this.account.uri);
 		this.doDelete();
 	},
 
