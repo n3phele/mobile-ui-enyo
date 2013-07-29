@@ -30,8 +30,7 @@ enyo.kind({
 		]}
 	],
 	create: function(){
-		this.inherited(arguments)
-		console.log(this.uri);
+		this.inherited(arguments)		
 		
 	     if(this.callBy=="selectFile"){
 			this.$.delete.hide();
@@ -46,13 +45,7 @@ enyo.kind({
 	},
 	updateFilesFromURI: function(uri, success){
 	this.$.Spin.show();
-	this.$.backTop.hide();
-     
-	 
-	 console.log("Folders:");
-	 console.log(this.folders);
-	 
-	 
+	this.$.backTop.hide();  
 	 
 	 
 	 //Set toolbar title as root name here if we are not visiting any folders or came back from folders
@@ -181,8 +174,7 @@ enyo.kind({
 		this.doRemoveRepository(obj);
 		this.root = 0;
 	},
-	newFolder: function( sender , event){
-	console.log("click");
+	newFolder: function( sender , event){	
 		if(this.callBy=="outputFile"){
 		var str="";
 		  for(var i in this.folders)
@@ -190,11 +182,8 @@ enyo.kind({
 		      str = "/"+this.folders[i];
 			  this.folders.pop();
 		  }
-		  console.log(str);
-		  this.folders = new Array();
-		  //console.log(this.folders);
-			pathFile={name: this.outputfile, path: this.repositoryName+"://"+ str + "/" +this.outputfile,type:"output"};
-			console.log(pathFile);
+		    this.folders = new Array();		  
+			pathFile={name: this.outputfile, path: this.repositoryName+"://"+ str + "/" +this.outputfile,type:"output"};			
 			this.doSelectedRepository(pathFile);
 		}
 	
@@ -225,9 +214,7 @@ enyo.kind({
 			this.$.Spin.show();
 			this.foldername = this.selected.name;
 			this.folders.push(this.foldername);
-			
-			console.log("Root é:" + this.repositoryName);
-			console.log("Folders deu push em:" + this.foldername);
+					
 	        this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 			
 		}
@@ -237,10 +224,9 @@ enyo.kind({
 		  {
 		     str = "/"+this.folders[i];
 		  }
-		  console.log(str);
-		
+		  		
 			pathFile={name: this.selected.name, path: this.repositoryName+"://"+ str + "/" +this.selected.name, type:"input"};
-			console.log(pathFile);
+			
 			this.doSelectedItem(pathFile);
 		}else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
 			
@@ -254,9 +240,8 @@ enyo.kind({
 	navigateBack: function(folder){
 		//navigate back to repository/folder specified that is already on path
 		this.root = this.root - 1;
-		var aux = this.folders.pop();
+		var aux = this.folders.pop();	
 		
-		console.log("voltando de:" + aux);
 		
 		while(this.path[this.path.length-1].getContent() != folder)
 		{

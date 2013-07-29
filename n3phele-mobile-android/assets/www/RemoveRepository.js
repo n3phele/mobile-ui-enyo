@@ -46,7 +46,7 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	deleteRepository: function(sender, event){
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.repository.originator.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",

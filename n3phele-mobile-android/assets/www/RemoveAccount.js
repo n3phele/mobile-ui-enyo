@@ -49,7 +49,7 @@ enyo.kind({
 			panel.owner.$.IconGallery.deselectLastItem();			
 	},
 	deleteAccount: function(sender, event){
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.account.uriAccount,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",

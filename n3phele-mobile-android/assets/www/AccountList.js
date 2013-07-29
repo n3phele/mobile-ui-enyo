@@ -52,7 +52,7 @@ components:[
 			this.createComponent({name: "cloud", style:"width:17%; display: inline-block", container: this.$.item }).render();
 		} 
 		
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({  //n3phele.ajaxFactory.create
 			url: serverAddress+"account/accountData",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -75,7 +75,7 @@ components:[
 		});		
 		/////
 		
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account/",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -103,8 +103,7 @@ components:[
 	for (var i=0;i<datainfo.length;i++)
 		{ 
         if(datainfo[i].uri == results[event.index].uriAccount) description = datainfo[i].description;
-		}
-		console.log(results[event.index]);
+		}	
 		
 		
         var myObject = new Object();
