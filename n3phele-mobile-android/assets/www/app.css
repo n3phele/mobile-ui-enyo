@@ -35,7 +35,11 @@ box-align:center;
 }
 
 /* Command Detail Page *****/
-.commandFilesLine>div{ display: inline-block; width: 50%; vertical-align: middle; }
+.commandFilesLine>div{ 
+	display: inline-block;
+	width: 50%;
+	vertical-align: middle;
+}
 
 .commandTable{ margin:4px; }
 .commandTable > .subheader{

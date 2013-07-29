@@ -32,7 +32,7 @@ enyo.kind({
 		}
 		 this.$.Spin.show();
 		
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"repository",
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",

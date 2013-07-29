@@ -88,10 +88,10 @@ enyo.kind({
 						this.activityName = item.name.substr(0,20).concat("...");						
 					}						
 			} else{  
-					if(item.name.length < 65){
+					if(item.name.length < 70){
 						this.activityName = item.name;
 					}else{
-						this.activityName = item.name.substr(0,60).concat("...");
+						this.activityName = item.name.substr(0,65).concat("...");
 					}
 			}  
 			this.$.activity.setContent(this.activityName);
@@ -108,10 +108,9 @@ enyo.kind({
 			
 		},
 		create: function(){
-			this.inherited(arguments);
+			this.inherited(arguments);			
 			listSize = 15;
-			var thisPanel = this;
-
+			var thisPanel = this;            
 			if (this.closePanel.isScreenNarrow()) {
 				this.createComponent({kind: "onyx.Button", content: "Menu", classes:"button-style-left", ontap: "backMenu", container: this.$.toolTop}).render();		
 			}

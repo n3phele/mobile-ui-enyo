@@ -51,6 +51,7 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
+			console.log(this);
 			
 				   if (this.menulist == true) 
 			{      if (!enyo.Panels.isScreenNarrow())
@@ -65,6 +66,10 @@ enyo.kind({
 			else if (this.num == 0)
 			{
 			this.$.backbtn.setContent("Commands");
+			}
+				else if (this.num == 1)
+			{
+			this.$.backbtn.setContent("Account Details");
 			}
 			
 			//If not injected, create a default implementation

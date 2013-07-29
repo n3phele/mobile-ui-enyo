@@ -48,7 +48,7 @@ enyo.kind({
 		this.$.btnRelation.hide();
 		this.$.rela.hide(); //for now
 		var stacks;
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.service.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
@@ -129,7 +129,7 @@ enyo.kind({
 		id = this.action;
 		id= id.split("/");
 		id = id.pop();
-		var ajax = new enyo.Ajax({
+		var ajax = n3phele.ajaxFactory.create({
 			url: response.action,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",

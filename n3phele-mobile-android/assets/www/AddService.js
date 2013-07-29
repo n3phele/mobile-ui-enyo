@@ -7,6 +7,7 @@ enyo.kind({
 	myuri:null,
 	send:null,
 	uri:null,
+	uri:null,
 	zone:null,
 	clouds:null,
    uris:null,
@@ -23,18 +24,15 @@ enyo.kind({
 		{kind: "onyx.Button" ,content: "Services", classes:"button-style-left", ontap: "cancelAction"},
 		{name: "title", content:"New Service", style:"padding-left:20px" }, {fit: true}]},        
 		{kind: "FittableRows", name:"panel", fit: true, components: [
-		  {tag: "br"},
-		{name: "Msg", style: "color:#FF4500; text-align:center"},
-   		 
-				{style:"text-align:center;margin:2em auto", components:[							
+			{tag: "br"},
+			{name: "Msg", style: "color:#FF4500; text-align:center"},
+   		 		{style:"text-align:center;margin:2em auto", components:[							
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
-							{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Service name"}
+						{kind: "onyx.Input", name: "name",style:"float:left", placeholder: "Service name"}
 					]},
-					
 				]},	
-{content : "Select your account:", name : "account", style : "margin:5px 0 0 60px; font-weight: bold;"},
-				
-					{name:"checkBox",kind: "Group", classes: "onyx-sample-tools group", highlander: true,components:[		]},				
+			{content : "Select your account:", name : "account", style : "margin:5px 0 0 60px; font-weight: bold"},
+			{name:"checkBox",kind: "Group", classes: "onyx-sample-tools group", highlander: true,components:[		]},				
 		]}		
 	],
 	 create: function()
@@ -67,7 +65,7 @@ enyo.kind({
 	setDynamicData: function( data ){    
 			for( var i in data ){           
 				this.$.checkBox.createComponent(
-				{name: data[i].accountName, kind: "serviceLine", data: data[i] }
+				{name: data[i].accountName, style:"width:170% !important", kind: "serviceLine", data: data[i] }
 				);
 				
 				

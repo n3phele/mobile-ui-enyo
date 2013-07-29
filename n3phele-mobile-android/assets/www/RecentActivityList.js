@@ -23,7 +23,7 @@ enyo.kind({
 				sync: false, 
 			};
 			
-			var ajaxComponent = new enyo.Ajax(ajaxParams); //connection parameters
+			var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
 			
 			ajaxComponent
 			.go({'summary' : true, 'start' : 0, 'end' : size})
