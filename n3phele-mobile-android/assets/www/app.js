@@ -82,7 +82,7 @@ enyo.kind({
       }
    }		
         
-		this.$.mainMenuPanel.createComponent({ kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
+		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
 			
 		this.createComponent({
 					kind: "CommandList", 
@@ -101,7 +101,15 @@ enyo.kind({
    {
       window.localStorage.setItem("laststate", enyo.json.stringify(this.getState()));
    },
-	
+	refreshActivityMenu:function()
+	{
+	  this.$.mainMenuPanel.$.recent.destroy();
+	  console.log("heheheh");
+	  		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
+
+					this.$.mainMenuPanel.render();
+
+	},
 	
 	
 	
@@ -156,6 +164,7 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
+				
 			break;
 			case 1:
 				//Command Menu
@@ -346,7 +355,7 @@ enyo.kind({
 	//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to show selected activity		
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': inEvent.name, onBack: "closePanel4", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': inEvent.name,"num":inEvent.num ,onBack: "closePanel4", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);	
 	
@@ -502,7 +511,10 @@ enyo.kind({
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 4;
+		this.refreshActivityMenu();
 		this.mainMenuTap(obj,obj);
+		
+		
 	},
 	refreshCommands:function(inSender,inEvent)
 	{

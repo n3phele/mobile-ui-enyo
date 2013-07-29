@@ -18,7 +18,7 @@ enyo.kind({
 		style: "background: #fff",
 		classes : "scroller-sample-scroller enyo-fit",
 		components : [
-		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Accounts", ontap : "backMenu"},{kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeAccount"},
+		 {kind : "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [{ content : "Account"},{kind : "onyx.Button", classes:"button-style-left",content : "Accounts", ontap : "backMenu"},
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
@@ -50,7 +50,7 @@ enyo.kind({
 					{content : "Total Cost", style : "display: inline-block; width:25%;font-weight: bold"}, 
 				]} 
 			]},
-			{name: "activeMachines", style: "padding-top:10px; padding-bottom:7px;" ,components:[       	
+			{name: "activeMachines", style: "padding: 10px 0 1px 10px;border-radius:0" ,components:[       	
 			 ]},
 			 
 			{name: "buttons",style:"text-align:center",  components:[  		
@@ -274,6 +274,7 @@ enyo.kind({
 		 console.log(results[i].uriTopLevel); 
 		 var obj =  new Object();
 		obj.name = results[i].uriTopLevel
+		obj.num = 1;
 		 this.doSelectMachine(obj); //Sending obj with uritoplvl
 		 break;
 		
