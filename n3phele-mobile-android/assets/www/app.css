@@ -479,28 +479,28 @@ box-align:center;
 @media screen and (max-width: 1600px) {	
 	.activityName{
 		padding-left:43px;
-		font-weight: normal; 
+		font-weight: bold; 
 		display: inline-block;
 	}
 	.running{
 		padding-left:23px;
-		font-weight: normal; 
+		font-weight: bold; 
 		display: inline-block;
 		color:#0066cc;
 	}
 	.started{
 		padding-left:31px;
-		font-weight: normal; 
+		font-weight: bold; 
 		display: inline-block;
 	}
 	.completed{
 		padding-left:5px;
-		font-weight: normal; 
+		font-weight: bold; 
 		display: inline-block;
 	}
 	.duration{
 		padding-left:21px;
-		font-weight: normal; 
+		font-weight: bold; 
 		display: inline-block;
 	}
 	.status{

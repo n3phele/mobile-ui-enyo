@@ -90,6 +90,7 @@ enyo.kind({
 					onSelectedCommand : "commandTap",
 					onNewRepository : "newRepository",
 					onBack: "backMenu",
+					onLost:"logout",
 					"closePanel": enyo.Panels,
 					container: this.$.imageIconPanel
 				}).render();
@@ -159,6 +160,7 @@ enyo.kind({
 					onSelectedItem : "repositorySelected",
 					onNewRepository : "newRepository",
 					onBack: "backMenu",
+					onLost:"logout",
 					callBy: "repositoryList",
 					"closePanel": enyo.Panels,
 					container: this.$.imageIconPanel
@@ -175,6 +177,7 @@ enyo.kind({
 					onSelectedCommand : "commandTap",
 					onNewRepository : "newRepository",
 					onBack: "backMenu",
+					onLost:"logout",
 					"closePanel": enyo.Panels,
 					container: this.$.imageIconPanel
 				}).render();
@@ -183,7 +186,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu", "closePanel": enyo.Panels, onSelectedActivity: "selectedActivity", container: this.$.imageIconPanel
+					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu",onLost:"logout","closePanel": enyo.Panels, onSelectedActivity: "selectedActivity", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -191,7 +194,7 @@ enyo.kind({
 				//Accounts
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					name:"accountList",kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels, onBack: "backMenu", container: this.$.imageIconPanel
+					name:"accountList",kind: "AccountList", 'uid' : this.uid, onCreateAcc: "newAccount", onClickItem: "accountDetail", "closePanel": enyo.Panels,onLost:"logout" ,onBack: "backMenu", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -200,7 +203,7 @@ enyo.kind({
 				
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", "closePanel": enyo.Panels, onBack: "backMenu", onClickService: "serviceDetail", container: this.$.imageIconPanel
+					kind: "ServiceList", 'uid' : this.uid, onCreateService: "newService", "closePanel": enyo.Panels, onBack: "backMenu",onLost:"logout" ,onClickService: "serviceDetail", container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -268,7 +271,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to create a new account
-		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri, onBack: "closeFilePanel",onSucess:"refreshAccountList", container: this.$.panels }).render();
+		this.createComponent({ kind: "CreateAccount", "uid": this.uid, "uri": inEvent.uri,onLost:"logout" ,onBack: "closeFilePanel",onSucess:"refreshAccountList", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
@@ -345,7 +348,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent, onEditAcc:"editAccount", onBack: "refreshAccountList", onRemoveAccount:"removeAccount",onSelectMachine:"goToActivity",container: this.$.panels }).render();
+		this.createComponent({name:"accountDetails" ,kind: "AccountDetails", "uid": this.uid, "uri": inEvent.uri, "account": inEvent,onLost:"logout", onEditAcc:"editAccount", onBack: "refreshAccountList", onRemoveAccount:"removeAccount",onSelectMachine:"goToActivity",container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -393,7 +396,7 @@ enyo.kind({
 		//close old panels		
 		this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel",onBackCommand:"fileSelected", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile",onLost:"logout" ,"uri": inEvent.uri, "closePanel": enyo.Panels, onSelectedItem : "fileRepository", onBack: "closeFilePanel",onBackCommand:"fileSelected", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -403,7 +406,7 @@ enyo.kind({
 		//close old panels		
 		//this.closeSecondaryPanels(2);	
 		//create panel of Repositories to select a file
-		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile", "uri": inEvent.uri, onSelectedItem : "fileRepository2", onBack: "closePanel4",onBackCommand:"fileSelected2", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile",onLost:"logout" ,"uri": inEvent.uri, onSelectedItem : "fileRepository2", onBack: "closePanel4",onBackCommand:"fileSelected2", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(6);
 	},
@@ -457,7 +460,7 @@ enyo.kind({
 		}
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList, onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': this.$.CommandData.icon, "files": FilesList, "outputFiles": OutputFilesList,onOutputFile: "addFileInRepository", onSelectedFile: "listRepository", container: this.$.panels, 'uri': this.$.CommandData.uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -493,6 +496,7 @@ enyo.kind({
 					onSelectedItem : "repositorySelected",
 					onNewRepository : "newRepository",
 					onBack: "backMenu",
+					onLost:"logout",
 					callBy: "repositoryList",
 					"closePanel": enyo.Panels,
 					container: this.$.imageIconPanel
@@ -542,7 +546,7 @@ enyo.kind({
 		this.closeSecondaryPanels(2);//close old panels
 		
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted" }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 		this.$.CommandData = inSender.data[inEvent.index];

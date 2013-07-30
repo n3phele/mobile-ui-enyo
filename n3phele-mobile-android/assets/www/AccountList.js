@@ -4,14 +4,15 @@ enyo.kind({
 	name:"AccountList",
 	kind: "FittableRows",
 	fit: true,
-	
+	accountName:"",
 	results:null,
 	datainfo:null,
 	style: "padding: 0px",
 	events: {
 		onCreateAcc: "",
 		onClickItem:"",
-		onBack:""
+		onBack:"",
+		onLost:"",
 	}, 
 components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [ { name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "+", style: "font-size: 20px !important;font-weight: bold;", ontap: "newAccount"}]},		 
@@ -42,11 +43,11 @@ components:[
 		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.toolTop}).render();
 		}
 		
-		if ($(window).width() > 350){
+		if ($(window).width() > 350){			
 			this.createComponent({content: "Last 24 hours", style:"display: inline-block; width:25%;font-weight: bold", container: this.$.values}).render();
 			this.createComponent({content: "Active", style:"display: inline-block; width:20%;font-weight: bold", container: this.$.values}).render();
 			this.createComponent({content: "Cloud", style:"display: inline-block; width:24%;font-weight: bold", container: this.$.values}).render();
-			
+				
 			this.createComponent({name: "cost",  style:"width:25%; display: inline-block;", container: this.$.item }).render();
 			this.createComponent({name: "active",  style:"width:20%; display: inline-block" , container: this.$.item}).render();
 			this.createComponent({name: "cloud", style:"width:17%; display: inline-block", container: this.$.item }).render();
@@ -68,12 +69,14 @@ components:[
 			this.$.list.reset();
 			this.$.Spin.hide();
 		})
-		.error(this, function(){
-		this.$.Msg.setContent("No current Accounts in the list!");
+		.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
 
   			this.$.Spin.hide();
 		});		
-		/////
+		
 		
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"account/",
@@ -146,7 +149,15 @@ components:[
 			this.$.cost.setContent(item.cost);
 			this.$.active.setContent(item.actives);
 			this.$.cloud.setContent(item.cloud);
-		}		
+		}
+		if($(window).width() > 350 && $(window).width() < 800){
+			if(item.accountName.length < 15){
+				this.accountName = item.accountName;
+			}else {
+				this.accountName = item.accountName.substr(0,12).concat("...");						
+			}	
+		this.$.name.setContent(this.accountName);
+		}			 	
 		
 		if( event.index % 2 == 1)
 	   {

@@ -23,7 +23,7 @@ import java.lang.*;
 public class MainActivity extends DroidGap {
 	private static final String AdMob_Ad_Unit = "a151486bf0b55b1";	
 	//private static int SCREEN_ORIENTATION_PORTRAIT;
-	private AdView adView;		
+	private AdView adView;		  
 	     
 	@Override
 	public void onCreate(Bundle savedInstanceState) {	

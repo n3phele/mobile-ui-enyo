@@ -13,7 +13,8 @@ enyo.kind({
 	events: {
 		onSelectedFile: "",
 		onCommandCreated: "",
-		onOutputFile: ""
+		onOutputFile: "",
+		onLost:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "Commands", classes:"button-style-left", ontap: "closePanel"}]},
@@ -56,6 +57,7 @@ enyo.kind({
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");
 			popup.delete();
+			
 		});		
 	},
 	setDynamicData: function( data ){     

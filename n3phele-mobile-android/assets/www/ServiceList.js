@@ -10,7 +10,8 @@ enyo.kind({
 		onCreateService: "",
 		onRemoveService: "",
 		onClickService:"",
-		onBack:""
+		onBack:"",
+		onLost:"",
 	},
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ { name: "title", content:"Services" }, {kind: "onyx.Button",  content: "+", ontap: "newService", style: "font-size: 20px !important;font-weight: bold;", classes:"button-style-right"},{fit: true}]},
@@ -46,7 +47,10 @@ enyo.kind({
 			ajaxComponent
 			.go()
 			.response( this, "processActions" )
-			.error( this, function(){
+			.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
 						this.$.Msg.setContent("Error to load recent activities!!!");
                         this.$.Spin.hide();});
 		results = new Array();

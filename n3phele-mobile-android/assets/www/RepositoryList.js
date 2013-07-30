@@ -13,6 +13,7 @@ enyo.kind({
 		onBack: "",
 		onSelectedRepository:"",
 		onBackCommand:"",
+		onLost:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", name:"tollbar_top",classes:"toolbar-style", components: [ 
@@ -78,9 +79,10 @@ enyo.kind({
 		
 		thisPanel.reflow();	
 		})
-		.error(this, function(){
-			console.log("Error to load the list of repositories");
-			popup.delete();
+	.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
 		});		
 	},
 	closePanel: function(inSender, inEvent){

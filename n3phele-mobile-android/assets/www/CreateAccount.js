@@ -6,6 +6,7 @@ enyo.kind({
 	events: {
 		onBack: "",
 		onSucess:"",
+		onLost:"",
 	},
 	components: [
 	{kind:"Scroller",classes: "scroller-sample-scroller enyo-fit", style:"background:#fff", components: [    
@@ -48,7 +49,7 @@ enyo.kind({
 		
 		var n3pheleClient = new N3pheleClient();
 		n3pheleClient.uid = this.uid;
-		var cloudsErrors = function() { console.log("getting clouds error"); }
+		var cloudsErrors = function() { console.log("Problem to load clouds!"); }
 		var thisPanel = this;
 		var cloudsSuccess = function(clouds) { for (var i=0;i<clouds.length;i++) { thisPanel.$.cloudsList.createComponent( { tag: "option", content: clouds[i].name, value: clouds[i].uri, object: clouds[i] } ); thisPanel.$.cloudsList.render(); thisPanel.$.cloudsList.reflow(); } }
 		n3pheleClient.listClouds(cloudsSuccess, cloudsErrors);
@@ -94,9 +95,10 @@ enyo.kind({
 		.response( this, function(inSender, inResponse){
 			this.$.Msg.setContent("Success");
 			this.doSucess();
-		}).error( this, function(inSender, inResponse){
-			this.$.Msg.setContent("Error");
-			popup.delete();
+		}).error(this, function(){
+			 if(inSender.xhrResponse.status == 0) 
+		    this.doLost();
+			
 		});
 	},
 	cancelAction: function(sender , event){

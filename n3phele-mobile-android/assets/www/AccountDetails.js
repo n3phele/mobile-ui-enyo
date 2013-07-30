@@ -11,7 +11,8 @@ enyo.kind({
 		onEditAcc: "",
 		onBack: "",
         onRemoveAccount:"",
-		onSelectMachine:""
+		onSelectMachine:"",
+		onLost:"",
 	},
 	components : [
 		{kind : "Scroller",
@@ -22,7 +23,8 @@ enyo.kind({
 				{kind : "onyx.Button", classes:"button-style-right", content : "Edit", ontap : "editAccount"}]},
 			{content : "Name of Account", name : "account", style : "margin:5px 0 0 10px; font-weight: bold;"},
 			{content : "Name of Account", name : "description", style : "margin-top:0; text-align:center"},
-			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px"},
+			{content : "On Cloud: ", style : "margin:5px 0 0 10px;font-weight: normal;display: inline-block"},
+			{content : "Name of Cloud", name : "cloudName", style : "margin:5px 0 5px 10px;display:inline-block"},
 			{kind : "onyx.Toolbar", content : "History", name : "title_2",classes: "toolbar-style"},
 		   
 			{name: "SelPanel", style: "text-align: center; margin: 1em auto;", components: [
@@ -64,7 +66,7 @@ enyo.kind({
 		var popup = new spinnerPopup();
 		popup.show();		
 		this.$.account.setContent(this.account.accountName);
-		this.$.description.setContent(this.account.description);
+		this.$.description.setContent(this.account.description);		
 	    this.$.cloudName.setContent(this.account.cloud);
 		accountId = this.account.uriAccount;
 		accountId = accountId.substr(accountId.lastIndexOf('/'), accountId.length);
@@ -127,8 +129,10 @@ enyo.kind({
 			this.chartData = results;
 			this.resizeChart();
 		})
-		.error(this, function(){
-		console.log("Error to load the detail of the command!");
+		.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
 		});     
 		
 	},
@@ -241,8 +245,9 @@ enyo.kind({
 			};
 
 		})
-		.error(this, function(){
-		console.log("Error to load the detail of the command!");
+		.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		 this.doLost();
 		}); 
 	},
 
