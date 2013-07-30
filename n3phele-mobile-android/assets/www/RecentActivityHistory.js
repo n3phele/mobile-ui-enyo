@@ -61,7 +61,7 @@ enyo.kind({
 		var panels = main.$.panels;
 
 		main.closeSecondaryPanels(2);
-		main.createComponent({kind: "RecentActivityPanel", 'url': inSender.owner.lines[index].uri, 'uid': this.uid, container: panels}).render();
+		main.createComponent({kind: "RecentActivityPanel", 'url': inSender.owner.lines[index].uri, onRerun:"reRun", 'uid': this.uid, container: panels}).render();
 		
 		panels.reflow();
 		panels.setIndex(2);

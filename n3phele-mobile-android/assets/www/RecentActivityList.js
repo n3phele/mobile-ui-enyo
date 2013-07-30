@@ -87,7 +87,7 @@ enyo.kind({
 			}
 			
 			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({name:"Activity",kind: "RecentActivityPanel", 'url': this.results[event.index].uri, 'uid': this.uid,"panels":panels, "menulist":menulist ,container: main.$.imageIconPanel, 
+			main.createComponent({name:"Activity",kind: "RecentActivityPanel", 'url': this.results[event.index].uri,onRerun:"reRun", 'uid': this.uid,"panels":panels, "menulist":menulist ,container: main.$.imageIconPanel, 
 			n3pheleClient: n3phele}); //n3phele variable is currently a global one defined on index.html.
 		
 			panels.owner.$.imageIconPanel.render();

@@ -17,7 +17,7 @@ enyo.kind({
 		onLost:"",
 	},
 	components:[
-		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {kind: "onyx.Button", content: "Commands", classes:"button-style-left", ontap: "closePanel"}]},
+		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {name: "back", kind: "onyx.Button", content: "Commands", classes:"button-style-left", ontap: "closePanel"}]},
 
 		{kind: "Panels", name:"panels", fit: true, classes: "panels-sample-sliding-panels panels", arrangerKind: "CollapsingArranger", wrap: false, components: [
 			{name: "info", classes: "info", style: "width:15%;background:#fff", components: [
@@ -36,7 +36,11 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 		var popup = new spinnerPopup();
-		popup.show();		
+		popup.show();	
+		
+		if(this.backContent!=undefined){
+			this.$.back.setContent(this.backContent);
+		}		
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},

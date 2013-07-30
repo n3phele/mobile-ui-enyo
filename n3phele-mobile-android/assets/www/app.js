@@ -238,7 +238,7 @@ enyo.kind({
 		this.closeSecondaryPanels(4);		
 		//create panel to show selected activity	
        	
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);	
 	},
@@ -246,7 +246,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to show selected activity		
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel", onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);	
 	}	
@@ -358,7 +358,7 @@ enyo.kind({
 	//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to show selected activity		
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': inEvent.name,"num":inEvent.num ,onBack: "closePanel4", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': inEvent.name,"num":inEvent.num ,onBack: "closePanel4", onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);	
 	
@@ -535,6 +535,11 @@ enyo.kind({
 	closePanel5:function(inSender,inEvent){
 		this.closeSecondaryPanels(4);
 		this.$.panels.setIndex(3);
+	},
+	reRun: function(inSender,inEvent){
+	this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon':"assets/Script.png" , onSelectedFile: "listRepository", backContent: inEvent.backContent, onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inEvent.actionUrl, onCommandCreated: "commandExecuted" }).render();
+	this.$.panels.reflow();                       
+	this.$.panels.setIndex(3);
 	},
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {
