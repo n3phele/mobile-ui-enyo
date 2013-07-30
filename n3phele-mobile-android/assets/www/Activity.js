@@ -16,20 +16,20 @@ enyo.kind({
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
 				{name:"base",style:"background:#fff;padding:10px 10px 0 10px", components:[
-					{tag: "span", content: "Name: "}, 
+					{tag: "span", content: "Name: ", style:"font-weight: normal"}, 
 					{name: "acName",classes: "activityName"},
 					{tag: "br"},
-					{tag: "span", content: "Running: "}, 
+					{tag: "span", content: "Running: ", style:"font-weight: normal"}, 
 					{name: "acComDesc",classes: "running"},
 					{kind:"Image", src:this.icon, name: "acStatus", classes:"status"},
 					{tag : "br"},
-					{tag: "span", content: "Started: "}, 					
+					{tag: "span", content: "Started: ", style:"font-weight: normal"}, 					
 					{name: "acStart",classes: "started"},					
 					{tag : "br"},
-					{tag: "span", content: "Completed: "}, 
+					{tag: "span", content: "Completed: ", style:"font-weight: normal"}, 
 					{name: "acComplete",classes: "completed"},
 					{tag: "br"},
-					{tag: "span", content: "Duration: "}, //seconds
+					{tag: "span", content: "Duration: ", style:"font-weight: normal"}, //seconds
 					{name: "acDuration",classes: "duration"},
 					{tag: "br"},
 					{name: "divider", classes: "list-divider"}					

@@ -8,7 +8,8 @@ enyo.kind({
 	commandsImages : null,
 	events: {
 		onSelectedCommand: "",
-		onBack: ""
+		onBack: "",
+		onLost:"",
 	},
 	components: [
 			{kind: "onyx.Toolbar",classes: "toolbar-style", name: "toolTop", components: [{ content: "Commands", style:"padding-right:25px"}]},
@@ -63,8 +64,10 @@ enyo.kind({
 		thisPanel.render();
 		thisPanel.reflow();	
 		})
-		.error(this, function(){
-			console.log("Error to load the list of repositories");
+		.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
 		});	
  		
 	},

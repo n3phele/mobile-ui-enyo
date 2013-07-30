@@ -8,7 +8,9 @@ enyo.kind({
 		events: {
 		onBack: "",
 		onClose: "",
-		onSelectedActivity: ""
+		onLost:"",
+		onSelectedActivity: "",
+		
 		},
 		components:[
 			{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop",components: [	{content: "Activity History"}, {fit: true} ]},
@@ -43,7 +45,9 @@ enyo.kind({
 			ajaxComponent
 			.go({'summary' : true, 'start' : 0, 'end' : listSize})
 			.response( this, "processRecentActivities" )
-			.error( this, function(){ console.log("Error to load recent activities!!"); });
+			.error( this, function(){ 
+		  alert("Connection Lost");
+		 this.doLost();})
 		},
 		processRecentActivities: function( request, response){		
 			if(response.total == 0){
