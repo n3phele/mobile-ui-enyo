@@ -9,7 +9,7 @@ enyo.kind({
 				{classes: "panels-sample-sliding-content", allowHtml: true, style: "background: url('assets/bg_login.png') repeat; height: 100%; width:100%; display: table;", components:[
 						{name: "login-container", style: "vertical-align: middle; display:table-cell; text-align:center;", components:[
 								{name: "loginMsg"},
-								{kind: "onyx.InputDecorator", style: "background-color: white;margin:2px;", components: [ {kind: "onyx.Input", name: "loginUser", placeholder: "Username"} ]},		
+								{kind: "onyx.InputDecorator", style: "background-color: white;margin:2px;text-transform:lowercase;", components: [ {kind: "onyx.Input", name: "loginUser", placeholder: "Username"} ]},		
 								{tag: "br"},
 								{kind: "onyx.InputDecorator", style: "background-color: white;margin:2px;", components: [ {kind: "onyx.Input", name: "loginPw", type:"password", placeholder: "Password"} ]},
 								{tag: "br"},

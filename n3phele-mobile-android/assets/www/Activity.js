@@ -1,3 +1,4 @@
+var actionURL;
 enyo.kind({ 
 		name:"RecentActivityPanel",		
 		layoutKind: "FittableRowsLayout",
@@ -8,6 +9,7 @@ enyo.kind({
 		activityDesc:"",		
 		events: {
 		onBack: "",
+		onRerun: "",
 		}, 
 		components:[
 			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	
@@ -20,7 +22,7 @@ enyo.kind({
 					{name: "acName",classes: "activityName"},
 					{tag: "br"},
 					{tag: "span", content: "Running: ", style:"font-weight: normal"}, 
-					{name: "acComDesc",classes: "running"},
+					{name: "acComDesc",classes: "running", style: " text-decoration: underline;", ontap: "getAction"},
 					{kind:"Image", src:this.icon, name: "acStatus", classes:"status"},
 					{tag : "br"},
 					{tag: "span", content: "Started: ", style:"font-weight: normal"}, 					
@@ -127,6 +129,7 @@ enyo.kind({
 					
 				thisPanel.$.acName.setContent(" "+this.activityName);				
 				thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
+				actionURL = response.action;
 				var minstart = 0;
 				var mincomplete = 0;
 				var d1 = new Date(response.start);
@@ -226,5 +229,11 @@ enyo.kind({
 			}
 		  else  
               {		  this.doBack(); }
-		}
+		},
+		getAction:function(sender,event){  
+			var obj = new Object();
+			obj.actionUrl = actionURL+"/history";
+			obj.backContent = "Activity";
+			this.doRerun(obj);
+	   }
 });
