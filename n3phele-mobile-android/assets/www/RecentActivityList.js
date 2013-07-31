@@ -86,7 +86,7 @@ enyo.kind({
 			myObj.menulist = true;
 			myObj.url = this.results[event.index].uri;
 			myObj.uid = this.uid;
-			console.log(myObj);
+		
 			this.doClick(myObj);
 						
 

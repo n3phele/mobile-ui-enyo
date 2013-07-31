@@ -182,7 +182,7 @@ enyo.kind({
 	   var panel = inSender.parent.parent.parent;
 	  if(this.backContent!=undefined)
 	  { 
-	  console.log("lasttest1");
+	
 	    this.doBack();
 	  }
 			

@@ -45,7 +45,7 @@ enyo.kind({
 		],
 		constructor: function(args) {
 			this.inherited(arguments);
-		    console.log("oie");
+		  
 			//Dependency Injection
 			if(args.n3pheleClient)
 			{
@@ -54,7 +54,6 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-			console.log(this);
 		
 				   if (this.menulist == true) 
 			{      
