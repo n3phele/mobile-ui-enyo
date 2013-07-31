@@ -2,6 +2,9 @@ var size=2;
 enyo.kind({ 
 		name:"RecentActivityList",
 		result: null,
+		events: {
+		onClick:"",
+	},
 		
 		components:[
 			{name:"atbar",kind: "onyx.Toolbar",classes: "toolbar-style",style:"padding:0;margin-top:-15px",components:[ {content: "Recent Activities", name:"divider"},{fit: true}]}, 
@@ -78,18 +81,15 @@ enyo.kind({
 		itemTap: function( sender, event){
 			if(this.results == null ) return;
 			var main = sender.owner.parent.owner;
-			var panels = main.$.panels;
-            var menulist = true;
-			//main.closeSecondaryPanels(2);
+			var myObj = new Object();
+			myObj.panels = main.$.panels;
+			myObj.menulist = true;
+			myObj.url = this.results[event.index].uri;
+			myObj.uid = this.uid;
+			console.log(myObj);
+			this.doClick(myObj);
+						
 
-			if (enyo.Panels.isScreenNarrow()){
-				panels.setIndex(1);
-			}
 			
-			panels.owner.$.imageIconPanel.destroyClientControls();
-			main.createComponent({name:"Activity",kind: "RecentActivityPanel", 'url': this.results[event.index].uri,onRerun:"reRun", 'uid': this.uid,"panels":panels, "menulist":menulist ,container: main.$.imageIconPanel, 
-			n3pheleClient: n3phele}); //n3phele variable is currently a global one defined on index.html.
-		
-			panels.owner.$.imageIconPanel.render();
 		},
 });

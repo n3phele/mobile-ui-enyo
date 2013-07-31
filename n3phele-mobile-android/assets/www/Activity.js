@@ -9,6 +9,7 @@ enyo.kind({
 		activityDesc:"",		
 		events: {
 		onBack: "",
+		onBackMenu:"",
 		onRerun: "",
 		}, 
 		components:[
@@ -44,7 +45,7 @@ enyo.kind({
 		],
 		constructor: function(args) {
 			this.inherited(arguments);
-		
+		    console.log("oie");
 			//Dependency Injection
 			if(args.n3pheleClient)
 			{
@@ -54,12 +55,9 @@ enyo.kind({
 		create: function() {
 			this.inherited(arguments);
 			console.log(this);
-			
+		
 				   if (this.menulist == true) 
-			{      if (!enyo.Panels.isScreenNarrow())
-			         {
-				      this.$.backbtn.hide();
-			              }
+			{      
 		     		
 					this.$.backbtn.setContent("Menu");
 					
@@ -221,14 +219,19 @@ enyo.kind({
 			panel.render();
 		},
 		backMenu: function( sender , event){
-			
-		  if (this.menulist == true) 
+	
+		  if (this.menulist == true && enyo.Panels.isScreenNarrow()) 
 			{     
 					this.panels.setIndex(0);
 
 			}
-		  else  
-              {		  this.doBack(); }
+		  else if (this.menulist == true)
+                    {
+					this.doBackMenu();
+                    }
+           else					
+              {
+			  this.doBack(); }
 		},
 		getAction:function(sender,event){  
 			var obj = new Object();
