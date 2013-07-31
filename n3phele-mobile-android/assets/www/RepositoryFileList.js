@@ -237,7 +237,6 @@ enyo.kind({
 			if(str != ""){
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl+"&path="+str;
-				console.log(str);
 			}else{
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl;
