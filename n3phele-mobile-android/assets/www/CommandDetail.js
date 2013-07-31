@@ -15,6 +15,7 @@ enyo.kind({
 		onCommandCreated: "",
 		onOutputFile: "",
 		onLost:"",
+		onBack:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {name: "back", kind: "onyx.Button", content: "Commands", classes:"button-style-left", ontap: "closePanel"}]},
@@ -178,8 +179,14 @@ enyo.kind({
 		}
 	},
 	closePanel: function(inSender, inEvent){
-			var panel = inSender.parent.parent.parent;
+	   var panel = inSender.parent.parent.parent;
+	  if(this.backContent!=undefined)
+	  { 
+	
+	    this.doBack();
+	  }
 			
+     else {			
 			panel.setIndex(2);				
 			panel.getActive().destroy();					
 			panel.panelCreated = false;
@@ -192,7 +199,8 @@ enyo.kind({
 			}		
 			
 			panel.reflow();		
-			//panel.owner.$.IconGallery.deselectLastItem();			
+			//panel.owner.$.IconGallery.deselectLastItem();		
+     }			
 	}
 
 })

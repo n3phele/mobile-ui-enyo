@@ -82,7 +82,7 @@ enyo.kind({
       }
    }		
         
-		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
+		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList"},{owner: this});
 			
 		this.createComponent({
 					kind: "CommandList", 
@@ -105,8 +105,8 @@ enyo.kind({
 	refreshActivityMenu:function()
 	{
 	  this.$.mainMenuPanel.$.recent.destroy();
-	  console.log("heheheh");
-	  		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid});
+		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList"},{owner: this});
+
 
 					this.$.mainMenuPanel.render();
 
@@ -221,6 +221,15 @@ enyo.kind({
 	},
 	backMenu: function(inSender){
 		this.$.panels.setIndex(0);
+	},
+	actList: function(inSender,inEvent){	
+	
+	   this.closeSecondaryPanels(2);
+	
+	
+		this.createComponent({ kind: "RecentActivityPanel",'url': inEvent.url ,"menulist":inEvent.menulist,"panels":inEvent.panels,"uid": inEvent.uid,onRerun:"reRun",onBack: "closePanel",onBackMenu:"goBackAct",container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(3);
 	},
 	setPanelIndex: function(index) {
 		if (enyo.Panels.isScreenNarrow()) {
@@ -527,6 +536,13 @@ enyo.kind({
 		obj.index = 1;
 		this.mainMenuTap(obj,obj);
 	},
+	goBackAct:function(inSender,inEvent)
+	{
+	   	this.setPanelIndex(1);
+	    var obj = new Object();
+		obj.index = 2;
+		this.mainMenuTap(obj,obj);
+	},
 
 	closePanel4:function(inSender,inEvent){
 		this.closeSecondaryPanels(3);
@@ -537,9 +553,10 @@ enyo.kind({
 		this.$.panels.setIndex(3);
 	},
 	reRun: function(inSender,inEvent){
-	this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon':"assets/Script.png" , onSelectedFile: "listRepository", backContent: inEvent.backContent, onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inEvent.actionUrl, onCommandCreated: "commandExecuted" }).render();
+	this.closeSecondaryPanels(3);
+	this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon':"assets/Script.png" , onSelectedFile: "listRepository", backContent: inEvent.backContent, onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inEvent.actionUrl, onCommandCreated: "commandExecuted",onBack:"closePanel4" }).render();
 	this.$.panels.reflow();                       
-	this.$.panels.setIndex(3);
+	this.$.panels.setIndex(4);
 	},
 	/** When an command icon is actioned It will be runned**/
 	commandTap: function(inSender, inEvent) {
