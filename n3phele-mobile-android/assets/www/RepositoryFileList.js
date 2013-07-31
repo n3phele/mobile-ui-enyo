@@ -19,6 +19,7 @@ enyo.kind({
 		onRemoveRepository:"",
 	    onSelectedRepository:"",
 		onBackCommand:"",
+		onOpenContent: "",
 	},
 	components:[
 		{kind: "onyx.Toolbar", name: "toolTop", classes: "toolbar-style", components: [ { name: "title", content:"Files" }, {name:"delete",kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "deleteRepository"},{name: "backTop",kind: "onyx.Button", classes: "button-style-left", content: "Repositories", ontap: "backMenu", container:this.$.toolTop}]},
@@ -76,12 +77,7 @@ enyo.kind({
 			}
 		this.$.title.setContent(name);
 	   }
-	  
-       
 
-	  
-				
-			
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -186,8 +182,6 @@ enyo.kind({
 			pathFile={name: this.outputfile, path: this.repositoryName+"://"+ str + "/" +this.outputfile,type:"output"};			
 			this.doSelectedRepository(pathFile);
 		}
-	
-		
 		this.root = 0;
 	},
 	setupItem: function(inSender, inEvent) {
@@ -218,11 +212,12 @@ enyo.kind({
 	        this.updateFilesFromURI(this.uri + '/list?prefix=' + this.selected.name + '%2F');
 			
 		}
+		
 		if(this.selected.mime != this.folderMime && this.callBy=="selectFile"){
 		 	var str = "";
 		  for(var i in this.folders)
 		  {
-		     str = "/"+this.folders[i];
+		     str += "/"+this.folders[i];
 		  }
 		  		
 			pathFile={name: this.selected.name, path: this.repositoryName+"://"+ str + "/" +this.selected.name, type:"input"};
@@ -230,6 +225,24 @@ enyo.kind({
 			this.doSelectedItem(pathFile);
 		}else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
 			
+			var str = "";
+			
+		  for(var i in this.folders)
+		  {
+		     str += "/"+this.folders[i];
+		  }
+			var contentUrl = this.selected.repository+"/redirect?name="+this.selected.name;
+			
+			var fileUri = new Object();
+			if(str != ""){
+				fileUri.name=this.selected.name;
+				fileUri.uri = contentUrl+"&path="+str;
+			}else{
+				fileUri.name=this.selected.name;
+				fileUri.uri = contentUrl;
+			}
+
+			this.doOpenContent(fileUri);
 		}
 	},
 	folderClicked: function(inSender,inEvent){

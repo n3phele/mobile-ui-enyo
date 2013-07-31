@@ -264,9 +264,15 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name ,onRemoveRepository: "RemoveRepository", onCreateFolder:"CreateFolder" ,onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "repositoryList", "repositoryName" : inEvent.name ,onRemoveRepository: "RemoveRepository", onCreateFolder:"CreateFolder" , onOpenContent: "fileContent", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
+	},
+	fileContent: function(inSender,inEvent){
+		this.closeSecondaryPanels(3);
+		this.createComponent({ kind: "FileContent", "name": inEvent.name, "uri": inEvent.uri, container: this.$.panels}).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(4);
 	},
 	newRepository: function(inSender,inEvent){	
 		//close old panels	
