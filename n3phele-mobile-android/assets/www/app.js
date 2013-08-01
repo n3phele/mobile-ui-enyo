@@ -270,7 +270,7 @@ enyo.kind({
 	},
 	fileContent: function(inSender,inEvent){
 		this.closeSecondaryPanels(3);
-		this.createComponent({ kind: "FileContent", "name": inEvent.name, "uri": inEvent.uri, container: this.$.panels}).render();
+		this.createComponent({ kind: "FileContent", "name": inEvent.name, "uri": inEvent.uri,onBack:"closePanel4" ,onLost:"logout" , container: this.$.panels}).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
