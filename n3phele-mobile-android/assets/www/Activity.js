@@ -3,6 +3,7 @@ enyo.kind({
 		name:"RecentActivityPanel",		
 		layoutKind: "FittableRowsLayout",
 		fit: true,
+		canceled:null,
 		style:"background-color:#fff",
 		icon:"", 
 		activityName:"",
@@ -11,10 +12,12 @@ enyo.kind({
 		onBack: "",
 		onBackMenu:"",
 		onRerun: "",
+		onRefresh:"",
 		}, 
 		components:[
 			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	
 				{content: "Activity", style:"padding-right:15px"}, 
+				{name:"cancel",kind: "onyx.Button", content: "Cancel", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "cancelActivity"},
 				//fit: true}, 
 				{name:"backbtn",kind: "onyx.Button", content: "Activity History", classes:"button-style-left", ontap: "backMenu"} 
 			]},		
@@ -54,7 +57,8 @@ enyo.kind({
 		},
 		create: function() {
 			this.inherited(arguments);
-		
+		   this.$.cancel.hide();
+		   cancelled = false;
 				   if (this.menulist == true) 
 			{      
 		     		
@@ -84,7 +88,9 @@ enyo.kind({
 			var success = function (response) {		
 				
 				if(response.state == "CANCELLED" ){
-					thisPanel.$.acStatus.setSrc("assets/cancelled.png");	
+					thisPanel.$.acStatus.setSrc("assets/cancelled.png");
+                    cancelled = true;
+					
 				}else if(response.state == "FAILED"){
 					thisPanel.$.acStatus.setSrc("assets/failed.png");
 				}else if(response.state == "COMPLETE"){
@@ -214,7 +220,11 @@ enyo.kind({
 						{classes:"content", content : " "+narrative[i].text,style:"background-color:white"}
 					]})}				
 				}
-			}				
+			}
+           if(!cancelled){
+		    this.$.cancel.show();
+
+               }		   
 			panel.render();
 		},
 		backMenu: function( sender , event){
@@ -237,5 +247,25 @@ enyo.kind({
 			obj.actionUrl = actionURL+"/history";
 			obj.backContent = "Activity";
 			this.doRerun(obj);
+	   },
+	   cancelActivity:function(sender,event)
+	   {
+	   var ajaxComponent = n3phele.ajaxFactory.create({
+			url: this.url,
+			headers:{ 'authorization' : "Basic "+ this.uid},
+			method: "DELETE",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		}); 		
+		ajaxComponent.go()
+		.response(this,function()
+		{
+			this.doRefresh();
+		})
+		.error(this, function(){
+			console.log("Error to delete the detail of the command!");
+		});	
+	
+		
 	   }
 });
