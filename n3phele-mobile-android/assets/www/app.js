@@ -82,8 +82,7 @@ enyo.kind({
       }
    }		
         
-		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList"},{owner: this});
-			
+      this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});			
 		this.createComponent({
 					kind: "CommandList", 
 					'uid' : this.uid, 
@@ -105,7 +104,7 @@ enyo.kind({
 	refreshActivityMenu:function()
 	{
 	  this.$.mainMenuPanel.$.recent.destroy();
-		this.$.mainMenuPanel.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList"},{owner: this});
+		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
 
 
 					this.$.mainMenuPanel.render();
@@ -166,7 +165,8 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
-				
+						this.refreshActivityMenu();
+
 			break;
 			case 1:
 				//Command Menu
@@ -227,7 +227,7 @@ enyo.kind({
 	   this.closeSecondaryPanels(2);
 	
 	
-		this.createComponent({ kind: "RecentActivityPanel",'url': inEvent.url ,"menulist":inEvent.menulist,"panels":inEvent.panels,"uid": inEvent.uid,onRerun:"reRun",onBack: "closePanel",onBackMenu:"goBackAct",container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel",'url': inEvent.url ,"menulist":inEvent.menulist,"panels":inEvent.panels,"uid": inEvent.uid,onRerun:"reRun",onRefresh:"refreshActivityList",onBack: "closePanel",onBackMenu:"goBackAct",container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -247,7 +247,7 @@ enyo.kind({
 		this.closeSecondaryPanels(4);		
 		//create panel to show selected activity	
        	
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands", onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands",onRefresh:"refreshActivityList" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);	
 	},
@@ -255,7 +255,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to show selected activity		
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel", onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel",onRefresh:"refreshActivityList" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);	
 	}	
@@ -270,7 +270,7 @@ enyo.kind({
 	},
 	fileContent: function(inSender,inEvent){
 		this.closeSecondaryPanels(3);
-		this.createComponent({ kind: "FileContent", "name": inEvent.name, "uri": inEvent.uri,onBack:"closePanel4" ,onLost:"logout" , container: this.$.panels}).render();
+		this.createComponent({ kind: "FileContent", "name": inEvent.name, "uri": inEvent.uri,onBack:"closePanel4" ,container: this.$.panels}).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
@@ -525,12 +525,19 @@ enyo.kind({
 		obj.index = 3;
 		this.mainMenuTap(obj,obj);
 	},
+		refreshActivityList:function(inSender,inEvent)
+	{   
+	   	this.setPanelIndex(1);
+	    var obj = new Object();
+		obj.index = 2;
+		this.mainMenuTap(obj,obj);
+	},
 		refreshServiceList:function(inSender,inEvent)
 	{   
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 4;
-		this.refreshActivityMenu();
+		//this.refreshActivityMenu();
 		this.mainMenuTap(obj,obj);
 		
 		
