@@ -1,6 +1,6 @@
-var execCloudName = "34" ;
-var execCloudZone = "26" ;
-var execCloudSett = "25" ;
+var execCloudName = "44" ;
+var execCloudZone = "23" ;
+//var execCloudSett = "25" ;
 var execCloudEmail = "11";
 var clouds = new Array();
 var uris = new Array();
@@ -8,6 +8,7 @@ var zones = new Array();
 var zone;
 var send;
 var uri;
+var cloudName = "";
 
 enyo.kind({ 
 	name: "commandExecGroup",
@@ -19,10 +20,10 @@ enyo.kind({
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Execute on"},//header
 			{classes: "subheader", components:[ //subheader
-                {content: "Machine name", classes: "subsubheader", style:"width:"+execCloudName+"%"} , 
-				{content: "Zone", classes: "subsubheader", style:"width:"+execCloudZone+"%" } , 
-				{content: "Machine settings", classes: "subsubheader",  style:"width:"+execCloudSett+"%" } ,
-				{content: "Send Email?", classes: "subsubheader",  style:"width:"+execCloudEmail+"%" } ,
+                {content: "Machine name",classes: "machineName"} , 
+				{content: "Zone", classes: "zoneName"} , 
+				//{content: "Machine settings", classes: "subsubheader",  style:"width:"+execCloudSett+"%" } ,
+				{content: "Send Notification?", classes:"NotificationName"} 
 			]},
 			{name: "checkBox", classes: "onyx-sample-tools", components: [	
 			]},
@@ -91,19 +92,37 @@ enyo.kind({
 	classes: "commandFilesLine",
 	style:"padding: 1px;", 
 	components:[
-		{classes: "onyx-sample-tools", style:"width:"+execCloudName+"%", components: [
-				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block"}
+		{ classes: "machineContent", components: [
+				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block;padding-left:10px"}
 		]},
-		{ name: "execZone", style:"width:"+execCloudZone+"%" },
-		{ name: "execSettings", style:"width:"+execCloudSett+"%" },
-		{kind:"onyx.Checkbox",style:"width:"+execCloudEmail+"%", name: "execSend"}
+		{ name: "execZone", classes: "zoneContent" },
+		{ name: "execSettings"/* , style:"width:"+execCloudSett+"%" */ },
+		{kind:"onyx.Checkbox",/* style:"width:"+execCloudEmail+"%", */ name: "execSend"}
 	],
 	create: function(){
 		this.inherited(arguments);
 		this.$.execCheck.setValue(false);
-		this.$.execCloud.setContent(this.data.accountName);
+		//this.$.execCloud.setContent(this.data.accountName);
 		this.$.execZone.setContent(this.data.implementation);
 		this.$.execSettings.setContent(this.data.description);
 		this.$.execSend.setValue(false);
-	}	
+		
+		cloudName = this.data.accountName;
+		if(cloudName.length <= 8){
+			accountName = cloudName;
+		}else{
+			accountName = cloudName.substr(0,6).concat("...");
+		}
+		this.$.execCloud.setContent(accountName);
+		
+	}
+	//execCloud
+	
+	
+	
+	
+	
+	
+	
+	
 });
