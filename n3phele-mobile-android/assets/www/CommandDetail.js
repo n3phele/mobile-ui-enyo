@@ -8,6 +8,7 @@ enyo.kind({
 	files: "",
 	commandType:null,
 	outputFiles: "",
+	commandName:"",
 	classes: "onyx onyx-sample commandDetail",
 	style: "padding: 0px",
 	events: {
@@ -63,13 +64,22 @@ enyo.kind({
 			console.log("Error to load the detail of the command!");
 			popup.delete();
 			
-		});		
+		});	
+	        
 	},
-	setDynamicData: function( data ){     
-		this.$.title.setContent(data.name);
+	setDynamicData: function( data ){		
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
+		
+		this.commandName = data.name;
+			if(this.commandName.length <=25){
+				var name = this.commandName;
+			}else{
+				var name = this.commandName.substr(0,20).concat("...");
+			}
+			this.$.title.setContent(name);
+		
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});

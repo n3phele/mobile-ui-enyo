@@ -37,8 +37,8 @@ box-align:center;
 /* Command Detail Page *****/
 .commandFilesLine>div{ 
 	display: inline-block;
-	width: 50%;
-	vertical-align: middle;
+	/*width: 50%;*/
+	/*vertical-align: middle;*/
 }
 
 .commandTable{ margin:4px; }
@@ -773,5 +773,171 @@ box-align:center;
 		border-radius:6px 6px;
 		background-color:#fff
 	}	
+}
+
+/*MEDIA QUERIES FOR TABLE COMMANDS*/
+
+/* for 1600px or less */
+@media screen and (max-width: 1600px) {	
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;	
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;	
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:26%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 1280px or less */
+@media screen and (max-width: 1280px) {	
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;	
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:27%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 1024px or less (IPad landscape)*/
+@media screen and (max-width: 1024px){
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;	
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;	
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:26%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 800px or less */
+@media screen and (max-width: 800px) {	
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;	
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;	
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:28%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 768px or less (IPad portrait)*/
+@media screen and (max-width: 768px){
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;		
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;		
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:29%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 720px or less */
+@media screen and (max-width: 720px) {	
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;	
+	}
+	.machineContent{
+		width:45%;
+	}
+	.zoneName{
+		display:inline-block;	
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:29%;
+	}
+	.NotificationName{
+		display:inline-block;		
+	}
+}
+
+/* for 350px or less (IPhone and Android landscape)*/
+@media screen and (max-width: 350px){
+	.machineName{
+		display:inline-block;
+		padding:6px 0 0 10px;
+		width:44%;
+		float:left;
+	}
+	.machineContent{
+		width:46%;
+	}
+	.zoneName{
+		display:inline-block;
+		float:left; 
+		padding-top:6px; 
+		width:23%;
+	}
+	.zoneContent{
+		width:32%;
+	}
+	.NotificationName{
+		display:inline-block;		
+		width:11%;
+	}
 }
 
