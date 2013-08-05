@@ -13,13 +13,21 @@ enyo.kind({
 	],//end components inFilesList
 	create: function(){
 		this.inherited(arguments);
-		
+	
 		if(typeof this.params == 'undefined') return;//checking if the lines informations are set
 		this.params = fixArrayInformation(this.params);
 		this.initializeLines(this.params);
 	},
 	initializeLines: function( linesInfo ){
+	
 		for( var i in linesInfo ){
+				if(linesInfo[i].name == "$notify") 
+				{
+				checkmail = true;
+				
+				break;
+				}
+
 			var fieldType = "";
 			this.$.paramLines.createComponent({tag:"div", style: "width:70%", content: linesInfo[i].description.replace(","," , ")});
 			//Set the field that will get the parameter needed	

@@ -46,11 +46,25 @@ enyo.kind({
 	
 	addLines: function( linesInfo ){//addlines from an array
 		
+		if (linesInfo.length == 1) 
+		{  
+	
+	      this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] ,"check":true,"checkmail":this.checkmail});
+			clouds[0] = eval("this.$.checkBox.$.account");
+		
+			uris[0] = linesInfo[0].accountUri;
+			zones[0] = linesInfo[0].implementation;
+		
+		}
+	    else
+         {		
 		for( var i in linesInfo ){
-			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", data: linesInfo[i] });
+		
+			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", data: linesInfo[i],"checkmail":this.checkmail });
 			clouds[i] = eval("this.$.checkBox.$."+linesInfo[i].accountName);
 			uris[i] = linesInfo[i].accountUri;
 			zones[i] = linesInfo[i].implementation;
+			}
 			}
 		
 	},
@@ -72,6 +86,7 @@ enyo.kind({
 				send = eval(clouds[i].$.execSend.getValue());
 				uri = uris[i];
 				zone = zones[i];
+				
 			}
 		}
 		this.doRunCommand();
@@ -101,10 +116,22 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments);
+       if(this.check == true)
+		{
+		this.$.execCheck.setValue(true);
+		}
+		else
+		{
 		this.$.execCheck.setValue(false);
-		//this.$.execCloud.setContent(this.data.accountName);
+		}
+		
 		this.$.execZone.setContent(this.data.implementation);
 		this.$.execSettings.setContent(this.data.description);
+		if(checkmail == true)
+		{
+		this.$.execSend.setValue(true);
+		}
+		else
 		this.$.execSend.setValue(false);
 		
 		cloudName = this.data.accountName;
