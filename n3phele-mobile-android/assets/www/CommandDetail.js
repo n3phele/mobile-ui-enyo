@@ -161,11 +161,10 @@ enyo.kind({
 			value = this.outputFiles[i].path;
 			parameters += '{"name":"'+commandOutputFiles[i].name+'", "type":"File", "value":["'+value+'"]},';
 		};	
-		console.log(parameters.data);
+
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-	    //console.log(parameters);
-		//console.log("Parameters sendo passado e valor de notify = true se checado"); 
+	    
 		if(this.$.commandExec.getJob()!=""){		
 			var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
