@@ -116,13 +116,5 @@ enyo.kind({
 		this.$.execCloud.setContent(accountName);
 		
 	}
-	//execCloud
-	
-	
-	
-	
-	
-	
-	
 	
 });
