@@ -49,7 +49,7 @@ enyo.kind({
 		if (linesInfo.length == 1) 
 		{  
 	
-	      this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] ,"check":true,"checkmail":this.checkmail});
+	      this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] ,"check":true,"checkmail":checkmail});
 			clouds[0] = eval("this.$.checkBox.$.account");
 		
 			uris[0] = linesInfo[0].accountUri;
@@ -60,12 +60,12 @@ enyo.kind({
          {		
 		for( var i in linesInfo ){
 		
-			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", data: linesInfo[i],"checkmail":this.checkmail });
+			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", data: linesInfo[i],"checkmail":checkmail });
 			clouds[i] = eval("this.$.checkBox.$."+linesInfo[i].accountName);
 			uris[i] = linesInfo[i].accountUri;
 			zones[i] = linesInfo[i].implementation;
 			}
-			}
+		}
 		
 	},
 	addEmptyLine:function(){//there is not clouds available
@@ -111,8 +111,8 @@ enyo.kind({
 				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block;padding-left:10px"}
 		]},
 		{ name: "execZone", classes: "zoneContent" },
-		{ name: "execSettings"/* , style:"width:"+execCloudSett+"%" */ },
-		{kind:"onyx.Checkbox",/* style:"width:"+execCloudEmail+"%", */ name: "execSend"}
+		{ name: "execSettings"},
+		{kind:"onyx.Checkbox",name: "execSend"}
 	],
 	create: function(){
 		this.inherited(arguments);
@@ -141,7 +141,6 @@ enyo.kind({
 			accountName = cloudName.substr(0,6).concat("...");
 		}
 		this.$.execCloud.setContent(accountName);
-		
 	}
 	
 });

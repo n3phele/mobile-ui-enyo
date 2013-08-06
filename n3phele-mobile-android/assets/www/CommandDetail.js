@@ -56,7 +56,7 @@ enyo.kind({
 		.response(this, function(sender, response){
 			Parameters = response;
 			
-			if(response.processor == null || response.processor.length == 0) this.commandType = "Job";
+			if(response.processor == null || response.processor.length == 0 || response.processor == "Job") this.commandType = "Job";
 			else this.commandType="StackService";
 			this.setDynamicData(response);
 			
@@ -69,8 +69,7 @@ enyo.kind({
 	        
 	},
 	setDynamicData: function( data ){	
-               checkmail = false;	
-	
+        this.checkmail = false;	
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
@@ -82,7 +81,7 @@ enyo.kind({
 				var name = this.commandName.substr(0,20).concat("...");
 			}
 			this.$.title.setContent(name);
-		
+
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});
@@ -106,8 +105,6 @@ enyo.kind({
 		//this.$.comScroll.render();
 		this.$.params.reflow();
 		this.render();
-		
-
 	},
 	repository: function(sender, event){
 	   var Obj = new Object();
@@ -164,8 +161,7 @@ enyo.kind({
 
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';
-	    
-		if(this.$.commandExec.getJob()!=""){		
+		if(this.$.commandExec.getJob()!=""){	
 			var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},
