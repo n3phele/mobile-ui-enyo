@@ -8,8 +8,8 @@ enyo.kind({
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Title"},//header
 			{classes: "subheader", components:[ //subheader
 				{content: "Filename", classes: "subsubheader" } , 
-				{content: "Status", classes: "subsubheader"} 
-			]}
+				{content: "Specify a file", classes: "subsubheader"} 
+			]},
 		]}//end groupbox
 	],//end components inFilesList
 	create: function(){
@@ -46,7 +46,7 @@ enyo.kind({
 	components:[
 		{tag:"div", name: "files", components:[]},
 		{tag:"div", style: "text-align:right", components:[
-			{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
+			//{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
 			{name:"btnUp", kind:"onyx.Button", content: "Select File", classes:"button-style", ontap:"doSelectFile"},
 			{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
 		]}
