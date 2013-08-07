@@ -25,9 +25,7 @@ enyo.kind({
 				//{content: "Machine settings", classes: "subsubheader",  style:"width:"+execCloudSett+"%" } ,
 				{content: "Send Notification?", classes:"NotificationName"} 
 			]},
-			{name: "checkBox", classes: "onyx-sample-tools", components: [	
-			]},
-			
+			{name: "checkBox", kind: "Group", classes: "onyx-sample-tools group", onActivate:"groupActivated", highlander: true, components: []}
 		]}
 	],
 	create: function(){
@@ -49,18 +47,17 @@ enyo.kind({
 		if (linesInfo.length == 1) 
 		{  
 	
-	      this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] ,"check":true,"checkmail":checkmail});
+	      this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] , index: 0,"check":true,"checkmail":checkmail});
 			clouds[0] = eval("this.$.checkBox.$.account");
-		
 			uris[0] = linesInfo[0].accountUri;
 			zones[0] = linesInfo[0].implementation;
 		
 		}
 	    else
-         {		
+         {	
+
 		for( var i in linesInfo ){
-		
-			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", data: linesInfo[i],"checkmail":checkmail });
+			this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", index: i, data: linesInfo[i],"checkmail":checkmail });
 			clouds[i] = eval("this.$.checkBox.$."+linesInfo[i].accountName);
 			uris[i] = linesInfo[i].accountUri;
 			zones[i] = linesInfo[i].implementation;
@@ -83,7 +80,7 @@ enyo.kind({
 		for(var i in clouds){
 			var c = clouds[i].$.execCheck.getValue();
 			if(c==true){
-				send = eval(clouds[i].$.execSend.getValue());
+				send = eval(clouds[0].$.execSend.getValue());
 				uri = uris[i];
 				zone = zones[i];
 				
@@ -105,17 +102,23 @@ enyo.kind({
 enyo.kind({
 	name: "commandExecLine",
 	classes: "commandFilesLine",
-	style:"padding: 1px;", 
+	style:"padding: 1px;",
+	index: "", 
 	components:[
 		{ classes: "machineContent", components: [
 				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block;padding-left:10px"}
 		]},
 		{ name: "execZone", classes: "zoneContent" },
 		{ name: "execSettings"},
-		{kind:"onyx.Checkbox",name: "execSend"}
+		{kind:"onyx.ToggleButton",name: "execSend"}
 	],
 	create: function(){
 		this.inherited(arguments);
+
+		if(this.index != 0){
+			this.$.execSend.hide();
+		}
+
        if(this.check == true)
 		{
 		this.$.execCheck.setValue(true);
@@ -127,6 +130,7 @@ enyo.kind({
 		
 		this.$.execZone.setContent(this.data.implementation);
 		this.$.execSettings.setContent(this.data.description);
+		
 		if(checkmail == true)
 		{
 		this.$.execSend.setValue(true);
