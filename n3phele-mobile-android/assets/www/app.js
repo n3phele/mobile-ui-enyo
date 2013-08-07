@@ -103,11 +103,12 @@ enyo.kind({
    },
 	refreshActivityMenu:function()
 	{
-	  this.$.mainMenuPanel.$.recent.destroy();
-		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
+	  this.$.recent.destroy();
+	  this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
 
 
 					this.$.mainMenuPanel.render();
+					this.$.mainMenuPanel.reflow();
 
 	},
 	
@@ -165,7 +166,7 @@ enyo.kind({
 					container: this.$.imageIconPanel
 				});
 				this.$.imageIconPanel.render();
-						this.refreshActivityMenu();
+						
 
 			break;
 			case 1:
@@ -248,6 +249,8 @@ enyo.kind({
 		//create panel to show selected activity	
        	
 		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands",onRefresh:"refreshActivityList" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.refreshActivityMenu();
+
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);	
 	},
@@ -530,15 +533,19 @@ enyo.kind({
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 2;
+	   this.refreshActivityMenu();
 		this.mainMenuTap(obj,obj);
+		
 	},
 		refreshServiceList:function(inSender,inEvent)
 	{   
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 4;
-		//this.refreshActivityMenu();
+		
 		this.mainMenuTap(obj,obj);
+		 
+	setTimeout(enyo.bind(this, this.refreshActivityMenu ),300);
 		
 		
 	},
