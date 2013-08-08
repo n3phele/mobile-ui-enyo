@@ -81,7 +81,7 @@ enyo.kind({
 				var name = this.commandName.substr(0,20).concat("...");
 			}
 			this.$.title.setContent(name);
-
+		
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});
@@ -137,31 +137,28 @@ enyo.kind({
 		var parameters = '{"Variable":[';
 
 		for(var i in Parameters.executionParameters){
-			
 			value = this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name);
 			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
 			Parameters.executionParameters[i].type+'", "value":["'+value+'"]},';
-		}
+		} 
 
-		var commandFiles = fixArrayInformation(Parameters.inputFiles);
-	
+		var commandFiles = fixArrayInformation(Parameters.inputFiles);		
 
 		for (var i = 0; i < this.files.length; i++) {
 			value = this.files[i].path;
 			parameters += '{"name":"'+commandFiles[i].name+'", "type":"File", "value":["'+value+'"]},';
 		};
 
-		var commandOutputFiles = fixArrayInformation(Parameters.outputFiles);
-	
+		var commandOutputFiles = fixArrayInformation(Parameters.outputFiles);		
 
 		for (var i = 0; i < this.outputFiles.length; i++) {
 			value = this.outputFiles[i].path;
 			parameters += '{"name":"'+commandOutputFiles[i].name+'", "type":"File", "value":["'+value+'"]},';
 		};	
-
+		
 		parameters += this.$.commandExec.getValue(); 
-		parameters += ']}';
-		if(this.$.commandExec.getJob()!=""){	
+		parameters += ']}';	
+		if(this.$.commandExec.getJob()!=""){		
 			var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone()),
 				headers:{ 'authorization' : "Basic "+ this.uid},

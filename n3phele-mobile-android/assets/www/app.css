@@ -37,8 +37,8 @@ box-align:center;
 /* Command Detail Page *****/
 .commandFilesLine>div{ 
 	display: inline-block;
-	/*width: 50%;*/
-	/*vertical-align: middle;*/
+	width: 50%;
+	vertical-align: middle;
 }
 
 .commandTable{ margin:4px; }
@@ -406,10 +406,26 @@ box-align:center;
 
 /* MEDIA QUERIES */
 
+/* for 1600px or less */
+@media screen and (max-width: 1600px) {	
+	.content{		
+		width:1250px;
+	}
+	.content-white{		
+		width:1250x;
+	}
+	.image{
+		margin-left:15px;
+		
+	}
+	.image-white{
+		margin-left:15px;
+	}
+}	
 /* for 1280px or less */
 @media screen and (max-width: 1280px) {	
 	.content{		
-		width:1250px;
+		width:1000px;
 	}
 	.content-white{		
 		width:1250x;
@@ -427,6 +443,23 @@ box-align:center;
 @media screen and (max-width: 800px) {	
 	.content{		
 		width:770px;
+	}
+	.content-white{		
+		width:770x;
+	}
+	.image{
+		margin-left:15px;
+		
+	}
+	.image-white{
+		margin-left:15px;
+	}
+}
+
+/* for 768px or less (IPad portrait)*/
+@media screen and (max-width: 768px){
+	.content{		
+		width:740px;
 	}
 	.content-white{		
 		width:770x;
@@ -839,7 +872,7 @@ box-align:center;
 		width:23%;
 	}
 	.zoneContent{
-		width:26%;
+		width:26% !important;
 	}
 	.NotificationName{
 		display:inline-block;		
@@ -862,7 +895,7 @@ box-align:center;
 		width:23%;
 	}
 	.zoneContent{
-		width:28%;
+		width:28%;		
 	}
 	.NotificationName{
 		display:inline-block;		
@@ -877,7 +910,7 @@ box-align:center;
 		width:44%;		
 	}
 	.machineContent{
-		width:45%;
+		width:45% !important;
 	}
 	.zoneName{
 		display:inline-block;		

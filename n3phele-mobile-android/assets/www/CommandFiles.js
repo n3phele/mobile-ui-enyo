@@ -7,9 +7,9 @@ enyo.kind({
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Title"},//header
 			{classes: "subheader", components:[ //subheader
-				{content: "Filename", classes: "subsubheader" } , 
-				{content: "Specify a file", classes: "subsubheader"} 
-			]},
+				{content: "Description", classes: "subsubheader" } , 
+				{content: "Selected File", classes: "subsubheader"} 
+			]}
 		]}//end groupbox
 	],//end components inFilesList
 	create: function(){
@@ -45,11 +45,11 @@ enyo.kind({
 	},
 	components:[
 		{tag:"div", name: "files", components:[]},
-		{tag:"div", style: "text-align:right", components:[
-			//{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
-			{name:"btnUp", kind:"onyx.Button", content: "Select File", classes:"button-style", ontap:"doSelectFile"},
-			{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
-		]}
+			{tag:"div", style: "text-align:right", components:[
+				{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
+				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:4% 0 4% 0", classes:"button-style", ontap:"doSelectFile"},
+				{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
+			]}
 	],
 	doSelectFile: function(inSender, inEvent){
 		fileindex = {index: this.index};

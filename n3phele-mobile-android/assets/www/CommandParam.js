@@ -5,26 +5,24 @@ enyo.kind({
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Parameters"},//header
 			{classes: "subheader", components:[ //subheader
-				{content: "Type of data", style: "width:70%", classes: "subsubheader" } , 
-				{content: "Value", style: "width:30%", classes: "subsubheader"} 
+				//{content: "Type of data", style: "width:70%", classes: "subsubheader" } , 
+				//{content: "Value", style: "width:30%", classes: "subsubheader"} 
 			]},
 			{name: "paramLines",classes: "commandFilesLine", style: "padding: 4px 4px"}
 		]}//end groupbox
 	],//end components inFilesList
 	create: function(){
 		this.inherited(arguments);
-	
+		
 		if(typeof this.params == 'undefined') return;//checking if the lines informations are set
 		this.params = fixArrayInformation(this.params);
 		this.initializeLines(this.params);
 	},
-	initializeLines: function( linesInfo ){
-	
+	initializeLines: function( linesInfo ){	
 		for( var i in linesInfo ){
 				if(linesInfo[i].name == "$notify") 
 				{
-				checkmail = true;
-				
+					if(linesInfo[i].defaultValue=="true")checkmail = true;				
 				break;
 				}
 

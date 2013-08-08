@@ -20,14 +20,14 @@ enyo.kind({
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Execute on"},//header
 			{classes: "subheader", components:[ //subheader
-                {content: "Machine name",classes: "machineName"} , 
-				{content: "Zone", classes: "zoneName"} , 
+                {content: "Account",classes: "machineName"} , 
+				{content: "Cloud", classes: "zoneName"} , 
 				//{content: "Machine settings", classes: "subsubheader",  style:"width:"+execCloudSett+"%" } ,
 				{content: "Send Notification?", classes:"NotificationName"} 
 			]},
-			{name: "checkBox", kind: "Group", classes: "onyx-sample-tools group", onActivate:"groupActivated", highlander: true, components: []}
+			{name: "checkBox", classes: "onyx-sample-tools group", components: []}
 		]}
-	],
+	],	
 	create: function(){
 		this.inherited(arguments);
 
@@ -70,7 +70,7 @@ enyo.kind({
 	},
 	insertLastLine: function(){
 		this.$.groupbox.createComponent({components:[
- 		    {name: "jobs", kind: "onyx.InputDecorator", style: "background-color:white; width:50%; display: inline-block; margin-right:10px; ", components: [
+ 		    {name: "jobs", kind: "onyx.InputDecorator", style: "background-color:white; width:50%;display:inline-block; margin-right:10px; ", components: [  
        				{kind: "onyx.Input", placeholder: "Enter Job Name", name:"job"}
        		]},
        		{kind:"onyx.Button", content: "Run", style: "margin-right:10px;", classes:"button-style", ontap: "runCommand" },
@@ -83,7 +83,6 @@ enyo.kind({
 				send = eval(clouds[0].$.execSend.getValue());
 				uri = uris[i];
 				zone = zones[i];
-				
 			}
 		}
 		this.doRunCommand();
@@ -100,17 +99,15 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "commandExecLine",
-	classes: "commandFilesLine",
-	style:"padding: 1px;",
+	name: "commandExecLine",	
+	style:"padding: 1px;", 
 	index: "", 
 	components:[
-		{ classes: "machineContent", components: [
+		{ classes: "machineContent",style:"display:inline-block", components: [
 				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block;padding-left:10px"}
 		]},
-		{ name: "execZone", classes: "zoneContent" },
-		{ name: "execSettings"},
-		{kind:"onyx.ToggleButton",name: "execSend"}
+		{name: "execZone", style:"display:inline-block", classes: "zoneContent" },		
+		{kind:"onyx.Checkbox", style:"display:inline-block", name: "execSend"}
 	],
 	create: function(){
 		this.inherited(arguments);
@@ -129,7 +126,7 @@ enyo.kind({
 		}
 		
 		this.$.execZone.setContent(this.data.implementation);
-		this.$.execSettings.setContent(this.data.description);
+		//this.$.execSettings.setContent(this.data.description);
 		
 		if(checkmail == true)
 		{
