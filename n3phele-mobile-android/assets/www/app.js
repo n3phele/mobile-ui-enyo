@@ -228,7 +228,7 @@ enyo.kind({
 	   this.closeSecondaryPanels(2);
 	
 	
-		this.createComponent({ kind: "RecentActivityPanel",'url': inEvent.url ,"menulist":inEvent.menulist,"panels":inEvent.panels,"uid": inEvent.uid,onRerun:"reRun",onRefresh:"refreshActivityList",onBack: "closePanel",onBackMenu:"goBackAct",container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel",'url': inEvent.url ,"menulist":inEvent.menulist,"panels":inEvent.panels,"uid": inEvent.uid,onRerun:"reRun",onCancel:"CancelActivity",onBack: "closePanel",onBackMenu:"goBackAct",container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -248,7 +248,7 @@ enyo.kind({
 		this.closeSecondaryPanels(4);		
 		//create panel to show selected activity	
        	
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands",onRefresh:"refreshActivityList" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands",onCancel:"CancelActivity" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.refreshActivityMenu();
 
 		this.$.panels.reflow();
@@ -258,7 +258,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to show selected activity		
-		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel",onRefresh:"refreshActivityList" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
+		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': uri, onBack: "closeFilePanel",onCancel:"CancelActivity" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);	
 	}	
@@ -528,14 +528,28 @@ enyo.kind({
 		obj.index = 3;
 		this.mainMenuTap(obj,obj);
 	},
-		refreshActivityList:function(inSender,inEvent)
+		CancelActivity:function(inSender,inEvent)
 	{   
-	   	this.setPanelIndex(1);
+
+		//close old panels	
+		this.closeSecondaryPanels(4);
+
+       		
+		//create panel of files based on repository selected
+		this.createComponent({ kind: "CancelActivity", "uid": inEvent.uid, "uri" : inEvent.url,  "name" : inEvent.name  ,onBack: "closePanel4",onRefresh:"refreshAct" ,container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
+	},
+	refreshAct:function(inSender,inEvent)
+	{
+	  	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 2;
-	   this.refreshActivityMenu();
+	  
 		this.mainMenuTap(obj,obj);
-		
+			setTimeout(enyo.bind(this, this.refreshActivityMenu ),300);
+	
+	
 	},
 		refreshServiceList:function(inSender,inEvent)
 	{   

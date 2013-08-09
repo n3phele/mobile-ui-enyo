@@ -12,7 +12,7 @@ enyo.kind({
 		onBack: "",
 		onBackMenu:"",
 		onRerun: "",
-		onRefresh:"",
+		onCancel:"",
 		}, 
 		components:[
 			{name: "topToolbar", classes:"toolbar-style", kind: "onyx.Toolbar", components: [	
@@ -249,22 +249,25 @@ enyo.kind({
 			this.doRerun(obj);
 	   },
 	   cancelActivity:function(sender,event)
-	   {
-	   var ajaxComponent = n3phele.ajaxFactory.create({
+	   {   	/*var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.url,
 			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "DELETE",
 			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
+			sync: true, 
 		}); 		
 		ajaxComponent.go()
-		.response(this,function()
-		{
-			this.doRefresh();
-		})
+		.response()
 		.error(this, function(){
 			console.log("Error to delete the detail of the command!");
-		});	
+		});	*/
+		   
+		  var obj = new Object();
+		  obj.name = this.$.acName.getContent();
+		  obj.url = this.url
+		  obj.uid = this.uid;
+		  this.doCancel(obj); 
+		
 	
 		
 	   }
