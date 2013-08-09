@@ -25,7 +25,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		console.log(this);
+	
 		
 		this.$.account.setContent("Are you sure you want to delete " + this.name + "   ?");
 	},
