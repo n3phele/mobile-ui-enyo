@@ -40,5 +40,6 @@ enyo.depends(
 	"Activity.js",
 	"SelectRepository.js",
 	"Relationship.js",
-	"FileContent.js"
+	"FileContent.js",
+	"CancelActivity.js"
 );
