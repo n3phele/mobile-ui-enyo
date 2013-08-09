@@ -249,18 +249,7 @@ enyo.kind({
 			this.doRerun(obj);
 	   },
 	   cancelActivity:function(sender,event)
-	   {   	/*var ajaxComponent = n3phele.ajaxFactory.create({
-			url: this.url,
-			headers:{ 'authorization' : "Basic "+ this.uid},
-			method: "DELETE",
-			contentType: "application/x-www-form-urlencoded",
-			sync: true, 
-		}); 		
-		ajaxComponent.go()
-		.response()
-		.error(this, function(){
-			console.log("Error to delete the detail of the command!");
-		});	*/
+	   {  
 		   
 		  var obj = new Object();
 		  obj.name = this.$.acName.getContent();
