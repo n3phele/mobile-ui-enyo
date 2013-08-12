@@ -38,6 +38,8 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments);
+		//console.log(this.files.length);
+		//console.log(this.files);
 		var popup = new spinnerPopup();
 		popup.show();	
 		
@@ -69,7 +71,38 @@ enyo.kind({
 	        
 	},
 	setDynamicData: function( data ){	
-        this.checkmail = false;	
+	  console.log(data.inputFiles);
+		
+		var count = 0;
+		var complete = false;
+		if(data.inputFiles.length == undefined )
+		{
+		 if(data.inputFiles.optional == "false") count = count +1;
+		 if(this.files.length >= count) complete = true;
+	
+		}
+		
+		else 
+		{
+	
+		for(var i in data.inputFiles)
+		{  
+		 
+			if(data.inputFiles[i].optional == "false") count = count + 1;
+	    }
+	    for(var i = 0 ; i < count ; i++)
+		{
+		   if(this.files[i] == undefined) 
+		   {
+		   complete = false;
+		   break;
+		   }
+		   complete = true;
+		}
+	   
+		}
+		
+        checkmail = false;	
 		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
@@ -95,9 +128,9 @@ enyo.kind({
 		
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
-			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll });				
+			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll , "complete":complete });				
 		else
-			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll });	
+			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
 
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
