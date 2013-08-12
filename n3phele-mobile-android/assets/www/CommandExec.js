@@ -21,7 +21,7 @@ enyo.kind({
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Execute on"},//header
 			{classes: "subheader", components:[ //subheader
                 {content: "Account",classes: "machineName"} , 
-				{content: "Cloud", classes: "zoneName"} , 
+				   {content: "Cloud", classes: "zoneName"} , 
 				//{content: "Machine settings", classes: "subsubheader",  style:"width:"+execCloudSett+"%" } ,
 				{content: "Send Notification?", classes:"NotificationName"} 
 			]},
@@ -30,7 +30,6 @@ enyo.kind({
 	],	
 	create: function(){
 		this.inherited(arguments);
-
 		if(!this.lines) return;
 		this.lines = fixArrayInformation(this.lines);
 		
@@ -69,12 +68,24 @@ enyo.kind({
 		this.$.groupbox.createComponent({content:"There is not cloud available for this operation!", style:"text-align:center; padding:4px; font-weight:bold"});
 	},
 	insertLastLine: function(){
+	
+	   if(this.complete == true)
+	   {
 		this.$.groupbox.createComponent({components:[
  		    {name: "jobs", kind: "onyx.InputDecorator", style: "background-color:white; width:50%;display:inline-block; margin-right:10px; ", components: [  
        				{kind: "onyx.Input", placeholder: "Enter Job Name", name:"job"}
        		]},
        		{kind:"onyx.Button", content: "Run", style: "margin-right:10px;", classes:"button-style", ontap: "runCommand" },
        	]}, {owner: this});
+		}
+		else
+			this.$.groupbox.createComponent({components:[
+ 		    {name: "jobs", kind: "onyx.InputDecorator", style: "background-color:white; width:50%;display:inline-block; margin-right:10px; ", components: [  
+       				{kind: "onyx.Input", placeholder: "Enter Job Name", name:"job"}
+       		]},
+       		{kind:"onyx.Button", content: "Run", style: "margin-right:10px;",disabled:true ,classes:"button-style", ontap: "runCommand" },
+       	]}, {owner: this});
+		
 	},
 	runCommand: function(sender, event){
 		for(var i in clouds){
