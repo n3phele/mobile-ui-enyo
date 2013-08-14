@@ -1,16 +1,12 @@
 enyo.kind({
 	name: "commandParamGroup",
 	components:[
-		{tag: "br"},
-		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
-			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Parameters"},//header
-			{classes: "subheader", components:[ //subheader
-				//{content: "Type of data", style: "width:70%", classes: "subsubheader" } , 
-				//{content: "Value", style: "width:30%", classes: "subsubheader"} 
-			]},
-			{name: "paramLines",classes: "commandFilesLine", style: "padding: 4px 4px"}
-		]}//end groupbox
-	],//end components inFilesList
+		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [  
+			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Parameters"},//header    
+			{classes: "subheader", components:[ ]}, //subheader				
+			{name: "paramLines",classes: "commandFilesLine"}	
+		]}     //end groupbox		
+	],         //end components inFilesList
 	create: function(){
 		this.inherited(arguments);
 		
@@ -20,26 +16,68 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){	
 		for( var i in linesInfo ){
-				if(linesInfo[i].name == "$notify") 
-				{
-					if(linesInfo[i].defaultValue=="true")checkmail = true;				
+			if(linesInfo[i].name == "$notify"){
+				if(linesInfo[i].defaultValue=="true")
+				checkmail = true;			
 				break;
-				}
+			}
 
 			var fieldType = "";
-			this.$.paramLines.createComponent({tag:"div", style: "width:70%", content: linesInfo[i].description.replace(","," , ")});
+			
 			//Set the field that will get the parameter needed	
 			switch( linesInfo[i].type.toLowerCase() ){
 				case "long":
-					this.$.paramLines.createComponent({tag: "div", style:"width:30%", components: [ {kind: "onyx.Input", style:"width:100%", name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
+				if(i % 2 == 0){
+					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[ 
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}						
+					]});
+				}else if(i % 2 == 1){
+					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand", kind: "onyx.Input",  name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}						
+					]});
+				}	
 				break;
 				case "boolean":
-					this.$.paramLines.createComponent({tag: "div", name: linesInfo[i].name,kind: "onyx.Checkbox", value: linesInfo[i].defaultValue});
+				if(i % 2 == 0){
+					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand", kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}							
+					]});	
+				}else if(i % 2 == 1){
+					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand",kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}						
+					]});
+				}
 				break;
 				case "string":
-					this.$.paramLines.createComponent({tag:"div", style:"width:30%", components: [ {kind: "onyx.Input", style:"width:100%",name: linesInfo[i].name, value: linesInfo[i].defaultValue}]});
+				if(i % 2 == 0){
+					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}						
+					]});
+				}else if(i % 2 == 1){
+					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
+						{classes:"floaterCommand", components:[
+							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
+						]}						
+					]});
+				}
 				break;
-			}	
+			}			
 		}		
 	},
 	//return value of paramenter name

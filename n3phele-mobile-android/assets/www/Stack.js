@@ -4,8 +4,7 @@ enyo.kind({
 	name:"Stack",
 	kind: "FittableRows",
 	fit: true,
-
-	results:null,
+   results:null,
 	style: "padding: 0px;background-color:#fff",
 	events: {
 	    onCreateRelationship: "",
@@ -37,22 +36,33 @@ enyo.kind({
 	create: function(){
 	this.inherited(arguments);
 	console.log(this.stack);
-			var thisPanel = this;
-			var listSize = 5;
+	var thisPanel = this;
+	var stackSize;
 		this.$.title.setContent(this.stack.name);
-		this.$.list.setCount(listSize);
+		console.log(this.stack.stacks.vms);
+		
+			var ajaxParams = {
+				url: this.stack.stacks.vms,
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				method: "GET",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false, 
+			};	
+			var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters		
+			ajaxComponent
+			.go()
+			.response( this, "processActions" )
+			.error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0) 
+		  alert("Connection Lost");
+		 this.doLost();
+						this.$.Msg.setContent("Error to load recent activities!!!");
+                        this.$.Spin.hide();});
 		results = new Array();
-		console.log(this.stack);
-		if(this.stack.vnum == 1)
-		{
-		this.$.b1.setContent("Add Relationship");
-		this.$.b2.hide();		
-		}
-		else
-		{
+			
 		this.$.b1.setContent("Add Node");
 		this.$.b2.setContent("Remove Node");
-		}
+		
 		
 	},
 	selectedAccount: function(sender, event){
@@ -68,8 +78,7 @@ enyo.kind({
 	setupItem: function(sender, event){
 	  if(this.stack.vnum == 0)
      {
-	  this.$.name.setContent("VM:" + event.index);
-	   
+     this.$.name.setContent(stackSize[event.index].name);	   
 	 }
      else
 	 {
@@ -95,6 +104,24 @@ enyo.kind({
 	   this.$.item.applyStyle("background-color", "white")
 	   };
 	  },
+	 processActions: function( request, response){		
+			if(response.total == 0){				
+				this.$.list.applyStyle("display", "none !important");
+				this.reflow();
+					this.$.Spin.hide();
+								this.$.Msg.setContent("No current Services in the list!");
+
+				
+				return; 
+			}
+			console.log(response);
+			response = fixArrayInformation(response);
+			stackSize = response;
+			this.$.list.setCount(stackSize.length);
+		    this.$.list.reset();
+			//this.$.Spin.hide();
+			console.log(stackSize);
+		},  
 	backMenu: function (sender, event){
 		this.doBack();
 	},

@@ -80,9 +80,52 @@ kind: "FittableRows",
 	setDynamicData: function( data ){
 	
 		this.$.title.setContent(data.name);
-		this.$.icon.setSrc(data.icon);
+		var complete = true;
+		if(data.inputFiles != undefined)
+		{
+          	var count = 0;
+		    complete = false;
+		if(data.inputFiles.length == undefined )
+		{
+		 if(data.inputFiles.optional == "false") count = count +1;
+		 if(this.files.length >= count) complete = true;
+	
+		}
+		
+		else 
+		{
+	
+		for(var i in data.inputFiles)
+		{  
+		 
+			if(data.inputFiles[i].optional == "false") count = count + 1;
+	    }
+	    for(var i = 0 ; i < count ; i++)
+		{
+		   if(this.files[i] == undefined) 
+		   {
+		   complete = false;
+		   break;
+		   }
+		   complete = true;
+		}
+	   }
+	   
+		}
+		
+        checkmail = false;	
+		this.$.icon.setSrc(this.icon);
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
+		
+		this.commandName = data.name;
+			if(this.commandName.length <=25){
+				var name = this.commandName;
+			}else{
+				var name = this.commandName.substr(0,20).concat("...");
+			}
+			this.$.title.setContent(name);
+		
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});
@@ -96,9 +139,10 @@ kind: "FittableRows",
 		
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
-			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll });				
+			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll , "complete":complete });				
 		else
-			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll });	
+			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
+
 
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())

@@ -70,36 +70,33 @@ enyo.kind({
 		});	
 	        
 	},
-	setDynamicData: function( data ){	
-	  console.log(data.inputFiles);
-		
-		var count = 0;
-		var complete = false;
-		if(data.inputFiles.length == undefined )
+	setDynamicData: function( data ){		
+		var complete = true;
+		if(data.inputFiles != undefined)
 		{
-		 if(data.inputFiles.optional == "false") count = count +1;
-		 if(this.files.length >= count) complete = true;
-	
-		}
-		
-		else 
-		{
-	
-		for(var i in data.inputFiles)
-		{  
-		 
-			if(data.inputFiles[i].optional == "false") count = count + 1;
-	    }
-	    for(var i = 0 ; i < count ; i++)
-		{
-		   if(this.files[i] == undefined) 
-		   {
-		   complete = false;
-		   break;
-		   }
-		   complete = true;
-		}
-	   
+			var count = 0;
+			complete = false;
+			if(data.inputFiles.length == undefined )
+			{
+			if(data.inputFiles.optional == "false") count = count +1;
+			if(this.files.length >= count) complete = true;		
+			}			
+			else 
+			{	
+				for(var i in data.inputFiles)
+				{  				 
+					if(data.inputFiles[i].optional == "false") count = count + 1;
+				}
+				for(var i = 0 ; i < count ; i++)
+				{
+				   if(this.files[i] == undefined) 
+				   {
+				   complete = false;
+				   break;
+				   }
+				   complete = true;
+				}	   
+			}
 		}
 		
         checkmail = false;	
@@ -219,11 +216,9 @@ enyo.kind({
 	closePanel: function(inSender, inEvent){
 	   var panel = inSender.parent.parent.parent;
 	  if(this.backContent!=undefined)
-	  { 
-	
+	  { 	
 	    this.doBack();
-	  }
-			
+	  }			
      else {			
 			panel.setIndex(2);				
 			panel.getActive().destroy();					
@@ -234,10 +229,8 @@ enyo.kind({
 			}
 			else {
 				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
-			//panel.owner.$.IconGallery.deselectLastItem();		
+			}				
+			panel.reflow();					
      }			
 	}
 

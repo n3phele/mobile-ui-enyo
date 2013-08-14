@@ -47,7 +47,7 @@ box-align:center;
 	font-weight: bold;
 	font-size:13px;
 }
-.commandTable > .subheader > .subsubheader{ display: inline-block; width:50%; }
+.commandTable > .subheader > .subsubheader{ display: inline-block; width:44%; }
 
 .commandFilesLine .btnActive{margin: 2px 0px; display:inline-block}
 .commandFilesLine .btnInactive{display: none}
@@ -910,7 +910,7 @@ box-align:center;
 		width:44%;		
 	}
 	.machineContent{
-		width:45% !important;
+		width:45%;
 	}
 	.zoneName{
 		display:inline-block;		
@@ -944,7 +944,9 @@ box-align:center;
 		width:29%;
 	}
 	.NotificationName{
-		display:inline-block;		
+		display:inline-block;
+		padding-left:10px;
+		/* border:1px solid blue; */
 	}
 }
 
@@ -953,16 +955,14 @@ box-align:center;
 	.machineName{
 		display:inline-block;
 		padding:6px 0 0 10px;
-		width:44%;
-		float:left;
+		width:44%;		
 	}
 	.machineContent{
-		width:46%;
+		width:47%;
 	}
 	.zoneName{
-		display:inline-block;
-		float:left; 
-		padding-top:6px; 
+		display:inline-block;		
+		/*padding-top:6px; */
 		width:23%;
 	}
 	.zoneContent{
@@ -970,7 +970,69 @@ box-align:center;
 	}
 	.NotificationName{
 		display:inline-block;		
-		width:11%;
+		width:85%;
 	}
 }
+
+/* .bodyCommand{
+	background-color:#D9D9D9;
+	padding:0.5% 0 0.5% 0;
+	width:100%;
+}
+.bodyCommandWhite{
+	background-color:white;
+	padding:0.5% 0 0.5% 0;
+	width:100%;
+}
+.contentCommand{
+	width:75%;
+	display:inline-block;
+	padding:3px 0 0 10px;
+	word-wrap:break-word;
+}
+ *//*.floaterCommand{
+	display:inline-block; 
+	/*vertical-align:middle; */
+	/*display: table-cell;*/
+	/*padding-right:10px;
+	width:22%;
+	/*height:20%;*/
+/*}
+.imputCommand{
+	/*clear:both; */
+	
+/*}*/
+
+
+ .bodyCommand{
+	background-color:#D9D9D9;
+	padding:0.5% 1% 0.5% 1%;
+	width:98%;	
+}
+.bodyCommandWhite{
+	background-color:white;
+	padding:0.5% 1% 0.5% 1%;
+	width:98%;	
+}
+.contentCommand{
+	width:78%;
+	display:inline-block;	
+	word-wrap:break-word;
+	font-size:15px !important;
+	
+}
+ .floaterCommand{
+	display:inline-block;
+	width:22%;
+	text-align:right;	
+}
+.imputCommand{	
+	width:80%;
+	text-align:center;
+}
+
+
+
+
+
 
