@@ -7,6 +7,7 @@ enyo.kind({
 	commandsImages : null,
 	stacks:null,
 	action: null,
+	results:null,
 	vnum:null,
 	relations: null,
 	style:"background:#fff",
@@ -46,6 +47,7 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		this.$.btnRelation.hide();
+		results = new Array();
 		this.$.rela.hide(); //for now
 		var stacks;
 		var ajaxComponent = n3phele.ajaxFactory.create({
@@ -121,6 +123,8 @@ enyo.kind({
 		obj.name = inEvent.name;
 		obj.id = id;
 		obj.vnum = this.vnum;
+		obj.stacks = results[inEvent.index];
+		console.log(obj.stacks);
 		this.doSelectedStack(obj);
 	},
 	stackList: function(sender, response){
@@ -153,6 +157,8 @@ enyo.kind({
 			this.commandsImages.push("assets/folder.png");
 			}
 			this.showData();
+			response.elements = fixArrayInformation(response.elements);
+			results = response.stacks;
 		})
 		.error(this, function(){
 			console.log("Error to load the detail of the command!");

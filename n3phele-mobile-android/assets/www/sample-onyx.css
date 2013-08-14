@@ -1,9 +1,9 @@
 .onyx-sample {
 	padding: 10px;
 }
-.onyx-sample-tools {
+/* .onyx-sample-tools {
 	padding-bottom:10px;
-}
+} */
 .onyx-sample-tools > * {
 	margin: 3px;
 }
