@@ -7,8 +7,9 @@ enyo.kind({
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [
 			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Title"},//header
 			{classes: "subheader", components:[ //subheader
-				{content: "Description", style:"padding-left:8px", classes: "subsubheader" } , 
-				{content: "Selected File", style:"padding-left:26px", classes: "subsubheader"} 
+				{content: "Description", classes: "tableTitleDescription"}, 
+				{content: "Selected File", classes: "tableTitleSelectedFile"},
+				{content: "Specify a file", classes: "tableTitleSpecifyFile"}
 			]}
 		]}//end groupbox
 	],//end components inFilesList
@@ -27,7 +28,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({ kind: "commandFilesLine", file: this.files[i], outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({kind: "commandFilesLine", file: this.files[i], outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
 		}
 	}
 });
@@ -44,11 +45,11 @@ enyo.kind({
 		onOutputItem: ""
 	},
 	components:[
-		{tag:"div", name: "files", components:[]},
-			{tag:"div", style: "text-align:right", components:[
-				{name:"filename", content: "" , style: "width:5%;float:left"},
-				{name:"msg", content: "Specify a file." , style: "margin: 2px 0px;display:block"},
-				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:4% 0 4% 0", classes:"button-style", ontap:"doSelectFile"},
+		{tag:"div", name: "files", style:"width:30%", components:[]},
+			{tag:"div", classes:"bodyListCommandFile", components:[
+				{name:"filename", classes:"commandFileContent", content: ""},
+				//{name:"msg", content: "AAA", style:"float:right;font-size:15px !important"},				
+				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:4% 0 4% 0; padding-right:3px;padding-left:3px", classes:"button-style", ontap:"doSelectFile"},
 				{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
 			]}
 	],
@@ -72,7 +73,7 @@ enyo.kind({
 		    {
 				this.$.filename.setContent(this.file.name);
 		    }	 
-		   	this.$.files.createComponent({content: this.data.description, style:"padding:4px; font-weight:bold"}).render();
+		   	this.$.files.createComponent({content: this.data.description, style:"padding-left:8px; font-weight:bold;width:94%;word-wrap:break-word;font-size:15px !important"}).render();
 			this.$.btnUp.addClass("btnActive");
 			this.$.btnDown.addClass("btnInactive");
 		}

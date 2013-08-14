@@ -70,7 +70,7 @@ enyo.kind({
 	
 		this.$.groupbox.createComponent({style:"padding:5px", components:[
 			{kind:"onyx.Checkbox", name: "execSend"}, 
-			{content: "Send Notification?", classes:"NotificationName"},
+			{content: "Send Notification?", classes:"notificationName"},
 		]},{owner: this});
 			
 		if(this.complete == true)
@@ -127,7 +127,7 @@ enyo.kind({
 		{ classes: "machineContent",style:"display:inline-block", components: [
 				{kind:"onyx.Checkbox", name: "execCheck"}, {name: "execCloud",  style: "display:inline-block;padding-left:10px;font-size:15px !important;"}
 		]},
-		{name: "execZone", style:"display:inline-block", classes: "zoneContent"}		
+		{name: "execZone", classes: "zoneContent"}		
 	],
 	create: function(){
 		this.inherited(arguments);	

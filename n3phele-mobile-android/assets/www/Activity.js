@@ -95,6 +95,7 @@ enyo.kind({
 					thisPanel.$.acStatus.setSrc("assets/failed.png");
 				}else if(response.state == "COMPLETE"){
 					thisPanel.$.acStatus.setSrc("assets/activities.png");
+					 cancelled = true;
 				}else if(response.state =="BLOCKED"){  
 					thisPanel.$.acStatus.setSrc("assets/blocked.png");					
 				}else{

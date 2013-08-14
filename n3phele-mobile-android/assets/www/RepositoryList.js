@@ -3,6 +3,7 @@ enyo.kind({
 	name:"RepositoryList",
 	kind: "FittableRows",
 	fit: true,
+	style:"background:#fff",
 	data: [],
 	commands: null,
 	commandsImages : null,

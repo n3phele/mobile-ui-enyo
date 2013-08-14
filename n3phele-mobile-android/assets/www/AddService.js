@@ -40,7 +40,7 @@ enyo.kind({
             this.uris = new Array();
 			this.zones = new Array();
 	 	this.inherited(arguments);
-		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1360001"
+		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1847001"
 	  var ajaxComponent = n3phele.ajaxFactory.create({
 			 url:this.myuri,
 			 headers:{ 'authorization' : "Basic "+ this.uid},

@@ -37,7 +37,7 @@ box-align:center;
 /* Command Detail Page *****/
 .commandFilesLine>div{ 
 	display: inline-block;
-	width: 50%;
+	/*width: 50%;*/
 	vertical-align: middle;
 }
 
@@ -47,7 +47,7 @@ box-align:center;
 	font-weight: bold;
 	font-size:13px;
 }
-.commandTable > .subheader > .subsubheader{ display: inline-block; width:44%; }
+.commandTable > .subheader > .subsubheader{ display: inline-block; width:30%; }
 
 .commandFilesLine .btnActive{margin: 2px 0px; display:inline-block}
 .commandFilesLine .btnInactive{display: none}
@@ -827,9 +827,39 @@ box-align:center;
 	}
 	.zoneContent{
 		width:26%;
+		display:inline-block;
+		font-size:15px !important;
 	}
-	.NotificationName{
-		display:inline-block;		
+	.notificationName{
+		display:inline-block;
+		font-size:15px !important;
+	}
+	.tableTitleDescription{
+		display: inline-block;
+		width:50%;
+		padding-left:8px;
+	}	
+	.tableTitleSelectedFile{
+		display: inline-block;
+		width:33%;
+		/*padding-right:7%;*/
+	}
+	.tableTitleSpecifyFile{
+		display: inline-block;
+		width:12%;
+	}
+	.bodyListCommandFile{
+		text-align:right;
+		width:68%
+	}
+	.commandFileContent{
+		width:80%;
+		float:left;
+		text-align:center;
+		padding-top:6%;
+		word-wrap:break-word;
+		padding-left:6px;
+		font-size:15px !important;
 	}
 }
 
@@ -851,7 +881,7 @@ box-align:center;
 	.zoneContent{
 		width:27%;
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;		
 	}
 }
@@ -874,7 +904,7 @@ box-align:center;
 	.zoneContent{
 		width:26% !important;
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;		
 	}
 }
@@ -897,7 +927,7 @@ box-align:center;
 	.zoneContent{
 		width:28%;		
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;		
 	}
 }
@@ -920,7 +950,7 @@ box-align:center;
 	.zoneContent{
 		width:29%;
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;		
 	}
 }
@@ -943,10 +973,9 @@ box-align:center;
 	.zoneContent{
 		width:29%;
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;
-		padding-left:10px;
-		/* border:1px solid blue; */
+		padding-left:10px;		
 	}
 }
 
@@ -961,16 +990,42 @@ box-align:center;
 		width:47%;
 	}
 	.zoneName{
-		display:inline-block;		
-		/*padding-top:6px; */
+		display:inline-block;
 		width:23%;
 	}
 	.zoneContent{
 		width:32%;
 	}
-	.NotificationName{
+	.notificationName{
 		display:inline-block;		
 		width:85%;
+	}
+	.tableTitleDescription{
+		display: inline-block;
+		width:30%;
+		padding-left:8px;
+	}	
+	.tableTitleSelectedFile{
+		display: inline-block;
+		width:30%;
+		padding-right:7%;
+	}
+	.tableTitleSpecifyFile{
+		display: inline-block;
+		width:30%;
+	}
+	.bodyListCommandFile{
+		text-align:right;
+		width:68%
+	}
+	.commandFileContent{
+		width:50%;
+		float:left;
+		text-align:center;
+		padding-top:6%;
+		word-wrap:break-word;
+		padding-left:6px;
+		font-size:15px !important;
 	}
 }
 
