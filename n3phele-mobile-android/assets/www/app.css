@@ -842,7 +842,6 @@ box-align:center;
 	.tableTitleSelectedFile{
 		display: inline-block;
 		width:33%;
-		/*padding-right:7%;*/
 	}
 	.tableTitleSpecifyFile{
 		display: inline-block;
@@ -860,6 +859,11 @@ box-align:center;
 		word-wrap:break-word;
 		padding-left:6px;
 		font-size:15px !important;
+	}
+	.imputCommand{	
+		width:20%;
+		text-align:center;
+		margin-left:1%;
 	}
 }
 
@@ -1027,6 +1031,11 @@ box-align:center;
 		padding-left:6px;
 		font-size:15px !important;
 	}
+	.imputCommand{	
+		width:18%;
+		text-align:center;
+		margin-left:1%;
+	}
 }
 
 /* .bodyCommand{
@@ -1074,6 +1083,7 @@ box-align:center;
 	display:inline-block;	
 	word-wrap:break-word;
 	font-size:15px !important;
+	vertical-align:middle;
 	
 }
  .floaterCommand{
@@ -1081,10 +1091,7 @@ box-align:center;
 	width:22%;
 	text-align:right;	
 }
-.imputCommand{	
-	width:80%;
-	text-align:center;
-}
+
 
 
 

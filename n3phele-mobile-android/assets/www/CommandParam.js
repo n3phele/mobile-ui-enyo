@@ -2,7 +2,8 @@ enyo.kind({
 	name: "commandParamGroup",
 	components:[
 		{name: "groupbox", classes: "commandTable", kind: "onyx.Groupbox", components: [  
-			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Parameters"},//header    
+			{name: "header", kind: "onyx.GroupboxHeader", classes: "groupboxBlueHeader", content: "Parameters"},//header  
+			//{name: "contentList" /* classes: "groupboxBlueHeader", */ },
 			{classes: "subheader", components:[ ]}, //subheader				
 			{name: "paramLines",classes: "commandFilesLine"}	
 		]}     //end groupbox		
@@ -30,50 +31,38 @@ enyo.kind({
 				if(i % 2 == 0){
 					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[ 
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}						
+						{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}											
 					]});
 				}else if(i % 2 == 1){
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
-						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand", kind: "onyx.Input",  name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}						
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"imputCommand", kind: "onyx.Input",  name: linesInfo[i].name, value: linesInfo[i].defaultValue}										
 					]});
 				}	
 				break;
 				case "boolean":
 				if(i % 2 == 0){
 					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
-						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand", kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}							
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"imputCommand", kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}												
 					]});	
 				}else if(i % 2 == 1){
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
-						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand",kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}						
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"imputCommand",kind: "onyx.Checkbox", name: linesInfo[i].name, value: linesInfo[i].defaultValue}											
 					]});
 				}
 				break;
 				case "string":
 				if(i % 2 == 0){
 					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
-						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}						
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}						
 					]});
 				}else if(i % 2 == 1){
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
-						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},
-						{classes:"floaterCommand", components:[
-							{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}
-						]}						
+						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
+						{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}												
 					]});
 				}
 				break;
