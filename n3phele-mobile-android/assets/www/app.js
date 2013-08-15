@@ -425,7 +425,7 @@ enyo.kind({
 		count = inEvent.event.index;
 		
 		//close old panels		
-		//this.closeSecondaryPanels(2);	
+		this.closeSecondaryPanels(5);	
 		//create panel of Repositories to select a file
 		this.createComponent({ kind: "RepositoryList", "uid": this.uid, callBy: "selectFile",onLost:"logout" ,"uri": inEvent.uri, onSelectedItem : "fileRepository2", onBack: "closePanel4",onBackCommand:"fileSelected2", container: this.$.panels }).render();
 		this.$.panels.reflow();
@@ -450,9 +450,9 @@ enyo.kind({
 		this.$.panels.setIndex(5);
 	},
 	fileRepository2: function(inSender,inEvent){				
-		
+			this.closeSecondaryPanels(6);
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closePanel5", container: this.$.panels }).render();
+		this.createComponent({ kind: "RepositoryFileList", "uid": this.uid, "uri" : inEvent.uri, callBy: "selectFile", "repositoryName" : inEvent.name  ,onSelectedItem : "fileSelected2",onBack: "closePanel7", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(7);
 	},
@@ -589,6 +589,10 @@ enyo.kind({
 		this.closeSecondaryPanels(4);
 		this.$.panels.setIndex(3);
 	},
+	closePanel7:function(inSender,inEvent){
+		this.closeSecondaryPanels(6);
+		this.$.panels.setIndex(5);
+     },
 	reRun: function(inSender,inEvent){
 	this.closeSecondaryPanels(3);
 	this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon':"assets/Script.png" , onSelectedFile: "listRepository", backContent: inEvent.backContent, onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inEvent.actionUrl, onCommandCreated: "commandExecuted",onBack:"closePanel4" }).render();
@@ -620,11 +624,13 @@ enyo.kind({
 		this.closeSecondaryPanels(4);//close old panels
 	
 		serviceaction = inSender.uri;
+		
 		//create panel of details by selected Command 
 		
 		//this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted", "stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted", "stack": inSender.uri,"id":id ,onBack: "closePanel5", "stackdetail":true }).render();
 
+		
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 		this.$.CommandData = inSender.data[inEvent.index];

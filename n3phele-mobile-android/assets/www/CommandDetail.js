@@ -213,7 +213,8 @@ enyo.kind({
 	},
 	closePanel: function(inSender, inEvent){
 	   var panel = inSender.parent.parent.parent;
-	  if(this.backContent!=undefined)
+	   console.log(this.vnum)
+	  if(this.backContent!=undefined || this.stackdetail == true)
 	  { 	
 	    this.doBack();
 	  }			
