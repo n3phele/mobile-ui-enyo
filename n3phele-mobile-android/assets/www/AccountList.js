@@ -19,10 +19,11 @@ enyo.kind({
 	components:[
 
 	//top toolbar that contains Title and add account button(+) ***************************************************************
-		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [ { name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "+", style: "font-size: 20px !important;font-weight: bold;", ontap: "newAccount"}]},		 
-				    {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
-					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"} 					       					
-					]},
+		{kind: "onyx.Toolbar", classes:"toolbar-style", name: "toolTop", components: [{ name: "title", content:"Accounts" }, {kind: "onyx.Button", classes:"button-style-right", content: "+", style: "font-size: 20px !important;font-weight: bold;", ontap: "newAccount"}]},		 
+		
+		{name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
+			{content: "Name", style:"display: inline-block; width:26%;font-weight: bold"} 					       					
+		]},
 
        	 {name: "divider", classes: "list-divider"},	
          {name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},

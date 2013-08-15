@@ -53,7 +53,13 @@ enyo.kind({
 			
 			for( var i in this.data ){//set command list information
 				this.commands.push( this.data[i].name ); //set name
-				this.commandsImages.push("assets/Script.png");
+				
+				if(this.data[i].tags == "juju"){
+					this.commandsImages.push("assets/juju.png");
+				}else{
+					this.commandsImages.push("assets/Script.png");
+				}
+				
 				this.stacks.push(this.data[i].name);
 				
 			}	
@@ -79,14 +85,14 @@ enyo.kind({
 	},
 
 	itemTap: function(inSender, inEvent) {
-
+		console.log(inEvent);
 		this.doSelectedCommand(inEvent);
 	},
 
 	backMenu: function(inSender, inEvent) {
 		this.doBack();
 	},
-	
+
 	search: function(inSender, inEvent) {
 	var search =  new Array();
 		 for (var i in this.stacks) {
