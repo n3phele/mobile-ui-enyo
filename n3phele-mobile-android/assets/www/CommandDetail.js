@@ -72,9 +72,10 @@ enyo.kind({
 	},
 	setDynamicData: function( data ){		
 		var complete = true;
+		var count = 0;
 		if(data.inputFiles != undefined)
 		{
-			var count = 0;
+		  count = 0;
 			complete = false;
 			if(data.inputFiles.length == undefined )
 			{
@@ -111,21 +112,20 @@ enyo.kind({
 				var name = this.commandName.substr(0,20).concat("...");
 			}
 			this.$.title.setContent(name);
-		
 		//Parameters Groupbox
 		if(typeof data.executionParameters != 'undefined')
 			this.$.comScroll.createComponent({name: "paramGroup", kind:"commandParamGroup", "params": data.executionParameters});
 		//Input files Groupbox
 		if(typeof data.inputFiles != 'undefined')
-			this.createComponent({kind:"commandFilesGroup", "lines": data.inputFiles, container: this.$.comScroll, files: this.files, onSelectedItem: "repository", "type" : "input"});
+			this.createComponent({kind:"commandFilesGroup", "lines": data.inputFiles, container: this.$.comScroll, files: this.files, onSelectedItem: "repository", "type" : "input" , "count":count});
 
 		//Output files Groupbox
 		if(typeof data.outputFiles != 'undefined')
-			this.createComponent({kind:"commandFilesGroup", "lines": data.outputFiles, container: this.$.comScroll, output: this.outputFiles, onOutputItem: "selectRepository","type" : "output" });
+			this.createComponent({kind:"commandFilesGroup", "lines": data.outputFiles, container: this.$.comScroll, output: this.outputFiles, onOutputItem: "selectRepository","type" : "output" , "count":count });
 		
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
-			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll , "complete":complete });				
+			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, container: this.$.comScroll , "complete":complete});				
 		else
 			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
 
