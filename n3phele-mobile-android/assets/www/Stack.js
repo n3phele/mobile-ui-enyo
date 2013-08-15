@@ -18,9 +18,14 @@ enyo.kind({
        {kind : "onyx.Button", classes:"button-style-left", content : "Service", ontap : "backMenu"},
 	   {kind: "onyx.Button", content: "Delete", classes: "button-style-right",style:"background-image:-webkit-linear-gradient(top,#B5404A 50%,#9E0919 77%) !important" , ontap: "removeStack"}
 		,{fit: true}]},
+		   {name: "values", style:"font-weight: bold;padding-left:13px;margin: 0.3em auto", components:[  
+					       {content: "Name", style:"display: inline-block; width:26%;font-weight: bold"} 					       					
+					]},
+         {name: "divider", classes: "list-divider"},	
 	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
-	         	{name: "name", style:"width: 75%; display: inline-block"},
+	         	{name: "name", style:"width: 26%; display: inline-block"},
+				{name:"cost",style:"width:26%;display:inline-block"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
 	         ]}
 	     ]},
@@ -35,11 +40,12 @@ enyo.kind({
 	],	
 	create: function(){
 	this.inherited(arguments);
+	this.createComponent({content: "Cost per hour:", style:"display: inline-block; width:25%;font-weight: bold", container: this.$.values}).render();
 	console.log(this.stack);
 	var thisPanel = this;
 	var stackSize;
 		this.$.title.setContent(this.stack.name);
-		console.log(this.stack.stacks.vms);
+		//console.log(this.stack.stacks.vms);
 		
 			var ajaxParams = {
 				url: this.stack.stacks.vms,
@@ -78,7 +84,8 @@ enyo.kind({
 	setupItem: function(sender, event){
 	  if(this.stack.vnum == 0)
      {
-     this.$.name.setContent(stackSize[event.index].name);	   
+     this.$.name.setContent(stackSize[event.index].name);	 
+     this.$.cost.setContent(stackSize[event.index].costPerHour)	 
 	 }
      else
 	 {

@@ -28,7 +28,7 @@ enyo.kind({
 	},
 	initializeLines: function( linesInfo ){
 		for( var i in linesInfo ){
-			this.$.groupbox.createComponent({kind: "commandFilesLine", file: this.files[i], outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type });
+			this.$.groupbox.createComponent({kind: "commandFilesLine", file: this.files[i], outputfile:this.output[i], index: i, data: linesInfo[i], type: this.type , "count":this.count});
 		}
 	}
 });
@@ -48,7 +48,8 @@ enyo.kind({
 		{tag:"div", name: "files", style:"width:30%", components:[]},
 			{tag:"div", classes:"bodyListCommandFile", components:[
 				{name:"filename", classes:"commandFileContent", content: ""},
-				//{name:"msg", content: "AAA", style:"float:right;font-size:15px !important"},				
+				
+                {name:"msg",kind:"Image", src:"assets/narrative-warning.png",style:"float:right"},				
 				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:4% 0 4% 0; padding-right:3px;padding-left:3px", classes:"button-style", ontap:"doSelectFile"},
 				{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
 			]}
@@ -58,7 +59,8 @@ enyo.kind({
 		this.doSelectedItem(fileindex);
 	},
 	create: function(){
-		this.inherited(arguments);			
+		this.inherited(arguments);	
+		
 		if(this.type == "output"){
 			if(this.outputfile.path != undefined)
 			{
@@ -76,6 +78,8 @@ enyo.kind({
 		   	this.$.files.createComponent({content: this.data.description, style:"padding-left:8px; font-weight:bold;width:94%;word-wrap:break-word;font-size:15px !important"}).render();
 			this.$.btnUp.addClass("btnActive");
 			this.$.btnDown.addClass("btnInactive");
+			
+			  if(this.index > this.count-1 || this.$.filename.getContent()!="") this.$.msg.hide();
 		}
 	},
 	doFileDownload: function(){
