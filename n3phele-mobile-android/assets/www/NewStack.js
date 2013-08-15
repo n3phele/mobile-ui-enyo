@@ -25,7 +25,6 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		
-		
 			this.commands = new Array();
 			this.commandsImages = new Array();
 			
@@ -43,7 +42,6 @@ enyo.kind({
 		.response(this, function(sender, response){
 	
 			response.elements = fixArrayInformation(response.elements);
-			console.log(response.elements);
 			this.data = response.elements;
 			this.commands = new Array();
 			this.commandsImages = new Array();

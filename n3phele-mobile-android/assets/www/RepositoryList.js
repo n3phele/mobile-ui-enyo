@@ -3,7 +3,6 @@ enyo.kind({
 	name:"RepositoryList",
 	kind: "FittableRows",
 	fit: true,
-	style:"background:#fff",
 	data: [],
 	commands: null,
 	commandsImages : null,
@@ -34,9 +33,23 @@ enyo.kind({
 		}
 		 this.$.Spin.show();
 		
+		
+
+	this.updateRepositoryList(this);
+		
+		var self = this;
+		var updateList = function(){
+			self.updateRepositoryList(self);
+		}
+		n3phele.addListener(this, updateList, serverAddress+"repository" );
+		this.render();
+	},
+
+	updateRepositoryList: function(panel){
+
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: serverAddress+"repository",
-			headers:{ 'authorization' : "Basic "+ this.uid},
+			headers:{ 'authorization' : "Basic "+ panel.uid},
 			method: "GET",
 			contentType: "application/x-www-form-urlencoded",
 			sync: false, 
@@ -47,74 +60,56 @@ enyo.kind({
 	
 			response.elements = fixArrayInformation(response.elements);
 			
-			this.data = response.elements;
-			this.commands = new Array();
-			this.commandsImages = new Array();
-			for( var i in this.data ){//set comand list information
-				this.commands.push( this.data[i].name ); //set name
-				this.commandsImages.push("assets/folderG.png");
+			panel.data = response.elements;
+			panel.commands = new Array();
+			panel.commandsImages = new Array();
+			for( var i in panel.data ){//set comand list information
+				panel.commands.push( this.data[i].name ); //set name
+				panel.commandsImages.push("assets/folderG.png");
 		}		
-		var thisPanel = this;
-		thisPanel.createComponent({name: "IconGallery", classes:"keyframe_2", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
-			commandsImages: this.commandsImages,
+		var thisPanel = panel;
+		thisPanel.createComponent({name: "IconGallery", classes:"keyframe_2", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: panel.commands,
+			commandsImages: panel.commandsImages,
 			retrieveContentData: function(){
-				this.data = createCommandItems(this.commands, this.commandsImages); } 
+				this.data = createCommandItems(panel.commands, panel.commandsImages); } 
 			}).render();
 		
-		if(this.callBy=="repositoryList"){
-		if (this.closePanel.isScreenNarrow()) {
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
+		if(panel.callBy=="repositoryList"){
+		if (panel.closePanel.isScreenNarrow()) {
+		 panel.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Menu", ontap: "backMenu", container: panel.$.tollbar_top }).render(); 
 		} 
 		
 		}
 		
-		else if(this.callBy=="selectFile" || this.callBy=="outputFile"){
+		else if(panel.callBy=="selectFile" || panel.callBy=="outputFile"){
 			
-		this.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Command", ontap: "backMenu", container: this.$.tollbar_top }).render(); 
+		panel.createComponent({kind: "onyx.Button",classes:"button-style-left", content: "Command", ontap: "backMenu", container: panel.$.tollbar_top }).render(); 
 			 		
 		}
-		
-		
-        this.$.Spin.hide();		
+        panel.$.Spin.hide();		
 		thisPanel.render();
-		
 		thisPanel.reflow();	
 		})
 	.error(this, function(inSender, inResponse){
-		 if(inSender.xhrResponse.status == 0) 
-		  alert("Connection Lost");
-		 this.doLost();
-		});		
+		 if(inSender.xhrResponse.status == 0){
+		 	alert("Connection Lost");
+		 	this.doLost();
+		 }
+	});	
+
 	},
-	closePanel: function(inSender, inEvent){
-			var panel = inSender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
-			panel.owner.$.IconGallery.deselectLastItem();			
-	},
+
 	backMenu: function( sender , event){
-	if(this.callBy=="outputFile")
-	{  
-	  this.doBackCommand();
-	}
-	else if(this.callBy="selectFile")
-	{
-	this.doBackCommand();
-	}
+		if(this.callBy=="outputFile"){  
+	  		this.doBackCommand();
+		}
+		else if(this.callBy="selectFile"){
+			this.doBackCommand();
+		}
 
 		this.doBack(event);
 	},
+
 	setupItem: function(inSender, inEvent) {
 	    // given some available data.
 	    var data = this.data[inEvent.index];

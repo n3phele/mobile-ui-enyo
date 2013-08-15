@@ -161,14 +161,13 @@ function N3pheleClient(ajaxFactory)
 	this.eventListeners = [];
 	this.backoff = 0;
 	this.counter = 0;
+
 	this.getChangesSince = function()
 	{
 		this.counter++;
 		var expired = (this.counter >= this.backoff) ? true : false;
 		var recentRequests = this.getRecentRequests();
-
-		//console.log("counter = " + this.counter + " backoff = " + this.backoff + " expired = " + expired + " recentRequests = " + recentRequests);
-
+		
 		if(recentRequests > 0)
 		{
 			this.backoff = 0;

@@ -309,7 +309,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},	
-		RemoveRepository: function(inSender,inEvent){		
+	RemoveRepository: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(3);	
 		//create panel to create a new account
@@ -333,6 +333,7 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
+
 	newStack: function(inSender,inEvent){		
 		//close old panels	
 		
@@ -340,9 +341,11 @@ enyo.kind({
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
 		this.createComponent({ kind: "NewStack", "uid": this.uid, "uri": inEvent.uri , "service":inEvent,onSelectedStack: "stackTap", onBack: "closePanel4", container: this.$.panels }).render();
+
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
 	},
+
 	Stack: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(3);		
@@ -618,7 +621,10 @@ enyo.kind({
 	
 		serviceaction = inSender.uri;
 		//create panel of details by selected Command 
-		this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
+		
+		//this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted", "stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
+
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 		this.$.CommandData = inSender.data[inEvent.index];

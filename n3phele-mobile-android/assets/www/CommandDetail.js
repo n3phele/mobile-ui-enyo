@@ -38,8 +38,6 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments);
-		//console.log(this.files.length);
-		//console.log(this.files);
 		var popup = new spinnerPopup();
 		popup.show();	
 		

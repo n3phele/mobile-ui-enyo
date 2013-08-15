@@ -1,8 +1,8 @@
+
 enyo.kind({ 
 	name:"Relationship",
 	kind: "FittableRows",
 	fit: true,
-	
 	results:null,
 	style: "padding: 0px; background-color:#fff",
 	events: {
@@ -11,10 +11,11 @@ enyo.kind({
 		onClickService:"",
 		onBack:""
 	},
+
 	components:[
 		{name:"toolBar",  classes: "toolbar-style", kind: "onyx.Toolbar", components: [ 
 			{name: "title", content:"Relationship" },			
-			{kind: "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "backMenu"},			
+			{kind: "onyx.Button", classes:"button-style-left", content : "Stack", ontap : "back"},			
 			{kind: "onyx.Button", classes:"button-style-right", content : "Done"},
 			{fit: true}
 		]},
@@ -47,32 +48,26 @@ enyo.kind({
 			]},				
 		]}		   			
 	],	
+
 	create: function(){
-	this.inherited(arguments);
-			var thisPanel = this;
-			var listSize = 5;
-		
+		this.inherited(arguments);
+		var thisPanel = this;
+		var listSize = 5;		
 		results = new Array();
-		console.log(this.stack);
-		
-		
-	
 	},
+
 	selectedAccount: function(sender, event){
 	//Service details will have the delete opt
 	   var obj =  new Object();
 		obj.name = results[event.index];
 		this.doClickService(obj);
-		
-		
 	},
 	
 	newService: function(sender, event){
 		this.doCreateService();
 	},
-	
-	  
-	backMenu: function (sender, event){
+
+	back: function (sender, event){
 		this.doBack();
 	}
 });

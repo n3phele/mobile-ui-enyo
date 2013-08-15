@@ -1,5 +1,6 @@
 var results;
 var i = 0;
+
 enyo.kind({ 
 	name:"AddService",
 	kind: "FittableRows",
@@ -10,8 +11,8 @@ enyo.kind({
 	uri:null,
 	zone:null,
 	clouds:null,
-   uris:null,
-   zones:null,
+   	uris:null,
+   	zones:null,
 	account:null,
 	style: "padding: 0px;background:#fff",
 	events: {
@@ -40,7 +41,7 @@ enyo.kind({
             this.uris = new Array();
 			this.zones = new Array();
 	 	this.inherited(arguments);
-		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1847001"
+		this.myuri = "https://n3phele-dev.appspot.com/resources/command/1360001"
 	  var ajaxComponent = n3phele.ajaxFactory.create({
 			 url:this.myuri,
 			 headers:{ 'authorization' : "Basic "+ this.uid},
@@ -140,6 +141,8 @@ enyo.kind({
 		this.doClickItem();
 	}
 });
+
+
 enyo.kind({
 	name: "serviceLine",
 	classes: "commandFilesLine",

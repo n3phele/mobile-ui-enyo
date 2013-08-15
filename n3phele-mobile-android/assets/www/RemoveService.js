@@ -1,5 +1,6 @@
-var results;
-var i = 0;
+/*
+	This Kind represent the Remove Service page
+*/
 enyo.kind({ 
 	name:"RemoveService",
 	kind: "FittableRows",
@@ -10,54 +11,45 @@ enyo.kind({
 		onBack: "",
 		onClickItem:""
 	},
-		components:[
+	//create components of interface 
+	components:[
+
+		//top toolbar that contains Title back button and Ok button ***************************************************************
 		{kind: "onyx.Toolbar",classes:"toolbar-style", components: [
-				{kind: "onyx.Button",classes:"button-style-right",content: "OK", ontap: "newAccount"} , 
-				{kind: "onyx.Button", content: "Service Detail", classes:"button-style-left", ontap: "cancelAction"} ,
-				{ name: "title", content:"Remove Service", }, {fit: true}]},
+				{kind: "onyx.Button",classes:"button-style-right",content: "OK", ontap: "deleteService"} , 
+				{kind: "onyx.Button", content: "Service Detail", classes:"button-style-left", ontap: "back"} ,
+				{ name: "title", content:"Remove Service"},
+				{fit: true}
+		]},
+
+		// contains the string that is the confirmation of cancel a activity *****************************
 		{style:"text-align:center;margin:3em auto", components:[		
 			{kind: "FittableRows", name:"panel", fit: true, components: [
 				{name:"service",content: "Service "},				
 			]},
 	    ]},		
 	],
+
+	/*
+		this function create the content of the text based on the name of the service
+	*/
 	create: function() {
 		this.inherited(arguments);
 		this.$.service.setContent("Are you sure you want to delete " + this.service.name + "   ?");
 	},
-	selectedAccount: function(sender, event){
-		this.doClickItem(results[event.index]);
-	},
-	closePanel: function(inSender, inEvent){
-			var panel = inSender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
-			panel.owner.$.IconGallery.deselectLastItem();			
-	},
-	newAccount: function(sender, event){
+
+	/*
+		this function remove the selected service
+	*/
+	deleteService: function(sender, event){
 		this.doCreateAcc();
 	},
-	setupItem: function(sender, event){
-	   this.$.name.setContent("Service:" + i);
-	   i++;
-		},
-	cancelAction:function (sender,event)
-	{  
-		this.doBack();
-	},
 
-	activate: function(sender, event){
-		this.doClickItem();
+	/*
+		this function back to the Service list page
+	*/
+	back:function (sender,event){  
+		this.doBack();
 	}
+
 });

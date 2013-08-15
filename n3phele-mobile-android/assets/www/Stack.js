@@ -41,12 +41,11 @@ enyo.kind({
 	create: function(){
 	this.inherited(arguments);
 	this.createComponent({content: "Cost per hour:", style:"display: inline-block; width:25%;font-weight: bold", container: this.$.values}).render();
-	console.log(this.stack);
+	
 	var thisPanel = this;
 	var stackSize;
 		this.$.title.setContent(this.stack.name);
-		//console.log(this.stack.stacks.vms);
-		
+		console.log(this.stack.stacks.vms);
 			var ajaxParams = {
 				url: this.stack.stacks.vms,
 				headers:{ 'authorization' : "Basic "+ this.uid},
@@ -115,19 +114,14 @@ enyo.kind({
 			if(response.total == 0){				
 				this.$.list.applyStyle("display", "none !important");
 				this.reflow();
-					this.$.Spin.hide();
-								this.$.Msg.setContent("No current Services in the list!");
-
-				
+				this.$.Spin.hide();
+				this.$.Msg.setContent("No current Services in the list!");		
 				return; 
 			}
-			console.log(response);
 			response = fixArrayInformation(response);
 			stackSize = response;
 			this.$.list.setCount(stackSize.length);
 		    this.$.list.reset();
-			//this.$.Spin.hide();
-			console.log(stackSize);
 		},  
 	backMenu: function (sender, event){
 		this.doBack();
