@@ -49,8 +49,8 @@ enyo.kind({
 			{tag:"div", classes:"bodyListCommandFile", components:[
 				{name:"filename", classes:"commandFileContent", content: ""},
 				
-                {name:"msg",kind:"Image", src:"assets/narrative-warning.png",style:"float:right"},				
-				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:4% 0 4% 0; padding-right:3px;padding-left:3px", classes:"button-style", ontap:"doSelectFile"},
+                {name:"msg",kind:"Image", src:"assets/narrative-warning.png", classes:"warningIcon"/* style:"padding:2% 15% 0 0" */},				
+				{name:"btnUp", kind:"onyx.Button", content: "Select File", style:"margin:2% 0 4% 0; padding-right:3px;padding-left:3px", classes:"button-style", ontap:"doSelectFile"},
 				{name:"btnDown", kind:"onyx.Button", content: "Save as...", classes:"button-style", ontap:"doFileDownload"},
 			]}
 	],
