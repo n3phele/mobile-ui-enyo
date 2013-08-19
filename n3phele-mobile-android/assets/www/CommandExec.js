@@ -1,6 +1,5 @@
 var execCloudName = "44" ;
 var execCloudZone = "23" ;
-//var execCloudSett = "25" ;
 var execCloudEmail = "11";
 var clouds = new Array();
 var uris = new Array();
