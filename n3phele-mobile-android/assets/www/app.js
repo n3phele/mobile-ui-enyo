@@ -350,9 +350,17 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(3);		
 		//create panel to create a new stack
-		this.createComponent({ kind: "Stack", "uid": this.uid, "uri": inEvent.uri,"stack":inEvent  ,onSelectedStack: "stackDetail", onCreateRelationship:"Relationship",onBack: "closePanel4", container: this.$.panels }).render();
+		this.createComponent({ kind: "Stack", "uid": this.uid, "uri": inEvent.uri,"stack":inEvent  ,onSelectedStack: "StackInfo", onCreateRelationship:"Relationship",onBack: "closePanel4", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(4);
+	},
+	StackInfo: function(inSender,inEvent){		
+		//close old panels	
+		this.closeSecondaryPanels(4);		
+		//create panel to create a new stack
+		this.createComponent({ kind: "StackInfo", "uid": this.uid, "info":inEvent  ,onBack: "closePanel5", container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
 	},
 	
 		Relationship: function(inSender,inEvent){		
