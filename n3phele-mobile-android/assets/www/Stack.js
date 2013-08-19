@@ -10,7 +10,7 @@ enyo.kind({
 	    onCreateRelationship: "",
 		onCreateService: "",
 		onRemoveService: "",
-		onClickService:"",
+		onSelectedStack:"",
 		onBack:""
 	},
 	components:[
@@ -23,7 +23,7 @@ enyo.kind({
 					]},
          {name: "divider", classes: "list-divider"},	
 	    {name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
-	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedAccount", components: [
+	         {name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedStack", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"},
 				{name:"cost",style:"width:26%;display:inline-block"},
 		        {name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
@@ -70,11 +70,16 @@ enyo.kind({
 		
 		
 	},
-	selectedAccount: function(sender, event){
-	//Service details will have the delete opt
-	   var obj =  new Object();
-		obj.name = results[event.index];
-		this.doClickService(obj);	
+	selectedStack: function(sender, event){
+	
+	 var obj = new Object();
+	
+	 obj.action = stackSize[event.index].action;
+	 obj.name = stackSize[event.index].name;
+	 console.log(obj);
+	 
+	 
+		this.doSelectedStack(obj);	
 	},
 	
 	newService: function(sender, event){
