@@ -29,7 +29,7 @@ enyo.kind({
          {name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},
         
         // create the list of accounts	*****************************************************	
-	    {name: "list", kind: "List", touch: true,  multiSelect: false, fit: true, style:"height:87%;", onSetupItem: "setupItem", components: [
+	    {name: "list", classes:"keyframe", kind: "List", touch: true,  multiSelect: false, fit: true, style:"height:87%;", onSetupItem: "setupItem", components: [
 	         {name: "item", style: "padding: 10px 0 10px 10px;margin:auto;border:1px solid rgb(217,217,217)", ontap: "selectedAccount", components: [
 	         	{name: "name", style:"width: 26%; display: inline-block"}, 				
 				{name: "icon2", kind: "onyx.IconButton",style:"float:right;margin-right:-11px",src: "assets/next.png", ontap: "nextItem"} 	    				
