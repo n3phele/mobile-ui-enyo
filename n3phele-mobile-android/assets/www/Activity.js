@@ -1,14 +1,14 @@
 /*
 	This Kind represent the screen of activity detail, that contains informations of a selected activity
 */
+var actionURL;
 enyo.kind({ 
 	name:"RecentActivityPanel",		
 	layoutKind: "FittableRowsLayout",
 	fit: true,
 	canceled:null,
 	style:"background-color:#fff",
-	icon:"", 
-	actionURL: "",
+	icon:"",
 	activityName:"",
 	activityDesc:"",		
 	events: {
@@ -150,7 +150,7 @@ enyo.kind({
 		//show the name and description on  the screen							
 		thisPanel.$.acName.setContent(" "+this.activityName);				
 		thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
-		this.actionURL = response.action;
+		actionURL = response.action;
 		
 		// initialize the variables for manipulate dates
 		var minstart = 0;
@@ -296,7 +296,7 @@ enyo.kind({
 	*/
 	getAction:function(sender,event){  
 			var actionInfo = new Object();
-			actionInfo.actionUrl = this.actionURL+"/history";
+			actionInfo.actionUrl = actionURL+"/history";
 			actionInfo.backContent = "Activity";
 			this.doRerun(actionInfo);
 	},
