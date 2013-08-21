@@ -36,7 +36,7 @@ enyo.kind({
 				}else if(i % 2 == 1){
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
-						{classes:"imputCommand", kind: "onyx.Input",  name: linesInfo[i].name, value: linesInfo[i].defaultValue}										
+						{classes:"imputCommand", kind: "onyx.Input",  name: n, value: linesInfo[i].defaultValue}										
 					]});
 				}	
 				break;
@@ -55,14 +55,22 @@ enyo.kind({
 				break;
 				case "string":
 				if(i % 2 == 0){
+				console.log(linesInfo[i]);
+					var str=linesInfo[i].name;
+					console.log(str);
+					var n = str.replace("-","_");
 					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
-						{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}						
+						{classes:"imputCommand", kind: "onyx.Input", name: n, value: linesInfo[i].defaultValue}						
 					]});
 				}else if(i % 2 == 1){
+				console.log(linesInfo[i]);
+					var str=linesInfo[i].name;
+					console.log(str);
+					var n = str.replace("-","_");
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
-						{classes:"imputCommand", kind: "onyx.Input", name: linesInfo[i].name, value: linesInfo[i].defaultValue}												
+						{classes:"imputCommand", kind: "onyx.Input", name: n, value: linesInfo[i].defaultValue}												
 					]});
 				}
 				break;
@@ -71,7 +79,8 @@ enyo.kind({
 	},
 	//return value of paramenter name
 	getValue: function(name){
-		var value = eval("this.$.paramLines.$."+name+".getValue()");
+		var value = eval("this.$.groupbox.$."+name+".getValue()");
+		console.log(value);
 		return value;
 	}
 });

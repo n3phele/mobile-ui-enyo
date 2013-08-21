@@ -174,7 +174,10 @@ enyo.kind({
 		var parameters = '{"Variable":[';
 
 		for(var i in Parameters.executionParameters){
-			value = this.$.comScroll.$.paramGroup.getValue(Parameters.executionParameters[i].name);
+			var str=Parameters.executionParameters[i].name;
+			var n = str.replace("-","_");
+			console.log(n);
+			value = this.$.comScroll.$.paramGroup.getValue(n);
 			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
 			Parameters.executionParameters[i].type+'", "value":["'+value+'"]},';
 		} 
