@@ -552,7 +552,7 @@ enyo.kind({
 
        		
 		//create panel of files based on repository selected
-		this.createComponent({ kind: "DeleteService", "uid": inEvent.uid, "uri" : inEvent.uri,  "name" : inEvent.name  ,onBack: "closePanel4",onRefresh:"refreshAct" ,container: this.$.panels }).render();
+		this.createComponent({ kind: "DeleteService", "uid": inEvent.uid, "uri" : inEvent.uri,  "name" : inEvent.name  ,onBack: "closePanel4",onRefresh:"refreshServiceList" ,container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
