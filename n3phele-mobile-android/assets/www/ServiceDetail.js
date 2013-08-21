@@ -71,6 +71,7 @@ enyo.kind({
 		this.$.btnRelation.hide();
 		this.$.relationTab.hide(); 
 		var stacks;
+		console.log(this);
 
 		this.updateServiceDetail(this);
 		
@@ -266,6 +267,22 @@ enyo.kind({
 
 	addRelationship: function(sender, event){
 		this.doCreateRelationship();
+	},
+	removeService:function(sender,event)
+	{   
+	
+	
+	   console.log(this);
+	   var obj = new Object();
+	   obj.uri = this.uri;
+	   obj.name = this.service.name;
+	   obj.uid = this.uid;
+	   
+	
+		
+		this.doRemoveService(obj);
+   
+	
 	}
 	
 });

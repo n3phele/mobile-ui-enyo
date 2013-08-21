@@ -301,14 +301,6 @@ enyo.kind({
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
 	},
-	removeService: function(inSender,inEvent){		
-		//close old panels	
-		this.closeSecondaryPanels(3);
-		//create panel to create a new account
-		this.createComponent({ kind: "RemoveService", "uid": this.uid,"service":inEvent ,"uri": inEvent.uri, onBack: "closePanel4", container: this.$.panels }).render();
-		this.$.panels.reflow();
-		this.$.panels.setIndex(4);
-	},	
 	RemoveRepository: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(3);	
@@ -329,7 +321,7 @@ enyo.kind({
 		//close old panels	
 		this.closeSecondaryPanels(2);		
 		//create panel to access account details
-		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "removeService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
+		this.createComponent({ kind: "ServiceDetails", "uid": this.uid, "uri": inEvent.uri, "service":inEvent ,"account": inEvent,onRemoveService: "DeleteService" ,onSelectedStack:"Stack" ,onCreateRelationship: "Relationship", onCreateStack: "newStack", onBack: "closeFilePanel", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(3);
 	},
@@ -548,6 +540,19 @@ enyo.kind({
        		
 		//create panel of files based on repository selected
 		this.createComponent({ kind: "CancelActivity", "uid": inEvent.uid, "uri" : inEvent.url,  "name" : inEvent.name  ,onBack: "closePanel4",onRefresh:"refreshAct" ,container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(5);
+	},
+	
+	DeleteService:function(inSender,inEvent)
+	{   
+
+		//close old panels	
+		this.closeSecondaryPanels(4);
+
+       		
+		//create panel of files based on repository selected
+		this.createComponent({ kind: "DeleteService", "uid": inEvent.uid, "uri" : inEvent.uri,  "name" : inEvent.name  ,onBack: "closePanel4",onRefresh:"refreshAct" ,container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);
 	},
