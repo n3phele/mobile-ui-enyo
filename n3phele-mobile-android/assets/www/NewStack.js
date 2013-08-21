@@ -53,7 +53,7 @@ enyo.kind({
 		
 		for( var i in this.data ){//set command list information
 
-			if(this.data[i].tags == "juju"){
+			if(this.data[i].tags == "service"){
 				this.commands.push( this.data[i].name ); //set name
 				this.commandsImages.push("assets/juju.png");
 				this.stacks.push(this.data[i].name);		
