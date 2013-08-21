@@ -25,7 +25,7 @@ enyo.kind({
 		{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},
 		
 		// create the list of services	*****************************************************	
-		{name: "list", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
+		{name: "list", classes:"keyframe", kind: "List", touch: true,  multiSelect: false, style:"height:80%;", fit: true, onSetupItem: "setupItem" , components: [
 	    	{name: "item", style: "padding: 10px 0 10px 10px; margin:auto; border:1px solid rgb(200,200,200)", ontap: "selectedService", components: [
 	        	{name: "name", style:"width: 75%; display: inline-block"},
 		    	{name: "icon2", kind: "onyx.IconButton",style:"float:right",src: "assets/next.png"} 
