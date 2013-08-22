@@ -23,6 +23,9 @@ enyo.kind({
 			//{fit: true}
 		]},  
 	    	{name: "Spin",kind:"onyx.Spinner",classes: "onyx-light",style:" margin-top:100px;margin-left:45%"},
+			{tag: "br"},
+			{name: "Msg", style: "color:#FF4500; text-align:center"},
+			{tag: "br"},
 	    {name: "panel", components:[]}
 	],
 	create: function(){
@@ -63,6 +66,8 @@ enyo.kind({
 			panel.data = response.elements;
 			panel.commands = new Array();
 			panel.commandsImages = new Array();
+			if(panel.data.length == 0) this.$.Msg.setContent("No repository found!");
+
 			for( var i in panel.data ){//set comand list information
 				panel.commands.push( this.data[i].name ); //set name
 				panel.commandsImages.push("assets/folderG.png");
