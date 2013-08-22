@@ -16,7 +16,8 @@ enyo.kind({
 	events: {
 		onCreateAcc: "",
 		onBack: "",
-		onClickItem:""
+		onClickItem:"",
+		onBackCmd:""
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes: "toolbar-style",components: [  {kind: "onyx.Button",classes:"button-style-right",content: "Done", ontap: "newService"}, 
@@ -35,7 +36,7 @@ enyo.kind({
 		]}		
 	],
 	 create: function(){   
-
+      console.log(this.service);
 		this.clouds = new Array();
         this.uris = new Array();
 		this.zones = new Array();
@@ -123,7 +124,13 @@ enyo.kind({
 			
 		ajaxComponent.go()
 		.response( this, function(inSender, inResponse){
-			this.doBack();		
+			if(this.service != undefined)
+	      { 
+		  console.log("he");
+		  this.doBackCmd();
+		  }
+		else
+		this.doBack();		
 		})
 		.error( this, function(inSender, inResponse){
 			if(this.uri == null) { 
@@ -138,7 +145,12 @@ enyo.kind({
 	},
 	
 	cancelAction:function (sender,event)
-	{  
+	{    if(this.service != undefined)
+	      { 
+		  	  console.log("he");
+		  this.doBackCmd();
+		  }
+		else
 		this.doBack();
 	},
 
