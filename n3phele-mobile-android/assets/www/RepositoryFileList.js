@@ -261,8 +261,8 @@ enyo.kind({
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl;
 			}
-
-			this.doOpenContent(fileUri);
+			var xmlHttp = new XMLHttpRequest();
+			xmlhttp.open("GET", fileUri.uri, false, "nigel.cook@hp.com", "foobar");
 		}
 	},
 

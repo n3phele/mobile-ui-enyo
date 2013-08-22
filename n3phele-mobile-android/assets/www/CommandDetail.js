@@ -64,7 +64,6 @@ enyo.kind({
 				this.commandType="NShell";
 			}
 			
-			console.log(this.commandType);
 			this.setDynamicData(response);
 			
 		})
@@ -110,6 +109,7 @@ enyo.kind({
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
 		
+		console.log(data);
 		this.commandName = data.name;
 			if(this.commandName.length <=25){
 				var name = this.commandName;
@@ -131,11 +131,17 @@ enyo.kind({
 		//Cloud list
 		if( typeof data.cloudAccounts != 'undefined' )
 			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, "type": "command", container: this.$.comScroll , "complete":complete});				
-		else if( typeof data.serviceList != 'undefined')
+		else if( typeof data.serviceList != 'undefined'){
+		console.log("service");
 			this.createComponent({name: "commandExec",kind:"commandExecGroup", onRunCommand: "runCommand", "lines": data.serviceList, "type": "service", container: this.$.comScroll , "complete":complete});
-		else
-			this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
-
+		}else{
+			console.log("erroooo");
+			if(data.tags == "service"){
+				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), "type": "service", container: this.$.comScroll,"complete":complete });	
+			}else{
+				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
+			}
+		}
 		//panel reflow
 		if (enyo.Panels.isScreenNarrow())
 		this.$.info.destroy();

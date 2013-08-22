@@ -65,7 +65,11 @@ enyo.kind({
 		}	
 	},
 	addEmptyLine:function(){//there is not clouds available
-		this.$.groupbox.createComponent({content:"There is not cloud available for this operation!", style:"text-align:center; padding:4px; font-weight:bold"});
+	
+		if(this.type == "service"){
+			this.$.groupbox.createComponent({content:"Create new service", style:"text-align:center; padding:4px; font-weight:bold"});
+		}else
+			this.$.groupbox.createComponent({content:"There is not cloud available for this operation!", style:"text-align:center; padding:4px; font-weight:bold"});
 	},
 	insertLastLine: function(){
 	
