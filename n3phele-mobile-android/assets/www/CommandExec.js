@@ -45,24 +45,22 @@ enyo.kind({
 	
 	addLines: function( linesInfo ){//addlines from an array
 
-		if (linesInfo.length == 1){  
-		
-	        this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] , index: 0,"check":true,"checkmail":checkmail});
-			clouds[0] = eval("this.$.checkBox.$.account");
-			uris[0] = linesInfo[0].accountUri;
-			zones[0] = linesInfo[0].implementation;
-		}
-	    else{	
+	 
 			for( var i in linesInfo ){
-			
+			    if(i == 0 ) {
+				this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] , index: 0,"check":true,"checkmail":checkmail});
+				}
+				else
+				{
 				this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", index: i, data: linesInfo[i],"checkmail":checkmail});
+				}
 				var str="this.$.checkBox.$."+linesInfo[i].accountName;
 				var n = str.replace("-","_");
 				clouds[i] = eval(n);
 				uris[i] = linesInfo[i].accountUri;
 				zones[i] = linesInfo[i].implementation;
 			}
-		}	
+			
 	},
 	addEmptyLine:function(){//there is not clouds available
 		this.$.groupbox.createComponent({content:"There is not cloud available for this operation!", style:"text-align:center; padding:4px; font-weight:bold"});
