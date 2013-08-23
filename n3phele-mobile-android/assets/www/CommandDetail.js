@@ -18,6 +18,7 @@ enyo.kind({
 		onOutputFile: "",
 		onLost:"",
 		onBack:"",
+		onNewService:"",
 	},
 	components:[
 		{kind: "onyx.Toolbar", classes:"toolbar-style", components: [ { name: "title" }, {name: "back", kind: "onyx.Button", content: "Commands", classes:"button-style-left", ontap: "closePanel"}]},
@@ -133,11 +134,11 @@ enyo.kind({
 			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, "type": "command", container: this.$.comScroll , "complete":complete});				
 		else if( typeof data.serviceList != 'undefined'){
 		console.log("service");
-			this.createComponent({name: "commandExec",kind:"commandExecGroup", onRunCommand: "runCommand", "lines": data.serviceList, "type": "service", container: this.$.comScroll , "complete":complete});
+			this.createComponent({name: "commandExec",kind:"commandExecGroup",onNewService:"NewService" ,onRunCommand: "runCommand", "lines": data.serviceList, "type": "service", container: this.$.comScroll , "complete":complete});
 		}else{
 			console.log("erroooo");
 			if(data.tags == "service"){
-				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), "type": "service", container: this.$.comScroll,"complete":complete });	
+				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand",onNewService:"NewService" ,"lines": new Array(), "type": "service", container: this.$.comScroll,"complete":complete });	
 			}else{
 				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": new Array(), container: this.$.comScroll,"complete":complete });	
 			}
@@ -257,6 +258,12 @@ enyo.kind({
 			}				
 			panel.reflow();					
      }			
+	},
+	NewService:function(sender,event)
+	{ 
+	 var obj = new Object();
+	 obj.service = "backCommand";
+	  this.doNewService(obj);
 	}
 
 })
