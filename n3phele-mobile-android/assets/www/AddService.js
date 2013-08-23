@@ -36,7 +36,7 @@ enyo.kind({
 		]}		
 	],
 	 create: function(){   
-      console.log(this.service);
+
 		this.clouds = new Array();
         this.uris = new Array();
 		this.zones = new Array();
@@ -126,7 +126,6 @@ enyo.kind({
 		.response( this, function(inSender, inResponse){
 			if(this.service != undefined)
 	      { 
-		  console.log("he");
 		  this.doBackCmd();
 		  }
 		else
@@ -147,7 +146,7 @@ enyo.kind({
 	cancelAction:function (sender,event)
 	{    if(this.service != undefined)
 	      { 
-		  	  console.log("he");
+		  	
 		  this.doBackCmd();
 		  }
 		else

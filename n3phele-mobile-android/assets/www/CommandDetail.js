@@ -262,7 +262,7 @@ enyo.kind({
 	NewService:function(sender,event)
 	{ 
 	 var obj = new Object();
-	 obj.service = 1;
+	 obj.service = "backCommand";
 	  this.doNewService(obj);
 	}
 

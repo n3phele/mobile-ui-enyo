@@ -624,7 +624,6 @@ enyo.kind({
      },
 	reRun: function(inSender,inEvent){
 	this.closeSecondaryPanels(3);
-	console.log(inSender);
 	this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon':"assets/Script.png" , onSelectedFile: "listRepository", backContent: inEvent.backContent, onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inEvent.actionUrl, onCommandCreated: "commandExecuted",onBack:"closePanel4",onNewService:"newService" }).render();
 	this.$.panels.reflow();                       
 	this.$.panels.setIndex(4);
