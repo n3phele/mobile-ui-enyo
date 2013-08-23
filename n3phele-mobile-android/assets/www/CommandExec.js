@@ -12,7 +12,8 @@ var cloudName = "";
 enyo.kind({ 
 	name: "commandExecGroup",
 	events: {
-		onRunCommand: ""
+		onRunCommand: "",
+		onNewService:"",
 	},
 	components:[
 		{tag: "br"},
@@ -68,7 +69,7 @@ enyo.kind({
 	addEmptyLine:function(){//there is not clouds available
 	
 		if(this.type == "service"){
-			this.$.groupbox.createComponent({content:"Create new service", style:"text-align:center; padding:4px; font-weight:bold"});
+			this.createComponent({content:"Create new service", style:"text-decoration: underline;padding:4px;color: #f000 !important; font-weight:bold",ontap: "NewService",container: this.$.groupbox});
 		}else
 			this.$.groupbox.createComponent({content:"There is not cloud available for this operation!", style:"text-align:center; padding:4px; font-weight:bold"});
 	},
@@ -140,6 +141,11 @@ enyo.kind({
 	},
 	getZone: function(){
 		return zone;
+	},
+	NewService:function()
+	{
+	 
+	 this.doNewService();
 	}
 });
 
