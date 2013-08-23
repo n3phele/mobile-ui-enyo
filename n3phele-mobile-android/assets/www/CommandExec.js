@@ -45,18 +45,21 @@ enyo.kind({
 	
 	addLines: function( linesInfo ){//addlines from an array
 
-	 
+	 	
 			for( var i in linesInfo ){
-			    if(i == 0 ) {
-				this.$.checkBox.createComponent({name: "account", kind: "commandExecLine", data: linesInfo[0] , index: 0,"check":true,"checkmail":checkmail});
+			
+			var str= linesInfo[i].accountName;
+			var n = str.replace("-","_");
+			   
+			   if(i == 0 ) {
+				this.createComponent({name: n, kind: "commandExecLine", data: linesInfo[0] , index: 0,"check":true,"checkmail":checkmail, container: this.$.checkBox});
 				}
-				else
-				{
-				this.$.checkBox.createComponent({name: linesInfo[i].accountName, kind: "commandExecLine", index: i, data: linesInfo[i],"checkmail":checkmail});
+				else{
+				this.createComponent({name: n, kind: "commandExecLine", index: i, data: linesInfo[i],"checkmail":checkmail, container: this.$.checkBox});
 				}
-				var str="this.$.checkBox.$."+linesInfo[i].accountName;
-				var n = str.replace("-","_");
-				clouds[i] = eval(n);
+
+				clouds[i] = eval("this.$."+n);
+				console.log(clouds[i]);
 				uris[i] = linesInfo[i].accountUri;
 				zones[i] = linesInfo[i].implementation;
 			}
@@ -123,7 +126,6 @@ enyo.kind({
 		this.doRunCommand();
 	},
 	getValue: function(){
-		console.log(this.$.execSend.getValue());
 		if(this.type == "service"){
 			return '{"name":"notify", "type":"Boolean", "value":["'+this.$.execSend.getValue()+'"]}'; 
 		}else if(this.type == "command"){

@@ -261,7 +261,24 @@ enyo.kind({
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl;
 			}
-			window.location.assign(fileUri.uri);
+		
+			var ajaxParams = {
+				url: fileUri.uri,
+				headers:{ 'authorization' : "Basic "+ this.uid},
+				contentType: "application/x-www-form-urlencoded",
+				method: "GET",
+				sync: false
+			};
+		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+		ajaxComponent.go()
+		.response( this, function(inSender, inResponse){
+			console.log(inResponse);
+		}).error(this, function(inSender, inResponse){
+		 if(inSender.xhrResponse.status == 0){
+			alert("Connection Lost");
+			this.doLost();
+         }
+		}); 
 		}
 	},
 

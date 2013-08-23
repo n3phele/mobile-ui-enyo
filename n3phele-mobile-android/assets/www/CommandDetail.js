@@ -55,9 +55,10 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			Parameters = response;
-			
-			if(response.processor == null || response.processor.length == 0 || response.processor == "Job") 
+			console.log(response);
+			if(response.processor == null || response.processor.length == 0 || response.processor == "Job"){
 				this.commandType = "Job";
+			}
 			else if(response.processor == "StackService"){
 				this.commandType="NShell";
 			}else if(response.processor == "NShell"){
@@ -206,10 +207,12 @@ enyo.kind({
 		parameters += ']}';	
 		
 		var runCommandUrl;
-		if(this.commandType="StackService"){
+		console.log(this.commandType);
+		if(this.commandType == "StackService"){
 			runCommandUrl = serverAddress+"process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+encodeURIComponent(this.$.commandExec.getProcess());
-		}else if(this.commandType = "Job"){
-			runCommandUrl =  serverAddress+"process/exec?action="+this.commandType+"&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone());
+		}else if(this.commandType == "Job"){
+		console.log("HEYYY");
+			runCommandUrl =  serverAddress+"process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone());
 		}
 		console.log(runCommandUrl);
 		
