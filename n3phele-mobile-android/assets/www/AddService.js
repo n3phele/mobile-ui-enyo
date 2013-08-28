@@ -86,23 +86,7 @@ enyo.kind({
 	selectedAccount: function(sender, event){
 		this.doClickItem(results[event.index]);
 	},
-	closePanel: function(inSender, inEvent){
-			var panel = inSender.parent.parent.parent;
-			
-			panel.setIndex(2);				
-			panel.getActive().destroy();					
-			panel.panelCreated = false;
-			
-			if (enyo.Panels.isScreenNarrow()) {
-				panel.setIndex(1);
-			}
-			else {
-				panel.setIndex(0);
-			}		
-			
-			panel.reflow();		
-			panel.owner.$.IconGallery.deselectLastItem();			
-	},
+	
 	newService: function(sender, event){	   
 		for(var i in this.clouds){
 			var c = this.clouds[i].$.execCheck.getValue();
@@ -112,6 +96,8 @@ enyo.kind({
                 var  name = this.$.Servicename.getValue();
 				
 				var parameters = '{"Variable":[{"name":"notify", "type":"Boolean", "value":["false"]},{"name":"account", "type":"Object", "value":["'+this.uri+'"]}]}';
+			}
+		}
 		
 		var ajaxComponent = n3phele.ajaxFactory.create({
 				url: serverAddress+"process/exec?action=StackService&name="+name+"&arg=&parent=",
@@ -124,23 +110,16 @@ enyo.kind({
 			
 		ajaxComponent.go()
 		.response( this, function(inSender, inResponse){
-			if(this.service != undefined)
-	      { 
-		  this.doBackCmd();
-		  }
-		else
-		this.doBack();		
+			if(this.service != undefined){ 
+				this.doBackCmd();
+			}else
+				this.doBack();		
 		})
 		.error( this, function(inSender, inResponse){
 			if(this.uri == null) { 
 				this.$.Msg.setContent("Select your account!");
 			}	
 		});		
-			}
-		}		
-
-	  
-
 	},
 	
 	cancelAction:function (sender,event)
