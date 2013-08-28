@@ -210,10 +210,13 @@ enyo.kind({
 		var runCommandUrl;
 		console.log(this.commandType);
 		if(this.commandType == "StackService"){
+		console.log(this.$.commandExec.getProcess());
 			runCommandUrl = serverAddress+"process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+encodeURIComponent(this.$.commandExec.getProcess());
 		}else if(this.commandType == "Job"){
-		console.log("HEYYY");
 			runCommandUrl =  serverAddress+"process/exec?action=Job&name="+this.$.commandExec.getJob()+"&arg=NShell+"+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone());
+		}else if(this.commandType == "NShell"){
+		console.log(this.$.commandExec.getProcess());
+			runCommandUrl = serverAddress+"process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+encodeURIComponent(this.$.commandExec.getProcess());
 		}
 		console.log(runCommandUrl);
 		

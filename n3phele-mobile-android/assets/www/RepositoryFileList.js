@@ -261,25 +261,8 @@ enyo.kind({
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl;
 			}
-		
-			var ajaxParams = {
-				url: fileUri.uri,
-				headers:{ 'authorization' : "Basic "+ this.uid},
-				contentType: "application/x-www-form-urlencoded",
-				method: "GET",
-				sync: false
-			};
-		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
-		ajaxComponent.go()
-		.response( this, function(inSender, inResponse){
-			console.log(inResponse);
-		}).error(this, function(inSender, inResponse){
-		 if(inSender.xhrResponse.status == 0){
-			alert("Connection Lost");
-			this.doLost();
-         }
-		}); 
-		}
+			
+	  }
 	},
 
 	/*
@@ -289,6 +272,18 @@ enyo.kind({
 		this.navigateBack(inSender.content);
 		this.$.btn.destroy();	
 	},
+
+    function onFileSystemSuccess(fileSystem) {
+        console.log(fileSystem.name);
+    },
+
+    function onResolveSuccess(fileEntry) {
+        console.log(fileEntry.name);
+    },
+
+    function fail(evt) {
+        console.log(evt.target.error.code);
+    },
 
 	/*
 		this function update the content of the back button, triggered by folderClicked
