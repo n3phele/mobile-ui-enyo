@@ -75,7 +75,6 @@ enyo.kind({
 				);
 				
 			this.clouds[i] = eval(n);
-			console.log(this.clouds[i]);
 			this.uris[i] = data[i].uri;
 			this.render();
 

@@ -45,6 +45,8 @@ enyo.kind({
 		if(this.backContent!=undefined){
 			this.$.back.setContent(this.backContent);
 		}		
+		
+		console.log(this.uri);
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -56,7 +58,7 @@ enyo.kind({
 		ajaxComponent.go()
 		.response(this, function(sender, response){
 			Parameters = response;
-			console.log(response);
+			
 			if(response.processor == null || response.processor.length == 0 || response.processor == "Job"){
 				this.commandType = "Job";
 			}
@@ -111,7 +113,6 @@ enyo.kind({
 		this.$.cName.setContent(data.name);
 		this.$.description.setContent(data.description);
 		
-		console.log(data);
 		this.commandName = data.name;
 			if(this.commandName.length <=25){
 				var name = this.commandName;
@@ -134,10 +135,8 @@ enyo.kind({
 		if( typeof data.cloudAccounts != 'undefined' )
 			this.createComponent({name: "commandExec",kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand", "lines": data.cloudAccounts, "type": "command", container: this.$.comScroll , "complete":complete});				
 		else if( typeof data.serviceList != 'undefined'){
-		console.log("service");
 			this.createComponent({name: "commandExec",kind:"commandExecGroup",onNewService:"NewService" ,onRunCommand: "runCommand", "lines": data.serviceList, "type": "service", container: this.$.comScroll , "complete":complete});
 		}else{
-			console.log("erroooo");
 			if(data.tags == "service"){
 				this.createComponent({kind:"commandExecGroup", "uri" : this.uri, onRunCommand: "runCommand",onNewService:"NewService" ,"lines": new Array(), "type": "service", container: this.$.comScroll,"complete":complete });	
 			}else{

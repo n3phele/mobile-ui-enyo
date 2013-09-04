@@ -82,7 +82,8 @@ enyo.kind({
       }
    }		
         
-      this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});			
+		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel}).render();			
+		
 		this.createComponent({
 					kind: "CommandList", 
 					'uid' : this.uid, 
@@ -101,18 +102,12 @@ enyo.kind({
    {
       window.localStorage.setItem("laststate", enyo.json.stringify(this.getState()));
    },
-	refreshActivityMenu:function()
-	{
-	  this.$.recent.destroy();
-	  this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
-
-
-					this.$.mainMenuPanel.render();
-					this.$.mainMenuPanel.reflow();
-
+	refreshActivityMenu:function(){
+		this.$.recent.destroy();
+		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
+		this.$.mainMenuPanel.render();
+		this.$.mainMenuPanel.reflow();
 	},
-	
-	
 	
 	destroyPanel: function(inSender, inEvent) {
 		this.setIndex(2);				
@@ -636,7 +631,6 @@ enyo.kind({
 			return;
 		}
 		this.closeSecondaryPanels(2);//close old panels
-		console.log(inSender);
 		//create panel of details by selected Command 
 		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.commandsImages[inEvent.index], onSelectedFile: "listRepository" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted",onNewService:"newService" }).render();
 		this.$.panels.reflow();
@@ -644,7 +638,7 @@ enyo.kind({
 		this.$.CommandData = inSender.data[inEvent.index];
 		//inSender.scrollIntoView(inSender.$["commandItem"+inEvent.index], false);
 	},
-		stackTap: function(inSender, inEvent) {
+	stackTap: function(inSender, inEvent) {
 		//check if command information is set
 		if( !( inEvent.index in inSender.data ) ){
 			alert("There is not commands in the database!");
@@ -653,12 +647,10 @@ enyo.kind({
 		this.closeSecondaryPanels(4);//close old panels
 	
 		serviceaction = inSender.uri;
-		
 		//create panel of details by selected Command 
-		
-		//this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
-		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.commandsImages[inEvent.index], onSelectedFile: "listRepository2" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted", "stack": inSender.uri,"id":id ,onBack: "closePanel5", "stackdetail":true,onNewService:"newService" }).render();
 
+		//this.createComponent({ kind: "StackDetails", "uid": this.uid, 'icon': inSender.data[inEvent.index].icon, onSelectedFile: "listRepository2", onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.index].uri, onCommandCreated: "commandExecuted","stack": inSender.uri,"id":id ,onBack: "closePanel5" }).render();
+		this.createComponent({ kind: "CommandDetail", "uid": this.uid, 'icon': inSender.commandsImages[inEvent.index], onSelectedFile: "listRepository2" ,onOutputFile: "addFileInRepository", container: this.$.panels, 'uri': inSender.data[inEvent.uri].uri, onCommandCreated: "commandExecuted", "stack": inSender.uri,"id":id ,onBack: "closePanel5", "stackdetail":true,onNewService:"newService" }).render();
 		
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);

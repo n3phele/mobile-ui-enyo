@@ -7,6 +7,7 @@ enyo.kind({
 	commands: null,
 	commandsImages : null,
 	stacks: null,
+	commandsUri: null,
 	style:"background:#fff",
 	events: {
 		onSelectedStack: "",
@@ -32,7 +33,7 @@ enyo.kind({
 
 		this.commands = new Array();
 		this.commandsImages = new Array();
-			
+		this.commandsUri = new Array();	
 		this.stacks = new Array();
 			
 		var ajaxComponent = n3phele.ajaxFactory.create({
@@ -56,14 +57,12 @@ enyo.kind({
 			if(this.data[i].tags == "service"){
 				this.commands.push( this.data[i].name ); //set name
 				this.commandsImages.push("assets/juju.png");
-				this.stacks.push(this.data[i].name);		
+				this.stacks.push(this.data[i].name);
+				this.commandsUri.push(i);	
 			}
-			
 		}	
-
 		var thisPanel = this;
-		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
-			commandsImages: this.commandsImages,
+		thisPanel.createComponent({name: "IconGallery", kind: "IconList",style:"background:#FFF", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands, commandsImages: this.commandsImages,
 			retrieveContentData: function(){
 				this.data = createCommandItems(this.commands, this.commandsImages); } 
 		}).render();
@@ -78,7 +77,11 @@ enyo.kind({
 	},
 
 	itemTap: function(inSender, inEvent) {
-		this.doSelectedStack(inEvent);
+		var obj = new Object();
+		obj.index = inEvent.index;
+		obj.uri = this.commandsUri[inEvent.index];
+		console.log(obj);
+		this.doSelectedStack(obj);
 	},
 
 	backMenu: function(inSender, inEvent) {

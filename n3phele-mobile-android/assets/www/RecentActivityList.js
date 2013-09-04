@@ -73,6 +73,9 @@ enyo.kind({
 		this.results = response.elements;
 		this.$.list.setCount(this.results.length);
 		this.$.list.reset();
+		
+		this.render();
+		this.reflow();
 	
 	},
 	

@@ -273,18 +273,6 @@ enyo.kind({
 		this.$.btn.destroy();	
 	},
 
-    function onFileSystemSuccess(fileSystem) {
-        console.log(fileSystem.name);
-    },
-
-    function onResolveSuccess(fileEntry) {
-        console.log(fileEntry.name);
-    },
-
-    function fail(evt) {
-        console.log(evt.target.error.code);
-    },
-
 	/*
 		this function update the content of the back button, triggered by folderClicked
 	*/

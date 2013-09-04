@@ -50,10 +50,10 @@ enyo.kind({
 			this.data = response.elements;
 			this.commands = new Array();
 			this.commandsImages = new Array();
-			
+				
 			for( var i in this.data ){//set command list information
 				this.commands.push( this.data[i].name ); //set name
-				
+			
 				if(this.data[i].tags == "service"){
 					this.commandsImages.push("assets/juju.png");
 				}else{
