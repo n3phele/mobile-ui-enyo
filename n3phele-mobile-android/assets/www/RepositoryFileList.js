@@ -261,8 +261,13 @@ enyo.kind({
 				fileUri.name=this.selected.name;
 				fileUri.uri = contentUrl;
 			}
-			
-	  }
+			var user = Base64.decode(this.uid)+"@";
+			var first = fileUri.uri.substr(0,8);
+			var last = fileUri.uri.substr(8,fileUri.uri.length);
+			var url = first+user+last;			
+			window.open(url, '_system');
+        
+		}
 	},
 
 	/*
