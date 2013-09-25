@@ -10,7 +10,7 @@ enyo.kind({
 	style:"background-color:#fff",
 	icon:"",
 	activityName:"",
-	activityDesc:"",		
+	activityDesc:"",	
 	events: {
 		onBack: "",//this fuction occurs when the user clicked back button (goes to the activity list)
 		onBackMenu:"",//this fuction occurs when the user clicked on back button (goes to the menu)
@@ -93,130 +93,131 @@ enyo.kind({
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
 				
-		var thisPanel = this;
-		this.lastUpdate = 0;
-		
-		var success = function (response) {		
-		
-		// set the icon according to the state		
-		if(response.state == "CANCELLED" ){
-			thisPanel.$.acStatus.setSrc("assets/cancelled.png");
-            cancelled = true;
-		}
-		else if(response.state == "FAILED"){
-			thisPanel.$.acStatus.setSrc("assets/failed.png");
-		}
-		else if(response.state == "COMPLETE"){
-			thisPanel.$.acStatus.setSrc("assets/activities.png");
-			cancelled = true;
-		}else if(response.state =="BLOCKED"){  
-			thisPanel.$.acStatus.setSrc("assets/blocked.png");					
-		}else{
-			thisPanel.$.acStatus.setSrc("assets/spinner2.gif");
-		}	
-		
-		// if the scrren is small concat the name and description with "..."			
-		if ($(window).width() < 350){
+		var thisPanel = this;		
+		this.lastUpdate = 0;		
 			
-			if(response.name.length < 22){
-				this.activityName = response.name;
-			}
-			else{
-				this.activityName = response.name.substr(0,19).concat("...");						
-			}						
-						
-			if (response.description.length < 23){							
-				this.activityDesc = response.description;
-			}else {							
-				this.activityDesc = response.description.substr(0,22).concat("...");  
-			}	
-		} 
-		else{  
-			if(response.name.length < 70){
-				this.activityName = response.name;
-			}
-			else{
-				this.activityName = response.name.substr(0,65).concat("...");
-			}	
-					
-			if(response.description.length < 70){
-				this.activityDesc = response.description;
-			}
-			else{
-				this.activityDesc = response.description.substr(0,66).concat("...");  
-			}	
-		} 
-		
-		//show the name and description on  the screen							
-		thisPanel.$.acName.setContent(" "+this.activityName);				
-		thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
-		actionURL = response.action;
-		
-		// initialize the variables for manipulate dates
-		var minstart = 0;
-		var mincomplete = 0;
-		var d1 = new Date(response.start);
-		var d2 = new Date(response.complete);
-						
-		
-		if(d1.getMinutes()<10)
-			minstart = "0" + d1.getMinutes();
-		else 
-			minstart = d1.getMinutes();
-				
-		//show the start time on the screen		
-		thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+minstart);
-				
-		var duration = "still running";
-		
-		//if the activity is complete, the complete time is setted
-		if(response.complete){   
+		var success = function (response) {			
 			
-			if(d2.getMinutes()<10)  mincomplete = "0" + d2.getMinutes();
-			else mincomplete = d2.getMinutes();
+			// set the icon according to the state				
+			if(response.state == "CANCELLED" ){
+				thisPanel.$.acStatus.setSrc("assets/cancelled.png");
+				cancelled = true;				
+			}
+			else if(response.state == "FAILED"){
+				thisPanel.$.acStatus.setSrc("assets/failed.png");
+			}
+			else if(response.state == "COMPLETE"){
+				thisPanel.$.acStatus.setSrc("assets/activities.png");
+				cancelled = true;	
+			}
+			else if(response.state =="BLOCKED"){  
+				thisPanel.$.acStatus.setSrc("assets/blocked.png");			
+			}else{
+				thisPanel.$.acStatus.setSrc("assets/spinner2.gif");
+			}	
+			
+			// if the scrren is small concat the name and description with "..."			
+			if ($(window).width() < 350){
 				
-			thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+mincomplete);
-			duration = (Math.round(((d2-d1)/60000)*100)/100);
-					
-			if(duration < 1){
-				duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
-			}
-			else{
-				duration = duration + " minutes";
-			}
-		}
+				if(response.name.length < 22){
+					this.activityName = response.name;
+				}
+				else{
+					this.activityName = response.name.substr(0,19).concat("...");						
+				}						
+							
+				if (response.description.length < 23){							
+					this.activityDesc = response.description;
+				}else {							
+					this.activityDesc = response.description.substr(0,22).concat("...");  
+				}	
+			} 
+			else{  
+				if(response.name.length < 70){
+					this.activityName = response.name;
+				}
+				else{
+					this.activityName = response.name.substr(0,65).concat("...");
+				}	
+						
+				if(response.description.length < 70){
+					this.activityDesc = response.description;
+				}
+				else{
+					this.activityDesc = response.description.substr(0,66).concat("...");  
+				}				
+			} 
 		
-		//show the duration time on the screen	
+			//show the name and description on  the screen							
+			thisPanel.$.acName.setContent(" "+this.activityName);				
+			thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
+			actionURL = response.action;
+			
+			// initialize the variables for manipulate dates
+			var minstart = 0;
+			var mincomplete = 0;
+			var d1 = new Date(response.start);
+			var d2 = new Date(response.complete);
+							
+			
+			if(d1.getMinutes()<10)
+				minstart = "0" + d1.getMinutes();
+			else 
+				minstart = d1.getMinutes();
+					
+			//show the start time on the screen		
+			thisPanel.$.acStart.setContent(" "+d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+minstart);
+					
+			var duration = "still running";
+			
+			//if the activity is complete, the complete time is setted
+			if(response.complete){   
+				
+				if(d2.getMinutes()<10)  mincomplete = "0" + d2.getMinutes();
+				else mincomplete = d2.getMinutes();
+					
+				thisPanel.$.acComplete.setContent(" "+d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+mincomplete);
+				duration = (Math.round(((d2-d1)/60000)*100)/100);
+						
+				if(duration < 1){
+					duration = (Math.round(((d2-d1)/1000)*100)/100)+" seconds";
+				}
+				else{
+					duration = duration + " minutes";
+				}
+			}
+		
+			//show the duration time on the screen	
 			thisPanel.$.acDuration.setContent(" " + duration); 
 								
 			var narrative = fixArrayInformation(response.narrative);
 						
 			thisPanel.updateNarrative(narrative, thisPanel.$.narratives);
 				
-			thisPanel.reflow();
-		}
+			thisPanel.reflow();			
+		}		
 		
 		//if the response get a error
 		var error = function(){ 
 			console.log("Error to load recent activities!!"); 
 		};
 			
-		this.n3pheleClient.listActivityDetail(this.url, 0, 10, success, error);
+		this.n3pheleClient.listActivityDetail(this.url, success, error);
 			
 	    //When called update screen
 		var changesSuccess = function() { 
-			thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, 0, 10, success, error); 
+			thisPanel.n3pheleClient.listActivityDetail(thisPanel.url, success, error);	
 		}
 	
-		this.n3pheleClient.addListener(this, changesSuccess, this.url);
+		this.n3pheleClient.addListener(this, changesSuccess, this.url);	
 		
-		this.$.Spin.hide();
+		this.$.Spin.hide();		
 	},
 
 	destroy: function() {
 		// do inherited teardown
 		this.inherited(arguments);
-		this.n3pheleClient.removeListener(this);
+		this.n3pheleClient.removeListener(this);	
 	},
 	
 	/*
@@ -265,7 +266,7 @@ enyo.kind({
 						{classes:"content", content : " "+narrative[i].text,style:"background-color:white"}
 					]})
 				}				
-			}
+			}			
 		}
            
         if(!cancelled){

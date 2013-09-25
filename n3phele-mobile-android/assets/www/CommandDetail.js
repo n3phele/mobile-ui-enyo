@@ -46,7 +46,7 @@ enyo.kind({
 			this.$.back.setContent(this.backContent);
 		}		
 		
-		console.log(this.uri);
+		
 		var ajaxComponent = n3phele.ajaxFactory.create({
 			url: this.uri,
 			headers:{ 'authorization' : "Basic "+ this.uid},
@@ -182,8 +182,7 @@ enyo.kind({
 
 		for(var i in Parameters.executionParameters){
 			var str=Parameters.executionParameters[i].name;
-			var n = str.replace("-","_");
-			console.log(n);
+			var n = str.replace("-","_");			
 			value = this.$.comScroll.$.paramGroup.getValue(n);
 			parameters += '{"name":"'+Parameters.executionParameters[i].name+'", "type":"'+
 			Parameters.executionParameters[i].type+'", "value":["'+value+'"]},';
@@ -206,8 +205,7 @@ enyo.kind({
 		parameters += this.$.commandExec.getValue(); 
 		parameters += ']}';	
 		
-		var runCommandUrl;
-		console.log(this.commandType);
+		var runCommandUrl;		
 		if(this.commandType == "StackService"){
 		console.log(this.$.commandExec.getProcess());
 			runCommandUrl = serverAddress+"process/exec?action=NShell&name="+this.$.commandExec.getJob()+"&arg="+encodeURIComponent(this.uri+"#"+this.$.commandExec.getZone())+"&parent="+encodeURIComponent(this.$.commandExec.getProcess());

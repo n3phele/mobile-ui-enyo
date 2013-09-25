@@ -30,12 +30,12 @@ enyo.kind({
 	         ]}
 	     ]},
 		 {name:"line",  style:"border-top:2px solid #768BA7;margin-top:10px;text-align:center"},
-		 {name: "buttonsPanel",components:[
+		/* {name: "buttonsPanel",components:[
 					{name: "buttons",style:"text-align:center",  components:[  
 						{name:"b1",kind:"onyx.Button", content: "Add Node", classes:"button-style",  style:"width:98%;height:40px;margin:0.8em auto", ontap:"addNode"},
 						{name:"b2",kind:"onyx.Button", content: "Remove Node", classes:"button-style",  style:"width:98%;height:40px;margin:1.0em auto", ontap:"updateNode"}, 
 					]}
-				]},	
+		]},	 */
 				
 	],	
 	create: function(){
@@ -65,8 +65,8 @@ enyo.kind({
                         this.$.Spin.hide();});
 		results = new Array();
 			
-		this.$.b1.setContent("Add Node");
-		this.$.b2.setContent("Remove Node");
+		/* this.$.b1.setContent("Add Node");
+		this.$.b2.setContent("Remove Node"); */
 		
 		
 	},
