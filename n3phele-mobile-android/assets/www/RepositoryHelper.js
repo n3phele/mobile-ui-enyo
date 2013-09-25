@@ -13,9 +13,9 @@ function RepositoryHelper()
 		window.open(uri, '_system');
 	}
 	
-	this.openFileInNewWindow = function(selectedFile, ajaxFactory)
+	this.openFileInNewWindow = function(selectedFile, folders, ajaxFactory)
 	{
-		var uri = this.directFileUriPoint(selectedFile);
+		var uri = this.createDirectFileRequestUri(selectedFile, folders);
 		var self = this;
 		
 		var ajaxComponent = ajaxFactory.create({
@@ -35,11 +35,11 @@ function RepositoryHelper()
 		});		
 	}
 	
-	this.createRedirectFileUri = function(selected) {
+	this.createFileRedirectUri = function(selected, folders) {
 		var str = "";
 			
-	 	for(var i in this.folders){
-	     	str += "/"+this.folders[i];
+	 	for(var i in folders){
+	     	str += folders[i] + "/";
 	  	}
 		var contentUrl = selected.repository+"/redirect?name="+selected.name;
 		
@@ -56,11 +56,11 @@ function RepositoryHelper()
 		return fileUri.uri;
 	}
 	
-	this.directFileUriPoint = function(selected) {
+	this.createDirectFileRequestUri = function(selected, folders) {
 		var str = "";
 			
-	 	for(var i in this.folders){
-	     	str += "/"+this.folders[i];
+	 	for(var i in folders){
+	     	str += folders[i] + "/";
 	  	}
 		var contentUrl = selected.repository+"/redirectUrl?name="+selected.name;
 		
