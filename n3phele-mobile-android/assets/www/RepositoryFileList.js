@@ -239,7 +239,7 @@ enyo.kind({
 			this.doSelectedItem(pathFile);
 		}
 		else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
-			this.helper.openFileInNewWindow(this.selected, this.folders, new N3pheleClient().ajaxFactory);
+			this.helper.openFileInNewWindow(this.selected, this.folders, n3phele);
 		}
 	},
 	/*

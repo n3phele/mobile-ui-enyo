@@ -18,25 +18,16 @@ function RepositoryHelper()
 		window.open(uri, '_system');
 	}
 	
-	this.openFileInNewWindow = function(selectedFile, folders, ajaxFactory)
+	this.openFileInNewWindow = function(selectedFile, folders, n3pheleClient)
 	{
 		var uri = this.createDirectFileRequestUri(selectedFile, folders);
 		var self = this;
 		
-		var ajaxComponent = ajaxFactory.create({
-			url: uri,
-			handleAs: 'text',
-			method: "GET",
-			sync: false, 
-		});
-		ajaxComponent.go()
-		.response(this, function(sender, response){	
-			var directFileUri = response;
+		var onSuccess = function(directFileUri)	{
 			self.openWindow(directFileUri);
-		})
-		.error(this, function(){
-			if(error) error();
-		});		
+		}
+		
+		n3pheleClient.getDirectFileUri(uri, onSuccess);
 	}
 	
 	var createBasicFileUrlWithPath = function(selected, folders, path) {
