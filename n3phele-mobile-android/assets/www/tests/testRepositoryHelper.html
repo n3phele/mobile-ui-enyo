@@ -71,6 +71,15 @@ test( "construct the url to get the direct file url point inside a folder", func
 	equal(currentUrl, expectedUrl, "created url should match expected one");
 });
 
+test( "construct the url with credentials", function() {
+	var expectedUrl = "https://testuser:testpass@localhost:8080/test";
+	var uid = "dGVzdHVzZXI6dGVzdHBhc3M=";
+	var url = "https://localhost:8080/test";
+	var currentUrl = repositoryHelper.createUrlWithCredentials(url, uid);
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
 
 </script>
 </body>

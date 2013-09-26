@@ -2,12 +2,17 @@ function RepositoryHelper()
 {	
 	this.openWindowWithCredentials = function(uri, uid)	{
 		//We need to open the browser passing the n3phele url. This requires authentication, so we will contruct the url with username:password@url
+		var url = this.createUrlWithCredentials(uid);
+		this.openWindow(url);
+	}
+	
+	this.createUrlWithCredentials = function(url, uid) {
 		var user = Base64.decode(uid)+"@";
-		var first = uri.substr(0,8);
-		var last = uri.substr(8,uri.length);
-		var url = first+user+last;
-		window.open(url, '_system');
-	}	
+		var first = url.substr(0,8);
+		var last = url.substr(8,url.length);
+		var newUrl = first+user+last;
+		return newUrl;
+	}
 	
 	this.openWindow = function(uri)	{
 		window.open(uri, '_system');
@@ -23,8 +28,7 @@ function RepositoryHelper()
 			handleAs: 'text',
 			method: "GET",
 			sync: false, 
-		}); 
-
+		});
 		ajaxComponent.go()
 		.response(this, function(sender, response){	
 			var directFileUri = response;
@@ -35,13 +39,13 @@ function RepositoryHelper()
 		});		
 	}
 	
-	this.createFileRedirectUri = function(selected, folders) {
+	var createBasicFileUrlWithPath = function(selected, folders, path) {
 		var str = "";
 			
 	 	for(var i in folders){
 	     	str += folders[i] + "/";
 	  	}
-		var contentUrl = selected.repository+"/redirect?name="+selected.name;
+		var contentUrl = selected.repository+"/" + path +"?name="+selected.name;
 		
 		var fileUri = new Object();			
 		if(str != ""){
@@ -53,27 +57,14 @@ function RepositoryHelper()
 			fileUri.uri = contentUrl;
 		}
 		
-		return fileUri.uri;
+		return fileUri.uri;		
+	}
+	
+	this.createFileRedirectUri = function(selected, folders) {
+		return createBasicFileUrlWithPath(selected, folders, "redirect");
 	}
 	
 	this.createDirectFileRequestUri = function(selected, folders) {
-		var str = "";
-			
-	 	for(var i in folders){
-	     	str += folders[i] + "/";
-	  	}
-		var contentUrl = selected.repository+"/redirectUrl?name="+selected.name;
-		
-		var fileUri = new Object();			
-		if(str != ""){
-			fileUri.name=selected.name;
-			fileUri.uri = contentUrl+"&path="+str;
-		}
-		else{
-			fileUri.name=selected.name;
-			fileUri.uri = contentUrl;
-		}
-		
-		return fileUri.uri;
+		return createBasicFileUrlWithPath(selected, folders, "redirectUrl");	
 	}
 }
