@@ -306,10 +306,7 @@ function N3pheleClient(ajaxFactory)
 			if (success) success(response);
 		})
 		.error(this, function(inSender, inResponse){
-			if(error) error(inSender, inResponse);
-			console.log(inSender.xhrResponse.status);
-			console.log(inSender);
-			console.log(inResponse);			
+			if(error) error(inSender, inResponse);		
 		});	
 	}
 
