@@ -94,7 +94,7 @@ enyo.kind({
 	/*
 		this function is triggered when the ajax on create function receive a response 
 	*/
-	processActions: function( request, response){		
+	processActions: function( request, response){			
 		if(response.total == 0){				
 			this.$.list.applyStyle("display", "none !important");
 			this.reflow();

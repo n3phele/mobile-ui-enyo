@@ -82,7 +82,7 @@ enyo.kind({
       }
    }		
         
-		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel}).render();			
+		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel,  n3pheleClient: n3phele }).render();			
 		
 		this.createComponent({
 					kind: "CommandList", 
@@ -104,7 +104,7 @@ enyo.kind({
    },
 	refreshActivityMenu:function(){
 		this.$.recent.destroy();
-		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel});
+		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel,  n3pheleClient: n3phele });
 		this.$.mainMenuPanel.render();
 		this.$.mainMenuPanel.reflow();
 	},
@@ -130,7 +130,7 @@ enyo.kind({
 	setupItemMenu: function(inSender, inEvent) {// given some available data.
 		this.$.menu_item.addRemoveClass("onyx-selected", inEvent.index == this.trackedRow);	
 		this.$.menu_image.setSrc(this.menuImages[inEvent.index]);
-		this.$.menu_option.setContent(this.menu[inEvent.index]);
+		this.$.menu_option.setContent(this.menu[inEvent.index]);		
 	},
 	mainMenuTap: function(inSender, inEvent) {
 		this.setTrackedRow(inEvent.index);	
@@ -182,7 +182,7 @@ enyo.kind({
 				//Activity History
 				this.closeSecondaryPanels(2);
 				this.createComponent({
-					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu",onLost:"logout","closePanel": enyo.Panels, onSelectedActivity: "selectedActivity", container: this.$.imageIconPanel
+					kind: "ActivityList", 'uid' : this.uid, onBack: "backMenu",onLost:"logout","closePanel": enyo.Panels, onSelectedActivity: "selectedActivity", container: this.$.imageIconPanel, n3pheleClient: n3phele
 				});
 				this.$.imageIconPanel.render();	
 			break;
@@ -244,8 +244,7 @@ enyo.kind({
 		//create panel to show selected activity	
        	
 		this.createComponent({ kind: "RecentActivityPanel", "uid": this.uid, 'url': event.location,"num":event.num ,onBack: "refreshCommands",onCancel:"CancelActivity" ,onRerun:"reRun", container: this.$.panels, n3pheleClient: n3phele }).render();
-		this.refreshActivityMenu();
-
+		this.refreshActivityMenu();		
 		this.$.panels.reflow();
 		this.$.panels.setIndex(5);	
 	},
