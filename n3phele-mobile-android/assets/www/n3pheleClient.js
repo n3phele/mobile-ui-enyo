@@ -18,7 +18,7 @@ function N3pheleClient(ajaxFactory)
 	else
 	{
 		this.ajaxFactory = new Object();
-		this.ajaxFactory.create = function(o) { n3phele.incrementRequests(); return new enyo.Ajax(o); };
+		this.ajaxFactory.create = function(o, skipIncrement) { if( !skipIncrement ) n3phele.incrementRequests(); return new enyo.Ajax(o); };
 	}
 
 	this.incrementRequests = function()
@@ -28,11 +28,9 @@ function N3pheleClient(ajaxFactory)
 
 	this.getRecentRequests = function()
 	{
-		//console.log("getRecentRequest() = " + this.recentRequests);
 		var count = this.recentRequests;
 		this.recentRequests = 0;
 
-		//console.log("count = " + count + " getRecentRequest() = " + this.recentRequests);
 		return count;
 	}
 
@@ -197,13 +195,13 @@ function N3pheleClient(ajaxFactory)
 
 		var thisComponent = this;
 
-		var ajaxComponent = new enyo.Ajax({
+		var ajaxComponent = this.ajaxFactory.create({
 			url: this.serverAddress,
-			headers:{ 'authorization' : "Basic "+ this.uid },
+			headers:{ 'authorization' : "Basic "+ this.uid},
 			method: "GET",
 			contentType: "application/x-www-form-urlencoded",
-			sync: false
-		});
+			sync: false, 
+		}, true); 
 
 		//connection parameters
 
@@ -254,14 +252,16 @@ function N3pheleClient(ajaxFactory)
 
 	this.removeListener = function(component)
 	{
+		var newArray = [];
 		for(var i in this.eventListeners)
 		{
-			if(this.eventListeners[i].component == component)
+			//Put valid listeners in a new array
+			if(this.eventListeners[i].component != component)
 			{
-				this.eventListeners.splice(i,1);
-				//console.log("a listener was removed");
+				newArray.push(this.eventListeners[i]);
 			}
-		}		
+		}
+		this.eventListeners = newArray;
 	}
 	
 	this.removeListenerForItem = function(component, uri)

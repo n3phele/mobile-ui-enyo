@@ -73,6 +73,45 @@ test( "add two listeners and remove both", function() {
 	
 });
 
+test( "add two listeners and remove first", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent1 = new Object();
+	aComponent1.callback = function(response) { ok(true); }
+	
+	var aComponent2 = new Object();
+	aComponent2.callback = function(response) { ok(true); }
+		
+	n3pheleClient.addListener( aComponent1, aComponent1.callback, processUri );
+	n3pheleClient.addListener( aComponent2, aComponent2.callback, processUri );
+	
+	equal(2, n3pheleClient.eventListeners.length, "two listener should be added");
+	
+	n3pheleClient.removeListener(aComponent1);
+	
+	equal(1, n3pheleClient.eventListeners.length, "listener array should have one listener");	
+});
+
+test( "add two uri listener events for two different components and then remove first component listeners", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent1 = new Object();
+	aComponent1.callback = function(response) { ok(true); }
+	
+	var aComponent2 = new Object();
+	aComponent2.callback = function(response) { ok(true); }
+		
+	var aInvalidProcessUri = "http://localhost/process/111111";
+	n3pheleClient.addListener( aComponent1, aComponent1.callback, processUri );
+	n3pheleClient.addListener( aComponent1, aComponent1.callback, aInvalidProcessUri );
+	n3pheleClient.addListener( aComponent2, aComponent2.callback, processUri );
+	n3pheleClient.addListener( aComponent2, aComponent2.callback, aInvalidProcessUri );
+		
+	equal(n3pheleClient.eventListeners.length, 4, "two listener should be added for two uris each");
+	
+	n3pheleClient.removeListener(aComponent1);
+	
+	equal(n3pheleClient.eventListeners.length, 2, "one listener should still be registerd for two uris");	
+});
+
 asyncTest( "add a listener and call the callback method", function() {
 	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
 	n3pheleClient.startEventsDispatch();
