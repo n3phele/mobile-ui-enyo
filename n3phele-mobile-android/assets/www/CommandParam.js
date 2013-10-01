@@ -54,8 +54,7 @@ enyo.kind({
 				}
 				break;
 				case "string":
-				if(i % 2 == 0){
-				console.log(linesInfo[i]);
+				if(i % 2 == 0){				
 					var str=linesInfo[i].name;
 					console.log(str);
 					var n = str.replace("-","_");
@@ -63,8 +62,7 @@ enyo.kind({
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
 						{classes:"imputCommand", kind: "onyx.Input", name: n, value: linesInfo[i].defaultValue}						
 					]});
-				}else if(i % 2 == 1){
-				console.log(linesInfo[i]);
+				}else if(i % 2 == 1){				
 					var str=linesInfo[i].name;
 					console.log(str);
 					var n = str.replace("-","_");

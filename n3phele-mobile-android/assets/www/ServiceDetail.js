@@ -57,10 +57,10 @@ enyo.kind({
 		]},	
 		
 		//buttons for resource and relationship **********************************************************************
-		{kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
+		/* {kind: "onyx.RadioGroup", onActivate:"radioActivated", components: [
 			{content: "Resource",style:"width:100%;padding-top:15px;padding-bottom:15px;" ,active: true, ontap:"resources"},
 			{name:"relationTab",content: "Relationship",style:"width:50%;padding-top:15px;padding-bottom:15px;",ontap:"relationships"}		
-		]},		
+		]},  */
 	],	
 
 	/*
@@ -69,7 +69,7 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments)
 		this.$.btnRelation.hide();
-		this.$.relationTab.hide(); 
+		//this.$.relationTab.hide(); 
 		var stacks;
 		console.log(this);
 
@@ -182,14 +182,14 @@ enyo.kind({
 	/*
 		this function create the vms list screen
 	*/
-	resources:function(inSender,inEvent){ 
+	/* resources:function(inSender,inEvent){ 
 		this.$.panel.destroyClientControls();
 	  	this.$.Spin.show();
      	this.$.btnRelation.hide();
 	 	setTimeout(enyo.bind(this,this.showData ),200);
       	this.vnum = 0;
 	  	this.$.searchBar.show();
-	},
+	}, */
 
 	/*
 		this function is triggered when the search button is clicked, making the search for the string placed in the input

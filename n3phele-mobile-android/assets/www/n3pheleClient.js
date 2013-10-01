@@ -132,7 +132,7 @@ function N3pheleClient(ajaxFactory)
 		);
 	}
 
-	this.listActivityDetail = function(processUri, start, end, success, error)
+	this.listActivityDetail = function(processUri, success, error)
 	{
 		var ajaxComponent = this.ajaxFactory.create({
 				url: processUri,
@@ -143,7 +143,7 @@ function N3pheleClient(ajaxFactory)
 			}); //connection parameters
 
 			ajaxComponent
-			.go({'summary' : true, 'start' : start, 'end' : end})
+			.go()
 			.response( this, function(sender, response){			
 				if( success ) success(response);
 			})
@@ -154,7 +154,7 @@ function N3pheleClient(ajaxFactory)
 				}
 			);	
 	}
-
+	
 	this.stamp = 0;
 	this.eventListeners = [];
 	this.backoff = 0;
@@ -191,7 +191,7 @@ function N3pheleClient(ajaxFactory)
 		if(this.eventListeners.length == 0)
 			return;
 
-		console.log("doRefresh");
+		//console.log("doRefresh");
 
 		var thisComponent = this;
 
@@ -205,16 +205,15 @@ function N3pheleClient(ajaxFactory)
 
 		//connection parameters
 
-		ajaxComponent.go({'summary' : false, 'changeOnly' : true, 'since' : this.stamp}).response( this, function(sender, response)
+		ajaxComponent.go({'summary' : false, 'changeOnly' : true, 'since' : this.stamp}).response(this, function(sender, response)
 		{
 			this.stamp = response.stamp;
 			if( response.changeCount == 0 )
 				return;
 
 			thisComponent.backoff = 0;
-
+			
 			var changes = response.changeGroup.change;	
-
 			for (var i=0;i<changes.length;i++)
 			{
 				for(var j in thisComponent.eventListeners)
@@ -226,7 +225,7 @@ function N3pheleClient(ajaxFactory)
 				}
 			}
 		})
-		.error( this, function()
+		.error(this, function()
 			{
 				console.log("Error to load new changes");
 				if (error) error();
@@ -246,10 +245,9 @@ function N3pheleClient(ajaxFactory)
 		newListener.component = component;
 		newListener.callback = callback;
 		newListener.uri = uriToListen;
-
-		this.eventListeners.push(newListener);
-
-		console.log("new listener registered");
+		this.eventListeners.push(newListener);	
+		
+		//console.log("new listener registered");		
 	}
 
 	this.removeListener = function(component)
@@ -264,6 +262,18 @@ function N3pheleClient(ajaxFactory)
 			}
 		}
 		this.eventListeners = newArray;
+	}
+	
+	this.removeListenerForItem = function(component, uri)
+	{	
+		for(var i in this.eventListeners)
+		{
+			if(this.eventListeners[i].component == component && this.eventListeners[i].uri == uri)
+			{
+				this.eventListeners.splice(i,1);
+				//console.log("a listener was removed");				
+			}			
+		}			
 	}
 
 	this.listClouds = function(success, error)

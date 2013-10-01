@@ -7,7 +7,8 @@ enyo.kind({
 	start:false,
 	fit: true,
 	activityName:"",
-	listSize:null,
+	listSize:null,	
+	listenerList: [],	
 	events: {
 		onBack: "",
 		onClose: "",
@@ -44,7 +45,18 @@ enyo.kind({
 	/*
 		this function create the back button if the screen is small and use the getRecentActivities
 	*/
-	create: function(){
+	constructor: function(args) {
+		this.inherited(arguments);
+		//Dependency Injection
+		if(args.n3pheleClient){
+				this.n3pheleClient = args.n3pheleClient;
+		}
+	},
+	
+	/*
+		this function create the back button if the screen is small and use the getRecentActivities
+	*/
+	create: function(){	
 		this.inherited(arguments);			
 		this.$.spinner.show();
 		
@@ -60,15 +72,17 @@ enyo.kind({
 		var updateList = function(){
 			self.getRecentActivities(self.uid);
 		}
-		n3phele.addListener(this, updateList, serverAddress+"process" );
 		
-		this.render();
+		//the authentication header
+		this.n3pheleClient.uid = this.uid;
+		
+		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );			
 	},
 
 	/*
 		this function get the 15 recent activities from the server using ajax.
 	*/	
-	getRecentActivities: function( uid ){
+	getRecentActivities: function(uid){
 		this.$.Spin.show();
 		this.$.buttonMore.hide();
 
@@ -96,7 +110,7 @@ enyo.kind({
 	/*
 		This function represent the response from the ajax call
 	*/
-	processRecentActivities: function( request, response){		
+	processRecentActivities: function(request, response){	
 		if(response.total == 0){
 			this.$.divider.setContent("Without recent activities!");
 			this.$.list.applyStyle("display", "none !important");
@@ -126,10 +140,11 @@ enyo.kind({
 		this function setup the content of the list and populate it.
 	*/
 	setupItem: function(inSender, inEvent){
+	
 		if(this.results == null ) 
-			return;
+			return;	
 		
-		var i = inEvent.index;
+		var i = inEvent.index;			
 		var item = this.results[i];
 
 		//set the icon for each activity ****************************************
@@ -137,12 +152,12 @@ enyo.kind({
 			this.$.status.setSrc("assets/activities.png");			
 		}
 		else if(item.state == "CANCELLED"){
-			this.$.status.setSrc("assets/cancelled.png");				
+			this.$.status.setSrc("assets/cancelled.png");	
 		}
 		else if(item.state == "FAILED"){
-			this.$.status.setSrc("assets/failed.png");				
+			this.$.status.setSrc("assets/failed.png");			
 		}else if(item.state =="BLOCKED"){  
-			this.$.status.setSrc("assets/blocked.png");					
+			this.$.status.setSrc("assets/blocked.png");	
 		}else{
 			this.$.status.setSrc("assets/spinner2.gif");
 		}				
@@ -173,7 +188,69 @@ enyo.kind({
 			this.$.item.applyStyle("background-color", "white")
 		};
 		
-		this.$.more.canGenerate = !this.results[i+1];
+		this.$.more.canGenerate = !this.results[i+1];		
+				
+		
+		var self_2 = this;
+		var updateList2 = function() { 
+			self_2.getRecentActivities(self_2.uid);				
+		}		
+			
+		 for(var i = 0; i < this.results.length; i++){
+				var check = true;
+				if(this.listenerList.length == 0){
+					for(var a = 0; a< this.results.length;a++){
+						if(this.results[a].state == "RUNABLE"){		
+							this.n3pheleClient.addListener(this, updateList2, this.results[a].uri);
+							this.listenerList.push(this.results[a]);
+						}	
+					}
+				}
+				for(var j = 0; j < this.listenerList.length; j++){
+					if(this.listenerList[j].uri == this.results[i].uri){					
+						check = false;
+					}								
+				}
+				if(check == true){
+					if(this.results[i].state == "RUNABLE"){	
+						this.n3pheleClient.addListener(this, updateList2, this.results[i].uri);
+						this.listenerList.push(this.results[i]);
+					}	
+				}
+		} 			
+		
+		var v = new Array();
+		var differenteItem = null;		
+		var difference = function(vet1, vet2){			
+			var count = 0;
+			var find = false;
+			for(var i = 0; i < vet1.length; i++){
+				find = true;
+				for(var j = 0; j < vet2.length; j++){
+					if(vet1[i].uri == vet2[j].uri){
+						find = false;
+						break;						
+					}					
+				}
+				if(find == true){
+					v[count] = vet1[i].uri;
+					count++;							 
+				}
+			}				
+			return v;
+		} 	
+		differenteItem = difference(this.listenerList, this.results);
+		
+		for(var i = 0; i < differenteItem.length ; i++){
+			this.n3pheleClient.removeListenerForItem(this, differenteItem[i]);				
+		}  
+	},
+	
+	
+	destroy: function() {                
+		// do inherited teardown
+		this.inherited(arguments);
+		this.n3pheleClient.removeListener(this);
 	},
 
 	/*
