@@ -15,7 +15,16 @@ function RepositoryHelper()
 	}
 	
 	this.openWindow = function(uri)	{
-		window.open(uri, '_system');
+	
+	 var userAgent = navigator.userAgent;
+	 console.log(userAgent);
+        if (userAgent.indexOf('iPhone') != -1 ||
+            userAgent.indexOf('iPod') != -1 ||
+            userAgent.indexOf('iPad') != -1) {
+           	window.location.href = uri;
+        }else{
+			window.open(uri, '_system');
+		}
 	}
 	
 	this.openFileInNewWindow = function(selectedFile, folders, n3pheleClient)
