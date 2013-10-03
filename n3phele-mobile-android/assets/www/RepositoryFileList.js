@@ -1,6 +1,3 @@
-/*
-	The main classes that mount the account list page 
-*/
 enyo.kind({ 
 	name:"RepositoryFileList",
 	kind: "FittableRows",
@@ -39,7 +36,8 @@ enyo.kind({
 		this function calls the updateFilesFromUri and hide the delete button if this screen 
 	*/
 	create: function(){
-		this.inherited(arguments)		
+		this.inherited(arguments);
+		this.helper = new RepositoryHelper();
 		
 		if(this.callBy=="selectFile"){
 			this.$.delete.hide();
@@ -49,9 +47,8 @@ enyo.kind({
 			this.$.delete.hide();
 		}
 
-		this.updateFilesFromURI(this.uri + "/list");	
+		this.updateFilesFromURI(this.uri + "/list");		
 	},
-
 	/*
 		this function do a request to the server to populate this list.
 	*/
@@ -208,7 +205,7 @@ enyo.kind({
 	folderMime: "application/vnd.com.n3phele.PublicFolder",
 
 	/*
-		this function occurs when a item on the list of repositories is clicked and then go to the Account Detail screen.
+		this function occurs when a item on the list of repositories is clicked
 	*/
 	itemTap: function(inSender, inEvent) {
 		
@@ -242,34 +239,9 @@ enyo.kind({
 			this.doSelectedItem(pathFile);
 		}
 		else if(this.selected.mime != this.folderMime && this.callBy=="repositoryList"){
-			
-			var str = "";
-			
-		 	for(var i in this.folders){
-		     	str += "/"+this.folders[i];
-		  	}
-
-			var contentUrl = this.selected.repository+"/redirect?name="+this.selected.name;
-			
-			var fileUri = new Object();
-			
-			if(str != ""){	
-				fileUri.name=this.selected.name;
-				fileUri.uri = contentUrl+"&path="+str;
-			}
-			else{
-				fileUri.name=this.selected.name;
-				fileUri.uri = contentUrl;
-			}
-			var user = Base64.decode(this.uid)+"@";
-			var first = fileUri.uri.substr(0,8);
-			var last = fileUri.uri.substr(8,fileUri.uri.length);
-			var url = first+user+last;			
-			window.open(url, '_system');
-        
+			this.helper.openFileInNewWindow(this.selected, this.folders, n3phele);
 		}
 	},
-
 	/*
 		this function update the content of the back button.
 	*/

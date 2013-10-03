@@ -6,6 +6,7 @@ enyo.depends(
 	"app.js",
 	"IconGallery.css",
 	"IconGallery.js",
+	"RepositoryHelper.js",
 	"RepositoryFileList.js",
 	"RepositoryList.js",
 	"RemoveRepository.js",

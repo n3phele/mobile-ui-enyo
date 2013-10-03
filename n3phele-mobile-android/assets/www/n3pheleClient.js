@@ -299,5 +299,25 @@ function N3pheleClient(ajaxFactory)
 				}
 			);	
 	}
+	
+	this.getDirectFileUri = function(fileUri, success, error)
+	{
+		var ajaxComponent = this.ajaxFactory.create({
+			url: fileUri,
+			headers:{ 'authorization' : "Basic "+ this.uid },
+			method: "GET",
+			handleAs: 'text',
+			sync: false,
+		}); //connection parameters
+
+		ajaxComponent
+		.go()
+		.response( this, function(sender, response){
+			if (success) success(response);
+		})
+		.error(this, function(inSender, inResponse){
+			if(error) error(inSender, inResponse);		
+		});	
+	}
 
 }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>N3phele Client - Unit Tests</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../n3pheleClient.js" type="text/javascript"></script>
+<script src="../RepositoryHelper.js" type="text/javascript"></script>
+
+<script>
+
+var repositoryHelper = new RepositoryHelper();
+
+test( "contruct the redirect url correctly for the file in the repository", function() {
+	var expectedUrl = "https://localhost:8080/resources/repository/132003/redirect?name=file.txt";
+	
+	var file = new Object();
+	file.repository = "https://localhost:8080/resources/repository/132003";
+	file.name = "file.txt";
+	var currentUrl = repositoryHelper.createFileRedirectUri(file);
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
+test( "contruct the redirect url correctly for the file in the repository inside a folder", function() {
+	var expectedUrl = "https://localhost:8080/resources/repository/1239007/redirect?name=file.txt&path=afolder/";
+	
+	var file = new Object();
+	file.repository = "https://localhost:8080/resources/repository/1239007";
+	file.name = "file.txt";
+	var folders = [ "afolder" ];
+	var currentUrl = repositoryHelper.createFileRedirectUri(file, folders );
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
+
+test( "construct the url to get the direct file url point", function() {
+	var expectedUrl = "https://localhost:8080/resources/repository/132003/redirectUrl?name=file.txt";
+	
+	var file = new Object();
+	file.repository = "https://localhost:8080/resources/repository/132003";
+	file.name = "file.txt";
+	var currentUrl = repositoryHelper.createDirectFileRequestUri(file);
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
+test( "construct the url to get the direct file url point inside a folder", function() {
+	var expectedUrl = "https://localhost:8080/resources/repository/1239007/redirectUrl?name=file.txt&path=afolder/";
+	
+	var file = new Object();
+	file.repository = "https://localhost:8080/resources/repository/1239007";
+	file.name = "file.txt";
+	var folders = [ "afolder" ];
+	var currentUrl = repositoryHelper.createDirectFileRequestUri(file, folders );
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
+test( "construct the url with credentials", function() {
+	var expectedUrl = "https://testuser:testpass@localhost:8080/test";
+	var uid = "dGVzdHVzZXI6dGVzdHBhc3M=";
+	var url = "https://localhost:8080/test";
+	var currentUrl = repositoryHelper.createUrlWithCredentials(url, uid);
+	
+	equal(currentUrl, expectedUrl, "created url should match expected one");
+});
+
+
+</script>
+</body>
+</html>
