@@ -14,10 +14,8 @@ function RepositoryHelper()
 		return newUrl;
 	}
 	
-	this.openWindow = function(uri)	{
-	
-	 var userAgent = navigator.userAgent;
-	 console.log(userAgent);
+	this.openWindow = function(uri)	{	
+	    var userAgent = navigator.userAgent;	 
         if (userAgent.indexOf('iPhone') != -1 ||
             userAgent.indexOf('iPod') != -1 ||
             userAgent.indexOf('iPad') != -1) {
