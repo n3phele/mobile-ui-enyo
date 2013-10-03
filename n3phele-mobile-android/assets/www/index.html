@@ -18,13 +18,15 @@
 <script type="text/javascript">
 	var n3phele = new N3pheleClient();
 	n3phele.startEventsDispatch();
-	var serverAddress = "https://n3phele-dev.appspot.com/resources/";
+	var serverAddress = "https://n3phele-dev-mobile.appspot.com/resources/";
 	n3phele.serverAddress = serverAddress;
 	//http://127.0.0.1:8888/N3phele.html?gwt.codesvr=127.0.0.1:9997
 	//var serverAddress = "http://127.0.0.1:8888/resources/";
 	//var serverAddress = "http://192.168.100.24:8888/resources/";
 	var c = new loginPage({classes: "enyo-unselectable"});
-	c.renderInto(document.body);	
+	c.renderInto(document.body);
+	$('#loginPage_loginUser').val('test-user@gmail.com'); 
+	$('#loginPage_loginPw').val('testit!'); 
 </script>
 </body>
 </html>

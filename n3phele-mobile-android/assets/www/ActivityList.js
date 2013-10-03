@@ -3,8 +3,7 @@
 */
 enyo.kind({ 
 	name:"ActivityList",
-	result: null,
-	start:false,
+	result: [],	
 	fit: true,
 	activityName:"",
 	listSize:null,	
@@ -68,8 +67,8 @@ enyo.kind({
 		
 		this.getRecentActivities(this.uid);
 
-		var self = this;
-		var updateList = function(){
+		self = this;
+		updateList = function(){
 			self.getRecentActivities(self.uid);
 		}
 		
@@ -81,7 +80,7 @@ enyo.kind({
 
 	/*
 		this function get the 15 recent activities from the server using ajax.
-	*/	
+	*/
 	getRecentActivities: function(uid){
 		this.$.Spin.show();
 		this.$.buttonMore.hide();
@@ -104,7 +103,7 @@ enyo.kind({
 			this.doLost();
 		})
 		
-		this.$.spinner.hide();
+		this.$.spinner.hide();			
 	},
 
 	/*
@@ -119,7 +118,7 @@ enyo.kind({
 		}
 		
 		response.elements = fixArrayInformation(response.elements);
-		this.results = response.elements;
+		this.results = response.elements;		
 		this.$.list.setCount(this.results.length);
 		this.$.Spin.hide();
 		
@@ -127,20 +126,15 @@ enyo.kind({
 		  	this.$.buttonMore.show();
 		else if(listSize != this.results.length) 
 			this.$.more.hide();
-            
-		this.$.list.reset();
-		
-		if(this.start)
-			this.$.list.scrollToBottom();
         
-        this.start = true;	
+		this.$.list.reset();      
+        
 	},
-
 	/*
 		this function setup the content of the list and populate it.
 	*/
-	setupItem: function(inSender, inEvent){
-	
+	setupItem: function(inSender, inEvent){	
+		
 		if(this.results == null ) 
 			return;	
 		
@@ -150,19 +144,20 @@ enyo.kind({
 		//set the icon for each activity ****************************************
 		if(item.state == "COMPLETE"){
 			this.$.status.setSrc("assets/activities.png");			
-		}
-		else if(item.state == "CANCELLED"){
+		}else if(item.state == "CANCELLED"){
 			this.$.status.setSrc("assets/cancelled.png");	
-		}
-		else if(item.state == "FAILED"){
+		}else if(item.state == "FAILED"){
 			this.$.status.setSrc("assets/failed.png");			
-		}else if(item.state =="BLOCKED"){  
+		}else if(item.state == "BLOCKED"){
 			this.$.status.setSrc("assets/blocked.png");	
-		}else{
-			this.$.status.setSrc("assets/spinner2.gif");
-		}				
+		}else if(item.state == "RUNABLE"){
+			this.$.status.setSrc("assets/spinner2.gif");		
+			if(self.n3pheleClient.hasElement(this, item.uri) == false){
+				self.n3pheleClient.addListener(this, updateList, item.uri);				
+			}
+		}
 		
-		// if the scrren is small concat the name and description with "..." ************	  
+		// if the scrren is small concat the name and description with "..." ************
 		if ($(window).width() < 350){
 			if(item.name.length < 23){
 				this.activityName = item.name;
@@ -188,64 +183,8 @@ enyo.kind({
 			this.$.item.applyStyle("background-color", "white")
 		};
 		
-		this.$.more.canGenerate = !this.results[i+1];		
-				
-		
-		var self_2 = this;
-		var updateList2 = function() { 
-			self_2.getRecentActivities(self_2.uid);				
-		}		
-			
-		 for(var i = 0; i < this.results.length; i++){
-				var check = true;
-				if(this.listenerList.length == 0){
-					for(var a = 0; a< this.results.length;a++){
-						if(this.results[a].state == "RUNABLE"){		
-							this.n3pheleClient.addListener(this, updateList2, this.results[a].uri);
-							this.listenerList.push(this.results[a]);
-						}	
-					}
-				}
-				for(var j = 0; j < this.listenerList.length; j++){
-					if(this.listenerList[j].uri == this.results[i].uri){					
-						check = false;
-					}								
-				}
-				if(check == true){
-					if(this.results[i].state == "RUNABLE"){	
-						this.n3pheleClient.addListener(this, updateList2, this.results[i].uri);
-						this.listenerList.push(this.results[i]);
-					}	
-				}
-		} 			
-		
-		var v = new Array();
-		var differenteItem = null;		
-		var difference = function(vet1, vet2){			
-			var count = 0;
-			var find = false;
-			for(var i = 0; i < vet1.length; i++){
-				find = true;
-				for(var j = 0; j < vet2.length; j++){
-					if(vet1[i].uri == vet2[j].uri){
-						find = false;
-						break;						
-					}					
-				}
-				if(find == true){
-					v[count] = vet1[i].uri;
-					count++;							 
-				}
-			}				
-			return v;
-		} 	
-		differenteItem = difference(this.listenerList, this.results);
-		
-		for(var i = 0; i < differenteItem.length ; i++){
-			this.n3pheleClient.removeListenerForItem(this, differenteItem[i]);				
-		}  
-	},
-	
+		this.$.more.canGenerate = !this.results[i+1];			
+	},	
 	
 	destroy: function() {                
 		// do inherited teardown

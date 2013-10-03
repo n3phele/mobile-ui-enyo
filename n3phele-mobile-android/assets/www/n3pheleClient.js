@@ -245,9 +245,7 @@ function N3pheleClient(ajaxFactory)
 		newListener.component = component;
 		newListener.callback = callback;
 		newListener.uri = uriToListen;
-		this.eventListeners.push(newListener);	
-		
-		//console.log("new listener registered");		
+		this.eventListeners.push(newListener);		
 	}
 
 	this.removeListener = function(component)
@@ -276,6 +274,17 @@ function N3pheleClient(ajaxFactory)
 		}			
 	}
 
+	//Verify if exists equals elements in the EventListeners list
+	this.hasElement = function(component, uri)
+	{
+		for(var i = 0; i < this.eventListeners.length; i++){
+			if(this.eventListeners[i].uri == uri && this.eventListeners[i].component == component){			
+				return true;
+			}		
+		}
+		return false;		
+	}
+	
 	this.listClouds = function(success, error)
 	{
 		var ajaxComponent = this.ajaxFactory.create({
