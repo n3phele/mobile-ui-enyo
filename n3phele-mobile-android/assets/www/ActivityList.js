@@ -75,7 +75,7 @@ enyo.kind({
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
 		
-		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );			
+		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );
 	},
 
 	/*
