@@ -42,5 +42,6 @@ enyo.depends(
 	"FileContent.js",
 	"CancelActivity.js",
 	"StackInfo.js",
-	"DeleteService.js"	
+	"DeleteService.js",
+	"check.js"
 );

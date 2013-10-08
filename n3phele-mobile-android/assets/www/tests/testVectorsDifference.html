@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Test Vectors - Unit Tests</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../generalFunctions.js" type="text/javascript"></script>
+<script src="../N3pheleClient.js" type="text/javascript"></script>
+<script src="../FileRepository.js" type="text/javascript"></script>
+<script src="../check.js" type="text/javascript"></script>
+<script>
+
+var Check;
+
+test( "when two lists are equal nothing is returned", function() {
+check = new Check();
+	var array1 = new Array();
+	array1.push({ uri: "uri1" });
+	array1.push({ uri: "uri2" });
+		
+	var array2 = new Array();
+	array2.push({ uri: "uri1" });
+	array2.push({ uri: "uri2" });
+
+	var result = check.difference(array1,array2);
+	
+	ok(result.length == 0, "This items are equal");
+});
+
+
+test( "when two lists are equal in different order, nothing is returned", function() {
+    check = new Check();
+	var array1 = new Array();
+	array1.push({ uri: "uri2" });
+	array1.push({ uri: "uri1" });
+		
+	var array2 = new Array();
+	array2.push({ uri: "uri1" });
+	array2.push({ uri: "uri2" });
+
+	result = check.difference(array1,array2);
+	
+	ok(result.length == 0, "This items are equal.");
+});
+
+
+test( "when two lists have one different member, one is returned", function() {
+    check = new Check();
+	var array1 = new Array();
+	array1.push({ uri: "uri2" });
+	array1.push({ uri: "uri3" });
+		
+	var array2 = new Array();
+	array2.push({ uri: "uri1" });
+	array2.push({ uri: "uri2" });
+
+	result = check.difference(array1,array2);
+	
+	ok(result.length == 1, "There is one different item into the list.");
+	ok(result[0] == "uri3", "The list of results have one item.");
+});
+
+test( "when two lists have two different members, two are returned", function() {
+	check = new Check();
+	var array1 = new Array();
+	array1.push({ uri: "uri3" });
+	array1.push({ uri: "uri4" });
+		
+	var array2 = new Array();
+	array2.push({ uri: "uri1" });
+	array2.push({ uri: "uri2" });
+
+	result = check.difference(array1,array2);
+	
+	ok(result.length == 2, "There are two item into the list.");
+	ok(result[0] == "uri3", "There is one different item into the list");
+	ok(result[1] == "uri4", "There is one different item into the list");
+});
+
+</script>
+</body>
+</html>

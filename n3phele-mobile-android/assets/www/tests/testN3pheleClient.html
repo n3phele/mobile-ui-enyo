@@ -36,8 +36,7 @@ enyoAjax.go = function() { return enyoAjax; }
 var n3pheleClient;
 	
 test( "add a listener and remove it", function() {
-	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
-	
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);	
 	var aComponent = new Object();
 	aComponent.callback = function(response) { ok(true); }
 	
@@ -51,6 +50,79 @@ test( "add a listener and remove it", function() {
 	
 	equal(0, n3pheleClient.eventListeners.length, "listener array should be empty after removed the only listener");
 		
+});
+
+test( "add a uri and return true", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent = new Object();
+	aComponent.callback = function(response) { ok(true); }
+	
+	var uri = "uri1";	
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, uri );
+	
+	var result = n3pheleClient.hasElement(aComponent, uri);
+	
+	equal(true, result, "This uri have a equals element");
+});
+
+test( "the list has no elements and return false", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent = new Object();
+	
+	var uri = "uri1";
+	
+	var result = n3pheleClient.hasElement(aComponent, uri);
+	
+	equal(false, result, "This uri is not there");
+});
+
+test( "the list has one element and we ask for one not there", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent = new Object();
+	aComponent.callback = function(response) { ok(true); }
+	
+	var uri = "uri1";
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, uri );
+	
+	var result = n3pheleClient.hasElement(aComponent, "uri2");
+	
+	equal(false, result, "This uri is not there");
+});
+
+test( "add a element with a different element and return false", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent = new Object();
+	var aComponent_2 = new Object();
+	aComponent.callback = function(response) { ok(true); }
+	
+	var uri = "uri1";
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, uri );
+	
+	var result = n3pheleClient.hasElement(aComponent_2, uri);
+	
+	equal(false, result, "This uri is not equal");
+});
+
+test( "add two quals elements and return true", function() {
+	n3pheleClient = new N3pheleClient(enyoAjaxFactory);
+	var aComponent = new Object();
+	var aComponent_2 = new Object();
+	aComponent.callback = function(response) { ok(true); }
+	
+	var uri = "uri1";
+	var uri2 = "uri1";
+	
+	n3pheleClient.addListener( aComponent, aComponent.callback, uri );
+	n3pheleClient.addListener( aComponent, aComponent.callback, uri2 );
+	
+	var result = n3pheleClient.hasElement(aComponent, uri);
+	var result2 = n3pheleClient.hasElement(aComponent, uri2);
+	
+	equal(true, result, "This uri is there");
+	equal(true, result2, "This uri is there");
 });
 
 test( "add two listeners and remove both", function() {
@@ -158,6 +230,7 @@ asyncTest( "add two listeners and call only one callback method", function() {
 	window.setTimeout(start, 50);
 	n3pheleClient.stopInterval();
 });
+
 
 </script>
 </body>
