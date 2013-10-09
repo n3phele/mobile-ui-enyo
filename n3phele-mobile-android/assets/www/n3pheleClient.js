@@ -111,12 +111,11 @@ function N3pheleClient(ajaxFactory)
 
 	/*
 		this function get the runnable activities from the server using ajax.
-	*/
-	//var activityList = new ActivityList();	
+	*/	
 	
-	this.getRecentActivitiesForItem = function(process, uid, item){
+	this.getProcessSummary = function(component, uid, process){
 		var ajaxParams = {
-			url: item.uri,
+			url: process.uri,
 			headers:{ 'authorization' : "Basic "+ uid},
 			method: "GET",
 			contentType: "application/x-www-form-urlencoded",
@@ -128,7 +127,7 @@ function N3pheleClient(ajaxFactory)
 		ajaxComponent
 		.go({'summary' : true})
 		.response( this, function(sender, response){
-			if (process) process(sender, response)
+			if (component) component(sender, response)
 		})
 		.error( this, function(){ 
 			alert("Connection Lost");

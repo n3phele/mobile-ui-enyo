@@ -73,7 +73,7 @@ enyo.kind({
 		}
 		
 		updateListForItem = function(item){					
-			self.n3pheleClient.getRecentActivitiesForItem(self.processRecentActivitiesForItem, self.uid,item);
+			self.n3pheleClient.getProcessSummary(self.processRecentActivitiesForItem, self.uid,item);
 		}
 		
 		//the authentication header
