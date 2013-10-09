@@ -114,34 +114,16 @@ enyo.kind({
 				this.listenerList.push(this.results[i]);				
 			}
 		} 
+				
+		var diff = new Check();
 		
+		var differentItem = null;
 		
-		var v = new Array();
-		var differenteItem = null;		
-		var difference = function(vet1, vet2){			
-			var count = 0;
-			var find = false;
-			for(var i = 0; i < vet2.length; i++){
-				find = true;
-				for(var j = 0; j < vet2.length; j++){
-					if(vet1[i].uri == vet2[j].uri){
-						find = false;
-						break;						
-					}					
-				}
-				if(find == true){
-					v[count] = vet1[i].uri;
-					count++;							 
-				}
-			}				
-			return v;
-		} 	 
+		differentItem = diff.difference(this.listenerList, this.results);
 		
-		differenteItem = difference(this.listenerList, this.results); 		
-		
-		for(var i = 0; i < differenteItem.length ; i++){
-			this.n3pheleClient.removeListenerForItem(this, differenteItem[i]);		
-		}		
+		for(var i = 0; i < differentItem.length ; i++){
+			this.n3pheleClient.removeListenerForItem(this, differentItem[i]);
+		} 		
 	},
 	
 	

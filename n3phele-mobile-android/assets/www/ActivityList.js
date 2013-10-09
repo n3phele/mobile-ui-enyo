@@ -72,10 +72,38 @@ enyo.kind({
 			self.getRecentActivities(self.uid);
 		}
 		
+		updateListForItem = function(item){					
+			self.getRecentActivitiesForItem(self.uid,item);						
+		}
+		
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
 		
 		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );
+	},
+	
+	/*
+		this function get the runnable activities from the server using ajax.
+	*/
+	
+	getRecentActivitiesForItem: function(uid,item){
+		var ajaxParams = {
+			url: item.uri,
+			headers:{ 'authorization' : "Basic "+ uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		};
+			
+		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+		
+		ajaxComponent
+		.go()
+		.response( this, "processRecentActivitiesForItem" )
+		.error( this, function(){ 
+			alert("Connection Lost");
+			this.doLost();
+		})
 	},
 
 	/*
@@ -104,6 +132,22 @@ enyo.kind({
 		})
 		
 		this.$.spinner.hide();			
+	},
+	
+	/*
+		This function represent the response from the ajax call for runnable items
+	*/
+	
+	processRecentActivitiesForItem: function(request, response){
+		if(response.state != "RUNABLE"){
+			this.n3pheleClient.removeListenerForItem(this,response.uri);
+			for(var k = 0; k < this.results.length; k++){
+				if(response.uri == this.results[k].uri){
+					this.results[k] = response;
+				}
+			}
+			this.$.list.reset();      
+		}	
 	},
 
 	/*
@@ -153,7 +197,8 @@ enyo.kind({
 		}else if(item.state == "RUNABLE"){
 			this.$.status.setSrc("assets/spinner2.gif");		
 			if(self.n3pheleClient.hasElement(this, item.uri) == false){
-				self.n3pheleClient.addListener(this, updateList, item.uri);				
+				self.n3pheleClient.addListener(this, updateListForItem, item.uri);
+				this.listenerList.push(item);
 			}
 		}
 		
