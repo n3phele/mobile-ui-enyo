@@ -109,6 +109,33 @@ function N3pheleClient(ajaxFactory)
 		});		
 	}
 
+	/*
+		this function get the runnable activities from the server using ajax.
+	*/
+	//var activityList = new ActivityList();	
+	
+	this.getRecentActivitiesForItem = function(process, uid, item){
+		var ajaxParams = {
+			url: item.uri,
+			headers:{ 'authorization' : "Basic "+ uid},
+			method: "GET",
+			contentType: "application/x-www-form-urlencoded",
+			sync: false, 
+		};
+			
+		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+		
+		ajaxComponent
+		.go({'summary' : true})
+		.response( this, function(sender, response){
+			if (process) process(sender, response)
+		})
+		.error( this, function(){ 
+			alert("Connection Lost");
+			this.doLost();
+		})
+	}
+	
 	this.listActivityHistory = function(start, end, success, error)
 	{	
 		var ajaxComponent = this.ajaxFactory.create({

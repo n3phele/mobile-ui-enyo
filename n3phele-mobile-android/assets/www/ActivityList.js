@@ -66,45 +66,21 @@ enyo.kind({
 		}
 		
 		this.getRecentActivities(this.uid);
-
+		
 		self = this;
 		updateList = function(){
 			self.getRecentActivities(self.uid);
 		}
 		
 		updateListForItem = function(item){					
-			self.getRecentActivitiesForItem(self.uid,item);						
+			self.n3pheleClient.getRecentActivitiesForItem(self.processRecentActivitiesForItem, self.uid,item);
 		}
 		
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
 		
 		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );
-	},
-	
-	/*
-		this function get the runnable activities from the server using ajax.
-	*/
-	
-	getRecentActivitiesForItem: function(uid,item){
-		var ajaxParams = {
-			url: item.uri,
-			headers:{ 'authorization' : "Basic "+ uid},
-			method: "GET",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		};
-			
-		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
-		
-		ajaxComponent
-		.go()
-		.response( this, "processRecentActivitiesForItem" )
-		.error( this, function(){ 
-			alert("Connection Lost");
-			this.doLost();
-		})
-	},
+	},	
 
 	/*
 		this function get the 15 recent activities from the server using ajax.
@@ -138,15 +114,15 @@ enyo.kind({
 		This function represent the response from the ajax call for runnable items
 	*/
 	
-	processRecentActivitiesForItem: function(request, response){
+	processRecentActivitiesForItem: function(request, response){		
 		if(response.state != "RUNABLE"){
-			this.n3pheleClient.removeListenerForItem(this,response.uri);
-			for(var k = 0; k < this.results.length; k++){
-				if(response.uri == this.results[k].uri){
-					this.results[k] = response;
+			self.n3pheleClient.removeListenerForItem(self,response.uri);
+			for(var k = 0; k < self.results.length; k++){
+				if(response.uri == self.results[k].uri){
+					self.results[k] = response;
 				}
 			}
-			this.$.list.reset();      
+			self.$.list.reset();      
 		}	
 	},
 
