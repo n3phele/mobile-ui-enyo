@@ -66,17 +66,21 @@ enyo.kind({
 		}
 		
 		this.getRecentActivities(this.uid);
-
+		
 		self = this;
 		updateList = function(){
 			self.getRecentActivities(self.uid);
+		}
+		
+		updateListForItem = function(item){					
+			self.n3pheleClient.getProcessSummary(self.processRecentActivitiesForItem, self.uid,item);
 		}
 		
 		//the authentication header
 		this.n3pheleClient.uid = this.uid;
 		
 		this.n3pheleClient.addListener(this, updateList, serverAddress+"process" );
-	},
+	},	
 
 	/*
 		this function get the 15 recent activities from the server using ajax.
@@ -104,6 +108,22 @@ enyo.kind({
 		})
 		
 		this.$.spinner.hide();			
+	},
+	
+	/*
+		This function represent the response from the ajax call for runnable items
+	*/
+	
+	processRecentActivitiesForItem: function(request, response){		
+		if(response.state != "RUNABLE"){
+			self.n3pheleClient.removeListenerForItem(self,response.uri);
+			for(var k = 0; k < self.results.length; k++){
+				if(response.uri == self.results[k].uri){
+					self.results[k] = response;
+				}
+			}
+			self.$.list.reset();      
+		}	
 	},
 
 	/*
@@ -153,7 +173,8 @@ enyo.kind({
 		}else if(item.state == "RUNABLE"){
 			this.$.status.setSrc("assets/spinner2.gif");		
 			if(self.n3pheleClient.hasElement(this, item.uri) == false){
-				self.n3pheleClient.addListener(this, updateList, item.uri);				
+				self.n3pheleClient.addListener(this, updateListForItem, item.uri);
+				this.listenerList.push(item);
 			}
 		}
 		
