@@ -4,6 +4,7 @@ enyo.kind({
 	fit: true,
 	stacks: null,
 	data: [],
+	references: [],
 	commands: null,
 	commandsImages : null,
 	events: {
@@ -25,7 +26,6 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments)
-        
         this.$.Spin.show();		
 		
 		if (this.closePanel.isScreenNarrow()) {
@@ -48,20 +48,37 @@ enyo.kind({
 			response.elements = fixArrayInformation(response.elements);
 			
 			this.data = response.elements;
+			this.references = new Array();
 			this.commands = new Array();
 			this.commandsImages = new Array();
 				
 			for( var i in this.data ){//set command list information
 				this.commands.push( this.data[i].name ); //set name
-			
-				if(this.data[i].tags == "service"){
+				
+				var urlIcon = this.data[i].icon;
+				var splitted = urlIcon.split("/");
+				var icon=splitted[splitted.length-1];
+				if(icon == "jujuIcon"){
 					this.commandsImages.push("assets/juju.png");
+				}else if(icon == "qiimeIcon"){
+					this.commandsImages.push("assets/qiime.png");
+				}else if(icon == "unzip"){
+					this.commandsImages.push("assets/unzipIcon.png");
+				}else if(icon == "untar"){
+					this.commandsImages.push("assets/untarIcon.png");
+				}else if(icon == "espritTree"){
+					this.commandsImages.push("assets/tree.png");
+				}else if(icon == "concatenate"){
+					this.commandsImages.push("assets/concatenateIcon.png");
+				}else if(icon == "fileCopy"){
+					this.commandsImages.push("assets/fileCopy.png");
+				}else if(icon == "experimentIcon"){
+					this.commandsImages.push("assets/experimentIcon.png");
 				}else{
 					this.commandsImages.push("assets/Script.png");
 				}
-				
 				this.stacks.push(this.data[i].name);
-				
+				this.references.push(i);
 			}	
 
 		var thisPanel = this;
@@ -85,6 +102,10 @@ enyo.kind({
 	},
 
 	itemTap: function(inSender, inEvent) {
+		if(this.references[inEvent.index] != -1){
+			inEvent.index = this.references[inEvent.index];
+			this.references[inEvent.index] = -1;
+		}
 		this.doSelectedCommand(inEvent);
 	},
 
@@ -93,19 +114,23 @@ enyo.kind({
 	},
 
 	search: function(inSender, inEvent) {
-	var search =  new Array();
-		 for (var i in this.stacks) {
-			if (this.stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
-			search.push(this.stacks[i]);
-        }
-    }
-	this.destroyClientControls();
+		this.references = new Array();
+		var search =  new Array();
+		var searchImages = new Array();
+			for (var i in this.stacks) {
+				if (this.stacks[i].indexOf(this.$.searchInput.getValue()) !== -1) {
+					search.push(this.stacks[i]);
+					searchImages.push(this.commandsImages[i]);
+					this.references.push(i);
+			}
+		}
+		this.destroyClientControls();
 		var thisPanel = this;
 		thisPanel.createComponent(
-		{name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: this.commands,
-			commandsImages: this.commandsImages,
+		{name: "ListIcon",kind: "IconList", onDeselectedItems: "commandDeselect", onSelectedItem: "itemTap", commands: search,
+			commandsImages: searchImages,
 			retrieveContentData: function(){
-			this.data = createCommandItems(search, this.commandsImages); } 
+			this.data = createCommandItems(search, searchImages); } 
 		}).render();
 			thisPanel.reflow();
 	},
