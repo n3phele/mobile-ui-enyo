@@ -26,12 +26,12 @@ enyo.kind({
 		{kind: "FittableRows", name:"panel", fit: true, components: [
 			{tag: "br"},
 			{name: "Msg", style: "color:#FF4500; text-align:center"},
-   		 		{style:"text-align:center;margin:2em auto", components:[							
+   		 		{style:"text-align:center;margin:1em auto", components:[							
 					{kind: "onyx.InputDecorator",style:"border:1px solid #9A9A9A;width:90%;margin-bottom:10px", components: [
 						{kind: "onyx.Input", name: "Servicename",style:"float:left", placeholder: "Service name"}
 					]},
 				]},	
-			{content : "Select your account:", name : "account", style : "margin:5px 0 0 60px; font-weight: bold"},
+			{content : "Select your account:", name : "account", style : "margin:5px 0 0 30px; font-weight: bold"},
 			{name:"checkBox",kind: "Group", classes: "onyx-sample-tools group", highlander: true,components:[		]},				
 		]}		
 	],
@@ -143,7 +143,7 @@ enyo.kind({
 	style:"padding: 1px;", 
 	components:[
 		{classes: "onyx-sample-tools", style:"width:"+execCloudName+"%", components: [
-				{kind:"onyx.Checkbox", name: "execCheck",style:"margin:5px 0 0 60px; font-weight: bold"}, {name: "execCloud",  style: "display:inline-block;"}
+				{kind:"onyx.Checkbox", name: "execCheck",style:"margin:5px 0 0 30px; font-weight: bold"}, {name: "execCloud",  style: "display:inline-block;"}
 		]},
 	],
 	create: function(){
