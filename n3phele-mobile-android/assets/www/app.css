@@ -333,12 +333,15 @@ box-align:center;
    -webkit-appearance:none !important;
    outline:none !important;   
  }
-
- .inputs {
+.msg{
+	color:#FF4500; 
+	/*padding-bottom:15px;*/
+}
+.inputs {
  	border:1px solid #9A9A9A;
  	width:95% !important; 
  	height:34px;padding:0;
- 	margin-bottom:10px;
+ 	margin: 2px 0 5px 0;
  }
  
 /* STRUCTURE */
@@ -402,6 +405,11 @@ box-align:center;
 @-webkit-keyframes mymove2 
 {
 0%  {top:5px}
+}
+
+.forgotPassword{
+	
+	color:#0066cc;
 }
 
 /* MEDIA QUERIES */

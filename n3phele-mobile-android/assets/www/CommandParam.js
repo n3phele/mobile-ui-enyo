@@ -55,16 +55,14 @@ enyo.kind({
 				break;
 				case "string":
 				if(i % 2 == 0){				
-					var str=linesInfo[i].name;
-					console.log(str);
+					var str=linesInfo[i].name;					
 					var n = str.replace("-","_");
 					this.$.groupbox.createComponent({classes:"bodyCommandWhite", components:[
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						
 						{classes:"imputCommand", kind: "onyx.Input", name: n, value: linesInfo[i].defaultValue}						
 					]});
 				}else if(i % 2 == 1){				
-					var str=linesInfo[i].name;
-					console.log(str);
+					var str=linesInfo[i].name;					
 					var n = str.replace("-","_");
 					this.$.groupbox.createComponent({classes:"bodyCommand", components:[
 						{content:linesInfo[i].description.replace(","," , "), classes:"contentCommand"},						

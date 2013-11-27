@@ -59,8 +59,7 @@ enyo.kind({
 				this.createComponent({name: n, kind: "commandExecLine", index: i, data: linesInfo[i],"checkmail":checkmail, container: this.$.checkBox});
 				}
 
-				clouds[i] = eval("this.$."+n);
-				console.log(clouds[i]);
+				clouds[i] = eval("this.$."+n);				
 				uris[i] = linesInfo[i].accountUri;
 				zones[i] = linesInfo[i].implementation;
 			}
