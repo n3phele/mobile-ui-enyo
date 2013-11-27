@@ -75,8 +75,7 @@ enyo.kind({
 	},
 	//return value of paramenter name
 	getValue: function(name){
-		var value = eval("this.$.groupbox.$."+name+".getValue()");
-		console.log(value);
+		var value = eval("this.$.groupbox.$."+name+".getValue()");		
 		return value;
 	}
 });

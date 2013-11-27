@@ -212,14 +212,7 @@ enyo.kind({
 				this.$.cloudSecretMsg.setContent("Can not be blank.");  
 			}else{
 				this.$.cloudSecretMsg.hide();
-			} 
-			
-			
-			/* xmlhttp=new XMLHttpRequest();			
-			xmlhttp.open("GET","books.xml",false);
-			xmlhttp.send();
-			xmlDoc=xmlhttp.responseXML; */
-			
+			} 			
 			
 			if(check == true){
 				var hdr = "signup:newuser";		
