@@ -18,7 +18,7 @@ enyo.kind({
 			{style:"text-align:center;margin-top: 25px", components:[	
 
 				//Email input ***********************************************************************************************************************	
-				{name:"mailMsg", classes:"msg"},
+				{name:"mailMsg", classes:"msg"},				
 				{name:"MsgSuccess", style: "color:#009900; text-align:center; margin:8px"},
 				{kind: "onyx.InputDecorator", classes: "inputs", components: [					
 					{kind: "onyx.Input", name: "email",style:"float:left;padding:2px 0 0 10px", placeholder: "Email"}
@@ -84,11 +84,10 @@ enyo.kind({
 		})
 		//If the request get a error, there are two possibilities: Username or password are incorrect or the access denied *********************
 		.error( this, function(inSender, inResponse){
-		if(inResponse == 500){
-			if(email.length  == 0 || email == ""){
-				this.$.mailMsg.setContent("Can not be blank.");
-			}
-		}	
+			if(inResponse == 500){		
+				this.$.mailMsg.show();
+				sender.parent.owner.$.mailMsg.setContent("User password reset failure, user not found");			
+			}	
 		})
 	},
 	cancel: function(sender , event){
