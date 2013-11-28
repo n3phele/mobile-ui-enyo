@@ -42,13 +42,13 @@ enyo.kind({
 				//New password input ***********************************************************************************************************************
 				{name:"newPasswordMsg", classes:"msg"},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input", name: "newPassword",style:"float:left;padding:2px 0 0 10px", placeholder: "New password"}
+					{kind: "onyx.Input", name: "newPassword",style:"float:left;padding:2px 0 0 10px", type:"password", placeholder: "New password"}
 				]},					
 				
 				//Confirm password input ***********************************************************************************************************************
 				{name:"confirmPasswordMsg", classes:"msg"},
 				{kind: "onyx.InputDecorator",classes: "inputs", components: [
-					{kind: "onyx.Input", name: "confirmPassword",style:"float:left;padding:2px 0 0 10px", placeholder: "Confirm password"}
+					{kind: "onyx.Input", name: "confirmPassword",style:"float:left;padding:2px 0 0 10px", type:"password", placeholder: "Confirm password"}
 				]},	
 				
 				{kind: "onyx.Toolbar", classes: "toolbar-style", style:"font-size:17px;font-weight:bold;padding:0", components: [   
@@ -115,6 +115,9 @@ enyo.kind({
 		
 	register: function(sender, event){  
 		//obtain form data *********************************************
+		console.log(sender);
+		console.log(event);
+		
 		var email = this.$.email.getValue();
 		var firstName = this.$.firstName.getValue();
 		var lastName = this.$.lastName.getValue();
@@ -125,8 +128,8 @@ enyo.kind({
 		var cloudId = this.$.cloudId.getValue();
 		var cloudSecret = this.$.cloudSecret.getValue();
 		var onCloud = this.$.onCloud.getValue();
-		var check = true;		
-				
+		
+		var check = true;
 		var self = this;
 		//validate form ******************************************************************************		
 		if(this.termsChecked == true){			
