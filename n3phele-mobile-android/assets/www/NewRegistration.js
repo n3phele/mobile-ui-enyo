@@ -1,7 +1,7 @@
 enyo.kind({ 
 	name:"NewRegistration",
 	kind: "FittableRows",
-	checked: null,
+	termsChecked: null,
 	fit: true,	
 	style: "padding: 0px;background:#fff",
 	
@@ -110,7 +110,7 @@ enyo.kind({
 	}, 	
 
 	checkboxChanged: function(inSender, inEvent){		
-		this.checked = inSender.active;		
+		this.termsChecked = inSender.active;		
 	},
 		
 	register: function(sender, event){  
@@ -129,7 +129,7 @@ enyo.kind({
 				
 		var self = this;
 		//validate form ******************************************************************************		
-		if(this.checked == true){			
+		if(this.termsChecked == true){			
 			this.$.termsMsg.hide();				
 			var atpos = email.indexOf("@");		
 			var dotpos = email.lastIndexOf(".");		
@@ -298,7 +298,8 @@ enyo.kind({
 		
 		})
 		.error( this, function(inSender, inResponse){			
-		  if(inResponse == 500) sender.parent.owner.$.onCloudMsg.setContent("An error occurred when trying get the clouds, please try again.");		   
+		  if(inResponse == 500) 
+			sender.parent.owner.$.onCloudMsg.setContent("An error occurred when trying get the clouds, please try again.");		   
 		});
 	}	
 });

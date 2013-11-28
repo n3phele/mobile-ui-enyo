@@ -22,8 +22,8 @@ enyo.kind({
 								{tag: "br"},
 								//Login button to authenticate user and open the main page of N3phele************************************
 								{kind:"onyx.Button", content: "Login",classes:"button-style", style: "margin:2px 0", ontap:"validateUser"},								
-								{name: "new_register",classes: "forgotPassword", content: "register",style: " text-decoration: underline;padding:0 5px 15px 65px;font-size:12px;display:inline-block;font-size: 15px;", ontap:"registerUser"},
-								{name: "forgot_password",classes: "forgotPassword", content:"forgot password", style: " text-decoration: underline;padding-left:90px;font-size:12px;font-size: 15px;", ontap: "getAction"}
+								{name: "newRegister",classes: "forgotPassword", content: "register",style: " text-decoration: underline;padding:0 5px 15px 65px;font-size:12px;display:inline-block;font-size: 15px;", ontap:"registerUser"},
+								{name: "forgotPassword",classes: "forgotPassword", content:"forgot password", style: " text-decoration: underline;padding-left:90px;font-size:12px;font-size: 15px;", ontap: "getAction"}
 								
 						]}//end div vertical cell
 				]},//end panel table
