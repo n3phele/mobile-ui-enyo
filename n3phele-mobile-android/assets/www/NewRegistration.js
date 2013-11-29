@@ -114,9 +114,7 @@ enyo.kind({
 	},
 		
 	register: function(sender, event){  
-		//obtain form data *********************************************
-		console.log(sender);
-		console.log(event);
+		//obtain form data *********************************************		
 		
 		var email = this.$.email.getValue();
 		var firstName = this.$.firstName.getValue();
