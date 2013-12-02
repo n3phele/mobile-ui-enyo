@@ -43,5 +43,7 @@ enyo.depends(
 	"CancelActivity.js",
 	"StackInfo.js",
 	"DeleteService.js",
+	"NewRegistration.js",
+	"ForgotPassword.js",
 	"check.js"
 );

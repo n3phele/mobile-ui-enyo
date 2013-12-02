@@ -7,6 +7,7 @@ enyo.kind({
 	fit: true,
 	classes: "onyx onyx-sample",
 	style: "padding: 0px",
+	
 	//create the components of interface
 	components:[
 			{name: "topToolbar", classes: "toolbar-style", kind: "onyx.Toolbar", components: [ {content: "N3phele"}, {fit: true}]},
@@ -20,7 +21,10 @@ enyo.kind({
 								{kind: "onyx.InputDecorator", style: "background-color: white;margin:2px;", components: [ {kind: "onyx.Input", name: "loginPw", type:"password", placeholder: "Password"} ]},
 								{tag: "br"},
 								//Login button to authenticate user and open the main page of N3phele************************************
-								{kind:"onyx.Button", content: "Login",classes:"button-style", style: "margin:2px", ontap:"validateUser"},
+								{kind:"onyx.Button", content: "Login",classes:"button-style", style: "margin:2px 0", ontap:"validateUser"},								
+								{name: "newRegister",classes: "forgotPassword", content: "register",style: " text-decoration: underline;padding:0 5px 15px 65px;font-size:12px;display:inline-block;font-size: 15px;", ontap:"registerUser"},
+								{name: "forgotPassword",classes: "forgotPassword", content:"forgot password", style: " text-decoration: underline;padding-left:90px;font-size:12px;font-size: 15px;", ontap: "getAction"}
+								
 						]}//end div vertical cell
 				]},//end panel table
 	],//end components
@@ -29,10 +33,10 @@ enyo.kind({
 		this function validate a user when the Login button is clicked 
 	*/
 	validateUser: function( sender, event){
+	
 		//obtain form data ********************************************
 		var  user = sender.parent.owner.$.loginUser.getValue();
-		var  pass = sender.parent.owner.$.loginPw.getValue();
-		
+		var  pass = sender.parent.owner.$.loginPw.getValue();	
 		//validate form ********************************************
 		if( user.length == 0 || pass.length == 0 ){
 			sender.parent.owner.$.loginMsg.setContent("Please, fill the form!");
@@ -43,7 +47,7 @@ enyo.kind({
 		popup.show();
 	
 		//request user validation using Ajax ********************************************
-		var hdr = user.replace("@", ".at-.") + ":" + pass;
+		var hdr = user.replace("@", ".at-.") + ":" + pass;		
 		var encodeHdr = Base64.encode( hdr );
 		var ajaxParams = {
 			url: serverAddress+"user/login",
@@ -76,6 +80,16 @@ enyo.kind({
 		});
 		
 		//*******************************************************************
-	}
+	},
+	
+	registerUser: function(sender, event){	
+		var register = new NewRegistration({'loginPage' : this});		
+		register.renderInto(document.body);
+	},
+	
+	getAction: function(sender,event){ 
+		var password = new ForgotPassword({'loginPage' : this});
+		password.renderInto(document.body);
+	},	
 });//end kind
 					

@@ -151,7 +151,7 @@ enyo.kind({
 			//show the name and description on  the screen							
 			thisPanel.$.acName.setContent(" "+this.activityName);				
 			thisPanel.$.acComDesc.setContent(" "+this.activityDesc);
-			actionURL = response.action;
+			actionURL = response.action;		
 			
 			// initialize the variables for manipulate dates
 			var minstart = 0;
@@ -299,7 +299,7 @@ enyo.kind({
 			var actionInfo = new Object();
 			actionInfo.actionUrl = actionURL+"/history";
 			actionInfo.backContent = "Activity";
-			this.doRerun(actionInfo);
+			this.doRerun(actionInfo);			
 	},
 
 	/*

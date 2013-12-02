@@ -101,7 +101,8 @@ enyo.kind({
 	  paused: function()
    {
       window.localStorage.setItem("laststate", enyo.json.stringify(this.getState()));
-   },
+   },   
+   
 	refreshActivityMenu:function(){
 		this.$.recent.destroy();
 		this.createComponent({name:"recent", kind: "RecentActivityList", classes: "menu", 'uid' : this.uid, onClick:"actList",container:this.$.mainMenuPanel,  n3pheleClient: n3phele });
@@ -278,7 +279,23 @@ enyo.kind({
 		this.createComponent({ kind: "NewRepository", "uid": this.uid, "uri": inEvent.uri, onBack: "refreshRepository", container: this.$.panels }).render();
 		this.$.panels.reflow();
 		this.$.panels.setIndex(2);
+	},	
+	newRegistration: function(inSender,inEvent){	
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new repository of files
+		this.createComponent({ kind: "NewRegistration", "uid": this.uid, "uri": inEvent.uri, container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
 	},
+	forgotPassword: function(inSender,inEvent){	
+		//close old panels	
+		this.closeSecondaryPanels(2);		
+		//create panel to create a new repository of files
+		this.createComponent({ kind: "ForgotPassword", "uid": this.uid, "uri": inEvent.uri, container: this.$.panels }).render();
+		this.$.panels.reflow();
+		this.$.panels.setIndex(2);
+	},	
 	newAccount: function(inSender,inEvent){		
 		//close old panels	
 		this.closeSecondaryPanels(2);		
@@ -519,7 +536,7 @@ enyo.kind({
 				this.$.imageIconPanel.render();	
 	},
 	refreshAccountList:function(inSender,inEvent)
-	{   
+	{
 	   	this.setPanelIndex(1);
 	    var obj = new Object();
 		obj.index = 3;
