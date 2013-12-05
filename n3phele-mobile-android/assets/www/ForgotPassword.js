@@ -40,55 +40,47 @@ enyo.kind({
 		if(args.loginPage){ 
 				this.loginPage = args.loginPage;
 		}
+		this.form = new formVerification();	
 	},	
 	reset: function(sender, event){
 		//obtain form data *********************************************
 		var email = this.$.email.getValue();	
 		
-		var self = this;
-		//validate form ******************************************************************************
-		var atpos = email.indexOf("@");
-		var dotpos = email.lastIndexOf(".");
-		if(email.length  == 0 || email == ""){
-			this.$.mailMsg.setContent("Can not be blank.");
-		}else if (atpos < 1 || dotpos<atpos+2 || dotpos+2 >= email.length){
-			this.$.mailMsg.setContent("Invalid email address.");  
-			return false;
-		}else{
-			this.$.mailMsg.hide();
-		}		
+		var self = this;	
 		
+		if(this.form.emailVerification(email, this.$.mailMsg) == true){	
 		
-		var hdr = "signup:newuser";		
-		var encodeHdr = Base64.encode( hdr );
-		var ajaxParams = {
-			url: serverAddress+"user/reset",
-			headers:{ 'authorization' : "Basic "+ encodeHdr},
-			method: "POST",
-			contentType: "application/x-www-form-urlencoded",
-			sync: false, 
-		};		
-		
-		var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
-		ajaxComponent
-		.go({
-			email:email
-		})
-		//response received form server to open the main page of N3phele *************************
-		.response( this, function(inSender, inResponse){
-			this.$.MsgSuccess.setContent("Password reseted, verify your e-mail");
-			setTimeout( function(){
-				self.$.panels.destroy();
-				self.loginPage.renderInto(document.body);
-			}, 1000);			
-		})
-		//If the request get a error, there are two possibilities: Username or password are incorrect or the access denied *********************
-		.error( this, function(inSender, inResponse){
-			if(inResponse == 500){		
-				this.$.mailMsg.show();
-				sender.parent.owner.$.mailMsg.setContent("User password reset failure, user not found");			
-			}	
-		})
+			var hdr = "signup:newuser";		
+			var encodeHdr = Base64.encode( hdr );
+			var ajaxParams = {
+				url: serverAddress+"user/reset",
+				headers:{ 'authorization' : "Basic "+ encodeHdr},
+				method: "POST",
+				contentType: "application/x-www-form-urlencoded",
+				sync: false, 
+			};		
+			
+			var ajaxComponent = n3phele.ajaxFactory.create(ajaxParams); //connection parameters
+			ajaxComponent
+			.go({
+				email:email
+			})
+			//response received form server to open the main page of N3phele *************************
+			.response( this, function(inSender, inResponse){
+				this.$.MsgSuccess.setContent("Password reseted, verify your e-mail");
+				setTimeout( function(){
+					self.$.panels.destroy();
+					self.loginPage.renderInto(document.body);
+				}, 1000);			
+			})
+			//If the request get a error, there are two possibilities: Username or password are incorrect or the access denied *********************
+			.error( this, function(inSender, inResponse){
+				if(inResponse == 500){		
+					this.$.mailMsg.show();
+					sender.parent.owner.$.mailMsg.setContent("User password reset failure, user not found");			
+				}	
+			})
+		}	
 	},
 	cancel: function(sender , event){
 		this.$.panels.destroy();
