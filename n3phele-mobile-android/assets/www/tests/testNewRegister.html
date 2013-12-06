@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Test New Register - Unit Tests</title>
+<link rel="stylesheet" href="qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.11.0.js"></script>
+
+<!-- ENYO resources -->
+<script src="../enyo/enyo.js" type="text/javascript"></script>
+<script src="../lib/layout/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/package.js" type="text/javascript"></script>
+<script src="../lib/onyx/source/wip-package.js" type="text/javascript"></script>
+
+<script src="../base64.js" type="text/javascript"></script>
+<script src="../generalFunctions.js" type="text/javascript"></script>
+<script src="../N3pheleClient.js" type="text/javascript"></script>
+<script src="../FileRepository.js" type="text/javascript"></script>
+<script src="../NewRegistration.js" type="text/javascript"></script>
+<script src="../check.js" type="text/javascript"></script>
+<script src="../formVerification.js" type="text/javascript"></script>
+<script src="../NewRegistration.js" type="text/javascript"></script>
+<script>
+
+var form;
+
+function message(){
+	this.hide = function(){};
+	this.show = function(){};
+	this.setContent = function(){};
+}
+
+/*Tests for general fields verification*/
+test("When the user fills with right sentences (all)", function() {
+form = new formVerification();
+
+	var field = "a"; 
+	msg = new message();
+	
+	var result = form.fieldVerification(field, msg);
+	
+	ok(result == true, "The fields are filled correctly, no message appears");
+});
+
+test("When some field is blank (all)", function() {
+form = new formVerification();
+	
+	var field = "";   
+	msg = new message();
+	
+	var result = form.fieldVerification(field, msg);
+	
+	ok(result == false, "A message appears denying the register");
+});
+
+/*Tests for password verification*/
+test("When the user confirms the same password", function() {
+form = new formVerification();
+
+	var passw1 = "password1";
+	var passw2 = "password1";
+	
+	msg = new message();
+	
+	var result = form.passwordVerification(passw1, passw2, msg);
+	
+	ok(result == true, "Password hits, no message appears");
+});
+
+test("When a different password is used", function() {
+form = new formVerification();
+
+	var passw1 = "password1";
+	var passw2 = "password2";
+	
+	msg = new message();
+	
+	var result = form.passwordVerification(passw1, passw2, msg);
+	
+	ok(result == false, "A message appears denying the register");
+});
+
+test("When the password field is blank", function() {
+form = new formVerification();
+
+	var passw1 = "";
+	var passw2 = "password2";
+	
+	msg = new message();
+	
+	var result = form.passwordVerification(passw1, passw2, msg);
+	
+	ok(result == false, "A message appears denying the register");
+});
+
+/*Tests for email verification*/
+test("When a valid e-mail is used", function() {
+form = new formVerification();
+	
+	var mail = "a@pucrs..br";
+	msg = new message();
+	
+	var result = form.emailVerification(mail, msg);
+	
+	ok(result == true, "It's a valid e-mail, no message appears");
+});
+
+test("When the user didn't type a valid email", function() {
+form = new formVerification();
+
+	var mail = "anny.figueira@a";
+	msg = new message();
+	
+	var result = form.emailVerification(mail, msg);
+	
+	ok(result == false, "A 'Invalid email address' message appears denying the register");
+});
+
+test("When the e-mail field is blank", function() {
+form = new formVerification();
+
+	var mail = "";
+	msg = new message();
+	
+	var result = form.emailVerification(mail, msg);
+	
+	ok(result == false, "A message appears denying the register");
+});
+
+</script>
+</body>
+</html>

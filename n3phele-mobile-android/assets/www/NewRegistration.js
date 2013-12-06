@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	termsChecked: null,
 	fit: true,	
+	form:null,
 	style: "padding: 0px;background:#fff",
 	
 	// create components of interface
@@ -98,21 +99,30 @@ enyo.kind({
 			]}
 		]}
 	]}	
-	],
-	
-	constructor: function(args) {
+	],	
+	constructor: function(args) {	
 		this.inherited(arguments);
 		//Dependency Injection
 		if(args.loginPage){ 
 			this.loginPage = args.loginPage;
 		}		
-		this.getClouds();			
+		this.form = new formVerification();		
+		this.getClouds();	
 	}, 	
+	
+	
+	
+	getScript: function(){
+		var script = this.$.getScript("formVerification.js", function(){
+			form = formValidation();
+		})
+		return form;
+	},
 
-	checkboxChanged: function(inSender, inEvent){		
+	checkboxChanged: function(inSender){		
 		this.termsChecked = inSender.active;		
 	},
-		
+	
 	register: function(sender, event){  
 		//obtain form data *********************************************		
 		
@@ -128,92 +138,22 @@ enyo.kind({
 		var onCloud = this.$.onCloud.getValue();
 		
 		var check = true;
-		var self = this;
+		var self = this;			
+		
 		//validate form ******************************************************************************		
 		if(this.termsChecked == true){			
-			this.$.termsMsg.hide();				
-			var atpos = email.indexOf("@");		
-			var dotpos = email.lastIndexOf(".");		
-			if(email.length  == 0 || email == ""){
-				this.$.mailMsg.show();
-				check = false;
-				this.$.mailMsg.setContent("Can not be blank.");
-			}
-			else if (atpos < 1 || dotpos<atpos+2 || dotpos+2 >= email.length){
-				this.$.mailMsg.show();
-				check = false;
-				this.$.mailMsg.setContent("Invalid email address."); 				
-			}else{
-				this.$.mailMsg.hide();
-			}
+			this.$.termsMsg.hide();		
 			
-			if(firstName.length == 0 || firstName == "" ){
-				this.$.firstNameMsg.show();
-				check = false;
-				this.$.firstNameMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.firstNameMsg.hide();
-			}	
-			
-			if(lastName.length == 0 || lastName == "" ){
-				this.$.lastNameMsg.show();
-				check = false;
-				this.$.lastNameMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.lastNameMsg.hide();
-			}
-			
-			if(newPassword.length == 0 || newPassword == "" ){
-				this.$.newPasswordMsg.show();
-				check = false;
-				this.$.newPasswordMsg.setContent("Can not be blank."); 
-			}else{
-				this.$.newPasswordMsg.hide();
-			}
-			
-			if(confirmPassword.length == 0 || confirmPassword == ""){
-				this.$.confirmPasswordMsg.show();
-				check = false;
-				this.$.confirmPasswordMsg.setContent("Can not be blank."); 
-			}else if(confirmPassword != newPassword){
-				this.$.confirmPasswordMsg.show();
-				check = false;
-				this.$.confirmPasswordMsg.setContent("Please check that you've entered and confirmed your password");				
-			}else{	
-				this.$.confirmPasswordMsg.hide();
-			}  
-
-			if(name.length == 0 || name == "" ){
-				this.$.nameMsg.show();
-				check = false;
-				this.$.nameMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.nameMsg.hide();
-			}
-			
-			if(description.length == 0 || description == "" ){
-				this.$.descriptionMsg.show();
-				check = false;
-				this.$.descriptionMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.descriptionMsg.hide();
-			}
-			
-			if(cloudId.length == 0 || cloudId == "" ){
-				this.$.cloudIdMsg.show();
-				check = false;
-				this.$.cloudIdMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.cloudIdMsg.hide();
-			} 
-			
-			if(cloudSecret.length == 0 || cloudSecret == "" ){
-				this.$.cloudSecretMsg.show();
-				check = false;
-				this.$.cloudSecretMsg.setContent("Can not be blank.");  
-			}else{
-				this.$.cloudSecretMsg.hide();
-			} 			
+			if(this.form.emailVerification(email, this.$.mailMsg) == false) check = false;			
+			if(this.form.fieldVerification(firstName, this.$.firstNameMsg) == false) check = false;
+			if(this.form.fieldVerification(lastName, this.$.lastNameMsg) == false) check = false;
+			if(this.form.fieldVerification(newPassword, this.$.newPasswordMsg) == false) check = false;
+			if(this.form.passwordVerification(confirmPassword, newPassword, this.$.confirmPasswordMsg) == false) check = false;
+			if(this.form.fieldVerification(name, this.$.nameMsg) == false) check = false;
+			if(this.form.fieldVerification(description, this.$.descriptionMsg) == false) check = false;
+			if(this.form.fieldVerification(cloudId, this.$.cloudIdMsg) == false) check = false;
+			if(this.form.fieldVerification(cloudSecret, this.$.cloudSecretMsg) == false) check = false;
+			if(this.form.fieldVerification(onCloud, this.$.onCloudMsg) == false) check = false;
 			
 			if(check == true){
 				var hdr = "signup:newuser";		
@@ -254,7 +194,7 @@ enyo.kind({
 						sender.parent.owner.$.mailMsg.setContent("An internal error occurred");
 					}					
 				}				
-				});
+				});	
 			}	
 		}else{			
 			this.$.termsMsg.show();

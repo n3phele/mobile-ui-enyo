@@ -45,5 +45,6 @@ enyo.depends(
 	"DeleteService.js",
 	"NewRegistration.js",
 	"ForgotPassword.js",
-	"check.js"
+	"check.js",
+	"formVerification.js"
 );
