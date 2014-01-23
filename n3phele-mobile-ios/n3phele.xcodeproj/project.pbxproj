@@ -661,7 +661,7 @@
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "i386 arm64 armv7";
 			};
 			name = Release;
 		};
