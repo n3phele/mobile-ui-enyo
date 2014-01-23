@@ -516,7 +516,7 @@
 				ARCHS = (
 					armv7,
 				);
-				"ARCHS[sdk=iphoneos*]" = armv7 armv6;
+				"ARCHS[sdk=iphoneos*]" = "armv7 armv6";
 				"ARCHS[sdk=iphoneos6.*]" = armv7;
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -546,7 +546,7 @@
 				ARCHS = (
 					armv7,
 				);
-				"ARCHS[sdk=iphoneos*]" = armv7 armv6;
+				"ARCHS[sdk=iphoneos*]" = "armv7 armv6";
 				"ARCHS[sdk=iphoneos6.*]" = armv7;
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
