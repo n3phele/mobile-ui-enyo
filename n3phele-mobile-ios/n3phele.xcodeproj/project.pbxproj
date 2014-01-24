@@ -141,7 +141,7 @@
 		C316F85C18450A4900193D8C /* UIDevice+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIDevice+Extensions.h"; path = "phonegap/lib/ios/CordovaLib/Classes/UIDevice+Extensions.h"; sourceTree = "<group>"; };
 		C316F85D18450A5F00193D8C /* JSONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = phonegap/lib/ios/CordovaLib/Classes/JSON/JSONKit.h; sourceTree = "<group>"; };
 		C32478061844E0C000E31CC5 /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = phonegap/lib/ios/CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
-		C382D7141843C35000620872 /* libCordova.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCordova.a; path = phonegap/lib/ios/CordovaLib/build/Release-iphonesimulator/libCordova.a; sourceTree = "<group>"; };
+		C382D7141843C35000620872 /* libCordova.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCordova.a; path = ${BUILT_PRODUCTS_DIR}/libCordova.a; sourceTree = "<group>"; };
 		C3A73C711843A82400522842 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E67E215317A994390026B910 /* n3phele_2-web(57x57).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "n3phele_2-web(57x57).png"; sourceTree = "<group>"; };
 		E67E215517A9944C0026B910 /* n3phele_2-web(72x72).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "n3phele_2-web(72x72).png"; sourceTree = "<group>"; };
