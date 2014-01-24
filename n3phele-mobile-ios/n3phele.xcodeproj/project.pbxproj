@@ -55,6 +55,13 @@
 			remoteGlobalIDString = 68A32D7114102E1C006B237C;
 			remoteInfo = CordovaLib;
 		};
+		E67545ED1892D7A100A1034B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C32478061844E0C000E31CC5 /* CordovaLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -291,7 +298,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C382D7141843C35000620872 /* libCordova.a */,
 				C3A73C711843A82400522842 /* AdSupport.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -430,6 +436,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E67545EE1892D7A100A1034B /* PBXTargetDependency */,
 			);
 			name = n3phele;
 			productName = n3phele;
@@ -542,6 +549,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E67545EE1892D7A100A1034B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CordovaLib;
+			targetProxy = E67545ED1892D7A100A1034B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1F766FDC13BBADB100FB74C0 /* Localizable.strings */ = {
