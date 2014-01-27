@@ -633,7 +633,6 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "i386 arm64 armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
@@ -729,7 +728,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "armv7";
 			};
 			name = Debug;
 		};
