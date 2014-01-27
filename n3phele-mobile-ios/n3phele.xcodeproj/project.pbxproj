@@ -668,7 +668,7 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -768,7 +768,7 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -823,7 +823,7 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -878,7 +878,7 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
