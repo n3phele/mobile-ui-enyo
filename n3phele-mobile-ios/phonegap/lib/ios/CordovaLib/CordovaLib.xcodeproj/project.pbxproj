@@ -574,7 +574,7 @@
 				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
 				"ARCHS[sdk=iphoneos6.*]" = armv7;
-				"ARCHS[sdk=iphonesimulator*]" = arm7;
+				"ARCHS[sdk=iphonesimulator*]" = armv7;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -602,7 +602,7 @@
 				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
 				"ARCHS[sdk=iphoneos6.*]" = armv7;
-				"ARCHS[sdk=iphonesimulator*]" = arm7;
+				"ARCHS[sdk=iphonesimulator*]" = armv7;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_THUMB_SUPPORT = NO;
