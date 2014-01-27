@@ -612,7 +612,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -653,7 +653,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -668,14 +668,12 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "i386 arm64 armv7 armv7s armv6";
 			};
 			name = Release;
 		};
@@ -698,7 +696,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -754,7 +752,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -768,7 +766,6 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -786,7 +783,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "armv7";
 			};
 			name = Release;
 		};
@@ -809,7 +805,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -823,7 +819,6 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -843,7 +838,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "armv7";
 			};
 			name = Distribution;
 		};
@@ -863,7 +857,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -878,14 +872,12 @@
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "armv7";
 			};
 			name = Distribution;
 		};
