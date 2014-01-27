@@ -513,8 +513,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				"ARCHS[sdk=iphoneos*]" = "armv7 armv6";
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -540,8 +547,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				"ARCHS[sdk=iphoneos*]" = "armv7 armv6";
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
@@ -564,8 +578,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
-				"ARCHS[sdk=iphonesimulator*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -589,8 +610,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
-				"ARCHS[sdk=iphonesimulator*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_THUMB_SUPPORT = NO;
