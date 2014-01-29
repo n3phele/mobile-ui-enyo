@@ -513,12 +513,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					i386,
-					armv7,
-				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -533,7 +536,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Cordova;
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SKIP_INSTALL = YES;
@@ -544,12 +547,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					i386,
-					armv7,
-				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
@@ -571,12 +577,15 @@
 		1DEB922308733DC00010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					armv7,
-				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -585,27 +594,30 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DDEBUG";
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = "i386 arm64 armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
 		1DEB922408733DC00010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					armv7,
-				);
 				"ARCHS[sdk=iphoneos*]" = armv7;
-				"ARCHS[sdk=iphoneos6.*]" = armv7;
+				"ARCHS[sdk=iphoneos6.*]" = (
+					armv7,
+					armv7s,
+				);
+				"ARCHS[sdk=iphoneos7.*]" = (
+					armv7,
+					armv7s,
+				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -613,13 +625,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = "i386 arm64 armv7 armv7s armv6";
 			};
 			name = Release;
 		};

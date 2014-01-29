@@ -55,6 +55,13 @@
 			remoteGlobalIDString = 68A32D7114102E1C006B237C;
 			remoteInfo = CordovaLib;
 		};
+		E67545ED1892D7A100A1034B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C32478061844E0C000E31CC5 /* CordovaLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -141,7 +148,6 @@
 		C316F85C18450A4900193D8C /* UIDevice+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIDevice+Extensions.h"; path = "phonegap/lib/ios/CordovaLib/Classes/UIDevice+Extensions.h"; sourceTree = "<group>"; };
 		C316F85D18450A5F00193D8C /* JSONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = phonegap/lib/ios/CordovaLib/Classes/JSON/JSONKit.h; sourceTree = "<group>"; };
 		C32478061844E0C000E31CC5 /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = phonegap/lib/ios/CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
-		C382D7141843C35000620872 /* libCordova.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCordova.a; path = ../../Downloads/libCordova.a; sourceTree = "<group>"; };
 		C3A73C711843A82400522842 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E67E215317A994390026B910 /* n3phele_2-web(57x57).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "n3phele_2-web(57x57).png"; sourceTree = "<group>"; };
 		E67E215517A9944C0026B910 /* n3phele_2-web(72x72).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "n3phele_2-web(72x72).png"; sourceTree = "<group>"; };
@@ -292,7 +298,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C382D7141843C35000620872 /* libCordova.a */,
 				C3A73C711843A82400522842 /* AdSupport.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -431,6 +436,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E67545EE1892D7A100A1034B /* PBXTargetDependency */,
 			);
 			name = n3phele;
 			productName = n3phele;
@@ -544,6 +550,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E67545EE1892D7A100A1034B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CordovaLib;
+			targetProxy = E67545ED1892D7A100A1034B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		1F766FDC13BBADB100FB74C0 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -598,7 +612,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -607,19 +621,18 @@
 					"\"$(SRCROOT)/\"",
 				);
 				INFOPLIST_FILE = "n3phele/n3phele-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -639,7 +652,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -648,20 +661,18 @@
 					"\"$(SRCROOT)/\"",
 				);
 				INFOPLIST_FILE = "n3phele/n3phele-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};
@@ -684,7 +695,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -697,8 +708,8 @@
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -710,13 +721,13 @@
 					CoreMedia,
 					"-weak-lSystem",
 					"-all_load",
+					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-Obj-C",
 				);
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -739,7 +750,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -752,8 +763,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -771,7 +781,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
@@ -794,7 +803,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -807,8 +816,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -820,6 +828,7 @@
 					CoreMedia,
 					"-weak-lSystem",
 					"-all_load",
+					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-Obj-C",
 				);
 				"PROVISIONING_PROFILE[sdk=*]" = "D880AF4B-0273-4D69-81FD-F096370C6596";
@@ -827,7 +836,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = armv7;
 			};
 			name = Distribution;
 		};
@@ -847,7 +855,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "n3phele/n3phele-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -856,20 +864,18 @@
 					"\"$(SRCROOT)/\"",
 				);
 				INFOPLIST_FILE = "n3phele/n3phele-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/phonegap/lib/ios/CordovaLib/Classes\"",
 					"\"$(SRCROOT)/GoogleAdMobAdsSdkiOS-6.6.1\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = n3phele;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\" \"/Users/hp/Downloads/mobile-ui-enyo/n3phele-mobile-ios/phonegap/lib/ios/CordovaLib/Classes\"";
-				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Distribution;
 		};

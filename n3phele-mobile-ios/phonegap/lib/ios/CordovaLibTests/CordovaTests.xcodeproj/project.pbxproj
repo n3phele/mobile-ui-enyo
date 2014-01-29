@@ -487,7 +487,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Classes/**";
-				VALID_ARCHS = "i386 armv6 armv7";
+				VALID_ARCHS = "armv6 armv7";
 			};
 			name = Debug;
 		};
@@ -521,7 +521,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Classes/**";
-				VALID_ARCHS = "i386 armv6 armv7";
+				VALID_ARCHS = "armv6 armv7";
 			};
 			name = Release;
 		};
